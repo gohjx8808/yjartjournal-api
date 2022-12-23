@@ -1,5 +1,6 @@
 
 import express from 'express';
+require('dotenv').config({ path: './.env' });
 import { productRouter } from './src/routers/productRouter';
 
 const app: express.Application = express();
