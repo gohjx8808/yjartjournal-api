@@ -28,3 +28,8 @@ export interface PickedProductImageData {
     contentType: string;
   };
 }
+
+export interface GetAllProductsPayload {
+  sortId:number
+  search:string
+}
