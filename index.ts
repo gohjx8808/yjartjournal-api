@@ -1,5 +1,6 @@
-import express from 'express';
 require('dotenv').config({ path: './.env' });
+import express from 'express';
+import { dataSource } from './src/dataSource';
 import { productRouter } from './src/routers/productRouter';
 
 const app: express.Application = express();
@@ -14,6 +15,8 @@ app.get('/', (_req, _res) => {
 
 app.use('/products', productRouter);
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await dataSource.initialize();
+  await dataSource.runMigrations();
   console.log(`TypeScript with Express http://localhost:${port}/`);
 });
