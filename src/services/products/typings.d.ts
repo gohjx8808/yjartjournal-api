@@ -10,6 +10,7 @@ export interface ProductData
   extends Omit<RawProductData, 'contentDescription' | 'productImage'> {
   contentDescription: string;
   productImage: PickedProductImageData[];
+  id: string;
 }
 
 export interface PickedProductImageData {
@@ -30,6 +31,6 @@ export interface PickedProductImageData {
 }
 
 export interface GetAllProductsPayload {
-  sortId:number
-  search:string
+  sortId: number;
+  search: string;
 }

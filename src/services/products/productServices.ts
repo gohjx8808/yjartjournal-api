@@ -33,6 +33,7 @@ export const getAllProducts = async (
 
         return {
           ...data,
+          id: entry.sys.id,
           contentDescription: documentToHtmlString(data.contentDescription),
           productImage: pickedData,
         };
