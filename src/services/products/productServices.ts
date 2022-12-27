@@ -40,3 +40,8 @@ export const getAllProducts = async (
       }),
     );
 };
+
+export const getAllImages = async () => {
+  const assets = await client.getAssets();
+  return assets.items.map((asset) => asset.fields);
+};
