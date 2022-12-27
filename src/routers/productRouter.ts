@@ -11,7 +11,10 @@ export const productRouter = app.Router();
 
 productRouter.post<{}, any, GetAllProductsPayload>('/', ...[upload.none(), ...allProductsValidator], async (req, res) => {
   const payload = req.body;
-  const abc = await dataSource.manager.find(SortOptions);
-  console.log(abc);
   res.json({ data: await getAllProducts(payload) });
+});
+
+productRouter.get('/sort-options', async (_req, res)=>{
+  const sortOptions = await dataSource.manager.find(SortOptions);
+  res.json({ data: sortOptions });
 });
