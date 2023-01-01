@@ -3,6 +3,10 @@ import express from 'express';
 import { dataSource } from './src/dataSource';
 import { productRouter } from './src/routers/productRouter';
 
+dataSource.initialize().then(()=>{
+  console.log('data initialize');
+});
+
 const app: express.Application = express();
 
 const port: number = 3000;
@@ -15,8 +19,4 @@ app.get('/', (_req, _res) => {
 
 app.use('/products', productRouter);
 
-app.listen(port, async () => {
-  await dataSource.initialize();
-  await dataSource.runMigrations();
-  console.log(`TypeScript with Express http://localhost:${port}/`);
-});
+app.listen(port);
