@@ -20,3 +20,5 @@ app.listen(port, async () => {
   await dataSource.runMigrations();
   console.log(`TypeScript with Express http://localhost:${port}/`);
 });
+
+module.exports = app;
