@@ -4,7 +4,7 @@ import { dataSource } from './src/dataSource';
 import { productRouter } from './src/routers/productRouter';
 
 dataSource.initialize().then(()=>{
-  console.log('data initialize');
+  dataSource.runMigrations();
 });
 
 const app: express.Application = express();
