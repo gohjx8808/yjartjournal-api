@@ -15,12 +15,8 @@ app.get('/', (_req, _res) => {
 
 app.use('/products', productRouter);
 
-dataSource.initialize();
-
 app.listen(port, async () => {
   await dataSource.initialize();
   await dataSource.runMigrations();
   console.log(`TypeScript with Express http://localhost:${port}/`);
 });
-
-module.exports = app;
