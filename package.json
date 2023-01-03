@@ -6,8 +6,6 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && tsc",
-    "add-build": "git add dist",
     "prepare": "husky install",
     "lint": "eslint .",
     "prettier": "prettier --write ."
