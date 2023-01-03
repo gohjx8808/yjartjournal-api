@@ -1,7 +1,7 @@
 require('dotenv').config({ path: './.env' });
 import express from 'express';
-import { dataSource } from './src/dataSource';
-import { productRouter } from './src/routers/productRouter';
+import { dataSource } from './dataSource';
+import { productRouter } from './routers/productRouter';
 
 dataSource.initialize().then(()=>{
   dataSource.runMigrations();
