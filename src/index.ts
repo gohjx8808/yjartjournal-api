@@ -3,10 +3,11 @@ import express from 'express';
 import { dataSource } from './dataSource';
 import { productRouter } from './routers/productRouter';
 
-dataSource.initialize().then(()=>{
-  dataSource.runMigrations();
-  const app: express.Application = express();
+const app: express.Application = express();
 
+dataSource.initialize().then(async ()=>{
+  await dataSource.runMigrations();
+  
   const port: number = 3000;
 
   app.use(express.json());
@@ -19,5 +20,4 @@ dataSource.initialize().then(()=>{
 
   app.listen(port);
 });
-
 
