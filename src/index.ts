@@ -3,8 +3,8 @@ import express from 'express';
 import { dataSource } from './dataSource';
 import { productRouter } from './routers/productRouter';
 
-dataSource.initialize().then(async ()=>{
-  await dataSource.runMigrations();
+dataSource.initialize().then(()=>{
+  dataSource.runMigrations();
   const app: express.Application = express();
 
   const port: number = 3000;
