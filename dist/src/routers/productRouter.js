@@ -17,8 +17,6 @@ const express_1 = __importDefault(require("express"));
 const productServices_1 = require("../services/products/productServices");
 const multer_1 = __importDefault(require("multer"));
 const productValidators_1 = require("../requestValidators/productValidators");
-const dataSource_1 = require("../dataSource");
-const SortOptions_1 = __importDefault(require("../entities/SortOptions"));
 const upload = (0, multer_1.default)();
 exports.productRouter = express_1.default.Router();
 exports.productRouter.post('/', ...[upload.none(), ...productValidators_1.allProductsValidator], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,7 +24,7 @@ exports.productRouter.post('/', ...[upload.none(), ...productValidators_1.allPro
     res.json({ data: yield (0, productServices_1.getAllProducts)(payload) });
 }));
 exports.productRouter.get('/sort-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const sortOptions = yield dataSource_1.dataSource.manager.find(SortOptions_1.default);
+    const sortOptions = yield (0, productServices_1.getSortOptions)();
     res.json({ data: sortOptions });
 }));
 exports.productRouter.get('/image-gallery', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {

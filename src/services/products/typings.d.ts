@@ -14,23 +14,29 @@ export interface ProductData
 }
 
 export interface PickedProductImageData {
-  title: string;
-  description: string;
-  file: {
-    url: string;
-    details: {
-      size: number;
-      image?: {
-        width: number;
-        height: number;
-      };
-    };
-    fileName: string;
-    contentType: string;
-  };
+  url: string;
+  fileName: string;
 }
 
 export interface GetAllProductsPayload {
   sortId: number;
   search: string;
+}
+
+export interface RawGalleryData {
+  name: string;
+  productPhoto1: import('contentful').Asset[];
+  row: number;
+  column: number;
+}
+
+export interface GalleryData {
+  images: FormattedImages[];
+  row: number;
+  column: number;
+}
+
+interface FormattedImages {
+  fileName: string;
+  url: string;
 }

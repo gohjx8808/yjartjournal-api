@@ -2,12 +2,11 @@ import app from 'express';
 import {
   getAllImages,
   getAllProducts,
+  getSortOptions,
 } from '../services/products/productServices';
 import { GetAllProductsPayload } from '../services/products/typings';
 import multer from 'multer';
 import { allProductsValidator } from '../requestValidators/productValidators';
-import { dataSource } from '../dataSource';
-import SortOptions from '../entities/SortOptions';
 const upload = multer();
 
 export const productRouter = app.Router();
@@ -22,7 +21,7 @@ productRouter.post<{}, any, GetAllProductsPayload>(
 );
 
 productRouter.get('/sort-options', async (_req, res) => {
-  const sortOptions = await dataSource.manager.find(SortOptions);
+  const sortOptions = await getSortOptions();
   res.json({ data: sortOptions });
 });
 
