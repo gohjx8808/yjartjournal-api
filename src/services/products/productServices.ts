@@ -2,7 +2,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { createClient } from 'contentful';
 import { dataSource } from '../../dataSource';
 import SortOptions from '../../entities/SortOptions';
-import { getContentfulOrderByKeyword } from '../../helpers/productHelper';
+import { getContentfulOrderByKeyword, randomizeImages } from '../../helpers/productHelper';
 import {
   GalleryData,
   GetAllProductsPayload,
@@ -60,17 +60,5 @@ export const getAllImages = async (): Promise<GalleryData[]> => {
     content_type: 'gallery',
   });
 
-  return assets.items.map((asset) => {
-    const assetFields = asset.fields;
-    const formattedImages = assetFields.productPhoto1.map((image) => {
-      const imageFile = image.fields.file;
-      return { fileName: imageFile.fileName, url: imageFile.url };
-    });
-
-    return {
-      column: assetFields.column,
-      row: assetFields.row,
-      images: formattedImages,
-    };
-  });
+  return randomizeImages(assets.items);
 };

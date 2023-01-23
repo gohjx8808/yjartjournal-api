@@ -54,18 +54,7 @@ const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
     const assets = yield client.getEntries({
         content_type: 'gallery',
     });
-    return assets.items.map((asset) => {
-        const assetFields = asset.fields;
-        const formattedImages = assetFields.productPhoto1.map((image) => {
-            const imageFile = image.fields.file;
-            return { fileName: imageFile.fileName, url: imageFile.url };
-        });
-        return {
-            column: assetFields.column,
-            row: assetFields.row,
-            images: formattedImages,
-        };
-    });
+    return (0, productHelper_1.randomizeImages)(assets.items);
 });
 exports.getAllImages = getAllImages;
 //# sourceMappingURL=productServices.js.map

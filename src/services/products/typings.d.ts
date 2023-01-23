@@ -30,13 +30,9 @@ export interface RawGalleryData {
   column: number;
 }
 
-export interface GalleryData {
-  images: FormattedImages[];
-  row: number;
-  column: number;
-}
-
-interface FormattedImages {
+interface GalleryData {
   fileName: string;
   url: string;
+  row: number;
+  column: number;
 }
