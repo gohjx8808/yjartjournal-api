@@ -22,7 +22,11 @@ const separateLargeSmallImages = (assetItems) => {
         const assetFields = asset.fields;
         const formattedImages = assetFields.productPhoto1.map((image) => {
             const imageFile = image.fields.file;
-            return { fileName: imageFile.fileName, url: imageFile.url, row: assetFields.row, column: assetFields.column };
+            return {
+                image: { filename: imageFile.fileName, url: imageFile.url },
+                row: assetFields.row,
+                column: assetFields.column,
+            };
         });
         if (assetFields.row === 1) {
             regularProductImages = formattedImages;
@@ -42,8 +46,7 @@ const randomizeImages = (assetItems) => {
     const productImagesSet = [];
     let largeProductImages = separatedImages.largeProductImages.sort(() => Math.random() - 0.5);
     let regularProductImages = separatedImages.regularProductImages.sort(() => Math.random() - 0.5);
-    while (largeProductImages.length > 0 ||
-        regularProductImages.length > 0) {
+    while (largeProductImages.length > 0 || regularProductImages.length > 0) {
         const tempArr = [
             largeProductImages.pop(),
             ...regularProductImages.splice(0, 6),

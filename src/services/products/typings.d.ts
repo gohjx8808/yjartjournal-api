@@ -31,8 +31,10 @@ export interface RawGalleryData {
 }
 
 interface GalleryData {
-  fileName: string;
-  url: string;
+  image: {
+    filename: string;
+    url: string;
+  };
   row: number;
   column: number;
 }

@@ -2,7 +2,7 @@ import { Entry } from 'contentful';
 import { ProductSort } from '../constants/productConstants';
 import { GalleryData, RawGalleryData } from '../services/products/typings';
 
-export const getContentfulOrderByKeyword = (sortById:number)=> {
+export const getContentfulOrderByKeyword = (sortById: number) => {
   switch (+sortById) {
     case ProductSort.A_TO_Z:
       return 'fields.name';
@@ -15,15 +15,21 @@ export const getContentfulOrderByKeyword = (sortById:number)=> {
   }
 };
 
-export const separateLargeSmallImages = (assetItems:Entry<RawGalleryData>[])=>{
-  let regularProductImages:GalleryData[] = [];
-  let largeProductImages:GalleryData[] = [];
+export const separateLargeSmallImages = (
+  assetItems: Entry<RawGalleryData>[],
+) => {
+  let regularProductImages: GalleryData[] = [];
+  let largeProductImages: GalleryData[] = [];
 
   assetItems.map((asset) => {
     const assetFields = asset.fields;
     const formattedImages = assetFields.productPhoto1.map((image) => {
       const imageFile = image.fields.file;
-      return { fileName: imageFile.fileName, url: imageFile.url, row:assetFields.row, column:assetFields.column };
+      return {
+        image: { filename: imageFile.fileName, url: imageFile.url },
+        row: assetFields.row,
+        column: assetFields.column,
+      };
     });
 
     if (assetFields.row === 1) {
@@ -39,18 +45,19 @@ export const separateLargeSmallImages = (assetItems:Entry<RawGalleryData>[])=>{
   };
 };
 
-export const randomizeImages = (assetItems:Entry<RawGalleryData>[])=>{
+export const randomizeImages = (assetItems: Entry<RawGalleryData>[]) => {
   const separatedImages = separateLargeSmallImages(assetItems);
 
-  const productImagesSet:GalleryData[] = [];
+  const productImagesSet: GalleryData[] = [];
 
-  let largeProductImages = separatedImages.largeProductImages.sort(() => Math.random() - 0.5);
-  let regularProductImages = separatedImages.regularProductImages.sort(() => Math.random() - 0.5);
+  let largeProductImages = separatedImages.largeProductImages.sort(
+    () => Math.random() - 0.5,
+  );
+  let regularProductImages = separatedImages.regularProductImages.sort(
+    () => Math.random() - 0.5,
+  );
 
-  while (
-    largeProductImages.length > 0 ||
-    regularProductImages.length > 0
-  ) {
+  while (largeProductImages.length > 0 || regularProductImages.length > 0) {
     const tempArr = [
       largeProductImages.pop()!,
       ...regularProductImages.splice(0, 6),
