@@ -16,10 +16,12 @@ require('dotenv').config({ path: './.env' });
 const express_1 = __importDefault(require("express"));
 const dataSource_1 = require("./dataSource");
 const productRouter_1 = require("./routers/productRouter");
+var cors = require('cors');
 const app = (0, express_1.default)();
 dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
     yield dataSource_1.dataSource.runMigrations();
     const port = 3000;
+    app.use(cors());
     app.use(express_1.default.json());
     app.get('/', (_req, _res) => {
         _res.send('TypeScript With Express');
