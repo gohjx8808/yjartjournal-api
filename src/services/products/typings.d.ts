@@ -8,7 +8,6 @@ export interface RawProductData {
 
 export interface ProductData
   extends Omit<RawProductData, 'contentDescription' | 'productImage'> {
-  contentDescription: string;
   productImages: PickedProductImageData[];
   id: string;
 }

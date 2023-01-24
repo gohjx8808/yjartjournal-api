@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllImages = exports.getSortOptions = exports.getAllProducts = exports.getProductCategories = void 0;
-const rich_text_html_renderer_1 = require("@contentful/rich-text-html-renderer");
 const contentful_1 = require("contentful");
 const dataSource_1 = require("../../dataSource");
 const SortOptions_1 = __importDefault(require("../../entities/SortOptions"));
@@ -51,7 +50,8 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
                 return { url: imageFile.url, filename: imageFile.fileName };
             });
         }
-        return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: (0, rich_text_html_renderer_1.documentToHtmlString)(data.contentDescription), productImages: pickedData });
+        delete data.productImage;
+        return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: data.contentDescription, productImages: pickedData });
     }));
 });
 exports.getAllProducts = getAllProducts;

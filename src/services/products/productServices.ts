@@ -1,4 +1,3 @@
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { createClient } from 'contentful';
 import { dataSource } from '../../dataSource';
 import SortOptions from '../../entities/SortOptions';
@@ -53,11 +52,12 @@ export const getAllProducts = async (
             return { url: imageFile.url, filename: imageFile.fileName };
           });
         }
+        delete data.productImage;
 
         return {
           ...data,
           id: entry.sys.id,
-          contentDescription: documentToHtmlString(data.contentDescription),
+          contentDescription: data.contentDescription,
           productImages: pickedData,
         };
       }),
