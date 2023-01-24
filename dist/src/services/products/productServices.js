@@ -23,7 +23,7 @@ const client = (0, contentful_1.createClient)({
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
 const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* () {
-    const productData = yield client
+    const productCategories = yield client
         .getEntries({
         content_type: 'products',
         select: 'fields.category',
@@ -31,12 +31,12 @@ const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* (
         const data = entry.fields;
         return data.category;
     }));
-    return [...new Set(productData)].sort();
+    return [...new Set(productCategories)].sort();
 });
 exports.getProductCategories = getProductCategories;
 const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const sortOrder = (0, productHelper_1.getContentfulOrderByKeyword)(payload.sortId);
-    const productData = yield client
+    return client
         .getEntries({
         'fields.name[match]': payload.search,
         content_type: 'products',
@@ -53,7 +53,7 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
         }
         return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: (0, rich_text_html_renderer_1.documentToHtmlString)(data.contentDescription), productImage: pickedData });
     }));
-    return (0, productHelper_1.groupByCategory)(productData);
+    // return groupByCategory(productData);
 });
 exports.getAllProducts = getAllProducts;
 const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {

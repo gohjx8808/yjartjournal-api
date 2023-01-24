@@ -2,7 +2,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { createClient } from 'contentful';
 import { dataSource } from '../../dataSource';
 import SortOptions from '../../entities/SortOptions';
-import { getContentfulOrderByKeyword, groupByCategory, randomizeImages } from '../../helpers/productHelper';
+import { getContentfulOrderByKeyword, randomizeImages } from '../../helpers/productHelper';
 import {
   GalleryData,
   GetAllProductsPayload,
@@ -18,7 +18,7 @@ const client = createClient({
 });
 
 export const getProductCategories = async ()=>{
-  const productData = await client
+  const productCategories = await client
     .getEntries<RawProductData>({
     content_type: 'products',
     select:'fields.category',
@@ -30,14 +30,14 @@ export const getProductCategories = async ()=>{
     }),
   );
 
-  return [...new Set(productData)].sort();
+  return [...new Set(productCategories)].sort();
 };
 
 export const getAllProducts = async (
   payload: GetAllProductsPayload,
 ): Promise<ProductData[]> => {
   const sortOrder = getContentfulOrderByKeyword(payload.sortId);
-  const productData = await client
+  return client
     .getEntries<RawProductData>({
     'fields.name[match]': payload.search,
     content_type: 'products',
@@ -63,7 +63,7 @@ export const getAllProducts = async (
       }),
     );
 
-  return groupByCategory(productData);
+  // return groupByCategory(productData);
 };
 
 export const getSortOptions = async () => {
