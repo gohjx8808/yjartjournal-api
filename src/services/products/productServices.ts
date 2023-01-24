@@ -50,7 +50,7 @@ export const getAllProducts = async (
         if (data.productImage) {
           pickedData = data.productImage.map((image) => {
             const imageFile = image.fields.file;
-            return { url: imageFile.url, fileName: imageFile.fileName };
+            return { url: imageFile.url, filename: imageFile.fileName };
           });
         }
 
@@ -58,12 +58,10 @@ export const getAllProducts = async (
           ...data,
           id: entry.sys.id,
           contentDescription: documentToHtmlString(data.contentDescription),
-          productImage: pickedData,
+          productImages: pickedData,
         };
       }),
     );
-
-  // return groupByCategory(productData);
 };
 
 export const getSortOptions = async () => {

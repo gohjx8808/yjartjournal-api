@@ -9,7 +9,7 @@ export interface RawProductData {
 export interface ProductData
   extends Omit<RawProductData, 'contentDescription' | 'productImage'> {
   contentDescription: string;
-  productImage: PickedProductImageData[];
+  productImages: PickedProductImageData[];
   id: string;
 }
 
@@ -19,7 +19,7 @@ export interface FormattedProductData {
 
 export interface PickedProductImageData {
   url: string;
-  fileName: string;
+  filename: string;
 }
 
 export interface GetAllProductsPayload {

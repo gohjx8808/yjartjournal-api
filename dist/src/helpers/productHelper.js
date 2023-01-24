@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.groupByCategory = exports.randomizeImages = exports.separateLargeSmallImages = exports.getContentfulOrderByKeyword = void 0;
+exports.randomizeImages = exports.separateLargeSmallImages = exports.getContentfulOrderByKeyword = void 0;
 const productConstants_1 = require("../constants/productConstants");
 const getContentfulOrderByKeyword = (sortById) => {
     switch (+sortById) {
@@ -66,13 +66,4 @@ const randomizeImages = (assetItems) => {
     return productImagesSet;
 };
 exports.randomizeImages = randomizeImages;
-const groupByCategory = (objectArray) => {
-    return objectArray.reduce((accumulator, object) => {
-        const category = object.category;
-        accumulator[category] = accumulator[category] || [];
-        accumulator[category].push(object);
-        return accumulator;
-    }, Object.create({}));
-};
-exports.groupByCategory = groupByCategory;
 //# sourceMappingURL=productHelper.js.map

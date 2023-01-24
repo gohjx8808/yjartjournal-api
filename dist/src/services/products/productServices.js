@@ -48,12 +48,11 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
         if (data.productImage) {
             pickedData = data.productImage.map((image) => {
                 const imageFile = image.fields.file;
-                return { url: imageFile.url, fileName: imageFile.fileName };
+                return { url: imageFile.url, filename: imageFile.fileName };
             });
         }
-        return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: (0, rich_text_html_renderer_1.documentToHtmlString)(data.contentDescription), productImage: pickedData });
+        return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: (0, rich_text_html_renderer_1.documentToHtmlString)(data.contentDescription), productImages: pickedData });
     }));
-    // return groupByCategory(productData);
 });
 exports.getAllProducts = getAllProducts;
 const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {

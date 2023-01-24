@@ -1,6 +1,8 @@
 import { Entry } from 'contentful';
 import { ProductSort } from '../constants/productConstants';
-import { GalleryData, ProductData, RawGalleryData } from '../services/products/typings';
+import {
+  GalleryData, RawGalleryData,
+} from '../services/products/typings';
 
 export const getContentfulOrderByKeyword = (sortById: number) => {
   switch (+sortById) {
@@ -76,14 +78,4 @@ export const randomizeImages = (assetItems: Entry<RawGalleryData>[]) => {
   }
 
   return productImagesSet;
-};
-
-export const groupByCategory = (objectArray:ProductData[])=> {
-  return objectArray.reduce((accumulator, object) => {
-    const category = object.category;
-    accumulator[category] = accumulator[category] || [];
-    accumulator[category].push(object);
-    
-    return accumulator;
-  }, Object.create({}));
 };
