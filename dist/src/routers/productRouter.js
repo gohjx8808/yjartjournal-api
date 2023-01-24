@@ -19,6 +19,10 @@ const multer_1 = __importDefault(require("multer"));
 const productValidators_1 = require("../requestValidators/productValidators");
 const upload = (0, multer_1.default)();
 exports.productRouter = express_1.default.Router();
+exports.productRouter.get('/categories', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const categories = yield (0, productServices_1.getProductCategories)();
+    res.json({ data: categories });
+}));
 exports.productRouter.post('/', ...[upload.none(), ...productValidators_1.allProductsValidator], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     res.json({ data: yield (0, productServices_1.getAllProducts)(payload) });

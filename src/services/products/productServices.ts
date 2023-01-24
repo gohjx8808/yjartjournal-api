@@ -2,7 +2,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { createClient } from 'contentful';
 import { dataSource } from '../../dataSource';
 import SortOptions from '../../entities/SortOptions';
-import { getContentfulOrderByKeyword, randomizeImages } from '../../helpers/productHelper';
+import { getContentfulOrderByKeyword, groupByCategory, randomizeImages } from '../../helpers/productHelper';
 import {
   GalleryData,
   GetAllProductsPayload,
@@ -17,11 +17,27 @@ const client = createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
 
+export const getProductCategories = async ()=>{
+  const productData = await client
+    .getEntries<RawProductData>({
+    content_type: 'products',
+    select:'fields.category',
+  }).then((entries) =>
+    entries.items.map((entry) => {
+      const data = entry.fields;
+
+      return data.category;
+    }),
+  );
+
+  return [...new Set(productData)].sort();
+};
+
 export const getAllProducts = async (
   payload: GetAllProductsPayload,
 ): Promise<ProductData[]> => {
   const sortOrder = getContentfulOrderByKeyword(payload.sortId);
-  return client
+  const productData = await client
     .getEntries<RawProductData>({
     'fields.name[match]': payload.search,
     content_type: 'products',
@@ -46,6 +62,8 @@ export const getAllProducts = async (
         };
       }),
     );
+
+  return groupByCategory(productData);
 };
 
 export const getSortOptions = async () => {

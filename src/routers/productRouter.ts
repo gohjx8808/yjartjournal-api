@@ -2,6 +2,7 @@ import app from 'express';
 import {
   getAllImages,
   getAllProducts,
+  getProductCategories,
   getSortOptions,
 } from '../services/products/productServices';
 import { GetAllProductsPayload } from '../services/products/typings';
@@ -10,6 +11,11 @@ import { allProductsValidator } from '../requestValidators/productValidators';
 const upload = multer();
 
 export const productRouter = app.Router();
+
+productRouter.get('/categories', async (_req, res) => {
+  const categories = await getProductCategories();
+  res.json({ data: categories });
+});
 
 productRouter.post<{}, any, GetAllProductsPayload>(
   '/',

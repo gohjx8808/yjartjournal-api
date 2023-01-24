@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllImages = exports.getSortOptions = exports.getAllProducts = void 0;
+exports.getAllImages = exports.getSortOptions = exports.getAllProducts = exports.getProductCategories = void 0;
 const rich_text_html_renderer_1 = require("@contentful/rich-text-html-renderer");
 const contentful_1 = require("contentful");
 const dataSource_1 = require("../../dataSource");
@@ -22,9 +22,21 @@ const client = (0, contentful_1.createClient)({
     space: process.env.CONTENTFUL_SPACE_ID || '',
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
+const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* () {
+    const productData = yield client
+        .getEntries({
+        content_type: 'products',
+        select: 'fields.category',
+    }).then((entries) => entries.items.map((entry) => {
+        const data = entry.fields;
+        return data.category;
+    }));
+    return [...new Set(productData)].sort();
+});
+exports.getProductCategories = getProductCategories;
 const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const sortOrder = (0, productHelper_1.getContentfulOrderByKeyword)(payload.sortId);
-    return client
+    const productData = yield client
         .getEntries({
         'fields.name[match]': payload.search,
         content_type: 'products',
@@ -41,6 +53,7 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
         }
         return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: (0, rich_text_html_renderer_1.documentToHtmlString)(data.contentDescription), productImage: pickedData });
     }));
+    return (0, productHelper_1.groupByCategory)(productData);
 });
 exports.getAllProducts = getAllProducts;
 const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {

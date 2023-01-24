@@ -13,6 +13,10 @@ export interface ProductData
   id: string;
 }
 
+export interface FormattedProductData {
+  [x: string]: ProductData[]
+}
+
 export interface PickedProductImageData {
   url: string;
   fileName: string;
