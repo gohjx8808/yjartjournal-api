@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import { SeedSortOptions1672062650913 } from '../migrations/1672062650913-SeedSortOptions';
+import Feedbacks from './entities/Feedbacks';
 import SortOptions from './entities/SortOptions';
 
 export const dataSource = new DataSource({
@@ -11,6 +12,7 @@ export const dataSource = new DataSource({
   database: process.env.POSTGRESQL_DB_DATABASE,
   entities: [
     SortOptions,
+    Feedbacks,
   ],
   migrations:[
     SeedSortOptions1672062650913,
@@ -18,3 +20,5 @@ export const dataSource = new DataSource({
   synchronize: true,
   logging: false,
 });
+
+export const manager = dataSource.manager;

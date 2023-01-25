@@ -1,19 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-class SortOptions {
+class Feedbacks {
   @PrimaryGeneratedColumn()
     id: number;
 
   @Column()
     name: string;
+
+  @Column()
+    email: string;
+
+  @Column()
+    feedback: string;
+
+  @Column({ default: false })
+    isReplied: boolean;
 
   @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
@@ -22,4 +31,4 @@ class SortOptions {
     updatedAt: Date;
 }
 
-export default SortOptions;
+export default Feedbacks;

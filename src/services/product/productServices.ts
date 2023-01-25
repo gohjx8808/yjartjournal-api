@@ -1,15 +1,8 @@
 import { createClient } from 'contentful';
-import { dataSource } from '../../dataSource';
+import { manager } from '../../dataSource';
 import SortOptions from '../../entities/SortOptions';
 import { getContentfulOrderByKeyword, randomizeImages } from '../../helpers/productHelper';
-import {
-  GalleryData,
-  GetAllProductsPayload,
-  PickedProductImageData,
-  ProductData,
-  RawGalleryData,
-  RawProductData,
-} from './typings';
+import { GalleryData, GetAllProductsPayload, PickedProductImageData, ProductData, RawGalleryData, RawProductData } from './typings';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID || '',
@@ -65,7 +58,7 @@ export const getAllProducts = async (
 };
 
 export const getSortOptions = async () => {
-  return (await dataSource.manager.find(SortOptions)).map((option) => ({
+  return (await manager.find(SortOptions)).map((option) => ({
     label: option.name,
     value: option.id,
   }));

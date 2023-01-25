@@ -13,12 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productRouter = void 0;
-const express_1 = __importDefault(require("express"));
-const productServices_1 = require("../services/products/productServices");
+const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const productValidators_1 = require("../requestValidators/productValidators");
+const productServices_1 = require("../services/product/productServices");
 const upload = (0, multer_1.default)();
-exports.productRouter = express_1.default.Router();
+exports.productRouter = (0, express_1.Router)();
 exports.productRouter.get('/categories', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const categories = yield (0, productServices_1.getProductCategories)();
     res.json({ data: categories });

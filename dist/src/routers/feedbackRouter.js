@@ -12,23 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config({ path: './.env' });
-const express_1 = __importDefault(require("express"));
-const dataSource_1 = require("./dataSource");
-const feedbackRouter_1 = require("./routers/feedbackRouter");
-const productRouter_1 = require("./routers/productRouter");
-var cors = require('cors');
-const app = (0, express_1.default)();
-dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield dataSource_1.dataSource.runMigrations();
-    const port = 3000;
-    app.use(cors());
-    app.use(express_1.default.json());
-    app.get('/', (_req, _res) => {
-        _res.send('TypeScript With Express');
-    });
-    app.use('/products', productRouter_1.productRouter);
-    app.use('/feedbacks', feedbackRouter_1.feedbackRouter);
-    app.listen(port);
+exports.feedbackRouter = void 0;
+const express_1 = require("express");
+const multer_1 = __importDefault(require("multer"));
+const feedbackValidators_1 = require("../requestValidators/feedbackValidators");
+const feedbackServices_1 = require("../services/feedback/feedbackServices");
+const upload = (0, multer_1.default)();
+exports.feedbackRouter = (0, express_1.Router)();
+exports.feedbackRouter.post('/submit', ...[upload.none(), ...feedbackValidators_1.submitFeedbackValidator], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const response = yield (0, feedbackServices_1.saveFeedback)(payload);
+    return res.json({ response });
 }));
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=feedbackRouter.js.map

@@ -12,23 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config({ path: './.env' });
-const express_1 = __importDefault(require("express"));
-const dataSource_1 = require("./dataSource");
-const feedbackRouter_1 = require("./routers/feedbackRouter");
-const productRouter_1 = require("./routers/productRouter");
-var cors = require('cors');
-const app = (0, express_1.default)();
-dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield dataSource_1.dataSource.runMigrations();
-    const port = 3000;
-    app.use(cors());
-    app.use(express_1.default.json());
-    app.get('/', (_req, _res) => {
-        _res.send('TypeScript With Express');
-    });
-    app.use('/products', productRouter_1.productRouter);
-    app.use('/feedbacks', feedbackRouter_1.feedbackRouter);
-    app.listen(port);
-}));
-//# sourceMappingURL=index.js.map
+exports.saveFeedback = void 0;
+const dataSource_1 = require("../../dataSource");
+const Feedbacks_1 = __importDefault(require("../../entities/Feedbacks"));
+const saveFeedback = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const feedbackCreated = yield dataSource_1.manager.insert(Feedbacks_1.default, payload);
+    return feedbackCreated;
+});
+exports.saveFeedback = saveFeedback;
+//# sourceMappingURL=feedbackServices.js.map

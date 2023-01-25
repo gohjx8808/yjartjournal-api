@@ -1,6 +1,7 @@
 require('dotenv').config({ path: './.env' });
 import express from 'express';
 import { dataSource } from './dataSource';
+import { feedbackRouter } from './routers/feedbackRouter';
 import { productRouter } from './routers/productRouter';
 var cors = require('cors');
 
@@ -20,6 +21,8 @@ dataSource.initialize().then(async ()=>{
   });
 
   app.use('/products', productRouter);
+
+  app.use('/feedbacks', feedbackRouter);
 
   app.listen(port);
 });

@@ -1,16 +1,16 @@
-import app from 'express';
+import { Router } from 'express';
+import multer from 'multer';
+import { allProductsValidator } from '../requestValidators/productValidators';
 import {
   getAllImages,
   getAllProducts,
   getProductCategories,
   getSortOptions,
-} from '../services/products/productServices';
-import { GetAllProductsPayload } from '../services/products/typings';
-import multer from 'multer';
-import { allProductsValidator } from '../requestValidators/productValidators';
+} from '../services/product/productServices';
+import { GetAllProductsPayload } from '../services/product/typings';
 const upload = multer();
 
-export const productRouter = app.Router();
+export const productRouter = Router();
 
 productRouter.get('/categories', async (_req, res) => {
   const categories = await getProductCategories();

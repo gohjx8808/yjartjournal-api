@@ -2,7 +2,7 @@ import { Entry } from 'contentful';
 import { ProductSort } from '../constants/productConstants';
 import {
   GalleryData, RawGalleryData,
-} from '../services/products/typings';
+} from '../services/product/typings';
 
 export const getContentfulOrderByKeyword = (sortById: number) => {
   switch (+sortById) {

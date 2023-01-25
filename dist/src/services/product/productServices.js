@@ -56,7 +56,7 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getAllProducts = getAllProducts;
 const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {
-    return (yield dataSource_1.dataSource.manager.find(SortOptions_1.default)).map((option) => ({
+    return (yield dataSource_1.manager.find(SortOptions_1.default)).map((option) => ({
         label: option.name,
         value: option.id,
     }));
