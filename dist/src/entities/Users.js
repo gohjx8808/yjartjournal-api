@@ -9,40 +9,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Users = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
-let Feedbacks = class Feedbacks {
+let Users = class Users {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Feedbacks.prototype, "id", void 0);
+], Users.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Feedbacks.prototype, "name", void 0);
+], Users.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Feedbacks.prototype, "email", void 0);
+], Users.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Feedbacks.prototype, "feedback", void 0);
+], Users.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: false, name: "is_replied" }),
+    (0, typeorm_1.Column)({ name: "country_code" }),
+    __metadata("design:type", String)
+], Users.prototype, "countryCode", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "phone_no" }),
+    __metadata("design:type", String)
+], Users.prototype, "phoneNumber", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "char" }),
+    __metadata("design:type", String)
+], Users.prototype, "gender", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], Users.prototype, "dob", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "is_admin", default: false }),
     __metadata("design:type", Boolean)
-], Feedbacks.prototype, "isReplied", void 0);
+], Users.prototype, "isAdmin", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
     __metadata("design:type", Date)
-], Feedbacks.prototype, "createdAt", void 0);
+], Users.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
     __metadata("design:type", Date)
-], Feedbacks.prototype, "updatedAt", void 0);
-Feedbacks = __decorate([
+], Users.prototype, "updatedAt", void 0);
+Users = __decorate([
     (0, typeorm_1.Entity)()
-], Feedbacks);
-exports.default = Feedbacks;
-//# sourceMappingURL=Feedbacks.js.map
+], Users);
+exports.Users = Users;
+//# sourceMappingURL=Users.js.map

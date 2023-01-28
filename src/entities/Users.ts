@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-class Feedbacks {
+export class Users {
   @PrimaryGeneratedColumn()
     id: number;
 
@@ -19,10 +19,22 @@ class Feedbacks {
     email: string;
 
   @Column()
-    feedback: string;
+    password: string;
 
-  @Column({ default: false, name:"is_replied" })
-    isReplied: boolean;
+  @Column({ name: "country_code" })
+    countryCode: string;
+
+  @Column({ name: "phone_no" })
+    phoneNumber: string;
+
+  @Column({ type: "char" })
+    gender: string;
+
+  @Column()
+    dob:Date;
+
+  @Column({ name: "is_admin", default: false })
+    isAdmin: boolean;
 
   @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
@@ -30,5 +42,3 @@ class Feedbacks {
   @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
 }
-
-export default Feedbacks;
