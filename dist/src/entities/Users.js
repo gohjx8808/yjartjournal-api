@@ -31,6 +31,10 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Users.prototype, "iv", void 0);
+__decorate([
     (0, typeorm_1.Column)({ name: "country_code" }),
     __metadata("design:type", String)
 ], Users.prototype, "countryCode", void 0);

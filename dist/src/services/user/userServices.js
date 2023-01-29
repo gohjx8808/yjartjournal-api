@@ -11,8 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signUpUser = void 0;
 const dataSource_1 = require("../../dataSource");
+const cryptoHelper_1 = require("../../helpers/cryptoHelper");
 const signUpUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = dataSource_1.userRepository.insert(payload);
+    const encryptedPassword = (0, cryptoHelper_1.encrypt)(payload.password);
+    const response = dataSource_1.userRepository.insert(Object.assign(Object.assign({}, payload), { password: encryptedPassword.content, iv: encryptedPassword.iv }));
     return response;
 });
 exports.signUpUser = signUpUser;

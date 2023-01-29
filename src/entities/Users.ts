@@ -21,6 +21,9 @@ export class Users {
   @Column()
     password: string;
 
+  @Column()
+    iv: string;
+
   @Column({ name: "country_code" })
     countryCode: string;
 
