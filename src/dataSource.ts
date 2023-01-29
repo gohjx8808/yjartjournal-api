@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { SeedSortOptions1672062650913 } from '../migrations/1672062650913-SeedSortOptions';
 import Feedbacks from './entities/Feedbacks';
 import SortOptions from './entities/SortOptions';
+import { Users } from './entities/Users';
 
 export const dataSource = new DataSource({
   type: 'postgres', 
@@ -13,6 +14,7 @@ export const dataSource = new DataSource({
   entities: [
     SortOptions,
     Feedbacks,
+    Users,
   ],
   migrations:[
     SeedSortOptions1672062650913,
@@ -22,3 +24,5 @@ export const dataSource = new DataSource({
 });
 
 export const manager = dataSource.manager;
+
+export const userRepository = manager.getRepository(Users);

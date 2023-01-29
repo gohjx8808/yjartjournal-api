@@ -3,6 +3,7 @@ import express from 'express';
 import { dataSource } from './dataSource';
 import { feedbackRouter } from './routers/feedbackRouter';
 import { productRouter } from './routers/productRouter';
+import { userRouter } from './routers/userRouter';
 var cors = require('cors');
 
 const app: express.Application = express();
@@ -23,6 +24,8 @@ dataSource.initialize().then(async ()=>{
   app.use('/products', productRouter);
 
   app.use('/feedbacks', feedbackRouter);
+
+  app.use('/users', userRouter);
 
   app.listen(port);
 });

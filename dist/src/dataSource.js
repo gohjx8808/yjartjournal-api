@@ -3,11 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.manager = exports.dataSource = void 0;
+exports.userRepository = exports.manager = exports.dataSource = void 0;
 const typeorm_1 = require("typeorm");
 const _1672062650913_SeedSortOptions_1 = require("../migrations/1672062650913-SeedSortOptions");
 const Feedbacks_1 = __importDefault(require("./entities/Feedbacks"));
 const SortOptions_1 = __importDefault(require("./entities/SortOptions"));
+const Users_1 = require("./entities/Users");
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.POSTGRESQL_DB_HOST,
@@ -18,6 +19,7 @@ exports.dataSource = new typeorm_1.DataSource({
     entities: [
         SortOptions_1.default,
         Feedbacks_1.default,
+        Users_1.Users,
     ],
     migrations: [
         _1672062650913_SeedSortOptions_1.SeedSortOptions1672062650913,
@@ -26,4 +28,5 @@ exports.dataSource = new typeorm_1.DataSource({
     logging: false,
 });
 exports.manager = exports.dataSource.manager;
+exports.userRepository = exports.manager.getRepository(Users_1.Users);
 //# sourceMappingURL=dataSource.js.map

@@ -17,6 +17,7 @@ const express_1 = __importDefault(require("express"));
 const dataSource_1 = require("./dataSource");
 const feedbackRouter_1 = require("./routers/feedbackRouter");
 const productRouter_1 = require("./routers/productRouter");
+const userRouter_1 = require("./routers/userRouter");
 var cors = require('cors');
 const app = (0, express_1.default)();
 dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,6 +30,7 @@ dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0
     });
     app.use('/products', productRouter_1.productRouter);
     app.use('/feedbacks', feedbackRouter_1.feedbackRouter);
+    app.use('/users', userRouter_1.userRouter);
     app.listen(port);
 }));
 //# sourceMappingURL=index.js.map

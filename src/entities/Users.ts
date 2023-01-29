@@ -30,8 +30,8 @@ export class Users {
   @Column({ type: "char" })
     gender: string;
 
-  @Column()
-    dob:Date;
+  @Column({ type: "date" })
+    dob: string;
 
   @Column({ name: "is_admin", default: false })
     isAdmin: boolean;

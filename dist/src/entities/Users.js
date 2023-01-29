@@ -43,8 +43,8 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "gender", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
+    (0, typeorm_1.Column)({ type: "date" }),
+    __metadata("design:type", String)
 ], Users.prototype, "dob", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: "is_admin", default: false }),

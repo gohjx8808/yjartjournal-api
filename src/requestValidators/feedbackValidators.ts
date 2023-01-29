@@ -7,14 +7,14 @@ export const submitFeedbackValidator = customValidator([
     .withMessage('Name is required.')
     .bail()
     .isString()
-    .withMessage('Invalid name')
+    .withMessage('Invalid name.')
     .bail(),
   body('email')
     .notEmpty()
     .withMessage('Email is required.')
     .bail()
     .isEmail()
-    .withMessage('Invalid email')
+    .withMessage('Invalid email.')
     .bail(),
   body('feedback').notEmpty().withMessage('Feedback is required.').bail(),
 ]);

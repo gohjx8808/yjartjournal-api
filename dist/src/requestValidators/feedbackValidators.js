@@ -12,14 +12,14 @@ exports.submitFeedbackValidator = (0, customValidator_1.default)([
         .withMessage('Name is required.')
         .bail()
         .isString()
-        .withMessage('Invalid name')
+        .withMessage('Invalid name.')
         .bail(),
     (0, express_validator_1.body)('email')
         .notEmpty()
         .withMessage('Email is required.')
         .bail()
         .isEmail()
-        .withMessage('Invalid email')
+        .withMessage('Invalid email.')
         .bail(),
     (0, express_validator_1.body)('feedback').notEmpty().withMessage('Feedback is required.').bail(),
 ]);

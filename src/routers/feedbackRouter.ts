@@ -12,8 +12,8 @@ feedbackRouter.post<{}, any, FeedbackPayload>(
   ...[upload.none(), ...submitFeedbackValidator],
   async (req, res) => {
     const payload = req.body;
-
     const response = await saveFeedback(payload);
+    
     return res.json({ response });
   },
 );
