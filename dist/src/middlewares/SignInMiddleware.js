@@ -10,16 +10,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dataSource_1 = require("../dataSource");
-const SignUpMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const cryptoHelper_1 = require("../helpers/cryptoHelper");
+const SignInMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const userExist = yield dataSource_1.userRepository
+    const user = yield dataSource_1.userRepository
         .createQueryBuilder()
-        .where('email = :email', { email: payload.email })
-        .getExists();
-    if (userExist) {
-        return res.status(422).json({ message: 'User exist' });
+        .where({ email: payload.email })
+        .getOne();
+    if (!user) {
+        return res.status(401).json({ message: 'User not exist!' });
     }
-    next();
+    else {
+        const decryptedPassword = (0, cryptoHelper_1.decrypt)(user.password, user.iv);
+        if (decryptedPassword !== payload.password) {
+            return res
+                .status(401)
+                .json({ message: 'Incorrect username/password!' });
+        }
+        next();
+    }
 });
-exports.default = SignUpMiddleware;
-//# sourceMappingURL=SignUpMiddleware.js.map
+exports.default = SignInMiddleware;
+//# sourceMappingURL=SignInMiddleware.js.map

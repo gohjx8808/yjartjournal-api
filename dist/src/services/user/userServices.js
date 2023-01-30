@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signUpUser = void 0;
+exports.generateAccessToken = exports.signUpUser = void 0;
+const jsonwebtoken_1 = require("jsonwebtoken");
 const dataSource_1 = require("../../dataSource");
 const cryptoHelper_1 = require("../../helpers/cryptoHelper");
 const signUpUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -18,4 +19,13 @@ const signUpUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     return response;
 });
 exports.signUpUser = signUpUser;
+const generateAccessToken = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield dataSource_1.userRepository
+        .createQueryBuilder()
+        .where({ email: payload.email })
+        .getOne();
+    const accessToken = (0, jsonwebtoken_1.sign)({ email: user.email, gender: user.gender }, process.env.JWT_SIGN_TOKEN);
+    return accessToken;
+});
+exports.generateAccessToken = generateAccessToken;
 //# sourceMappingURL=userServices.js.map

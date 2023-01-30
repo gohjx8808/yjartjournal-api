@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import multer from 'multer';
-import signUpMiddleware from '../middlewares/signUpMiddleware';
-import { signUpValidator } from '../requestValidators/userValidators';
-import { SignUpPayload } from '../services/user/typings';
-import { signUpUser } from '../services/user/userServices';
+import SignInMiddleware from '../middlewares/SignInMiddleware';
+import SignUpMiddleware from '../middlewares/SignUpMiddleware';
+import SignInValidator from '../requestValidators/user/SignInValidator';
+import SignUpValidator from '../requestValidators/user/signUpValidator';
+import { SignInPayload, SignUpPayload } from '../services/user/typings';
+import { generateAccessToken, signUpUser } from '../services/user/userServices';
 
 const upload = multer();
 
@@ -11,11 +13,23 @@ export const userRouter = Router();
 
 userRouter.post<{}, any, SignUpPayload>(
   '/sign-up',
-  ...[upload.none(), ...signUpValidator, signUpMiddleware()],
+  ...[upload.none(), ...SignUpValidator, SignUpMiddleware()],
   async (req, res) => {
     const payload = req.body;
     const response = await signUpUser(payload);
 
     res.json(response);
+  },
+);
+
+userRouter.post<{}, any, SignInPayload>(
+  '/sign-in',
+  ...[upload.none(), ...SignInValidator, SignInMiddleware()],
+  async (req, res) => {
+    const payload = req.body;
+
+    const accessToken = await generateAccessToken(payload);
+
+    res.json({ accessToken });
   },
 );

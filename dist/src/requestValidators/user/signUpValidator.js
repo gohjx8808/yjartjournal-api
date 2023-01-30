@@ -3,10 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signUpValidator = void 0;
 const express_validator_1 = require("express-validator");
-const customValidator_1 = __importDefault(require("./customValidator"));
-exports.signUpValidator = (0, customValidator_1.default)([
+const customValidator_1 = __importDefault(require("../customValidator"));
+const SignUpValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('name').notEmpty().withMessage('Name is required.').bail(),
     (0, express_validator_1.body)('email')
         .notEmpty()
@@ -44,4 +43,5 @@ exports.signUpValidator = (0, customValidator_1.default)([
         .withMessage('Invalid date of birth.')
         .bail(),
 ]);
-//# sourceMappingURL=userValidators.js.map
+exports.default = SignUpValidator;
+//# sourceMappingURL=signUpValidator.js.map

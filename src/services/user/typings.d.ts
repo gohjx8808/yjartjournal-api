@@ -7,3 +7,8 @@ export interface SignUpPayload {
   gender: string;
   dob: string;
 }
+
+export interface SignInPayload {
+  email: string;
+  password: string;
+}

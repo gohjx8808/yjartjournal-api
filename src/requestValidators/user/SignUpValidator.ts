@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
-import customValidator from './customValidator';
+import customValidator from '../customValidator';
 
-export const signUpValidator = customValidator([
+const SignUpValidator = customValidator([
   body('name').notEmpty().withMessage('Name is required.').bail(),
   body('email')
     .notEmpty()
@@ -39,3 +39,5 @@ export const signUpValidator = customValidator([
     .withMessage('Invalid date of birth.')
     .bail(),
 ]);
+
+export default SignUpValidator;
