@@ -22,4 +22,4 @@ const SignUpMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, voi
     next();
 });
 exports.default = SignUpMiddleware;
-//# sourceMappingURL=SignUpMiddleware.js.map
+//# sourceMappingURL=SignUpMiddlewares.js.map

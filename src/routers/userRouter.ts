@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import SignInMiddleware from '../middlewares/SignInMiddleware';
-import SignUpMiddleware from '../middlewares/SignUpMiddleware';
+import SignUpMiddleware from '../middlewares/SignUpMiddlewares';
 import SignInValidator from '../requestValidators/user/SignInValidator';
 import SignUpValidator from '../requestValidators/user/SignUpValidator';
 import { SignInPayload, SignUpPayload } from '../services/user/typings';
