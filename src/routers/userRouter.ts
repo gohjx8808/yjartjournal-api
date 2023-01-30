@@ -3,7 +3,7 @@ import multer from 'multer';
 import SignInMiddleware from '../middlewares/SignInMiddleware';
 import SignUpMiddleware from '../middlewares/SignUpMiddleware';
 import SignInValidator from '../requestValidators/user/SignInValidator';
-import SignUpValidator from '../requestValidators/user/SignUpValidators';
+import SignUpValidator from '../requestValidators/user/SignUpValidator';
 import { SignInPayload, SignUpPayload } from '../services/user/typings';
 import { generateAccessToken, signUpUser } from '../services/user/userServices';
 
