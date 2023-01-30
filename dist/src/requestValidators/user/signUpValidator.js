@@ -44,4 +44,4 @@ const SignUpValidator = (0, customValidator_1.default)([
         .bail(),
 ]);
 exports.default = SignUpValidator;
-//# sourceMappingURL=signUpValidator.js.map
+//# sourceMappingURL=SignUpValidator.js.map
