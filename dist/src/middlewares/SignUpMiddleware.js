@@ -17,7 +17,12 @@ const SignUpMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, voi
         .where('email = :email', { email: payload.email })
         .getExists();
     if (userExist) {
-        return res.status(422).json({ message: 'User exist' });
+        return res
+            .status(422)
+            .json({
+            message: 'The provided email is already in use by an existing user. ' +
+                'Please register using another email or login using the correct credentials.',
+        });
     }
     next();
 });

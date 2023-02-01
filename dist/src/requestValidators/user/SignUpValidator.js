@@ -40,7 +40,7 @@ const SignUpValidator = (0, customValidator_1.default)([
         .notEmpty()
         .withMessage('Date of birth is required.')
         .bail()
-        .isDate({ format: 'DD/MM/YYYY' })
+        .isDate({ format: 'YYYY-MM-DD' })
         .withMessage('Invalid date of birth.')
         .bail(),
 ]);
