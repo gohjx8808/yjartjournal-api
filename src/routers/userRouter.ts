@@ -30,6 +30,6 @@ userRouter.post<{}, any, SignInPayload>(
 
     const response = await generateAccessToken(payload);
 
-    res.json(response);
+    res.json({ data:response });
   },
 );
