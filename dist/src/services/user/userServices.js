@@ -25,7 +25,7 @@ const generateAccessToken = (payload) => __awaiter(void 0, void 0, void 0, funct
         .where({ email: payload.email })
         .getOne();
     const accessToken = (0, jsonwebtoken_1.sign)({ email: user.email, gender: user.gender }, process.env.JWT_SIGN_TOKEN);
-    return accessToken;
+    return { accessToken, user };
 });
 exports.generateAccessToken = generateAccessToken;
 //# sourceMappingURL=userServices.js.map

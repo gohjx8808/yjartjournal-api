@@ -20,10 +20,11 @@ export const generateAccessToken = async (payload: SignInPayload) => {
     .createQueryBuilder()
     .where({ email: payload.email })
     .getOne();
+
   const accessToken = sign(
     { email: user.email, gender: user.gender },
     process.env.JWT_SIGN_TOKEN,
   );
 
-  return accessToken;
+  return { accessToken, user };
 };

@@ -1,5 +1,6 @@
 export interface SignUpPayload {
   name: string;
+  preferredName?: string;
   email: string;
   password: string;
   countryCode: string;

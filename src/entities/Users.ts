@@ -15,6 +15,9 @@ export class Users {
   @Column()
     name: string;
 
+  @Column({name:'preferred_name', nullable:true})
+    preferredName: string;
+
   @Column()
     email: string;
 

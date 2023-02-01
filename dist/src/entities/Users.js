@@ -23,6 +23,10 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "name", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'preferred_name', nullable: true }),
+    __metadata("design:type", String)
+], Users.prototype, "preferredName", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Users.prototype, "email", void 0);

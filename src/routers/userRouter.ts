@@ -28,8 +28,8 @@ userRouter.post<{}, any, SignInPayload>(
   async (req, res) => {
     const payload = req.body;
 
-    const accessToken = await generateAccessToken(payload);
+    const response = await generateAccessToken(payload);
 
-    res.json({ accessToken });
+    res.json(response);
   },
 );
