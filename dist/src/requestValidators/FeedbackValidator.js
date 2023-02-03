@@ -3,10 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.submitFeedbackValidator = void 0;
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("./customValidator"));
-exports.submitFeedbackValidator = (0, customValidator_1.default)([
+const FeedbackValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('name')
         .notEmpty()
         .withMessage('Name is required.')
@@ -23,4 +22,5 @@ exports.submitFeedbackValidator = (0, customValidator_1.default)([
         .bail(),
     (0, express_validator_1.body)('feedback').notEmpty().withMessage('Feedback is required.').bail(),
 ]);
-//# sourceMappingURL=feedbackValidators.js.map
+exports.default = FeedbackValidator;
+//# sourceMappingURL=FeedbackValidator.js.map

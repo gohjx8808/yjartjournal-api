@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { allProductsValidator } from '../requestValidators/productValidators';
+import GetProductValidator from '../requestValidators/GetProductValidator';
 import {
   getAllImages,
   getAllProducts,
@@ -19,7 +19,7 @@ productRouter.get('/categories', async (_req, res) => {
 
 productRouter.post<{}, any, GetAllProductsPayload>(
   '/',
-  ...[upload.none(), ...allProductsValidator],
+  ...[upload.none(), ...GetProductValidator],
   async (req, res) => {
     const payload = req.body;
     res.json({ data: await getAllProducts(payload) });

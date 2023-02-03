@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserAccount = void 0;
+exports.updateUserAccount = exports.getUserAccount = void 0;
 const dataSource_1 = require("../../dataSource");
 const getUserAccount = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const userDetails = yield dataSource_1.userRepository
@@ -19,4 +19,9 @@ const getUserAccount = (userId) => __awaiter(void 0, void 0, void 0, function* (
     return userDetails;
 });
 exports.getUserAccount = getUserAccount;
+const updateUserAccount = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield dataSource_1.userRepository.update({ id: userId }, payload);
+    return result;
+});
+exports.updateUserAccount = updateUserAccount;
 //# sourceMappingURL=accountServices.js.map

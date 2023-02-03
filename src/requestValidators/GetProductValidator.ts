@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import customValidator from './customValidator';
 
-export const allProductsValidator = customValidator([
+const GetProductValidator = customValidator([
   body('sortId')
     .notEmpty()
     .withMessage('Sort ID is required.')
@@ -10,3 +10,5 @@ export const allProductsValidator = customValidator([
     .withMessage('Invalid sort ID.'),
   body('search').optional().isString().withMessage('Invalid search.'),
 ]);
+
+export default GetProductValidator;

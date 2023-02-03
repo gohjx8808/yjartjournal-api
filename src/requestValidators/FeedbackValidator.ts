@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import customValidator from './customValidator';
 
-export const submitFeedbackValidator = customValidator([
+const FeedbackValidator = customValidator([
   body('name')
     .notEmpty()
     .withMessage('Name is required.')
@@ -18,3 +18,6 @@ export const submitFeedbackValidator = customValidator([
     .bail(),
   body('feedback').notEmpty().withMessage('Feedback is required.').bail(),
 ]);
+
+
+export default FeedbackValidator;
