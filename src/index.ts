@@ -1,6 +1,7 @@
 require('dotenv').config({ path: './.env' });
 import express from 'express';
 import { dataSource } from './dataSource';
+import { accountRouter } from './routers/accountRouter';
 import { feedbackRouter } from './routers/feedbackRouter';
 import { productRouter } from './routers/productRouter';
 import { userRouter } from './routers/userRouter';
@@ -8,13 +9,13 @@ var cors = require('cors');
 
 const app: express.Application = express();
 
-dataSource.initialize().then(async ()=>{
+dataSource.initialize().then(async () => {
   await dataSource.runMigrations();
-  
+
   const port: number = 3000;
 
   app.use(cors());
-  
+
   app.use(express.json());
 
   app.get('/', (_req, _res) => {
@@ -27,6 +28,7 @@ dataSource.initialize().then(async ()=>{
 
   app.use('/users', userRouter);
 
+  app.use('/account', accountRouter);
+
   app.listen(port);
 });
-

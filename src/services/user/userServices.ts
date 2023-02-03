@@ -22,7 +22,7 @@ export const generateAccessToken = async (payload: SignInPayload) => {
     .getOne();
 
   const accessToken = sign(
-    { email: user.email, gender: user.gender },
+    { id: user.id, email: user.email },
     process.env.JWT_SIGN_TOKEN,
   );
 

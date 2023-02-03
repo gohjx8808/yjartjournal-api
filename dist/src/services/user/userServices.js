@@ -24,7 +24,7 @@ const generateAccessToken = (payload) => __awaiter(void 0, void 0, void 0, funct
         .createQueryBuilder()
         .where({ email: payload.email })
         .getOne();
-    const accessToken = (0, jsonwebtoken_1.sign)({ email: user.email, gender: user.gender }, process.env.JWT_SIGN_TOKEN);
+    const accessToken = (0, jsonwebtoken_1.sign)({ id: user.id, email: user.email }, process.env.JWT_SIGN_TOKEN);
     return { accessToken, user };
 });
 exports.generateAccessToken = generateAccessToken;
