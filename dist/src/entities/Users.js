@@ -23,11 +23,11 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'preferred_name', nullable: true }),
+    (0, typeorm_1.Column)({ name: "preferred_name", nullable: true }),
     __metadata("design:type", String)
 ], Users.prototype, "preferredName", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], Users.prototype, "email", void 0);
 __decorate([
@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "countryCode", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "phone_no" }),
+    (0, typeorm_1.Column)({ name: "phone_number" }),
     __metadata("design:type", String)
 ], Users.prototype, "phoneNumber", void 0);
 __decorate([

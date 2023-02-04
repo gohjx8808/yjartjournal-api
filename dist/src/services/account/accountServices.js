@@ -15,6 +15,16 @@ const getUserAccount = (userId) => __awaiter(void 0, void 0, void 0, function* (
     const userDetails = yield dataSource_1.userRepository
         .createQueryBuilder()
         .where({ id: userId })
+        .select([
+        'Users.id',
+        'Users.name',
+        'Users.preferredName',
+        'Users.email',
+        'Users.countryCode',
+        'Users.phoneNumber',
+        'Users.gender',
+        'Users.dob',
+    ])
         .getOne();
     return userDetails;
 });

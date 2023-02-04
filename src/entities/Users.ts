@@ -15,10 +15,10 @@ export class Users {
   @Column()
     name: string;
 
-  @Column({name:'preferred_name', nullable:true})
+  @Column({ name: "preferred_name", nullable: true })
     preferredName: string;
 
-  @Column()
+  @Column({ unique: true })
     email: string;
 
   @Column()
@@ -30,7 +30,7 @@ export class Users {
   @Column({ name: "country_code" })
     countryCode: string;
 
-  @Column({ name: "phone_no" })
+  @Column({ name: "phone_number" })
     phoneNumber: string;
 
   @Column({ type: "char" })
