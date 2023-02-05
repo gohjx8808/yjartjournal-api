@@ -15,3 +15,7 @@ export interface AddAddressPayload {
 export interface UpdateAddressPayload extends AddAddressPayload {
   addressId: number;
 }
+
+export interface DeleteAddressPayload {
+  addressId: number;
+}

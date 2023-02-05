@@ -16,9 +16,11 @@ exports.addressRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const AddAddressMiddleware_1 = __importDefault(require("../middlewares/address/AddAddressMiddleware"));
+const DeleteAddressMiddleware_1 = __importDefault(require("../middlewares/address/DeleteAddressMiddleware"));
 const UpdateAddressMiddleware_1 = __importDefault(require("../middlewares/address/UpdateAddressMiddleware"));
 const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddleware"));
 const AddAddressValidator_1 = __importDefault(require("../requestValidators/address/AddAddressValidator"));
+const DeleteAddressValidator_1 = __importDefault(require("../requestValidators/address/DeleteAddressValidator"));
 const UpdateAddressValidator_1 = __importDefault(require("../requestValidators/address/UpdateAddressValidator"));
 const addressServices_1 = require("../services/address/addressServices");
 const upload = (0, multer_1.default)();
@@ -48,6 +50,16 @@ exports.addressRouter.post('/update', ...[
     const user = req.user.valueOf();
     const payload = req.body;
     const response = yield (0, addressServices_1.updateAddress)(user, payload);
+    return res.json(response);
+}));
+exports.addressRouter.post('/delete', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(),
+    ...DeleteAddressValidator_1.default,
+    (0, DeleteAddressMiddleware_1.default)(),
+], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const response = yield (0, addressServices_1.deleteAddress)(payload);
     return res.json(response);
 }));
 //# sourceMappingURL=addressRouter.js.map

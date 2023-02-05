@@ -2,17 +2,21 @@ import { Router } from 'express';
 import multer from 'multer';
 import { Users } from '../entities/Users';
 import AddAddressMiddleware from '../middlewares/address/AddAddressMiddleware';
+import DeleteAddressMiddleware from '../middlewares/address/DeleteAddressMiddleware';
 import UpdateAddressMiddleware from '../middlewares/address/UpdateAddressMiddleware';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
+import DeleteAddressValidator from '../requestValidators/address/DeleteAddressValidator';
 import UpdateAddressValidator from '../requestValidators/address/UpdateAddressValidator';
 import {
   addAddress,
+  deleteAddress,
   getAddressList,
   updateAddress,
 } from '../services/address/addressServices';
 import {
   AddAddressPayload,
+  DeleteAddressPayload,
   UpdateAddressPayload,
 } from '../services/address/typings';
 import { CustomAuthenticatedRequest } from '../typings';
@@ -63,6 +67,23 @@ addressRouter.post(
     const payload = req.body;
 
     const response = await updateAddress(user, payload);
+
+    return res.json(response);
+  },
+);
+
+addressRouter.post(
+  '/delete',
+  ...[
+    upload.none(),
+    JwtAuthMiddleware(),
+    ...DeleteAddressValidator,
+    DeleteAddressMiddleware(),
+  ],
+  async (req: CustomAuthenticatedRequest<DeleteAddressPayload>, res) => {
+    const payload = req.body;
+
+    const response = await deleteAddress(payload);
 
     return res.json(response);
   },

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = void 0;
+exports.deleteAddress = exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = void 0;
 const typeorm_1 = require("typeorm");
 const dataSource_1 = require("../../dataSource");
 const getUserExistingAddressQuery = (user) => {
@@ -98,4 +98,13 @@ const updateAddress = (user, payload) => __awaiter(void 0, void 0, void 0, funct
     return response;
 });
 exports.updateAddress = updateAddress;
+const deleteAddress = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield dataSource_1.addressRepository
+        .createQueryBuilder()
+        .delete()
+        .where({ id: payload.addressId })
+        .execute();
+    return response;
+});
+exports.deleteAddress = deleteAddress;
 //# sourceMappingURL=addressServices.js.map

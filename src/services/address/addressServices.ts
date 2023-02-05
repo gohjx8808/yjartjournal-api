@@ -1,7 +1,11 @@
 import { Not } from 'typeorm';
 import { addressRepository } from '../../dataSource';
 import { Users } from '../../entities/Users';
-import { AddAddressPayload, UpdateAddressPayload } from './typings';
+import {
+  AddAddressPayload,
+  DeleteAddressPayload,
+  UpdateAddressPayload,
+} from './typings';
 
 const getUserExistingAddressQuery = (user: Users) => {
   const existingAddresses = addressRepository
@@ -113,6 +117,16 @@ export const updateAddress = async (
       tag: payload.tag,
     },
   );
+
+  return response;
+};
+
+export const deleteAddress = async (payload: DeleteAddressPayload) => {
+  const response = await addressRepository
+    .createQueryBuilder()
+    .delete()
+    .where({ id: payload.addressId })
+    .execute();
 
   return response;
 };
