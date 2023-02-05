@@ -21,6 +21,11 @@ const AddAddressValidator_1 = __importDefault(require("../requestValidators/addr
 const addressServices_1 = require("../services/address/addressServices");
 const upload = (0, multer_1.default)();
 exports.addressRouter = (0, express_1.Router)();
+exports.addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user.valueOf();
+    const response = yield (0, addressServices_1.getAddressList)(user);
+    return res.json({ data: response });
+}));
 exports.addressRouter.post('/add', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),

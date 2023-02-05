@@ -9,19 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkAddressExist = exports.addAddress = void 0;
+exports.checkAddressExist = exports.addAddress = exports.getAddressList = void 0;
 const dataSource_1 = require("../../dataSource");
 const getExistingAddress = (user) => {
     const existingAddresses = dataSource_1.addressRepository
         .createQueryBuilder('addresses')
-        .leftJoinAndSelect('addresses.user', 'user')
+        .leftJoin('addresses.user', 'user')
         .where('user.id = :id', { id: user.id });
     return existingAddresses;
 };
+const getAddressList = (user) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingAddresses = yield getExistingAddress(user).getMany();
+    return existingAddresses;
+});
+exports.getAddressList = getAddressList;
 const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     payload.isDefault = Boolean(payload.isDefault);
     if (payload.isDefault === true) {
-        const existingAddresses = yield getExistingAddress(user).getMany();
+        const existingAddresses = yield (0, exports.getAddressList)(user);
         existingAddresses.map((address) => __awaiter(void 0, void 0, void 0, function* () {
             yield dataSource_1.addressRepository.update({ id: address.id }, { isDefault: false });
         }));
@@ -32,7 +37,7 @@ const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function
 exports.addAddress = addAddress;
 const checkAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const existingAddresses = yield getExistingAddress(user)
-        .where({
+        .andWhere({
         receiverName: payload.receiverName,
         receiverCountryCode: payload.receiverCountryCode,
         receiverPhoneNumber: payload.receiverPhoneNumber,

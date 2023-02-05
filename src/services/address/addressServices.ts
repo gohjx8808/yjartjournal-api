@@ -5,8 +5,14 @@ import { AddAddressPayload } from './typings';
 const getExistingAddress = (user: Users) => {
   const existingAddresses = addressRepository
     .createQueryBuilder('addresses')
-    .leftJoinAndSelect('addresses.user', 'user')
+    .leftJoin('addresses.user', 'user')
     .where('user.id = :id', { id: user.id });
+
+  return existingAddresses;
+};
+
+export const getAddressList = async (user: Users) => {
+  const existingAddresses = await getExistingAddress(user).getMany();
 
   return existingAddresses;
 };
@@ -14,7 +20,7 @@ const getExistingAddress = (user: Users) => {
 export const addAddress = async (user: Users, payload: AddAddressPayload) => {
   payload.isDefault = Boolean(payload.isDefault);
   if (payload.isDefault === true) {
-    const existingAddresses = await getExistingAddress(user).getMany();
+    const existingAddresses = await getAddressList(user);
     existingAddresses.map(async (address) => {
       await addressRepository.update({ id: address.id }, { isDefault: false });
     });
@@ -29,7 +35,7 @@ export const checkAddressExist = async (
   payload: AddAddressPayload,
 ) => {
   const existingAddresses = await getExistingAddress(user)
-    .where({
+    .andWhere({
       receiverName: payload.receiverName,
       receiverCountryCode: payload.receiverCountryCode,
       receiverPhoneNumber: payload.receiverPhoneNumber,

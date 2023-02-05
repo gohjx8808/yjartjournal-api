@@ -4,13 +4,27 @@ import { Users } from '../entities/Users';
 import AddAddressMiddleware from '../middlewares/AddAddressMiddleware';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
-import { addAddress } from '../services/address/addressServices';
+import {
+  addAddress,
+  getAddressList,
+} from '../services/address/addressServices';
 import { AddAddressPayload } from '../services/address/typings';
 import { CustomAuthenticatedRequest } from '../typings';
 
 const upload = multer();
 
 export const addressRouter = Router();
+
+addressRouter.get(
+  '/list',
+  JwtAuthMiddleware(),
+  async (req: CustomAuthenticatedRequest, res) => {
+    const user = req.user.valueOf() as Users;
+    const response = await getAddressList(user);
+
+    return res.json({ data: response });
+  },
+);
 
 addressRouter.post(
   '/add',
