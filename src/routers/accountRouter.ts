@@ -7,10 +7,8 @@ import {
   getUserAccount,
   updateUserAccount,
 } from '../services/account/accountServices';
-import {
-  CustomAccountRequest,
-  UpdateAccountPayload,
-} from '../services/account/typings';
+import { UpdateAccountPayload } from '../services/account/typings';
+import { CustomAuthenticatedRequest } from '../typings';
 
 const upload = multer();
 
@@ -19,7 +17,7 @@ export const accountRouter = Router();
 accountRouter.get(
   '/details',
   JwtAuthMiddleware(),
-  async (req: CustomAccountRequest, res: Response) => {
+  async (req: CustomAuthenticatedRequest, res: Response) => {
     const user = req.user.valueOf() as Users;
     const details = await getUserAccount(user.id);
 
@@ -30,7 +28,7 @@ accountRouter.get(
 accountRouter.post(
   '/update',
   ...[upload.none(), ...UpdateAccountValidator, JwtAuthMiddleware()],
-  async (req: CustomAccountRequest<UpdateAccountPayload>, res) => {
+  async (req: CustomAuthenticatedRequest<UpdateAccountPayload>, res) => {
     const payload = req.body;
     const user = req.user.valueOf() as Users;
 

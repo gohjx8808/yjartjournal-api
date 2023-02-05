@@ -22,4 +22,4 @@ export const manager = dataSource.manager;
 
 export const userRepository = manager.getRepository(Users);
 
-export const addressRepositoy = manager.getRepository(Addresses);
+export const addressRepository = manager.getRepository(Addresses);

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addressRepositoy = exports.userRepository = exports.manager = exports.dataSource = void 0;
+exports.addressRepository = exports.userRepository = exports.manager = exports.dataSource = void 0;
 const typeorm_1 = require("typeorm");
 const _1672062650913_SeedSortOptions_1 = require("../migrations/1672062650913-SeedSortOptions");
 const Addresses_1 = __importDefault(require("./entities/Addresses"));
@@ -24,5 +24,5 @@ exports.dataSource = new typeorm_1.DataSource({
 });
 exports.manager = exports.dataSource.manager;
 exports.userRepository = exports.manager.getRepository(Users_1.Users);
-exports.addressRepositoy = exports.manager.getRepository(Addresses_1.default);
+exports.addressRepository = exports.manager.getRepository(Addresses_1.default);
 //# sourceMappingURL=dataSource.js.map

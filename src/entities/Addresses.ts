@@ -49,6 +49,9 @@ class Addresses {
   @Column({ name: "is_default", default: false })
     isDefault: boolean;
 
+  @Column({ nullable: true })
+    tag: string;
+
   @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
 

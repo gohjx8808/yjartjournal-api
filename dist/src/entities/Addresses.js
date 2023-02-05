@@ -64,6 +64,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Addresses.prototype, "isDefault", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Addresses.prototype, "tag", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
     __metadata("design:type", Date)
 ], Addresses.prototype, "createdAt", void 0);

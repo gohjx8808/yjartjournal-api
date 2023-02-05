@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { CustomAccountRequest } from '../services/account/typings';
+import { CustomAuthenticatedRequest } from '../typings';
 
 const JwtAuthMiddleware =
-  () => (req: CustomAccountRequest, res: Response, next: NextFunction) => {
+  () => (req: CustomAuthenticatedRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
       const token = authHeader.split(' ')[1];
