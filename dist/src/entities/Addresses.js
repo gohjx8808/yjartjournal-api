@@ -8,74 +8,67 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
-const Addresses_1 = __importDefault(require("./Addresses"));
-let Users = class Users {
+const Users_1 = require("./Users");
+let Addresses = class Addresses {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Users.prototype, "id", void 0);
+], Addresses.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Users_1.Users, (user) => user.addresses, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: "user_id", referencedColumnName: "id" }),
+    __metadata("design:type", Users_1.Users)
+], Addresses.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "receiver_name" }),
+    __metadata("design:type", String)
+], Addresses.prototype, "receiverName", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "receiver_country_code" }),
+    __metadata("design:type", String)
+], Addresses.prototype, "receiverCountryCode", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "receiver_phone_number" }),
+    __metadata("design:type", String)
+], Addresses.prototype, "receiverPhoneNumber", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "address_line_one" }),
+    __metadata("design:type", String)
+], Addresses.prototype, "addressLineOne", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "address_line_two", nullable: true }),
+    __metadata("design:type", String)
+], Addresses.prototype, "addressLineTwo", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ name: "preferred_name", nullable: true }),
-    __metadata("design:type", String)
-], Users.prototype, "preferredName", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], Users.prototype, "email", void 0);
+], Addresses.prototype, "postcode", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "password", void 0);
+], Addresses.prototype, "city", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "iv", void 0);
+], Addresses.prototype, "state", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "country_code" }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "countryCode", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ name: "phone_number" }),
-    __metadata("design:type", String)
-], Users.prototype, "phoneNumber", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "char" }),
-    __metadata("design:type", String)
-], Users.prototype, "gender", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "date" }),
-    __metadata("design:type", String)
-], Users.prototype, "dob", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ name: "is_admin", default: false }),
-    __metadata("design:type", Boolean)
-], Users.prototype, "isAdmin", void 0);
+], Addresses.prototype, "country", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
     __metadata("design:type", Date)
-], Users.prototype, "createdAt", void 0);
+], Addresses.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
     __metadata("design:type", Date)
-], Users.prototype, "updatedAt", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => Addresses_1.default, (address) => address.user),
-    __metadata("design:type", Addresses_1.default)
-], Users.prototype, "addresses", void 0);
-Users = __decorate([
+], Addresses.prototype, "updatedAt", void 0);
+Addresses = __decorate([
     (0, typeorm_1.Entity)()
-], Users);
-exports.Users = Users;
-//# sourceMappingURL=Users.js.map
+], Addresses);
+exports.default = Addresses;
+//# sourceMappingURL=Addresses.js.map
