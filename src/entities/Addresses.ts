@@ -46,6 +46,9 @@ class Addresses {
   @Column()
     country: string;
 
+  @Column({ name: "is_default" })
+    isDefault: boolean;
+
   @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
 
