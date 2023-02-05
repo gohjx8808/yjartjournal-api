@@ -11,3 +11,7 @@ export interface AddAddressPayload {
   isDefault: boolean;
   tag?: string;
 }
+
+export interface UpdateAddressPayload extends AddAddressPayload {
+  addressId: number;
+}

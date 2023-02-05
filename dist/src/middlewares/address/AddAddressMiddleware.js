@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const addressServices_1 = require("../services/address/addressServices");
+const addressServices_1 = require("../../services/address/addressServices");
 const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const user = req.user.valueOf();
     const addressExist = yield (0, addressServices_1.checkAddressExist)(user, payload);
     if (addressExist) {
-        return res.status(422).json({ 'message': 'Same address exist.' });
+        return res.status(422).json({ message: 'Same address exist.' });
     }
     return next();
 });

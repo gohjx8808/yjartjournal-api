@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addressRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
-const AddAddressMiddleware_1 = __importDefault(require("../middlewares/AddAddressMiddleware"));
+const AddAddressMiddleware_1 = __importDefault(require("../middlewares/address/AddAddressMiddleware"));
+const UpdateAddressMiddleware_1 = __importDefault(require("../middlewares/address/UpdateAddressMiddleware"));
 const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddleware"));
 const AddAddressValidator_1 = __importDefault(require("../requestValidators/address/AddAddressValidator"));
+const UpdateAddressValidator_1 = __importDefault(require("../requestValidators/address/UpdateAddressValidator"));
 const addressServices_1 = require("../services/address/addressServices");
 const upload = (0, multer_1.default)();
 exports.addressRouter = (0, express_1.Router)();
@@ -35,6 +37,17 @@ exports.addressRouter.post('/add', ...[
     const user = req.user.valueOf();
     const payload = req.body;
     const response = yield (0, addressServices_1.addAddress)(user, payload);
+    return res.json(response);
+}));
+exports.addressRouter.post('/update', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(),
+    ...UpdateAddressValidator_1.default,
+    (0, UpdateAddressMiddleware_1.default)(),
+], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user.valueOf();
+    const payload = req.body;
+    const response = yield (0, addressServices_1.updateAddress)(user, payload);
     return res.json(response);
 }));
 //# sourceMappingURL=addressRouter.js.map

@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express';
-import { Users } from '../entities/Users';
-import { checkAddressExist } from '../services/address/addressServices';
-import { AddAddressPayload } from '../services/address/typings';
-import { CustomAuthenticatedRequest } from '../typings';
+import { Users } from '../../entities/Users';
+import { checkAddressExist } from '../../services/address/addressServices';
+import { AddAddressPayload } from '../../services/address/typings';
+import { CustomAuthenticatedRequest } from '../../typings';
 
 const AddAddressMiddleware =
   () =>
@@ -17,7 +17,7 @@ const AddAddressMiddleware =
       const addressExist = await checkAddressExist(user, payload);
 
       if (addressExist) {
-        return res.status(422).json({ 'message':'Same address exist.' });
+        return res.status(422).json({ message: 'Same address exist.' });
       }
 
       return next();
