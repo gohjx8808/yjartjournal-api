@@ -60,7 +60,7 @@ __decorate([
     __metadata("design:type", String)
 ], Addresses.prototype, "country", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "is_default" }),
+    (0, typeorm_1.Column)({ name: "is_default", default: false }),
     __metadata("design:type", Boolean)
 ], Addresses.prototype, "isDefault", void 0);
 __decorate([
