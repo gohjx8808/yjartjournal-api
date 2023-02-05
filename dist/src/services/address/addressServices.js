@@ -32,7 +32,17 @@ const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function
 exports.addAddress = addAddress;
 const checkAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const existingAddresses = yield getExistingAddress(user)
-        .where(Object.assign({}, payload))
+        .where({
+        receiverName: payload.receiverName,
+        receiverCountryCode: payload.receiverCountryCode,
+        receiverPhoneNumber: payload.receiverPhoneNumber,
+        addressLineOne: payload.addressLineOne,
+        addressLineTwo: payload.addressLineTwo,
+        postcode: payload.postcode,
+        city: payload.city,
+        state: payload.state,
+        country: payload.country,
+    })
         .getMany();
     return existingAddresses.length > 0;
 });

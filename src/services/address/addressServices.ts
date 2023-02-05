@@ -29,7 +29,17 @@ export const checkAddressExist = async (
   payload: AddAddressPayload,
 ) => {
   const existingAddresses = await getExistingAddress(user)
-    .where({ ...payload })
+    .where({
+      receiverName: payload.receiverName,
+      receiverCountryCode: payload.receiverCountryCode,
+      receiverPhoneNumber: payload.receiverPhoneNumber,
+      addressLineOne: payload.addressLineOne,
+      addressLineTwo: payload.addressLineTwo,
+      postcode: payload.postcode,
+      city: payload.city,
+      state: payload.state,
+      country: payload.country,
+    })
     .getMany();
 
   return existingAddresses.length > 0;
