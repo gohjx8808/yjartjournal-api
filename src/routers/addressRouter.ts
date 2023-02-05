@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { Users } from '../entities/Users';
-import AddUpdateAddressMiddleware from '../middlewares/AddUpdateAddressMiddleware';
+import AddAddressMiddleware from '../middlewares/AddAddressMiddleware';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
-import AddUpdateAddressValidator from '../requestValidators/address/AddUpdateAddressValidator';
+import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
 import { addAddress } from '../services/address/addressServices';
 import { AddAddressPayload } from '../services/address/typings';
 import { CustomAuthenticatedRequest } from '../typings';
@@ -17,8 +17,8 @@ addressRouter.post(
   ...[
     upload.none(),
     JwtAuthMiddleware(),
-    ...AddUpdateAddressValidator,
-    AddUpdateAddressMiddleware(),
+    ...AddAddressValidator,
+    AddAddressMiddleware(),
   ],
   async (req: CustomAuthenticatedRequest<AddAddressPayload>, res) => {
     const user = req.user.valueOf() as Users;

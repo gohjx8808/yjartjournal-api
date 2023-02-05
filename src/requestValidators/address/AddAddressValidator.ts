@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import customValidator from '../customValidator';
 
-const AddUpdateAddressValidator = customValidator([
+const AddAddressValidator = customValidator([
   body('receiverName')
     .notEmpty()
     .withMessage('Receiver name is required.')
@@ -63,4 +63,4 @@ const AddUpdateAddressValidator = customValidator([
   body('tag').optional().isString().withMessage('Invalid tag.'),
 ]);
 
-export default AddUpdateAddressValidator;
+export default AddAddressValidator;

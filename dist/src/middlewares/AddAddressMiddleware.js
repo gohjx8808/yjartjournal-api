@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const addressServices_1 = require("../services/address/addressServices");
-const AddUpdateAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const user = req.user.valueOf();
     const addressExist = yield (0, addressServices_1.checkAddressExist)(user, payload);
@@ -19,5 +19,5 @@ const AddUpdateAddressMiddleware = () => (req, res, next) => __awaiter(void 0, v
     }
     return next();
 });
-exports.default = AddUpdateAddressMiddleware;
-//# sourceMappingURL=AddUpdateAddressMiddleware.js.map
+exports.default = AddAddressMiddleware;
+//# sourceMappingURL=AddAddressMiddleware.js.map

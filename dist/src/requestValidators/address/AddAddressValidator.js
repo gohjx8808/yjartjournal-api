@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("../customValidator"));
-const AddUpdateAddressValidator = (0, customValidator_1.default)([
+const AddAddressValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('receiverName')
         .notEmpty()
         .withMessage('Receiver name is required.')
@@ -66,5 +66,5 @@ const AddUpdateAddressValidator = (0, customValidator_1.default)([
         .withMessage('Invalid is default.'),
     (0, express_validator_1.body)('tag').optional().isString().withMessage('Invalid tag.'),
 ]);
-exports.default = AddUpdateAddressValidator;
-//# sourceMappingURL=AddUpdateAddressValidator.js.map
+exports.default = AddAddressValidator;
+//# sourceMappingURL=AddAddressValidator.js.map

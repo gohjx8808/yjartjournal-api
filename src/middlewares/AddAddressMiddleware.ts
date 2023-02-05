@@ -4,7 +4,7 @@ import { checkAddressExist } from '../services/address/addressServices';
 import { AddAddressPayload } from '../services/address/typings';
 import { CustomAuthenticatedRequest } from '../typings';
 
-const AddUpdateAddressMiddleware =
+const AddAddressMiddleware =
   () =>
     async (
       req: CustomAuthenticatedRequest<AddAddressPayload>,
@@ -23,4 +23,4 @@ const AddUpdateAddressMiddleware =
       return next();
     };
 
-export default AddUpdateAddressMiddleware;
+export default AddAddressMiddleware;
