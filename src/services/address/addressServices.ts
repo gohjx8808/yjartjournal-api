@@ -27,7 +27,9 @@ export const checkAddressIdExist = async (user: Users, addressId: number) => {
 };
 
 export const getAddressList = async (user: Users) => {
-  const existingAddresses = await getUserExistingAddressQuery(user).getMany();
+  const existingAddresses = await getUserExistingAddressQuery(user)
+    .orderBy({ 'addresses.updated_at': 'DESC' })
+    .getMany();
 
   return existingAddresses;
 };

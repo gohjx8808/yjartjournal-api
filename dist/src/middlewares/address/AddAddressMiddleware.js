@@ -15,7 +15,11 @@ const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0,
     const user = req.user.valueOf();
     const addressExist = yield (0, addressServices_1.checkAddressExist)(user, payload);
     if (addressExist) {
-        return res.status(422).json({ message: 'Same address exist.' });
+        return res
+            .status(422)
+            .json({
+            message: 'Duplicated address detected. Please use a different address.',
+        });
     }
     return next();
 });

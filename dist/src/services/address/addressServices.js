@@ -29,7 +29,9 @@ const checkAddressIdExist = (user, addressId) => __awaiter(void 0, void 0, void 
 });
 exports.checkAddressIdExist = checkAddressIdExist;
 const getAddressList = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield getUserExistingAddressQuery(user).getMany();
+    const existingAddresses = yield getUserExistingAddressQuery(user)
+        .orderBy({ 'addresses.updated_at': 'DESC' })
+        .getMany();
     return existingAddresses;
 });
 exports.getAddressList = getAddressList;
