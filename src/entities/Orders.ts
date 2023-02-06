@@ -23,15 +23,21 @@ class Orders {
   @JoinColumn({ name: "address_id", referencedColumnName: "id" })
     address: Addresses;
 
-  @ManyToOne(() => OrderStatuses, (orderStatus) => orderStatus.id)
-  @JoinColumn({ name: "order_status_id", referencedColumnName: "id" })
-    orderStatus: OrderStatuses;
+  @Column({ name: "shipping_fee", default: 0 })
+    shippingFee: number;
+
+  @Column({ name: "total_amount" })
+    totalAmount: number;
 
   @Column({ name: "payment_method" })
     paymentMethod: string;
 
   @Column({ nullable: true })
     note: string;
+
+  @ManyToOne(() => OrderStatuses, (orderStatus) => orderStatus.id)
+  @JoinColumn({ name: "order_status_id", referencedColumnName: "id" })
+    orderStatus: OrderStatuses;
 
   @CreateDateColumn({ name: "created_at" })
     createdAt: Date;

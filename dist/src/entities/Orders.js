@@ -32,10 +32,13 @@ __decorate([
     __metadata("design:type", Addresses_1.default)
 ], Orders.prototype, "address", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => OrderStatuses_1.default, (orderStatus) => orderStatus.id),
-    (0, typeorm_1.JoinColumn)({ name: "order_status_id", referencedColumnName: "id" }),
-    __metadata("design:type", OrderStatuses_1.default)
-], Orders.prototype, "orderStatus", void 0);
+    (0, typeorm_1.Column)({ name: "shipping_fee", default: 0 }),
+    __metadata("design:type", Number)
+], Orders.prototype, "shippingFee", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "total_amount" }),
+    __metadata("design:type", Number)
+], Orders.prototype, "totalAmount", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: "payment_method" }),
     __metadata("design:type", String)
@@ -44,6 +47,11 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Orders.prototype, "note", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => OrderStatuses_1.default, (orderStatus) => orderStatus.id),
+    (0, typeorm_1.JoinColumn)({ name: "order_status_id", referencedColumnName: "id" }),
+    __metadata("design:type", OrderStatuses_1.default)
+], Orders.prototype, "orderStatus", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
     __metadata("design:type", Date)
