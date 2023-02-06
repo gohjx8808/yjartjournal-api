@@ -13,6 +13,13 @@ const addressServices_1 = require("../../services/address/addressServices");
 const UpdateAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user.valueOf();
     const payload = req.body;
+    if (payload.tag) {
+        if (!(0, addressServices_1.validateTag)(payload.tag)) {
+            return res.status(422).json({
+                message: 'Invalid tag. Please select a valid tag.',
+            });
+        }
+    }
     const addressIdExist = yield (0, addressServices_1.checkAddressIdExist)(user, payload.addressId);
     if (!addressIdExist) {
         return res.status(422).json({ message: 'Address ID not exist!' });

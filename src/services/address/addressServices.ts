@@ -7,6 +7,13 @@ import {
   UpdateAddressPayload,
 } from './typings';
 
+export const validateTag = (tag: string) => {
+  if (tag !== 'Work' && tag !== 'Home') {
+    return false;
+  }
+  return true;
+};
+
 const getUserExistingAddressQuery = (user: Users) => {
   const existingAddresses = addressRepository
     .createQueryBuilder('addresses')

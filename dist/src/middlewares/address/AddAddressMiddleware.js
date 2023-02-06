@@ -13,11 +13,16 @@ const addressServices_1 = require("../../services/address/addressServices");
 const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const user = req.user.valueOf();
+    if (payload.tag) {
+        if (!(0, addressServices_1.validateTag)(payload.tag)) {
+            return res.status(422).json({
+                message: 'Invalid tag. Please select a valid tag.',
+            });
+        }
+    }
     const addressExist = yield (0, addressServices_1.checkAddressExist)(user, payload);
     if (addressExist) {
-        return res
-            .status(422)
-            .json({
+        return res.status(422).json({
             message: 'Duplicated address detected. Please use a different address.',
         });
     }

@@ -9,9 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAddress = exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = void 0;
+exports.deleteAddress = exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = exports.validateTag = void 0;
 const typeorm_1 = require("typeorm");
 const dataSource_1 = require("../../dataSource");
+const validateTag = (tag) => {
+    if (tag !== 'Work' && tag !== 'Home') {
+        return false;
+    }
+    return true;
+};
+exports.validateTag = validateTag;
 const getUserExistingAddressQuery = (user) => {
     const existingAddresses = dataSource_1.addressRepository
         .createQueryBuilder('addresses')
