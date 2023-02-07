@@ -10,12 +10,27 @@ import {
 import Orders from './Orders';
 
 @Entity()
-class OrderStatuses {
+class PromoCodes {
   @PrimaryGeneratedColumn()
     id: number;
 
   @Column()
     name: string;
+
+  @Column({ name: "promo_type" })
+    promoType: string;
+
+  @Column({ name: "promo_value" })
+    promoValue: number;
+
+  @Column({ name: "use_limit", nullable: true })
+    useLimit: number;
+
+  @Column({ name: "started_at" })
+    startedAt: Date;
+
+  @Column({ name: "expired_at" })
+    expiredAt: Date;
 
   @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
@@ -23,8 +38,8 @@ class OrderStatuses {
   @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
 
-  @OneToMany(() => Orders, (order) => order.orderStatus)
+  @OneToMany(() => Orders, (order) => order.promoCodeUsed)
     orders: Orders[];
 }
 
-export default OrderStatuses;
+export default PromoCodes;

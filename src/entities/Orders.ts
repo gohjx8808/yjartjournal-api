@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import Addresses from './Addresses';
 import OrderStatuses from './OrderStatuses';
+import PromoCodes from './PromoCodes';
 
 @Entity()
 class Orders {
@@ -19,7 +20,7 @@ class Orders {
   @Column({ name: "buyer_email" })
     buyerEmail: string;
 
-  @ManyToOne(() => Addresses, (address) => address.id)
+  @ManyToOne(() => Addresses, (address) => address.orders)
   @JoinColumn({ name: "address_id", referencedColumnName: "id" })
     address: Addresses;
 
@@ -32,10 +33,14 @@ class Orders {
   @Column({ name: "payment_method" })
     paymentMethod: string;
 
+  @ManyToOne(() => PromoCodes, (promoCode) => promoCode.orders)
+  @JoinColumn({ name: "promo_code_used" })
+    promoCodeUsed: PromoCodes;
+
   @Column({ nullable: true })
     note: string;
 
-  @ManyToOne(() => OrderStatuses, (orderStatus) => orderStatus.id)
+  @ManyToOne(() => OrderStatuses, (orderStatus) => orderStatus.orders)
   @JoinColumn({ name: "order_status_id", referencedColumnName: "id" })
     orderStatus: OrderStatuses;
 

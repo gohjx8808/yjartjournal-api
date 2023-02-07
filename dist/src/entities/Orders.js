@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Addresses_1 = __importDefault(require("./Addresses"));
 const OrderStatuses_1 = __importDefault(require("./OrderStatuses"));
+const PromoCodes_1 = __importDefault(require("./PromoCodes"));
 let Orders = class Orders {
 };
 __decorate([
@@ -27,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], Orders.prototype, "buyerEmail", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Addresses_1.default, (address) => address.id),
+    (0, typeorm_1.ManyToOne)(() => Addresses_1.default, (address) => address.orders),
     (0, typeorm_1.JoinColumn)({ name: "address_id", referencedColumnName: "id" }),
     __metadata("design:type", Addresses_1.default)
 ], Orders.prototype, "address", void 0);
@@ -44,11 +45,16 @@ __decorate([
     __metadata("design:type", String)
 ], Orders.prototype, "paymentMethod", void 0);
 __decorate([
+    (0, typeorm_1.ManyToOne)(() => PromoCodes_1.default, (promoCode) => promoCode.orders),
+    (0, typeorm_1.JoinColumn)({ name: "promo_code_used" }),
+    __metadata("design:type", PromoCodes_1.default)
+], Orders.prototype, "promoCodeUsed", void 0);
+__decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Orders.prototype, "note", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => OrderStatuses_1.default, (orderStatus) => orderStatus.id),
+    (0, typeorm_1.ManyToOne)(() => OrderStatuses_1.default, (orderStatus) => orderStatus.orders),
     (0, typeorm_1.JoinColumn)({ name: "order_status_id", referencedColumnName: "id" }),
     __metadata("design:type", OrderStatuses_1.default)
 ], Orders.prototype, "orderStatus", void 0);

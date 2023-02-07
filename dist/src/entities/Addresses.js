@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
+const Orders_1 = __importDefault(require("./Orders"));
 const Users_1 = require("./Users");
 let Addresses = class Addresses {
 };
@@ -75,6 +79,10 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
     __metadata("design:type", Date)
 ], Addresses.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Orders_1.default, (order) => order.address),
+    __metadata("design:type", Array)
+], Addresses.prototype, "orders", void 0);
 Addresses = __decorate([
     (0, typeorm_1.Entity)()
 ], Addresses);

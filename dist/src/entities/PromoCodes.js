@@ -15,30 +15,50 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
-let OrderStatuses = class OrderStatuses {
+let PromoCodes = class PromoCodes {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], OrderStatuses.prototype, "id", void 0);
+], PromoCodes.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], OrderStatuses.prototype, "name", void 0);
+], PromoCodes.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "promo_type" }),
+    __metadata("design:type", String)
+], PromoCodes.prototype, "promoType", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "promo_value" }),
+    __metadata("design:type", Number)
+], PromoCodes.prototype, "promoValue", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "use_limit", nullable: true }),
+    __metadata("design:type", Number)
+], PromoCodes.prototype, "useLimit", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "started_at" }),
+    __metadata("design:type", Date)
+], PromoCodes.prototype, "startedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "expired_at" }),
+    __metadata("design:type", Date)
+], PromoCodes.prototype, "expiredAt", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
     __metadata("design:type", Date)
-], OrderStatuses.prototype, "createdAt", void 0);
+], PromoCodes.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
     __metadata("design:type", Date)
-], OrderStatuses.prototype, "updatedAt", void 0);
+], PromoCodes.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Orders_1.default, (order) => order.orderStatus),
+    (0, typeorm_1.OneToMany)(() => Orders_1.default, (order) => order.promoCodeUsed),
     __metadata("design:type", Array)
-], OrderStatuses.prototype, "orders", void 0);
-OrderStatuses = __decorate([
+], PromoCodes.prototype, "orders", void 0);
+PromoCodes = __decorate([
     (0, typeorm_1.Entity)()
-], OrderStatuses);
-exports.default = OrderStatuses;
-//# sourceMappingURL=OrderStatuses.js.map
+], PromoCodes);
+exports.default = PromoCodes;
+//# sourceMappingURL=PromoCodes.js.map
