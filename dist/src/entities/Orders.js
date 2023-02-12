@@ -46,7 +46,7 @@ __decorate([
 ], Orders.prototype, "paymentMethod", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => PromoCodes_1.default, (promoCode) => promoCode.orders),
-    (0, typeorm_1.JoinColumn)({ name: "promo_code_used" }),
+    (0, typeorm_1.JoinColumn)({ name: "promo_code_used_id" }),
     __metadata("design:type", PromoCodes_1.default)
 ], Orders.prototype, "promoCodeUsed", void 0);
 __decorate([

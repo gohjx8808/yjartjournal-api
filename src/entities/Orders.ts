@@ -34,7 +34,7 @@ class Orders {
     paymentMethod: string;
 
   @ManyToOne(() => PromoCodes, (promoCode) => promoCode.orders)
-  @JoinColumn({ name: "promo_code_used" })
+  @JoinColumn({ name: "promo_code_used_id" })
     promoCodeUsed: PromoCodes;
 
   @Column({ nullable: true })
