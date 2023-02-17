@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Addresses_1 = __importDefault(require("./Addresses"));
+const CheckoutItems_1 = __importDefault(require("./CheckoutItems"));
 const OrderStatuses_1 = __importDefault(require("./OrderStatuses"));
 const PromoCodes_1 = __importDefault(require("./PromoCodes"));
 let Orders = class Orders {
@@ -66,6 +67,10 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
     __metadata("design:type", Date)
 ], Orders.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => CheckoutItems_1.default, (item) => item.order),
+    __metadata("design:type", Array)
+], Orders.prototype, "checkoutItems", void 0);
 Orders = __decorate([
     (0, typeorm_1.Entity)()
 ], Orders);

@@ -5,10 +5,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import Addresses from './Addresses';
+import CheckoutItems from './CheckoutItems';
 import OrderStatuses from './OrderStatuses';
 import PromoCodes from './PromoCodes';
 
@@ -49,6 +51,9 @@ class Orders {
 
   @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
+
+  @OneToMany(() => CheckoutItems, (item) => item.order)
+    checkoutItems: CheckoutItems[];
 }
 
 export default Orders;
