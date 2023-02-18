@@ -10,13 +10,13 @@ const JwtAuthMiddleware =
 
       verify(token, process.env.JWT_SIGN_TOKEN, (err, user) => {
         if (err) {
-          return res.status(401).json({ message: 'Unauthorized!' });
+          res.status(401).json({ message: 'Unauthorized!' });
         }
         req.user = user;
         next();
       });
     } else {
-      return res.status(401).json({ message: 'Unauthorized!' });
+      res.status(401).json({ message: 'Unauthorized!' });
     }
   };
 

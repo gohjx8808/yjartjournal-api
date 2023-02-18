@@ -28,7 +28,7 @@ exports.addressRouter = (0, express_1.Router)();
 exports.addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user.valueOf();
     const response = yield (0, addressServices_1.getAddressList)(user);
-    return res.json({ data: response });
+    res.json({ data: response });
 }));
 exports.addressRouter.post('/add', ...[
     upload.none(),
@@ -39,7 +39,7 @@ exports.addressRouter.post('/add', ...[
     const user = req.user.valueOf();
     const payload = req.body;
     const response = yield (0, addressServices_1.addAddress)(user, payload);
-    return res.json(response);
+    res.json(response);
 }));
 exports.addressRouter.post('/update', ...[
     upload.none(),
@@ -50,7 +50,7 @@ exports.addressRouter.post('/update', ...[
     const user = req.user.valueOf();
     const payload = req.body;
     const response = yield (0, addressServices_1.updateAddress)(user, payload);
-    return res.json(response);
+    res.json(response);
 }));
 exports.addressRouter.post('/delete', ...[
     upload.none(),
@@ -60,6 +60,6 @@ exports.addressRouter.post('/delete', ...[
 ], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, addressServices_1.deleteAddress)(payload);
-    return res.json(response);
+    res.json(response);
 }));
 //# sourceMappingURL=addressRouter.js.map

@@ -20,7 +20,7 @@ const UpdateAddressMiddleware =
 
       if (payload.tag) {
         if (!validateTag(payload.tag)) {
-          return res.status(422).json({
+          res.status(422).json({
             message: 'Invalid tag. Please select a valid tag.',
           });
         }
@@ -29,7 +29,7 @@ const UpdateAddressMiddleware =
       const addressIdExist = await checkAddressIdExist(user, payload.addressId);
 
       if (!addressIdExist) {
-        return res.status(422).json({ message: 'Address ID not exist!' });
+        res.status(422).json({ message: 'Address ID not exist!' });
       }
 
       const sameAddressExistExceptSelf = await checkAddressExistExceptSelf(
@@ -38,7 +38,7 @@ const UpdateAddressMiddleware =
       );
 
       if (sameAddressExistExceptSelf) {
-        return res
+        res
           .status(422)
           .json({ message: 'Duplicated address exists after update!' });
       }

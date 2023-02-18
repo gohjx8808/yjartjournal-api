@@ -19,21 +19,21 @@ const AddAddressMiddleware =
 
       if (payload.tag) {
         if (!validateTag(payload.tag)) {
-          return res.status(422).json({
-            message: 'Invalid tag. Please select a valid tag.',
-          });
+          res
+            .status(422)
+            .json({ message: 'Invalid tag. Please select a valid tag.' });
         }
       }
 
       const addressExist = await checkAddressExist(user, payload);
 
       if (addressExist) {
-        return res.status(422).json({
+        res.status(422).json({
           message: 'Duplicated address detected. Please use a different address.',
         });
       }
 
-      return next();
+      next();
     };
 
 export default AddAddressMiddleware;

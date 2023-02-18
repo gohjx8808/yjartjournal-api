@@ -32,7 +32,7 @@ addressRouter.get(
     const user = req.user.valueOf() as Users;
     const response = await getAddressList(user);
 
-    return res.json({ data: response });
+    res.json({ data: response });
   },
 );
 
@@ -50,7 +50,7 @@ addressRouter.post(
 
     const response = await addAddress(user, payload);
 
-    return res.json(response);
+    res.json(response);
   },
 );
 
@@ -68,7 +68,7 @@ addressRouter.post(
 
     const response = await updateAddress(user, payload);
 
-    return res.json(response);
+    res.json(response);
   },
 );
 
@@ -85,6 +85,6 @@ addressRouter.post(
 
     const response = await deleteAddress(payload);
 
-    return res.json(response);
+    res.json(response);
   },
 );

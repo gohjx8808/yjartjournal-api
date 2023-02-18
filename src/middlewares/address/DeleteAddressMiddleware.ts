@@ -17,7 +17,7 @@ const DeleteAddressMiddleware =
       const addressIdExist = await checkAddressIdExist(user, payload.addressId);
 
       if (!addressIdExist) {
-        return res.status(422).json({ message: 'Address ID not exist!' });
+        res.status(422).json({ message: 'Address ID not exist!' });
       }
 
       next();

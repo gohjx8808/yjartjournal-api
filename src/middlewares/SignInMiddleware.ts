@@ -18,13 +18,14 @@ const SignInMiddleware =
         .getOne();
 
       if (!user) {
-        return res.status(401).json({ message: 'User does not exist!' });
+        res.status(401).json({ message: 'User does not exist!' });
       } else {
         const decryptedPassword = decrypt(user.password, user.iv);
         if (decryptedPassword !== payload.password) {
-          return res
-            .status(401)
-            .json({ message: 'Your credentials are invalid! Please login with a valid username and password.' });
+          res.status(401).json({
+            message:
+            'Your credentials are invalid! Please login with a valid username and password.',
+          });
         }
 
         next();

@@ -22,6 +22,6 @@ exports.feedbackRouter = (0, express_1.Router)();
 exports.feedbackRouter.post('/submit', ...[upload.none(), ...FeedbackValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, feedbackServices_1.saveFeedback)(payload);
-    return res.json({ response });
+    res.json({ response });
 }));
 //# sourceMappingURL=feedbackRouter.js.map
