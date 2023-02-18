@@ -9,7 +9,6 @@ const DeleteAddressValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('addressId')
         .notEmpty()
         .withMessage('Address ID is required.')
-        .bail()
         .isInt()
         .withMessage('Invalid address ID.'),
 ]);

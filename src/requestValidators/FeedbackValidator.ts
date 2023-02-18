@@ -5,19 +5,14 @@ const FeedbackValidator = customValidator([
   body('name')
     .notEmpty()
     .withMessage('Name is required.')
-    .bail()
     .isString()
-    .withMessage('Invalid name.')
-    .bail(),
+    .withMessage('Invalid name.'),
   body('email')
     .notEmpty()
     .withMessage('Email is required.')
-    .bail()
     .isEmail()
-    .withMessage('Invalid email.')
-    .bail(),
-  body('feedback').notEmpty().withMessage('Feedback is required.').bail(),
+    .withMessage('Invalid email.'),
+  body('feedback').notEmpty().withMessage('Feedback is required.'),
 ]);
-
 
 export default FeedbackValidator;

@@ -9,18 +9,14 @@ const FeedbackValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('name')
         .notEmpty()
         .withMessage('Name is required.')
-        .bail()
         .isString()
-        .withMessage('Invalid name.')
-        .bail(),
+        .withMessage('Invalid name.'),
     (0, express_validator_1.body)('email')
         .notEmpty()
         .withMessage('Email is required.')
-        .bail()
         .isEmail()
-        .withMessage('Invalid email.')
-        .bail(),
-    (0, express_validator_1.body)('feedback').notEmpty().withMessage('Feedback is required.').bail(),
+        .withMessage('Invalid email.'),
+    (0, express_validator_1.body)('feedback').notEmpty().withMessage('Feedback is required.'),
 ]);
 exports.default = FeedbackValidator;
 //# sourceMappingURL=FeedbackValidator.js.map

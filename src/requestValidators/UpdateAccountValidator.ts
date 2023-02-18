@@ -2,36 +2,29 @@ import { body } from 'express-validator';
 import customValidator from './customValidator';
 
 const UpdateAccountValidator = customValidator([
-  body('name').notEmpty().withMessage('Name is required.').bail(),
+  body('name').notEmpty().withMessage('Name is required.'),
   body('preferredName').optional(),
   body('email').isEmpty().withMessage('Email should not be updated.'),
   body('countryCode')
     .notEmpty()
     .withMessage('Country code is required.')
-    .bail()
     .isInt()
-    .withMessage('Invalid country code.')
-    .bail(),
+    .withMessage('Invalid country code.'),
   body('phoneNumber')
     .notEmpty()
     .withMessage('Phone number is required.')
-    .bail()
     .isInt()
-    .withMessage('Invalid phone number.')
-    .bail(),
+    .withMessage('Invalid phone number.'),
   body('gender')
     .notEmpty()
     .withMessage('Gender is required.')
-    .bail()
     .matches(/^[FM]$/)
     .withMessage('Invalid gender.'),
   body('dob')
     .notEmpty()
     .withMessage('Date of birth is required.')
-    .bail()
     .isDate({ format: 'YYYY-MM-DD' })
-    .withMessage('Invalid date of birth.')
-    .bail(),
+    .withMessage('Invalid date of birth.'),
 ]);
 
 export default UpdateAccountValidator;

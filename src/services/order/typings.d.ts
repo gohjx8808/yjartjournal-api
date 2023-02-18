@@ -21,6 +21,6 @@ export interface CheckoutPayload {
 export interface CheckoutProductData {
   id: string;
   name: string;
-  pricePerUnit: number;
   quantity: number;
+  totalPrice: number;
 }

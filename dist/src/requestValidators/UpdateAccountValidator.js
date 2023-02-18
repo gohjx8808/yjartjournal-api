@@ -6,36 +6,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("./customValidator"));
 const UpdateAccountValidator = (0, customValidator_1.default)([
-    (0, express_validator_1.body)('name').notEmpty().withMessage('Name is required.').bail(),
+    (0, express_validator_1.body)('name').notEmpty().withMessage('Name is required.'),
     (0, express_validator_1.body)('preferredName').optional(),
     (0, express_validator_1.body)('email').isEmpty().withMessage('Email should not be updated.'),
     (0, express_validator_1.body)('countryCode')
         .notEmpty()
         .withMessage('Country code is required.')
-        .bail()
         .isInt()
-        .withMessage('Invalid country code.')
-        .bail(),
+        .withMessage('Invalid country code.'),
     (0, express_validator_1.body)('phoneNumber')
         .notEmpty()
         .withMessage('Phone number is required.')
-        .bail()
         .isInt()
-        .withMessage('Invalid phone number.')
-        .bail(),
+        .withMessage('Invalid phone number.'),
     (0, express_validator_1.body)('gender')
         .notEmpty()
         .withMessage('Gender is required.')
-        .bail()
         .matches(/^[FM]$/)
         .withMessage('Invalid gender.'),
     (0, express_validator_1.body)('dob')
         .notEmpty()
         .withMessage('Date of birth is required.')
-        .bail()
         .isDate({ format: 'YYYY-MM-DD' })
-        .withMessage('Invalid date of birth.')
-        .bail(),
+        .withMessage('Invalid date of birth.'),
 ]);
 exports.default = UpdateAccountValidator;
 //# sourceMappingURL=UpdateAccountValidator.js.map
