@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, oneOf } from 'express-validator';
 import customValidator from '../customValidator';
 
 const CheckoutValidator = customValidator([
@@ -17,6 +17,17 @@ const CheckoutValidator = customValidator([
     .withMessage('Total price of product is required.')
     .isFloat()
     .withMessage('Invalid total price of product'),
-]);
+], oneOf([
+  [
+    body('receiverName')
+      .notEmpty()
+      .withMessage('Receiver name is required.'),
+  ],
+  body('addressId')
+    .notEmpty()
+    .withMessage('Address ID is required.')
+    .isInt()
+    .withMessage('Invalid address ID'),
+]));
 
 export default CheckoutValidator;
