@@ -1,3 +1,7 @@
+export interface VerifyPromoCodePayload {
+  promoCode: string;
+}
+
 export interface CheckoutPayload {
   products: CheckoutProductData[];
   addressId?: number;

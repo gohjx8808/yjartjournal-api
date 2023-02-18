@@ -36,3 +36,9 @@ export const manager = dataSource.manager;
 export const userRepository = manager.getRepository(Users);
 
 export const addressRepository = manager.getRepository(Addresses);
+
+export const promoCodeRepository = manager.getRepository(PromoCodes);
+
+export const orderRepository = manager.getRepository(Orders);
+
+export const checkoutItemRepository = manager.getRepository(CheckoutItems);

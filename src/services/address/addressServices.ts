@@ -14,7 +14,7 @@ export const validateTag = (tag: string) => {
   return true;
 };
 
-const getUserExistingAddressQuery = (user: Users) => {
+export const getUserExistingAddressQuery = (user: Users) => {
   const existingAddresses = addressRepository
     .createQueryBuilder('addresses')
     .leftJoin('addresses.user', 'user')
