@@ -22,11 +22,7 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .isFloat()
         .withMessage('Invalid total price of product'),
 ], (0, express_validator_1.oneOf)([
-    [
-        (0, express_validator_1.body)('receiverName')
-            .notEmpty()
-            .withMessage('Receiver name is required.'),
-    ],
+    [(0, express_validator_1.body)('receiverName').notEmpty().withMessage('Receiver name is required.')],
     (0, express_validator_1.body)('addressId')
         .notEmpty()
         .withMessage('Address ID is required.')
