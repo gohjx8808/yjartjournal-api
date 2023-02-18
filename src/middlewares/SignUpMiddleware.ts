@@ -17,7 +17,7 @@ const SignUpMiddleware =
         .getExists();
 
       if (userExist) {
-        res.status(422).json({
+        return res.status(422).json({
           message:
           'The provided email is already in use by an existing user. ' +
           'Please register using another email or login using the correct credentials.',

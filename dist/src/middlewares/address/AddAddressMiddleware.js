@@ -22,7 +22,7 @@ const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0,
     }
     const addressExist = yield (0, addressServices_1.checkAddressExist)(user, payload);
     if (addressExist) {
-        res.status(422).json({
+        return res.status(422).json({
             message: 'Duplicated address detected. Please use a different address.',
         });
     }

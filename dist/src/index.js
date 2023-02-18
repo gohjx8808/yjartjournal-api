@@ -18,6 +18,7 @@ const dataSource_1 = require("./dataSource");
 const accountRouter_1 = require("./routers/accountRouter");
 const addressRouter_1 = require("./routers/addressRouter");
 const feedbackRouter_1 = require("./routers/feedbackRouter");
+const orderRouter_1 = require("./routers/orderRouter");
 const productRouter_1 = require("./routers/productRouter");
 const userRouter_1 = require("./routers/userRouter");
 var cors = require('cors');
@@ -35,6 +36,7 @@ dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0
     app.use('/users', userRouter_1.userRouter);
     app.use('/account', accountRouter_1.accountRouter);
     app.use('/addresses', addressRouter_1.addressRouter);
+    app.use('/orders', orderRouter_1.orderRouter);
     app.listen(port);
 }));
 //# sourceMappingURL=index.js.map

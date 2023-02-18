@@ -19,7 +19,7 @@ const CheckoutValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('products.*.totalPrice')
         .notEmpty()
         .withMessage('Total price of product is required.')
-        .isInt()
+        .isFloat()
         .withMessage('Invalid total price of product'),
 ]);
 exports.default = CheckoutValidator;

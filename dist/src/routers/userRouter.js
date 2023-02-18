@@ -25,11 +25,11 @@ exports.userRouter = (0, express_1.Router)();
 exports.userRouter.post('/sign-up', ...[upload.none(), ...SignUpValidator_1.default, (0, SignUpMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, userServices_1.signUpUser)(payload);
-    res.json(response);
+    return res.json(response);
 }));
 exports.userRouter.post('/sign-in', ...[upload.none(), ...SignInValidator_1.default, (0, SignInMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, userServices_1.generateAccessToken)(payload);
-    res.json({ data: response });
+    return res.json({ data: response });
 }));
 //# sourceMappingURL=userRouter.js.map

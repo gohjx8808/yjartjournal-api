@@ -18,7 +18,7 @@ userRouter.post<{}, any, SignUpPayload>(
     const payload = req.body;
     const response = await signUpUser(payload);
 
-    res.json(response);
+    return res.json(response);
   },
 );
 
@@ -30,6 +30,6 @@ userRouter.post<{}, any, SignInPayload>(
 
     const response = await generateAccessToken(payload);
 
-    res.json({ data:response });
+    return res.json({ data:response });
   },
 );

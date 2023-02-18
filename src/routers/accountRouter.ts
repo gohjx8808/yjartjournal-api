@@ -21,7 +21,7 @@ accountRouter.get(
     const user = req.user.valueOf() as Users;
     const details = await getUserAccount(user.id);
 
-    res.json({ data: details });
+    return res.json({ data: details });
   },
 );
 
@@ -34,6 +34,6 @@ accountRouter.post(
 
     const response = await updateUserAccount(user.id, payload);
 
-    res.json(response);
+    return res.json(response);
   },
 );

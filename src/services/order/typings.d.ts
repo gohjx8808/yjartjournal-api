@@ -1,7 +1,7 @@
 export interface CheckoutPayload {
   products: CheckoutProductData[];
   addressId?: number;
-  buyerEmail?: string;
+  buyerEmail: string;
   receiverName?: string;
   receiverCountryCode?: string;
   receiverPhoneNumber?: string;

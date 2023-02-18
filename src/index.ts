@@ -4,6 +4,7 @@ import { dataSource } from './dataSource';
 import { accountRouter } from './routers/accountRouter';
 import { addressRouter } from './routers/addressRouter';
 import { feedbackRouter } from './routers/feedbackRouter';
+import { orderRouter } from './routers/orderRouter';
 import { productRouter } from './routers/productRouter';
 import { userRouter } from './routers/userRouter';
 var cors = require('cors');
@@ -32,6 +33,8 @@ dataSource.initialize().then(async () => {
   app.use('/account', accountRouter);
 
   app.use('/addresses', addressRouter);
+
+  app.use('/orders', orderRouter);
 
   app.listen(port);
 });

@@ -18,12 +18,12 @@ const SignInMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, voi
         .where({ email: payload.email })
         .getOne();
     if (!user) {
-        res.status(401).json({ message: 'User does not exist!' });
+        return res.status(401).json({ message: 'User does not exist!' });
     }
     else {
         const decryptedPassword = (0, cryptoHelper_1.decrypt)(user.password, user.iv);
         if (decryptedPassword !== payload.password) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'Your credentials are invalid! Please login with a valid username and password.',
             });
         }

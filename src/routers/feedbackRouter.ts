@@ -14,6 +14,6 @@ feedbackRouter.post<{}, any, FeedbackPayload>(
     const payload = req.body;
     const response = await saveFeedback(payload);
     
-    res.json({ response });
+    return res.json({ response });
   },
 );

@@ -21,18 +21,18 @@ const upload = (0, multer_1.default)();
 exports.productRouter = (0, express_1.Router)();
 exports.productRouter.get('/categories', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const categories = yield (0, productServices_1.getProductCategories)();
-    res.json({ data: categories });
+    return res.json({ data: categories });
 }));
 exports.productRouter.post('/', ...[upload.none(), ...GetProductValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    res.json({ data: yield (0, productServices_1.getAllProducts)(payload) });
+    return res.json({ data: yield (0, productServices_1.getAllProducts)(payload) });
 }));
 exports.productRouter.get('/sort-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const sortOptions = yield (0, productServices_1.getSortOptions)();
-    res.json({ data: sortOptions });
+    return res.json({ data: sortOptions });
 }));
 exports.productRouter.get('/image-gallery', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productImages = yield (0, productServices_1.getAllImages)();
-    res.json({ data: productImages });
+    return res.json({ data: productImages });
 }));
 //# sourceMappingURL=productRouter.js.map

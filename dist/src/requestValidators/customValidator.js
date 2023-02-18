@@ -6,7 +6,7 @@ const customValidator = (validationChain) => [
     (req, res, next) => {
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty())
-            res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() });
         next();
     },
 ];

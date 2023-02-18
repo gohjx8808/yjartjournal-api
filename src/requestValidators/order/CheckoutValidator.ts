@@ -15,7 +15,7 @@ const CheckoutValidator = customValidator([
   body('products.*.totalPrice')
     .notEmpty()
     .withMessage('Total price of product is required.')
-    .isInt()
+    .isFloat()
     .withMessage('Invalid total price of product'),
 ]);
 
