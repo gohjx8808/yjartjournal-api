@@ -34,6 +34,6 @@ accountRouter.post(
 
     const response = await updateUserAccount(user.id, payload);
 
-    res.json(response);
+    return res.json(response);
   },
 );

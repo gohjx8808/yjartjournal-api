@@ -29,6 +29,6 @@ exports.accountRouter.post('/update', ...[upload.none(), ...UpdateAccountValidat
     const payload = req.body;
     const user = req.user.valueOf();
     const response = yield (0, accountServices_1.updateUserAccount)(user.id, payload);
-    res.json(response);
+    return res.json(response);
 }));
 //# sourceMappingURL=accountRouter.js.map
