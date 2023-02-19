@@ -15,6 +15,7 @@ export interface CheckoutPayload {
   city?: string;
   state?: string;
   country?: string;
+  shippingFee: number;
   promoCodeUsedId?: number;
   note?: string;
   addToAddressBook: boolean;

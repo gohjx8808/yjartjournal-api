@@ -26,6 +26,11 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .withMessage('Buyer email is required.')
         .isEmail()
         .withMessage('Invalid buyer email.'),
+    (0, express_validator_1.body)('shippingFee')
+        .notEmpty()
+        .withMessage('Shipping fee is required.')
+        .isInt()
+        .withMessage('Invalid shipping fee.'),
     (0, express_validator_1.body)('promoCodeUsedId')
         .optional()
         .isInt()

@@ -23,6 +23,11 @@ const CheckoutValidator = customValidator(
       .withMessage('Buyer email is required.')
       .isEmail()
       .withMessage('Invalid buyer email.'),
+    body('shippingFee')
+      .notEmpty()
+      .withMessage('Shipping fee is required.')
+      .isInt()
+      .withMessage('Invalid shipping fee.'),
     body('promoCodeUsedId')
       .optional()
       .isInt()
