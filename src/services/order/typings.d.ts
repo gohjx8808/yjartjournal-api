@@ -15,7 +15,7 @@ export interface CheckoutPayload {
   city?: string;
   state?: string;
   country?: string;
-  promoCodeUsed?: string;
+  promoCodeUsedId?: number;
   note?: string;
   addToAddressBook: boolean;
   paymentOption: 'TNG' | 'Bank Transfer';

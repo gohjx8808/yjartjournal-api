@@ -26,7 +26,10 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .withMessage('Buyer email is required.')
         .isEmail()
         .withMessage('Invalid buyer email.'),
-    (0, express_validator_1.body)('promoCodeUsed').optional(),
+    (0, express_validator_1.body)('promoCodeUsedId')
+        .optional()
+        .isInt()
+        .withMessage('Invalid promo code ID'),
     (0, express_validator_1.body)('note').optional(),
     (0, express_validator_1.body)('addToAddressBook')
         .notEmpty()

@@ -4,11 +4,12 @@ import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';
 import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
 import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
-import { checkout, getPromoCodeByName } from '../services/order/orderServices';
+import { checkout } from '../services/order/orderServices';
 import {
   CheckoutPayload,
   VerifyPromoCodePayload,
 } from '../services/order/typings';
+import { getPromoCodeByName } from '../services/promoCode/promoCodeServices';
 
 const upload = multer();
 
