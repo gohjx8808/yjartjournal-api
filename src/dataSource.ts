@@ -1,5 +1,7 @@
 import { DataSource } from 'typeorm';
 import { SeedSortOptions1672062650913 } from '../migrations/1672062650913-SeedSortOptions';
+import { SeedOrderStatuses1675693903490 } from '../migrations/1675693903490-SeedOrderStatuses';
+import { SeedStates1677079230858 } from '../migrations/1677079230858-SeedStates';
 import Addresses from './entities/Addresses';
 import CheckoutItems from './entities/CheckoutItems';
 import Feedbacks from './entities/Feedbacks';
@@ -7,6 +9,7 @@ import Orders from './entities/Orders';
 import OrderStatuses from './entities/OrderStatuses';
 import PromoCodes from './entities/PromoCodes';
 import SortOptions from './entities/SortOptions';
+import States from './entities/States';
 import { Users } from './entities/Users';
 
 export const dataSource = new DataSource({
@@ -20,13 +23,18 @@ export const dataSource = new DataSource({
     SortOptions,
     Feedbacks,
     Users,
+    States,
     Addresses,
     PromoCodes,
     OrderStatuses,
     Orders,
     CheckoutItems,
   ],
-  migrations: [SeedSortOptions1672062650913],
+  migrations: [
+    SeedSortOptions1672062650913,
+    SeedOrderStatuses1675693903490,
+    SeedStates1677079230858,
+  ],
   synchronize: true,
   logging: false,
 });
@@ -42,3 +50,5 @@ export const promoCodeRepository = manager.getRepository(PromoCodes);
 export const orderRepository = manager.getRepository(Orders);
 
 export const checkoutItemRepository = manager.getRepository(CheckoutItems);
+
+export const stateRepository = manager.getRepository(States);
