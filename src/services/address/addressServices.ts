@@ -18,6 +18,7 @@ export const getUserExistingAddressQuery = (user: Users) => {
   const existingAddresses = addressRepository
     .createQueryBuilder('addresses')
     .leftJoin('addresses.user', 'user')
+    .leftJoinAndSelect('addresses.state', 'state')
     .where('user.id = :id', { id: user.id });
 
   return existingAddresses;
@@ -60,7 +61,11 @@ export const oneDefaultAddressOnly = async (
 
 export const addAddress = async (user: Users, payload: AddAddressPayload) => {
   await oneDefaultAddressOnly(user, payload);
-  const response = await addressRepository.insert({ user, ...payload });
+  const response = await addressRepository.insert({
+    ...payload,
+    user,
+    state: { id: payload.stateId },
+  });
 
   return response;
 };
@@ -77,7 +82,7 @@ export const checkAddressQuery = (
     addressLineTwo: payload.addressLineTwo,
     postcode: payload.postcode,
     city: payload.city,
-    state: payload.state,
+    state: { id: payload.stateId },
     country: payload.country,
   });
 
@@ -120,7 +125,7 @@ export const updateAddress = async (
       addressLineTwo: payload.addressLineTwo,
       postcode: payload.postcode,
       city: payload.city,
-      state: payload.state,
+      state: { id: payload.stateId },
       country: payload.country,
       isDefault: payload.isDefault,
       tag: payload.tag,

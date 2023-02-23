@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import Orders from './Orders';
+import States from './States';
 import { Users } from './Users';
 
 @Entity()
@@ -42,8 +43,9 @@ class Addresses {
   @Column()
     city: string;
 
-  @Column()
-    state: string;
+  @ManyToOne(() => States, (state) => state.addresses)
+  @JoinColumn({ name: "state_id", referencedColumnName: "id" })
+    state: States;
 
   @Column()
     country: string;

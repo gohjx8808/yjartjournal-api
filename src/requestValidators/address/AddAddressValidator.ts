@@ -36,10 +36,10 @@ const AddAddressValidator = customValidator([
     .withMessage('City is required.')
     .isString()
     .withMessage('Invalid city.'),
-  body('state')
+  body('stateId')
     .notEmpty()
     .withMessage('State is required.')
-    .isString()
+    .isInt()
     .withMessage('Invalid state.'),
   body('country')
     .notEmpty()

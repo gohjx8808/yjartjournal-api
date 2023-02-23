@@ -6,7 +6,7 @@ export interface AddAddressPayload {
   addressLineTwo?: string;
   postcode: string;
   city: string;
-  state: string;
+  stateId: number;
   country: string;
   isDefault: boolean;
   tag?: string;

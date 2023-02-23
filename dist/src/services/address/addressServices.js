@@ -23,6 +23,7 @@ const getUserExistingAddressQuery = (user) => {
     const existingAddresses = dataSource_1.addressRepository
         .createQueryBuilder('addresses')
         .leftJoin('addresses.user', 'user')
+        .leftJoinAndSelect('addresses.state', 'state')
         .where('user.id = :id', { id: user.id });
     return existingAddresses;
 };
@@ -59,7 +60,7 @@ const oneDefaultAddressOnly = (user, payload) => __awaiter(void 0, void 0, void 
 exports.oneDefaultAddressOnly = oneDefaultAddressOnly;
 const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, exports.oneDefaultAddressOnly)(user, payload);
-    const response = yield dataSource_1.addressRepository.insert(Object.assign({ user }, payload));
+    const response = yield dataSource_1.addressRepository.insert(Object.assign(Object.assign({}, payload), { user, state: { id: payload.stateId } }));
     return response;
 });
 exports.addAddress = addAddress;
@@ -72,7 +73,7 @@ const checkAddressQuery = (user, payload) => {
         addressLineTwo: payload.addressLineTwo,
         postcode: payload.postcode,
         city: payload.city,
-        state: payload.state,
+        state: { id: payload.stateId },
         country: payload.country,
     });
     return filterAddressQuery;
@@ -100,7 +101,7 @@ const updateAddress = (user, payload) => __awaiter(void 0, void 0, void 0, funct
         addressLineTwo: payload.addressLineTwo,
         postcode: payload.postcode,
         city: payload.city,
-        state: payload.state,
+        state: { id: payload.stateId },
         country: payload.country,
         isDefault: payload.isDefault,
         tag: payload.tag,

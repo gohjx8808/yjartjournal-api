@@ -3,9 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Addresses from './Addresses';
 
 @Entity()
 class States {
@@ -20,6 +22,9 @@ class States {
 
   @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
+
+  @OneToMany(() => Addresses, (address) => address.state)
+    addresses: Addresses[];
 }
 
 export default States;

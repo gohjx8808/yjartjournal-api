@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
+const States_1 = __importDefault(require("./States"));
 const Users_1 = require("./Users");
 let Addresses = class Addresses {
 };
@@ -56,8 +57,9 @@ __decorate([
     __metadata("design:type", String)
 ], Addresses.prototype, "city", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    (0, typeorm_1.ManyToOne)(() => States_1.default, (state) => state.addresses),
+    (0, typeorm_1.JoinColumn)({ name: "state_id", referencedColumnName: "id" }),
+    __metadata("design:type", States_1.default)
 ], Addresses.prototype, "state", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
