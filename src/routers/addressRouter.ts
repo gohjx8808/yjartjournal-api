@@ -12,6 +12,7 @@ import {
   addAddress,
   deleteAddress,
   getAddressList,
+  getStateList,
   updateAddress,
 } from '../services/address/addressServices';
 import {
@@ -31,6 +32,15 @@ addressRouter.get(
   async (req: CustomAuthenticatedRequest, res) => {
     const user = req.user.valueOf() as Users;
     const response = await getAddressList(user);
+
+    return res.json({ data: response });
+  },
+);
+
+addressRouter.get(
+  '/state-list',
+  async (_req, res) => {
+    const response = await getStateList();
 
     return res.json({ data: response });
   },

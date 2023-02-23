@@ -1,5 +1,5 @@
 import { Not } from 'typeorm';
-import { addressRepository } from '../../dataSource';
+import { addressRepository, stateRepository } from '../../dataSource';
 import { Users } from '../../entities/Users';
 import {
   AddAddressPayload,
@@ -143,4 +143,10 @@ export const deleteAddress = async (payload: DeleteAddressPayload) => {
     .execute();
 
   return response;
+};
+
+export const getStateList = async () => {
+  const states = await stateRepository.createQueryBuilder().getMany();
+
+  return states.map((state) => ({ label: state.name, value: state.id }));
 };

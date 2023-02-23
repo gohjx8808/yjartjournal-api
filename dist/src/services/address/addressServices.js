@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAddress = exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = exports.getUserExistingAddressQuery = exports.validateTag = void 0;
+exports.getStateList = exports.deleteAddress = exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = exports.getUserExistingAddressQuery = exports.validateTag = void 0;
 const typeorm_1 = require("typeorm");
 const dataSource_1 = require("../../dataSource");
 const validateTag = (tag) => {
@@ -118,4 +118,9 @@ const deleteAddress = (payload) => __awaiter(void 0, void 0, void 0, function* (
     return response;
 });
 exports.deleteAddress = deleteAddress;
+const getStateList = () => __awaiter(void 0, void 0, void 0, function* () {
+    const states = yield dataSource_1.stateRepository.createQueryBuilder().getMany();
+    return states.map((state) => ({ label: state.name, value: state.id }));
+});
+exports.getStateList = getStateList;
 //# sourceMappingURL=addressServices.js.map
