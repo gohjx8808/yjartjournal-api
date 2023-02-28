@@ -38,7 +38,7 @@ addressRouter.get(
 );
 
 addressRouter.get(
-  '/state-list',
+  '/state-options',
   async (_req, res) => {
     const response = await getStateList();
 

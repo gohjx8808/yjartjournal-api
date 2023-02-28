@@ -60,7 +60,7 @@ const oneDefaultAddressOnly = (user, payload) => __awaiter(void 0, void 0, void 
 exports.oneDefaultAddressOnly = oneDefaultAddressOnly;
 const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, exports.oneDefaultAddressOnly)(user, payload);
-    const response = yield dataSource_1.addressRepository.insert(Object.assign(Object.assign({}, payload), { user, state: { id: payload.stateId } }));
+    const response = yield dataSource_1.addressRepository.insert(Object.assign(Object.assign({}, payload), { user, state: payload.state }));
     return response;
 });
 exports.addAddress = addAddress;
@@ -73,7 +73,7 @@ const checkAddressQuery = (user, payload) => {
         addressLineTwo: payload.addressLineTwo,
         postcode: payload.postcode,
         city: payload.city,
-        state: { id: payload.stateId },
+        state: payload.state,
         country: payload.country,
     });
     return filterAddressQuery;
@@ -101,7 +101,7 @@ const updateAddress = (user, payload) => __awaiter(void 0, void 0, void 0, funct
         addressLineTwo: payload.addressLineTwo,
         postcode: payload.postcode,
         city: payload.city,
-        state: { id: payload.stateId },
+        state: payload.state,
         country: payload.country,
         isDefault: payload.isDefault,
         tag: payload.tag,
@@ -120,7 +120,7 @@ const deleteAddress = (payload) => __awaiter(void 0, void 0, void 0, function* (
 exports.deleteAddress = deleteAddress;
 const getStateList = () => __awaiter(void 0, void 0, void 0, function* () {
     const states = yield dataSource_1.stateRepository.createQueryBuilder().getMany();
-    return states.map((state) => ({ label: state.name, value: state.id }));
+    return states;
 });
 exports.getStateList = getStateList;
 //# sourceMappingURL=addressServices.js.map

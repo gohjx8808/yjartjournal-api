@@ -1,26 +1,37 @@
 import { createClient } from 'contentful';
 import { manager } from '../../dataSource';
 import SortOptions from '../../entities/SortOptions';
-import { getContentfulOrderByKeyword, randomizeImages } from '../../helpers/productHelper';
-import { GalleryData, GetAllProductsPayload, PickedProductImageData, ProductData, RawGalleryData, RawProductData } from './typings';
+import {
+  getContentfulOrderByKeyword,
+  randomizeImages,
+} from '../../helpers/productHelper';
+import {
+  GalleryData,
+  GetAllProductsPayload,
+  PickedProductImageData,
+  ProductData,
+  RawGalleryData,
+  RawProductData,
+} from './typings';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID || '',
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
 
-export const getProductCategories = async ()=>{
+export const getProductCategories = async () => {
   const productCategories = await client
     .getEntries<RawProductData>({
     content_type: 'products',
-    select:'fields.category',
-  }).then((entries) =>
-    entries.items.map((entry) => {
-      const data = entry.fields;
+    select: 'fields.category',
+  })
+    .then((entries) =>
+      entries.items.map((entry) => {
+        const data = entry.fields;
 
-      return data.category;
-    }),
-  );
+        return data.category;
+      }),
+    );
 
   return [...new Set(productCategories)].sort();
 };
@@ -58,10 +69,9 @@ export const getAllProducts = async (
 };
 
 export const getSortOptions = async () => {
-  return (await manager.find(SortOptions)).map((option) => ({
-    label: option.name,
-    value: option.id,
-  }));
+  const sortData = await manager.find(SortOptions);
+
+  return sortData;
 };
 
 export const getAllImages = async (): Promise<GalleryData[]> => {

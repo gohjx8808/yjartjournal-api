@@ -30,7 +30,7 @@ exports.addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res
     const response = yield (0, addressServices_1.getAddressList)(user);
     return res.json({ data: response });
 }));
-exports.addressRouter.get('/state-list', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.addressRouter.get('/state-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield (0, addressServices_1.getStateList)();
     return res.json({ data: response });
 }));

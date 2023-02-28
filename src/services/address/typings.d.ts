@@ -1,3 +1,5 @@
+import { OptionData } from '../../typings';
+
 export interface AddAddressPayload {
   receiverName: string;
   receiverCountryCode: string;
@@ -6,7 +8,7 @@ export interface AddAddressPayload {
   addressLineTwo?: string;
   postcode: string;
   city: string;
-  stateId: number;
+  state: OptionData;
   country: string;
   isDefault: boolean;
   tag?: string;

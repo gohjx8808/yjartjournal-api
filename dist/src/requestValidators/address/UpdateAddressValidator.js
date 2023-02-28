@@ -45,16 +45,18 @@ const UpdateAddressValidator = (0, customValidator_1.default)([
         .withMessage('City is required.')
         .isString()
         .withMessage('Invalid city.'),
-    (0, express_validator_1.body)('stateId')
+    (0, express_validator_1.body)('state')
         .notEmpty()
         .withMessage('State is required.')
-        .isInt()
+        .isObject()
         .withMessage('Invalid state.'),
     (0, express_validator_1.body)('country')
         .notEmpty()
         .withMessage('Country is required.')
         .isString()
-        .withMessage('Invalid country.'),
+        .withMessage('Invalid country.')
+        .matches(/^\bMalaysia\b$/)
+        .withMessage('Only Malaysia is allowed.'),
     (0, express_validator_1.body)('isDefault')
         .notEmpty()
         .withMessage('Is default is required.')

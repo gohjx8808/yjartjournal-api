@@ -26,7 +26,8 @@ const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* (
         .getEntries({
         content_type: 'products',
         select: 'fields.category',
-    }).then((entries) => entries.items.map((entry) => {
+    })
+        .then((entries) => entries.items.map((entry) => {
         const data = entry.fields;
         return data.category;
     }));
@@ -56,10 +57,8 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getAllProducts = getAllProducts;
 const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {
-    return (yield dataSource_1.manager.find(SortOptions_1.default)).map((option) => ({
-        label: option.name,
-        value: option.id,
-    }));
+    const sortData = yield dataSource_1.manager.find(SortOptions_1.default);
+    return sortData;
 });
 exports.getSortOptions = getSortOptions;
 const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {

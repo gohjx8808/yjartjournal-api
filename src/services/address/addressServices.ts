@@ -64,7 +64,7 @@ export const addAddress = async (user: Users, payload: AddAddressPayload) => {
   const response = await addressRepository.insert({
     ...payload,
     user,
-    state: { id: payload.stateId },
+    state: payload.state,
   });
 
   return response;
@@ -82,7 +82,7 @@ export const checkAddressQuery = (
     addressLineTwo: payload.addressLineTwo,
     postcode: payload.postcode,
     city: payload.city,
-    state: { id: payload.stateId },
+    state: payload.state,
     country: payload.country,
   });
 
@@ -125,7 +125,7 @@ export const updateAddress = async (
       addressLineTwo: payload.addressLineTwo,
       postcode: payload.postcode,
       city: payload.city,
-      state: { id: payload.stateId },
+      state: payload.state,
       country: payload.country,
       isDefault: payload.isDefault,
       tag: payload.tag,
@@ -148,5 +148,5 @@ export const deleteAddress = async (payload: DeleteAddressPayload) => {
 export const getStateList = async () => {
   const states = await stateRepository.createQueryBuilder().getMany();
 
-  return states.map((state) => ({ label: state.name, value: state.id }));
+  return states;
 };
