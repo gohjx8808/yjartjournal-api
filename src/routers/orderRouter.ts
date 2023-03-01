@@ -2,10 +2,15 @@ import { Router } from 'express';
 import multer from 'multer';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';
+import CalculateShippingFeeValidator from '../requestValidators/order/CalculateShippingFeeValidator';
 import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
 import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
-import { checkout } from '../services/order/orderServices';
 import {
+  calculateShippingFee,
+  checkout,
+} from '../services/order/orderServices';
+import {
+  CalculateShippingFeePayload,
   CheckoutPayload,
   VerifyPromoCodePayload,
 } from '../services/order/typings';
@@ -28,6 +33,18 @@ orderRouter.post<{}, any, VerifyPromoCodePayload>(
     const response = await getPromoCodeByName(payload.promoCode);
 
     return res.json({ response });
+  },
+);
+
+orderRouter.post<{}, any, CalculateShippingFeePayload>(
+  '/calculate-shipping-fee',
+  ...[upload.none(), ...CalculateShippingFeeValidator],
+  (req, res) => {
+    const payload = req.body;
+
+    const response = calculateShippingFee(payload);
+
+    return res.json({ data: { shippingFee: response } });
   },
 );
 

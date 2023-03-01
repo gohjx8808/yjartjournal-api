@@ -1,3 +1,5 @@
+import { OptionData } from '../../typings';
+
 export interface VerifyPromoCodePayload {
   promoCode: string;
 }
@@ -28,4 +30,9 @@ export interface CheckoutProductData {
   name: string;
   quantity: number;
   totalPrice: number;
+}
+
+export interface CalculateShippingFeePayload {
+  state: OptionData;
+  totalAmount: number;
 }
