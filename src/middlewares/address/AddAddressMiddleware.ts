@@ -19,7 +19,7 @@ const AddAddressMiddleware =
 
       if (payload.tag) {
         if (!validateTag(payload.tag)) {
-          res
+          return res
             .status(422)
             .json({ message: 'Invalid tag. Please select a valid tag.' });
         }

@@ -15,7 +15,7 @@ const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0,
     const user = req.user.valueOf();
     if (payload.tag) {
         if (!(0, addressServices_1.validateTag)(payload.tag)) {
-            res
+            return res
                 .status(422)
                 .json({ message: 'Invalid tag. Please select a valid tag.' });
         }

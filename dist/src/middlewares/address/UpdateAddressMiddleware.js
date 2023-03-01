@@ -26,7 +26,7 @@ const UpdateAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void
     }
     const sameAddressExistExceptSelf = yield (0, addressServices_1.checkAddressExistExceptSelf)(user, payload);
     if (sameAddressExistExceptSelf) {
-        res
+        return res
             .status(422)
             .json({ message: 'Duplicated address exists after update!' });
     }

@@ -38,7 +38,7 @@ const UpdateAddressMiddleware =
       );
 
       if (sameAddressExistExceptSelf) {
-        res
+        return res
           .status(422)
           .json({ message: 'Duplicated address exists after update!' });
       }
