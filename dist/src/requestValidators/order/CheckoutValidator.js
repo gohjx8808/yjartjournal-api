@@ -36,11 +36,6 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .isInt()
         .withMessage('Invalid promo code ID'),
     (0, express_validator_1.body)('note').optional(),
-    (0, express_validator_1.body)('addToAddressBook')
-        .notEmpty()
-        .withMessage('Add to address book is required.')
-        .isBoolean()
-        .withMessage('Invalid add to address book option.'),
     (0, express_validator_1.body)('paymentOption')
         .notEmpty()
         .withMessage('Payment option is required.')
@@ -87,13 +82,15 @@ const CheckoutValidator = (0, customValidator_1.default)([
         (0, express_validator_1.body)('state')
             .notEmpty()
             .withMessage('State is required.')
-            .isString()
+            .isObject()
             .withMessage('Invalid state.'),
         (0, express_validator_1.body)('country')
             .notEmpty()
             .withMessage('Country is required.')
             .isString()
-            .withMessage('Invalid country.'),
+            .withMessage('Invalid country.')
+            .matches(/^\bMalaysia\b$/)
+            .withMessage('Only Malaysia is allowed.'),
     ],
     (0, express_validator_1.body)('addressId')
         .notEmpty()

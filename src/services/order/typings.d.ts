@@ -15,12 +15,11 @@ export interface CheckoutPayload {
   addressLineTwo?: string;
   postcode?: string;
   city?: string;
-  state?: string;
+  state?: OptionData;
   country?: string;
   shippingFee: number;
   promoCodeUsedId?: number;
   note?: string;
-  addToAddressBook: boolean;
   paymentOption: 'TNG' | 'Bank Transfer';
   totalAmount: number;
 }

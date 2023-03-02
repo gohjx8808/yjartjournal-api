@@ -33,11 +33,6 @@ const CheckoutValidator = customValidator(
       .isInt()
       .withMessage('Invalid promo code ID'),
     body('note').optional(),
-    body('addToAddressBook')
-      .notEmpty()
-      .withMessage('Add to address book is required.')
-      .isBoolean()
-      .withMessage('Invalid add to address book option.'),
     body('paymentOption')
       .notEmpty()
       .withMessage('Payment option is required.')
@@ -85,13 +80,15 @@ const CheckoutValidator = customValidator(
       body('state')
         .notEmpty()
         .withMessage('State is required.')
-        .isString()
+        .isObject()
         .withMessage('Invalid state.'),
       body('country')
         .notEmpty()
         .withMessage('Country is required.')
         .isString()
-        .withMessage('Invalid country.'),
+        .withMessage('Invalid country.')
+        .matches(/^\bMalaysia\b$/)
+        .withMessage('Only Malaysia is allowed.'),
     ],
     body('addressId')
       .notEmpty()

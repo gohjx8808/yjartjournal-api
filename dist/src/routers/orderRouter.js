@@ -39,8 +39,9 @@ exports.orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...Calcul
     const response = (0, orderServices_1.calculateShippingFee)(payload);
     return res.json({ data: { shippingFee: response } });
 });
-exports.orderRouter.post('/checkout', ...[upload.none(), ...CheckoutValidator_1.default], (req, res) => {
+exports.orderRouter.post('/checkout', ...[upload.none(), ...CheckoutValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    (0, orderServices_1.checkout)(payload);
-});
+    const response = yield (0, orderServices_1.checkout)(payload);
+    return res.json({ data: response });
+}));
 //# sourceMappingURL=orderRouter.js.map

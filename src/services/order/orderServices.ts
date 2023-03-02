@@ -1,3 +1,4 @@
+import { addressRepository } from '../../dataSource';
 import { CalculateShippingFeePayload, CheckoutPayload } from './typings';
 
 export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
@@ -21,6 +22,12 @@ export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
   }
 };
 
-export const checkout = (payload: CheckoutPayload) => {
-  console.log(payload);
+export const checkout = async (payload: CheckoutPayload) => {
+  let addressId = payload.addressId;
+
+  if (!addressId) {
+    addressId = (await addressRepository.insert(payload)).identifiers[0].id;
+  }
+
+  return addressId;
 };

@@ -51,9 +51,11 @@ orderRouter.post<{}, any, CalculateShippingFeePayload>(
 orderRouter.post<{}, any, CheckoutPayload>(
   '/checkout',
   ...[upload.none(), ...CheckoutValidator],
-  (req, res) => {
+  async (req, res) => {
     const payload = req.body;
 
-    checkout(payload);
+    const response = await checkout(payload);
+
+    return res.json({ data: response });
   },
 );
