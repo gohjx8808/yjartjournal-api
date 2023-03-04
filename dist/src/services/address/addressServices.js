@@ -89,8 +89,8 @@ const checkAddressQuery = (user, payload) => {
 };
 exports.checkAddressQuery = checkAddressQuery;
 const isAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield (0, exports.checkAddressQuery)(user, payload).getMany();
-    return existingAddresses.length > 0;
+    const existingAddresses = yield (0, exports.checkAddressQuery)(user, payload).getOne();
+    return { id: existingAddresses === null || existingAddresses === void 0 ? void 0 : existingAddresses.id, exist: !!existingAddresses };
 });
 exports.isAddressExist = isAddressExist;
 const isAddressExistExceptSelf = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {

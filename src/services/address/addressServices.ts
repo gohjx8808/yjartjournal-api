@@ -102,9 +102,9 @@ export const isAddressExist = async (
   user: Users,
   payload: AddAddressPayload,
 ) => {
-  const existingAddresses = await checkAddressQuery(user, payload).getMany();
+  const existingAddresses = await checkAddressQuery(user, payload).getOne();
 
-  return existingAddresses.length > 0;
+  return { id: existingAddresses?.id, exist: !!existingAddresses };
 };
 
 export const isAddressExistExceptSelf = async (

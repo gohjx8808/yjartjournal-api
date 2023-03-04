@@ -25,7 +25,7 @@ const AddAddressMiddleware =
         }
       }
 
-      const addressExist = await isAddressExist(user, payload);
+      const addressExist = (await isAddressExist(user, payload)).exist;
 
       if (addressExist) {
         return res.status(422).json({
