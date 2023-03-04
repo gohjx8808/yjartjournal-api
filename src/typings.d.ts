@@ -3,7 +3,7 @@ import { JwtPayload } from 'jsonwebtoken';
 
 export interface CustomAuthenticatedRequest<RequestPayloadType = any>
   extends Request<{}, any, RequestPayloadType> {
-  user: string | JwtPayload;
+  user?: string | JwtPayload;
 }
 
 export interface OptionData {

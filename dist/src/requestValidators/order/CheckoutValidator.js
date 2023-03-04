@@ -36,6 +36,11 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .isInt()
         .withMessage('Invalid promo code ID'),
     (0, express_validator_1.body)('note').optional(),
+    (0, express_validator_1.body)('addToAddressBook')
+        .notEmpty()
+        .withMessage('Add to address book is required.')
+        .isBoolean()
+        .withMessage('Invalid add to address book option.'),
     (0, express_validator_1.body)('paymentOption')
         .notEmpty()
         .withMessage('Payment option is required.')

@@ -20,11 +20,11 @@ const UpdateAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void
             });
         }
     }
-    const addressIdExist = yield (0, addressServices_1.checkAddressIdExist)(user, payload.addressId);
+    const addressIdExist = yield (0, addressServices_1.isAddressIdExist)(user, payload.addressId);
     if (!addressIdExist) {
         return res.status(422).json({ message: 'Address ID not exist!' });
     }
-    const sameAddressExistExceptSelf = yield (0, addressServices_1.checkAddressExistExceptSelf)(user, payload);
+    const sameAddressExistExceptSelf = yield (0, addressServices_1.isAddressExistExceptSelf)(user, payload);
     if (sameAddressExistExceptSelf) {
         return res
             .status(422)

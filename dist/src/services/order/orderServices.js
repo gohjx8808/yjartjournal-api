@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkout = exports.calculateShippingFee = void 0;
 const dataSource_1 = require("../../dataSource");
+const addressServices_1 = require("../address/addressServices");
 const calculateShippingFee = (payload) => {
     const stateId = payload.state.id;
     const totalAmount = payload.totalAmount;
@@ -33,9 +34,26 @@ const calculateShippingFee = (payload) => {
     }
 };
 exports.calculateShippingFee = calculateShippingFee;
-const checkout = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
     let addressId = payload.addressId;
-    if (!addressId) {
+    const addressData = {
+        receiverName: payload.receiverName,
+        receiverCountryCode: payload.receiverCountryCode,
+        receiverPhoneNumber: payload.receiverPhoneNumber,
+        addressLineOne: payload.addressLineOne,
+        addressLineTwo: payload.addressLineTwo,
+        postcode: payload.postcode,
+        city: payload.city,
+        state: payload.state,
+        country: payload.country,
+        isDefault: false,
+    };
+    if (user && payload.addToAddressBook) {
+        if (!(yield (0, addressServices_1.isAddressExist)(user, addressData))) {
+            addressId = (yield (0, addressServices_1.addAddress)(user, addressData)).identifiers[0].id;
+        }
+    }
+    else {
         addressId = (yield dataSource_1.addressRepository.insert(payload)).identifiers[0].id;
     }
     return addressId;

@@ -16,6 +16,7 @@ exports.orderRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddleware"));
+const CheckoutMiddleware_1 = __importDefault(require("../middlewares/order/CheckoutMiddleware"));
 const VerifyPromoCodeMiddleware_1 = __importDefault(require("../middlewares/order/VerifyPromoCodeMiddleware"));
 const CalculateShippingFeeValidator_1 = __importDefault(require("../requestValidators/order/CalculateShippingFeeValidator"));
 const CheckoutValidator_1 = __importDefault(require("../requestValidators/order/CheckoutValidator"));
@@ -39,9 +40,16 @@ exports.orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...Calcul
     const response = (0, orderServices_1.calculateShippingFee)(payload);
     return res.json({ data: { shippingFee: response } });
 });
-exports.orderRouter.post('/checkout', ...[upload.none(), ...CheckoutValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.orderRouter.post('/checkout', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(false),
+    ...CheckoutValidator_1.default,
+    (0, CheckoutMiddleware_1.default)(),
+], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const payload = req.body;
-    const response = yield (0, orderServices_1.checkout)(payload);
+    const user = (_a = req.user) === null || _a === void 0 ? void 0 : _a.valueOf();
+    const response = yield (0, orderServices_1.checkout)(payload, user);
     return res.json({ data: response });
 }));
 //# sourceMappingURL=orderRouter.js.map

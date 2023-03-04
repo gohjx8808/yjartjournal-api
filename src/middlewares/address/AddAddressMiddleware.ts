@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { Users } from '../../entities/Users';
 import {
-  checkAddressExist,
+  isAddressExist,
   validateTag,
 } from '../../services/address/addressServices';
 import { AddAddressPayload } from '../../services/address/typings';
@@ -25,7 +25,7 @@ const AddAddressMiddleware =
         }
       }
 
-      const addressExist = await checkAddressExist(user, payload);
+      const addressExist = await isAddressExist(user, payload);
 
       if (addressExist) {
         return res.status(422).json({

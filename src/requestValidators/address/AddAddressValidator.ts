@@ -22,10 +22,7 @@ const AddAddressValidator = customValidator([
     .withMessage('Address line one is required.')
     .isString()
     .withMessage('Invalid address line one.'),
-  body('addressLineTwo')
-    .optional()
-    .isString()
-    .withMessage('Invalid address line two.'),
+  body('addressLineTwo').optional(),
   body('postcode')
     .notEmpty()
     .withMessage('Postcode is required.')
@@ -53,7 +50,7 @@ const AddAddressValidator = customValidator([
     .withMessage('Is default is required.')
     .isBoolean()
     .withMessage('Invalid is default.'),
-  body('tag').optional().isString().withMessage('Invalid tag.'),
+  body('tag').optional(),
 ]);
 
 export default AddAddressValidator;

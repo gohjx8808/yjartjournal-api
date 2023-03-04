@@ -26,10 +26,7 @@ const AddAddressValidator = (0, customValidator_1.default)([
         .withMessage('Address line one is required.')
         .isString()
         .withMessage('Invalid address line one.'),
-    (0, express_validator_1.body)('addressLineTwo')
-        .optional()
-        .isString()
-        .withMessage('Invalid address line two.'),
+    (0, express_validator_1.body)('addressLineTwo').optional(),
     (0, express_validator_1.body)('postcode')
         .notEmpty()
         .withMessage('Postcode is required.')
@@ -57,7 +54,7 @@ const AddAddressValidator = (0, customValidator_1.default)([
         .withMessage('Is default is required.')
         .isBoolean()
         .withMessage('Invalid is default.'),
-    (0, express_validator_1.body)('tag').optional().isString().withMessage('Invalid tag.'),
+    (0, express_validator_1.body)('tag').optional(),
 ]);
 exports.default = AddAddressValidator;
 //# sourceMappingURL=AddAddressValidator.js.map

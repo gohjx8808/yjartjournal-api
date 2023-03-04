@@ -1,4 +1,4 @@
-import { Not } from 'typeorm';
+import { IsNull, Not } from 'typeorm';
 import { addressRepository, stateRepository } from '../../dataSource';
 import { Users } from '../../entities/Users';
 import {
@@ -24,7 +24,7 @@ export const getUserExistingAddressQuery = (user: Users) => {
   return existingAddresses;
 };
 
-export const checkAddressIdExist = async (user: Users, addressId: number) => {
+export const isAddressIdExist = async (user: Users, addressId: number) => {
   const addressAvailable = await getUserExistingAddressQuery(user)
     .andWhere({
       id: addressId,
@@ -74,22 +74,31 @@ export const checkAddressQuery = (
   user: Users,
   payload: AddAddressPayload | UpdateAddressPayload,
 ) => {
-  const filterAddressQuery = getUserExistingAddressQuery(user).andWhere({
+  let filterAddressQuery = getUserExistingAddressQuery(user).andWhere({
     receiverName: payload.receiverName,
     receiverCountryCode: payload.receiverCountryCode,
     receiverPhoneNumber: payload.receiverPhoneNumber,
     addressLineOne: payload.addressLineOne,
-    addressLineTwo: payload.addressLineTwo,
     postcode: payload.postcode,
     city: payload.city,
     state: payload.state,
     country: payload.country,
   });
 
+  if (payload.addressLineTwo === null) {
+    filterAddressQuery = filterAddressQuery.andWhere({
+      addressLineTwo: IsNull(),
+    });
+  } else {
+    filterAddressQuery = filterAddressQuery.andWhere({
+      addressLineTwo: payload.addressLineTwo,
+    });
+  }
+
   return filterAddressQuery;
 };
 
-export const checkAddressExist = async (
+export const isAddressExist = async (
   user: Users,
   payload: AddAddressPayload,
 ) => {
@@ -98,7 +107,7 @@ export const checkAddressExist = async (
   return existingAddresses.length > 0;
 };
 
-export const checkAddressExistExceptSelf = async (
+export const isAddressExistExceptSelf = async (
   user: Users,
   payload: UpdateAddressPayload,
 ) => {

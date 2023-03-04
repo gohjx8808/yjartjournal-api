@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
 import { Users } from '../../entities/Users';
 import {
-  checkAddressExistExceptSelf,
-  checkAddressIdExist,
-  validateTag,
+  isAddressExistExceptSelf,
+  isAddressIdExist,
+  validateTag
 } from '../../services/address/addressServices';
 import { UpdateAddressPayload } from '../../services/address/typings';
 import { CustomAuthenticatedRequest } from '../../typings';
@@ -26,13 +26,13 @@ const UpdateAddressMiddleware =
         }
       }
 
-      const addressIdExist = await checkAddressIdExist(user, payload.addressId);
+      const addressIdExist = await isAddressIdExist(user, payload.addressId);
 
       if (!addressIdExist) {
         return res.status(422).json({ message: 'Address ID not exist!' });
       }
 
-      const sameAddressExistExceptSelf = await checkAddressExistExceptSelf(
+      const sameAddressExistExceptSelf = await isAddressExistExceptSelf(
         user,
         payload,
       );

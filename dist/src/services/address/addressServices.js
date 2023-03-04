@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStateList = exports.deleteAddress = exports.updateAddress = exports.checkAddressExistExceptSelf = exports.checkAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.checkAddressIdExist = exports.getUserExistingAddressQuery = exports.validateTag = void 0;
+exports.getStateList = exports.deleteAddress = exports.updateAddress = exports.isAddressExistExceptSelf = exports.isAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.isAddressIdExist = exports.getUserExistingAddressQuery = exports.validateTag = void 0;
 const typeorm_1 = require("typeorm");
 const dataSource_1 = require("../../dataSource");
 const validateTag = (tag) => {
@@ -28,7 +28,7 @@ const getUserExistingAddressQuery = (user) => {
     return existingAddresses;
 };
 exports.getUserExistingAddressQuery = getUserExistingAddressQuery;
-const checkAddressIdExist = (user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
+const isAddressIdExist = (user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
     const addressAvailable = yield (0, exports.getUserExistingAddressQuery)(user)
         .andWhere({
         id: addressId,
@@ -36,7 +36,7 @@ const checkAddressIdExist = (user, addressId) => __awaiter(void 0, void 0, void 
         .getExists();
     return addressAvailable;
 });
-exports.checkAddressIdExist = checkAddressIdExist;
+exports.isAddressIdExist = isAddressIdExist;
 const getAddressList = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const existingAddresses = yield (0, exports.getUserExistingAddressQuery)(user)
         .orderBy({ 'addresses.updated_at': 'DESC' })
@@ -65,32 +65,41 @@ const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function
 });
 exports.addAddress = addAddress;
 const checkAddressQuery = (user, payload) => {
-    const filterAddressQuery = (0, exports.getUserExistingAddressQuery)(user).andWhere({
+    let filterAddressQuery = (0, exports.getUserExistingAddressQuery)(user).andWhere({
         receiverName: payload.receiverName,
         receiverCountryCode: payload.receiverCountryCode,
         receiverPhoneNumber: payload.receiverPhoneNumber,
         addressLineOne: payload.addressLineOne,
-        addressLineTwo: payload.addressLineTwo,
         postcode: payload.postcode,
         city: payload.city,
         state: payload.state,
         country: payload.country,
     });
+    if (payload.addressLineTwo === null) {
+        filterAddressQuery = filterAddressQuery.andWhere({
+            addressLineTwo: (0, typeorm_1.IsNull)(),
+        });
+    }
+    else {
+        filterAddressQuery = filterAddressQuery.andWhere({
+            addressLineTwo: payload.addressLineTwo,
+        });
+    }
     return filterAddressQuery;
 };
 exports.checkAddressQuery = checkAddressQuery;
-const checkAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
+const isAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const existingAddresses = yield (0, exports.checkAddressQuery)(user, payload).getMany();
     return existingAddresses.length > 0;
 });
-exports.checkAddressExist = checkAddressExist;
-const checkAddressExistExceptSelf = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
+exports.isAddressExist = isAddressExist;
+const isAddressExistExceptSelf = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const existingAddressesExceptSelf = yield (0, exports.checkAddressQuery)(user, payload)
         .andWhere({ id: (0, typeorm_1.Not)(payload.addressId) })
         .getMany();
     return existingAddressesExceptSelf.length > 0;
 });
-exports.checkAddressExistExceptSelf = checkAddressExistExceptSelf;
+exports.isAddressExistExceptSelf = isAddressExistExceptSelf;
 const updateAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, exports.oneDefaultAddressOnly)(user, payload);
     const response = yield dataSource_1.addressRepository.update({ id: payload.addressId }, {

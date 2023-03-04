@@ -1,4 +1,6 @@
 import { addressRepository } from '../../dataSource';
+import { Users } from '../../entities/Users';
+import { addAddress, isAddressExist } from '../address/addressServices';
 import { CalculateShippingFeePayload, CheckoutPayload } from './typings';
 
 export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
@@ -22,10 +24,27 @@ export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
   }
 };
 
-export const checkout = async (payload: CheckoutPayload) => {
+export const checkout = async (payload: CheckoutPayload, user:Users) => {
   let addressId = payload.addressId;
 
-  if (!addressId) {
+  const addressData = {
+    receiverName: payload.receiverName,
+    receiverCountryCode: payload.receiverCountryCode,
+    receiverPhoneNumber: payload.receiverPhoneNumber,
+    addressLineOne: payload.addressLineOne,
+    addressLineTwo: payload.addressLineTwo,
+    postcode: payload.postcode,
+    city: payload.city,
+    state: payload.state,
+    country: payload.country,
+    isDefault: false,
+  };
+
+  if (user && payload.addToAddressBook) {
+    if (!await isAddressExist(user, addressData)) {
+      addressId = (await addAddress(user, addressData)).identifiers[0].id;
+    }
+  } else {
     addressId = (await addressRepository.insert(payload)).identifiers[0].id;
   }
 

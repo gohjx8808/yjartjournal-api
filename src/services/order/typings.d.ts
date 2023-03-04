@@ -20,6 +20,7 @@ export interface CheckoutPayload {
   shippingFee: number;
   promoCodeUsedId?: number;
   note?: string;
+  addToAddressBook: boolean;
   paymentOption: 'TNG' | 'Bank Transfer';
   totalAmount: number;
 }

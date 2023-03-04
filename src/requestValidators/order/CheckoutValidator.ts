@@ -33,6 +33,11 @@ const CheckoutValidator = customValidator(
       .isInt()
       .withMessage('Invalid promo code ID'),
     body('note').optional(),
+    body('addToAddressBook')
+      .notEmpty()
+      .withMessage('Add to address book is required.')
+      .isBoolean()
+      .withMessage('Invalid add to address book option.'),
     body('paymentOption')
       .notEmpty()
       .withMessage('Payment option is required.')

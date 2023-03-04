@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { Users } from '../../entities/Users';
-import { checkAddressIdExist } from '../../services/address/addressServices';
+import { isAddressIdExist } from '../../services/address/addressServices';
 import { DeleteAddressPayload } from '../../services/address/typings';
 import { CustomAuthenticatedRequest } from '../../typings';
 
@@ -14,7 +14,7 @@ const DeleteAddressMiddleware =
       const user = req.user.valueOf() as Users;
       const payload = req.body;
 
-      const addressIdExist = await checkAddressIdExist(user, payload.addressId);
+      const addressIdExist = await isAddressIdExist(user, payload.addressId);
 
       if (!addressIdExist) {
         return res.status(422).json({ message: 'Address ID not exist!' });
