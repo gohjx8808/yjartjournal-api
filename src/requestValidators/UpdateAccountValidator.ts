@@ -3,7 +3,10 @@ import customValidator from './customValidator';
 
 const UpdateAccountValidator = customValidator([
   body('name').notEmpty().withMessage('Name is required.'),
-  body('preferredName').optional(),
+  body('preferredName')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('Invalid preferred name.'),
   body('email').isEmpty().withMessage('Email should not be updated.'),
   body('countryCode')
     .notEmpty()

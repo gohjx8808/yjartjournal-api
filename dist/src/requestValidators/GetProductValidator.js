@@ -11,7 +11,10 @@ const GetProductValidator = (0, customValidator_1.default)([
         .withMessage('Sort ID is required.')
         .isInt({ min: 1, max: 4 })
         .withMessage('Invalid sort ID.'),
-    (0, express_validator_1.body)('search').optional().isString().withMessage('Invalid search.'),
+    (0, express_validator_1.body)('search')
+        .optional({ nullable: true })
+        .isString()
+        .withMessage('Invalid search.'),
 ]);
 exports.default = GetProductValidator;
 //# sourceMappingURL=GetProductValidator.js.map

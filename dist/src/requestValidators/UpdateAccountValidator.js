@@ -7,7 +7,10 @@ const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("./customValidator"));
 const UpdateAccountValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('name').notEmpty().withMessage('Name is required.'),
-    (0, express_validator_1.body)('preferredName').optional(),
+    (0, express_validator_1.body)('preferredName')
+        .optional({ nullable: true })
+        .isString()
+        .withMessage('Invalid preferred name.'),
     (0, express_validator_1.body)('email').isEmpty().withMessage('Email should not be updated.'),
     (0, express_validator_1.body)('countryCode')
         .notEmpty()

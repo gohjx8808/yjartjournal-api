@@ -7,7 +7,10 @@ const GetProductValidator = customValidator([
     .withMessage('Sort ID is required.')
     .isInt({ min: 1, max: 4 })
     .withMessage('Invalid sort ID.'),
-  body('search').optional().isString().withMessage('Invalid search.'),
+  body('search')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('Invalid search.'),
 ]);
 
 export default GetProductValidator;

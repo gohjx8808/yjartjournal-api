@@ -31,11 +31,14 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .withMessage('Shipping fee is required.')
         .isInt()
         .withMessage('Invalid shipping fee.'),
-    (0, express_validator_1.body)('promoCodeUsedId')
-        .optional()
-        .isInt()
-        .withMessage('Invalid promo code ID'),
-    (0, express_validator_1.body)('note').optional(),
+    (0, express_validator_1.body)('promoCodeUsed')
+        .optional({ nullable: true })
+        .isObject()
+        .withMessage('Invalid promo code.'),
+    (0, express_validator_1.body)('note')
+        .optional({ nullable: true })
+        .isString()
+        .withMessage('Invalid note.'),
     (0, express_validator_1.body)('addToAddressBook')
         .notEmpty()
         .withMessage('Add to address book is required.')
@@ -73,7 +76,10 @@ const CheckoutValidator = (0, customValidator_1.default)([
             .withMessage('Address line one is required.')
             .isString()
             .withMessage('Invalid address line one.'),
-        (0, express_validator_1.body)('addressLineTwo').optional(),
+        (0, express_validator_1.body)('addressLineTwo')
+            .optional({ nullable: true })
+            .isString()
+            .withMessage('Invalid address line two.'),
         (0, express_validator_1.body)('postcode')
             .notEmpty()
             .withMessage('Postcode is required.')

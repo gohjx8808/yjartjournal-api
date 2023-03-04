@@ -3,7 +3,10 @@ import customValidator from '../customValidator';
 
 const SignUpValidator = customValidator([
   body('name').notEmpty().withMessage('Name is required.'),
-  body('preferredName').optional(),
+  body('preferredName')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('Invalid preferred name.'),
   body('email')
     .notEmpty()
     .withMessage('Email is required.')
