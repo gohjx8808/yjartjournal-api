@@ -24,7 +24,7 @@ export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
   }
 };
 
-export const checkout = async (payload: CheckoutPayload, user: Users) => {
+const insertCheckoutAddress = async (payload: CheckoutPayload, user: Users) => {
   let addressId = payload.addressId;
 
   const addressData = {
@@ -50,6 +50,12 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
   } else {
     addressId = (await addressRepository.insert(payload)).identifiers[0].id;
   }
+
+  return addressId;
+};
+
+export const checkout = async (payload: CheckoutPayload, user: Users) => {
+  const addressId = await insertCheckoutAddress(payload, user);
 
   return addressId;
 };

@@ -34,7 +34,7 @@ const calculateShippingFee = (payload) => {
     }
 };
 exports.calculateShippingFee = calculateShippingFee;
-const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
+const insertCheckoutAddress = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
     let addressId = payload.addressId;
     const addressData = {
         receiverName: payload.receiverName,
@@ -60,6 +60,10 @@ const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* 
     else {
         addressId = (yield dataSource_1.addressRepository.insert(payload)).identifiers[0].id;
     }
+    return addressId;
+});
+const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
+    const addressId = yield insertCheckoutAddress(payload, user);
     return addressId;
 });
 exports.checkout = checkout;
