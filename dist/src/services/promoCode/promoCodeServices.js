@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validatePromoCode = void 0;
-const dataSource_1 = require("../../dataSource");
+const orderRepository_1 = require("../../repositories/orderRepository");
 const addressServices_1 = require("../address/addressServices");
 const validatePromoCode = (promoCode, user) => __awaiter(void 0, void 0, void 0, function* () {
     if (!promoCode) {
@@ -26,10 +26,7 @@ const validatePromoCode = (promoCode, user) => __awaiter(void 0, void 0, void 0,
     const userAddresses = yield (0, addressServices_1.getAddressList)(user);
     let promoCodeUsedAmount = 0;
     userAddresses.map((address) => __awaiter(void 0, void 0, void 0, function* () {
-        const addressPromoCode = yield dataSource_1.orderRepository.findBy({
-            address: address,
-            promoCodeUsed: promoCode,
-        });
+        const addressPromoCode = yield (0, orderRepository_1.getOrderByAddressPromoCodeUsed)(address, promoCode);
         promoCodeUsedAmount += addressPromoCode.length;
     }));
     if (promoCodeUsedAmount > promoCode.useLimit) {

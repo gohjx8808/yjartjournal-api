@@ -1,6 +1,6 @@
-import { orderRepository } from '../../dataSource';
 import PromoCodes from '../../entities/PromoCodes';
 import Users from '../../entities/Users';
+import { getOrderByAddressPromoCodeUsed } from '../../repositories/orderRepository';
 import { getAddressList } from '../address/addressServices';
 
 export const validatePromoCode = async (promoCode: PromoCodes, user: Users) => {
@@ -21,10 +21,10 @@ export const validatePromoCode = async (promoCode: PromoCodes, user: Users) => {
   const userAddresses = await getAddressList(user);
   let promoCodeUsedAmount = 0;
   userAddresses.map(async (address) => {
-    const addressPromoCode = await orderRepository.findBy({
-      address: address,
-      promoCodeUsed: promoCode,
-    });
+    const addressPromoCode = await getOrderByAddressPromoCodeUsed(
+      address,
+      promoCode,
+    );
 
     promoCodeUsedAmount += addressPromoCode.length;
   });

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.orderRepository = exports.manager = exports.dataSource = void 0;
+exports.manager = exports.dataSource = void 0;
 const typeorm_1 = require("typeorm");
 const _1672062650913_SeedSortOptions_1 = require("../migrations/1672062650913-SeedSortOptions");
 const _1675693903490_SeedOrderStatuses_1 = require("../migrations/1675693903490-SeedOrderStatuses");
@@ -44,5 +44,4 @@ exports.dataSource = new typeorm_1.DataSource({
     logging: false,
 });
 exports.manager = exports.dataSource.manager;
-exports.orderRepository = exports.manager.getRepository(Orders_1.default);
 //# sourceMappingURL=dataSource.js.map

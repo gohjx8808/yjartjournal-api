@@ -40,7 +40,3 @@ export const dataSource = new DataSource({
 });
 
 export const manager = dataSource.manager;
-
-
-
-export const orderRepository = manager.getRepository(Orders);
