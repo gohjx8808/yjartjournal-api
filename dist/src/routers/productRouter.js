@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
+const sortOptionsRepository_1 = require("../repositories/sortOptionsRepository");
 const GetProductValidator_1 = __importDefault(require("../requestValidators/GetProductValidator"));
 const productServices_1 = require("../services/product/productServices");
 const upload = (0, multer_1.default)();
@@ -28,7 +29,7 @@ exports.productRouter.post('/', ...[upload.none(), ...GetProductValidator_1.defa
     return res.json({ data: yield (0, productServices_1.getAllProducts)(payload) });
 }));
 exports.productRouter.get('/sort-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const sortOptions = yield (0, productServices_1.getSortOptions)();
+    const sortOptions = yield (0, sortOptionsRepository_1.getSortOptions)();
     return res.json({ data: sortOptions });
 }));
 exports.productRouter.get('/image-gallery', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {

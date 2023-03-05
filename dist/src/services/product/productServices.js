@@ -8,14 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllImages = exports.getSortOptions = exports.getAllProducts = exports.getProductCategories = void 0;
+exports.getAllImages = exports.getAllProducts = exports.getProductCategories = void 0;
 const contentful_1 = require("contentful");
-const dataSource_1 = require("../../dataSource");
-const SortOptions_1 = __importDefault(require("../../entities/SortOptions"));
 const productHelper_1 = require("../../helpers/productHelper");
 const client = (0, contentful_1.createClient)({
     space: process.env.CONTENTFUL_SPACE_ID || '',
@@ -56,11 +51,6 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
     }));
 });
 exports.getAllProducts = getAllProducts;
-const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {
-    const sortData = yield dataSource_1.manager.find(SortOptions_1.default);
-    return sortData;
-});
-exports.getSortOptions = getSortOptions;
 const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
     const assets = yield client.getEntries({
         content_type: 'gallery',

@@ -1,6 +1,4 @@
 import { createClient } from 'contentful';
-import { manager } from '../../dataSource';
-import SortOptions from '../../entities/SortOptions';
 import {
   getContentfulOrderByKeyword,
   randomizeImages,
@@ -66,12 +64,6 @@ export const getAllProducts = async (
         };
       }),
     );
-};
-
-export const getSortOptions = async () => {
-  const sortData = await manager.find(SortOptions);
-
-  return sortData;
 };
 
 export const getAllImages = async (): Promise<GalleryData[]> => {

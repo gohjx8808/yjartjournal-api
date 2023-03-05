@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import multer from 'multer';
+import { getSortOptions } from '../repositories/sortOptionsRepository';
 import GetProductValidator from '../requestValidators/GetProductValidator';
 import {
   getAllImages,
   getAllProducts,
   getProductCategories,
-  getSortOptions,
 } from '../services/product/productServices';
 import { GetAllProductsPayload } from '../services/product/typings';
 const upload = multer();

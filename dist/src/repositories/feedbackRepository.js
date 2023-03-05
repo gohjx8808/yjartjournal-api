@@ -8,12 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saveFeedback = void 0;
-const feedbackRepository_1 = require("../../repositories/feedbackRepository");
-const saveFeedback = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const feedbackCreated = yield (0, feedbackRepository_1.insertNewFeedback)(payload);
+exports.insertNewFeedback = void 0;
+const dataSource_1 = require("../dataSource");
+const Feedbacks_1 = __importDefault(require("../entities/Feedbacks"));
+const feedbackManager = dataSource_1.manager.getRepository(Feedbacks_1.default);
+const insertNewFeedback = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const feedbackCreated = yield feedbackManager.insert(payload);
     return feedbackCreated;
 });
-exports.saveFeedback = saveFeedback;
-//# sourceMappingURL=feedbackServices.js.map
+exports.insertNewFeedback = insertNewFeedback;
+//# sourceMappingURL=feedbackRepository.js.map

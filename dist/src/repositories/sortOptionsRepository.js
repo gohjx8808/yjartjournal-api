@@ -8,12 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saveFeedback = void 0;
-const feedbackRepository_1 = require("../../repositories/feedbackRepository");
-const saveFeedback = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const feedbackCreated = yield (0, feedbackRepository_1.insertNewFeedback)(payload);
-    return feedbackCreated;
+exports.getSortOptions = void 0;
+const dataSource_1 = require("../dataSource");
+const SortOptions_1 = __importDefault(require("../entities/SortOptions"));
+const sortOptionsManager = dataSource_1.manager.getRepository(SortOptions_1.default);
+const getSortOptions = () => __awaiter(void 0, void 0, void 0, function* () {
+    const sortData = yield sortOptionsManager.find();
+    return sortData;
 });
-exports.saveFeedback = saveFeedback;
-//# sourceMappingURL=feedbackServices.js.map
+exports.getSortOptions = getSortOptions;
+//# sourceMappingURL=sortOptionsRepository.js.map
