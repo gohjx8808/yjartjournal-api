@@ -13,3 +13,8 @@ export interface SignInPayload {
   email: string;
   password: string;
 }
+
+export interface EncryptedPassword {
+  iv: string;
+  content: string;
+}

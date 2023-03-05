@@ -10,27 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUserAccount = exports.getUserAccount = void 0;
-const dataSource_1 = require("../../dataSource");
+const userRepository_1 = require("../../repositories/userRepository");
 const getUserAccount = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const userDetails = yield dataSource_1.userRepository
-        .createQueryBuilder()
-        .where({ id: userId })
-        .select([
-        'Users.id',
-        'Users.name',
-        'Users.preferredName',
-        'Users.email',
-        'Users.countryCode',
-        'Users.phoneNumber',
-        'Users.gender',
-        'Users.dob',
-    ])
-        .getOne();
+    const userDetails = yield (0, userRepository_1.getUserById)(userId);
     return userDetails;
 });
 exports.getUserAccount = getUserAccount;
 const updateUserAccount = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield dataSource_1.userRepository.update({ id: userId }, payload);
+    const result = yield (0, userRepository_1.updateUserById)(userId, payload);
     return result;
 });
 exports.updateUserAccount = updateUserAccount;

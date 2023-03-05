@@ -1,25 +1,21 @@
 import { sign } from 'jsonwebtoken';
-import { userRepository } from '../../dataSource';
 import { encrypt } from '../../helpers/cryptoHelper';
+import {
+  getUserByEmail,
+  insertNewUser,
+} from '../../repositories/userRepository';
 import { SignInPayload, SignUpPayload } from './typings';
 
 export const signUpUser = async (payload: SignUpPayload) => {
   const encryptedPassword = encrypt(payload.password);
 
-  const response = userRepository.insert({
-    ...payload,
-    password: encryptedPassword.content,
-    iv: encryptedPassword.iv,
-  });
+  const response = await insertNewUser(payload, encryptedPassword);
 
   return response;
 };
 
 export const generateAccessToken = async (payload: SignInPayload) => {
-  const user = await userRepository
-    .createQueryBuilder()
-    .where({ email: payload.email })
-    .getOne();
+  const user = await getUserByEmail(payload.email);
 
   const accessToken = sign(
     { id: user.id, email: user.email },

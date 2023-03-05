@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stateRepository = exports.checkoutItemRepository = exports.orderRepository = exports.promoCodeRepository = exports.addressRepository = exports.userRepository = exports.manager = exports.dataSource = void 0;
+exports.stateRepository = exports.checkoutItemRepository = exports.orderRepository = exports.promoCodeRepository = exports.addressRepository = exports.manager = exports.dataSource = void 0;
 const typeorm_1 = require("typeorm");
 const _1672062650913_SeedSortOptions_1 = require("../migrations/1672062650913-SeedSortOptions");
 const _1675693903490_SeedOrderStatuses_1 = require("../migrations/1675693903490-SeedOrderStatuses");
@@ -44,7 +44,6 @@ exports.dataSource = new typeorm_1.DataSource({
     logging: false,
 });
 exports.manager = exports.dataSource.manager;
-exports.userRepository = exports.manager.getRepository(Users_1.Users);
 exports.addressRepository = exports.manager.getRepository(Addresses_1.default);
 exports.promoCodeRepository = exports.manager.getRepository(PromoCodes_1.default);
 exports.orderRepository = exports.manager.getRepository(Orders_1.default);

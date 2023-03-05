@@ -9,13 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dataSource_1 = require("../dataSource");
+const userRepository_1 = require("../repositories/userRepository");
 const SignUpMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const userExist = yield dataSource_1.userRepository
-        .createQueryBuilder()
-        .where('email = :email', { email: payload.email })
-        .getExists();
+    const userExist = yield (0, userRepository_1.getUserByEmail)(payload.email);
     if (userExist) {
         return res.status(422).json({
             message: 'The provided email is already in use by an existing user. ' +

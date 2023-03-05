@@ -11,19 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateAccessToken = exports.signUpUser = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
-const dataSource_1 = require("../../dataSource");
 const cryptoHelper_1 = require("../../helpers/cryptoHelper");
+const userRepository_1 = require("../../repositories/userRepository");
 const signUpUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const encryptedPassword = (0, cryptoHelper_1.encrypt)(payload.password);
-    const response = dataSource_1.userRepository.insert(Object.assign(Object.assign({}, payload), { password: encryptedPassword.content, iv: encryptedPassword.iv }));
+    const response = yield (0, userRepository_1.insertNewUser)(payload, encryptedPassword);
     return response;
 });
 exports.signUpUser = signUpUser;
 const generateAccessToken = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield dataSource_1.userRepository
-        .createQueryBuilder()
-        .where({ email: payload.email })
-        .getOne();
+    const user = yield (0, userRepository_1.getUserByEmail)(payload.email);
     const accessToken = (0, jsonwebtoken_1.sign)({ id: user.id, email: user.email }, process.env.JWT_SIGN_TOKEN);
     return { accessToken, user };
 });

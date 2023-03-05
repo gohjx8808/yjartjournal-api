@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { userRepository } from '../dataSource';
+import { getUserByEmail } from '../repositories/userRepository';
 import { SignUpPayload } from '../services/user/typings';
 
 const SignUpMiddleware =
@@ -11,10 +11,7 @@ const SignUpMiddleware =
     ) => {
       const payload = req.body;
 
-      const userExist = await userRepository
-        .createQueryBuilder()
-        .where('email = :email', { email: payload.email })
-        .getExists();
+      const userExist = await getUserByEmail(payload.email);
 
       if (userExist) {
         return res.status(422).json({

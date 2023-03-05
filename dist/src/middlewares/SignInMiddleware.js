@@ -9,14 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dataSource_1 = require("../dataSource");
 const cryptoHelper_1 = require("../helpers/cryptoHelper");
+const userRepository_1 = require("../repositories/userRepository");
 const SignInMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const user = yield dataSource_1.userRepository
-        .createQueryBuilder()
-        .where({ email: payload.email })
-        .getOne();
+    const user = yield (0, userRepository_1.getUserByEmail)(payload.email);
     if (!user) {
         return res.status(401).json({ message: 'User does not exist!' });
     }

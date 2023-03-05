@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { userRepository } from '../dataSource';
 import { decrypt } from '../helpers/cryptoHelper';
+import { getUserByEmail } from '../repositories/userRepository';
 import { SignInPayload } from '../services/user/typings';
 
 const SignInMiddleware =
@@ -12,10 +12,7 @@ const SignInMiddleware =
     ) => {
       const payload = req.body;
 
-      const user = await userRepository
-        .createQueryBuilder()
-        .where({ email: payload.email })
-        .getOne();
+      const user = await getUserByEmail(payload.email);
 
       if (!user) {
         return res.status(401).json({ message: 'User does not exist!' });
