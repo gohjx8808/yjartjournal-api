@@ -38,7 +38,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Orders.prototype, "shippingFee", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "total_amount" }),
+    (0, typeorm_1.Column)("decimal", { name: "total_amount", scale: 2 }),
     __metadata("design:type", Number)
 ], Orders.prototype, "totalAmount", void 0);
 __decorate([

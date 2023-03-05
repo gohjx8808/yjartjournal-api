@@ -44,11 +44,11 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .withMessage('Add to address book is required.')
         .isBoolean()
         .withMessage('Invalid add to address book option.'),
-    (0, express_validator_1.body)('paymentOption')
+    (0, express_validator_1.body)('paymentMethod')
         .notEmpty()
-        .withMessage('Payment option is required.')
+        .withMessage('Payment method is required.')
         .matches(/^\b(TNG|Bank Transfer)\b$/)
-        .withMessage('Invalid payment option.'),
+        .withMessage('Invalid payment method.'),
     (0, express_validator_1.body)('totalAmount')
         .notEmpty()
         .withMessage('Total amount is required.')

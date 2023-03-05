@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkout = exports.calculateShippingFee = void 0;
 const addressRepository_1 = require("../../repositories/addressRepository");
+const orderRepository_1 = require("../../repositories/orderRepository");
 const addressServices_1 = require("../address/addressServices");
 const calculateShippingFee = (payload) => {
     const stateId = payload.state.id;
@@ -62,9 +63,22 @@ const insertCheckoutAddress = (payload, user) => __awaiter(void 0, void 0, void 
     }
     return addressId;
 });
+const insertOrderData = (payload, addressId) => __awaiter(void 0, void 0, void 0, function* () {
+    const orderData = {
+        buyerEmail: payload.buyerEmail,
+        shippingFee: payload.shippingFee,
+        promoCodeUsed: payload.promoCodeUsed,
+        note: payload.note,
+        paymentMethod: payload.paymentMethod,
+        totalAmount: payload.totalAmount,
+    };
+    const response = yield (0, orderRepository_1.insertNewOrder)(orderData, addressId);
+    return response;
+});
 const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
     const addressId = yield insertCheckoutAddress(payload, user);
-    return addressId;
+    const order = yield insertOrderData(payload, addressId);
+    return order;
 });
 exports.checkout = checkout;
 //# sourceMappingURL=orderServices.js.map

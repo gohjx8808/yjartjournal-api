@@ -4,10 +4,9 @@ export interface VerifyPromoCodePayload {
   promoCode: string;
 }
 
-export interface CheckoutPayload {
+export interface CheckoutPayload extends OrderInsertPayload {
   products: CheckoutProductData[];
   addressId?: number;
-  buyerEmail: string;
   receiverName?: string;
   receiverCountryCode?: string;
   receiverPhoneNumber?: string;
@@ -17,12 +16,7 @@ export interface CheckoutPayload {
   city?: string;
   state?: OptionData;
   country?: string;
-  shippingFee: number;
-  promoCodeUsedId?: number;
-  note?: string;
   addToAddressBook: boolean;
-  paymentOption: 'TNG' | 'Bank Transfer';
-  totalAmount: number;
 }
 
 export interface CheckoutProductData {
@@ -34,5 +28,14 @@ export interface CheckoutProductData {
 
 export interface CalculateShippingFeePayload {
   state: OptionData;
+  totalAmount: number;
+}
+
+export interface OrderInsertPayload {
+  buyerEmail: string;
+  shippingFee: number;
+  promoCodeUsed?: OptionData;
+  note?: string;
+  paymentMethod: 'TNG' | 'Bank Transfer';
   totalAmount: number;
 }

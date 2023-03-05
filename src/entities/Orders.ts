@@ -29,7 +29,7 @@ class Orders {
   @Column({ name: "shipping_fee", default: 0 })
     shippingFee: number;
 
-  @Column({ name: "total_amount" })
+  @Column("decimal", { name: "total_amount", scale: 2 })
     totalAmount: number;
 
   @Column({ name: "payment_method" })

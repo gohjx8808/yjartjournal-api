@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderByAddressPromoCodeUsed = void 0;
+exports.insertNewOrder = exports.getOrderByAddressPromoCodeUsed = void 0;
 const dataSource_1 = require("../dataSource");
 const Orders_1 = __importDefault(require("../entities/Orders"));
 const orderManager = dataSource_1.manager.getRepository(Orders_1.default);
@@ -24,4 +24,9 @@ const getOrderByAddressPromoCodeUsed = (address, promoCode) => __awaiter(void 0,
     return result;
 });
 exports.getOrderByAddressPromoCodeUsed = getOrderByAddressPromoCodeUsed;
+const insertNewOrder = (payload, addressId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield orderManager.insert(Object.assign(Object.assign({}, payload), { address: { id: addressId }, orderStatus: { id: 1 } }));
+    return result;
+});
+exports.insertNewOrder = insertNewOrder;
 //# sourceMappingURL=orderRepository.js.map

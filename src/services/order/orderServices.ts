@@ -1,5 +1,6 @@
 import Users from '../../entities/Users';
 import { insertNewAddress } from '../../repositories/addressRepository';
+import { insertNewOrder } from '../../repositories/orderRepository';
 import { addAddress, isAddressExist } from '../address/addressServices';
 import { CalculateShippingFeePayload, CheckoutPayload } from './typings';
 
@@ -54,8 +55,25 @@ const insertCheckoutAddress = async (payload: CheckoutPayload, user: Users) => {
   return addressId;
 };
 
+const insertOrderData = async (payload: CheckoutPayload, addressId: number) => {
+  const orderData = {
+    buyerEmail: payload.buyerEmail,
+    shippingFee: payload.shippingFee,
+    promoCodeUsed: payload.promoCodeUsed,
+    note: payload.note,
+    paymentMethod: payload.paymentMethod,
+    totalAmount: payload.totalAmount,
+  };
+
+  const response = await insertNewOrder(orderData, addressId);
+
+  return response;
+};
+
 export const checkout = async (payload: CheckoutPayload, user: Users) => {
   const addressId = await insertCheckoutAddress(payload, user);
 
-  return addressId;
+  const order = await insertOrderData(payload, addressId);
+
+  return order;
 };
