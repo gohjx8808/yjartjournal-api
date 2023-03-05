@@ -18,11 +18,11 @@ const multer_1 = __importDefault(require("multer"));
 const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddleware"));
 const CheckoutMiddleware_1 = __importDefault(require("../middlewares/order/CheckoutMiddleware"));
 const VerifyPromoCodeMiddleware_1 = __importDefault(require("../middlewares/order/VerifyPromoCodeMiddleware"));
+const promoCodeRepository_1 = require("../repositories/promoCodeRepository");
 const CalculateShippingFeeValidator_1 = __importDefault(require("../requestValidators/order/CalculateShippingFeeValidator"));
 const CheckoutValidator_1 = __importDefault(require("../requestValidators/order/CheckoutValidator"));
 const VerifyPromoCodeValidator_1 = __importDefault(require("../requestValidators/order/VerifyPromoCodeValidator"));
 const orderServices_1 = require("../services/order/orderServices");
-const promoCodeServices_1 = require("../services/promoCode/promoCodeServices");
 const upload = (0, multer_1.default)();
 exports.orderRouter = (0, express_1.Router)();
 exports.orderRouter.post('/verify-promo-code', ...[
@@ -32,7 +32,7 @@ exports.orderRouter.post('/verify-promo-code', ...[
     (0, VerifyPromoCodeMiddleware_1.default)(),
 ], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const response = yield (0, promoCodeServices_1.getPromoCodeByName)(payload.promoCode);
+    const response = yield (0, promoCodeRepository_1.getPromoCodeByName)(payload.promoCode);
     return res.json({ response });
 }));
 exports.orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {

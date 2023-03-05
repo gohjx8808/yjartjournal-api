@@ -41,8 +41,6 @@ export const dataSource = new DataSource({
 
 export const manager = dataSource.manager;
 
-export const promoCodeRepository = manager.getRepository(PromoCodes);
+
 
 export const orderRepository = manager.getRepository(Orders);
-
-export const checkoutItemRepository = manager.getRepository(CheckoutItems);

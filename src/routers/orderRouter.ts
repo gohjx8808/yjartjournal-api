@@ -4,6 +4,7 @@ import Users from '../entities/Users';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import CheckoutMiddleware from '../middlewares/order/CheckoutMiddleware';
 import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';
+import { getPromoCodeByName } from '../repositories/promoCodeRepository';
 import CalculateShippingFeeValidator from '../requestValidators/order/CalculateShippingFeeValidator';
 import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
 import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
@@ -16,7 +17,6 @@ import {
   CheckoutPayload,
   VerifyPromoCodePayload,
 } from '../services/order/typings';
-import { getPromoCodeByName } from '../services/promoCode/promoCodeServices';
 import { CustomAuthenticatedRequest } from '../typings';
 
 const upload = multer();

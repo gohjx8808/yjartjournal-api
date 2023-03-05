@@ -1,10 +1,8 @@
 import { NextFunction, Response } from 'express';
 import Users from '../../entities/Users';
+import { getPromoCodeByName } from '../../repositories/promoCodeRepository';
 import { VerifyPromoCodePayload } from '../../services/order/typings';
-import {
-  getPromoCodeByName,
-  validatePromoCode,
-} from '../../services/promoCode/promoCodeServices';
+import { validatePromoCode } from '../../services/promoCode/promoCodeServices';
 import { CustomAuthenticatedRequest } from '../../typings';
 
 const VerifyPromoCodeMiddleware =

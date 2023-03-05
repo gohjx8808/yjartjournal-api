@@ -9,11 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const promoCodeRepository_1 = require("../../repositories/promoCodeRepository");
 const promoCodeServices_1 = require("../../services/promoCode/promoCodeServices");
 const VerifyPromoCodeMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const user = req.user.valueOf();
-    const existingPromoCode = yield (0, promoCodeServices_1.getPromoCodeByName)(payload.promoCode);
+    const existingPromoCode = yield (0, promoCodeRepository_1.getPromoCodeByName)(payload.promoCode);
     const verificationResult = yield (0, promoCodeServices_1.validatePromoCode)(existingPromoCode, user);
     if (!verificationResult.success) {
         return res.status(422).json({ message: verificationResult.message });

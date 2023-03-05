@@ -1,13 +1,7 @@
-import { orderRepository, promoCodeRepository } from '../../dataSource';
+import { orderRepository } from '../../dataSource';
 import PromoCodes from '../../entities/PromoCodes';
 import Users from '../../entities/Users';
 import { getAddressList } from '../address/addressServices';
-
-export const getPromoCodeByName = async (promoCode: string) => {
-  return promoCodeRepository.findOneBy({
-    name: promoCode,
-  });
-};
 
 export const validatePromoCode = async (promoCode: PromoCodes, user: Users) => {
   if (!promoCode) {

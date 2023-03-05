@@ -9,15 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validatePromoCode = exports.getPromoCodeByName = void 0;
+exports.validatePromoCode = void 0;
 const dataSource_1 = require("../../dataSource");
 const addressServices_1 = require("../address/addressServices");
-const getPromoCodeByName = (promoCode) => __awaiter(void 0, void 0, void 0, function* () {
-    return dataSource_1.promoCodeRepository.findOneBy({
-        name: promoCode,
-    });
-});
-exports.getPromoCodeByName = getPromoCodeByName;
 const validatePromoCode = (promoCode, user) => __awaiter(void 0, void 0, void 0, function* () {
     if (!promoCode) {
         return { success: false, message: 'Invalid promo code.' };
