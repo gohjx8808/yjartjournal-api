@@ -25,10 +25,13 @@ class CheckoutItems {
   @Column()
     name: string;
 
+  @Column("float", { name: "price_per_item", scale: 2 })
+    pricePerItem: number;
+
   @Column()
     quantity: number;
 
-  @Column({ name: "total_price" })
+  @Column("float", { name: "total_price", scale: 2 })
     totalPrice: number;
 
   @CreateDateColumn({ name: "created_at" })

@@ -20,7 +20,7 @@ export interface CheckoutPayload extends OrderInsertPayload {
 }
 
 export interface CheckoutProductData {
-  id: string;
+  productId: string;
   name: string;
   quantity: number;
   totalPrice: number;

@@ -35,11 +35,15 @@ __decorate([
     __metadata("design:type", String)
 ], CheckoutItems.prototype, "name", void 0);
 __decorate([
+    (0, typeorm_1.Column)("float", { name: "price_per_item", scale: 2 }),
+    __metadata("design:type", Number)
+], CheckoutItems.prototype, "pricePerItem", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], CheckoutItems.prototype, "quantity", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "total_price" }),
+    (0, typeorm_1.Column)("float", { name: "total_price", scale: 2 }),
     __metadata("design:type", Number)
 ], CheckoutItems.prototype, "totalPrice", void 0);
 __decorate([

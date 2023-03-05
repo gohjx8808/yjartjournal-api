@@ -9,8 +9,13 @@ const CheckoutValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('products.*')
         .notEmpty()
         .withMessage('At least one product is required.'),
-    (0, express_validator_1.body)('products.*.id').notEmpty().withMessage('Product ID is required.'),
+    (0, express_validator_1.body)('products.*.productId').notEmpty().withMessage('Product ID is required.'),
     (0, express_validator_1.body)('products.*.name').notEmpty().withMessage('Product name is required.'),
+    (0, express_validator_1.body)('products.*.pricePerItem')
+        .notEmpty()
+        .withMessage('Price per item of product is required.')
+        .isFloat()
+        .withMessage('Invalid price per item of product.'),
     (0, express_validator_1.body)('products.*.quantity')
         .notEmpty()
         .withMessage('Product quantity is required.')

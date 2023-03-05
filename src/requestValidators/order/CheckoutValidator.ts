@@ -6,8 +6,13 @@ const CheckoutValidator = customValidator(
     body('products.*')
       .notEmpty()
       .withMessage('At least one product is required.'),
-    body('products.*.id').notEmpty().withMessage('Product ID is required.'),
+    body('products.*.productId').notEmpty().withMessage('Product ID is required.'),
     body('products.*.name').notEmpty().withMessage('Product name is required.'),
+    body('products.*.pricePerItem')
+      .notEmpty()
+      .withMessage('Price per item of product is required.')
+      .isFloat()
+      .withMessage('Invalid price per item of product.'),
     body('products.*.quantity')
       .notEmpty()
       .withMessage('Product quantity is required.')
