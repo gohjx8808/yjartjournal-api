@@ -1,5 +1,5 @@
 import { manager } from '../dataSource';
-import { Users } from '../entities/Users';
+import Users from '../entities/Users';
 import { UpdateAccountPayload } from '../services/account/typings';
 import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
 

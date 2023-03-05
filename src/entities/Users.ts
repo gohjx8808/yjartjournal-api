@@ -10,7 +10,7 @@ import {
 import Addresses from './Addresses';
 
 @Entity()
-export class Users {
+class Users {
   @PrimaryGeneratedColumn()
     id: number;
 
@@ -53,3 +53,5 @@ export class Users {
   @OneToMany(() => Addresses, (address) => address.user)
     addresses: Addresses;
 }
+
+export default Users;

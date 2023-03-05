@@ -1,6 +1,14 @@
-import { IsNull, Not } from 'typeorm';
-import { addressRepository, stateRepository } from '../../dataSource';
-import { Users } from '../../entities/Users';
+import Users from '../../entities/Users';
+import {
+  deleteAddressById,
+  getAddressWithExactDetails,
+  getAddressWithExactDetailsExceptSelf,
+  getUserAddressById,
+  getUserAdresses,
+  insertNewAddress,
+  updateAddressById,
+  updateAddressDefaultToFalse,
+} from '../../repositories/addressRepository';
 import {
   AddAddressPayload,
   DeleteAddressPayload,
@@ -14,30 +22,14 @@ export const validateTag = (tag: string) => {
   return true;
 };
 
-export const getUserExistingAddressQuery = (user: Users) => {
-  const existingAddresses = addressRepository
-    .createQueryBuilder('addresses')
-    .leftJoin('addresses.user', 'user')
-    .leftJoinAndSelect('addresses.state', 'state')
-    .where('user.id = :id', { id: user.id });
-
-  return existingAddresses;
-};
-
 export const isAddressIdExist = async (user: Users, addressId: number) => {
-  const addressAvailable = await getUserExistingAddressQuery(user)
-    .andWhere({
-      id: addressId,
-    })
-    .getExists();
+  const addressAvailable = await getUserAddressById(user, addressId);
 
-  return addressAvailable;
+  return !!addressAvailable;
 };
 
 export const getAddressList = async (user: Users) => {
-  const existingAddresses = await getUserExistingAddressQuery(user)
-    .orderBy({ 'addresses.updated_at': 'DESC' })
-    .getMany();
+  const existingAddresses = await getUserAdresses(user);
 
   return existingAddresses;
 };
@@ -45,7 +37,7 @@ export const getAddressList = async (user: Users) => {
 export const updateOtherAddressDefaultToFalse = async (user: Users) => {
   const existingAddresses = await getAddressList(user);
   existingAddresses.map(async (address) => {
-    await addressRepository.update({ id: address.id }, { isDefault: false });
+    await updateAddressDefaultToFalse(address.id);
   });
 };
 
@@ -61,48 +53,16 @@ export const oneDefaultAddressOnly = async (
 
 export const addAddress = async (user: Users, payload: AddAddressPayload) => {
   await oneDefaultAddressOnly(user, payload);
-  const response = await addressRepository.insert({
-    ...payload,
-    user,
-    state: payload.state,
-  });
+  const response = await insertNewAddress(payload, user);
 
   return response;
-};
-
-export const checkAddressQuery = (
-  user: Users,
-  payload: AddAddressPayload | UpdateAddressPayload,
-) => {
-  let filterAddressQuery = getUserExistingAddressQuery(user).andWhere({
-    receiverName: payload.receiverName,
-    receiverCountryCode: payload.receiverCountryCode,
-    receiverPhoneNumber: payload.receiverPhoneNumber,
-    addressLineOne: payload.addressLineOne,
-    postcode: payload.postcode,
-    city: payload.city,
-    state: payload.state,
-    country: payload.country,
-  });
-
-  if (payload.addressLineTwo === null) {
-    filterAddressQuery = filterAddressQuery.andWhere({
-      addressLineTwo: IsNull(),
-    });
-  } else {
-    filterAddressQuery = filterAddressQuery.andWhere({
-      addressLineTwo: payload.addressLineTwo,
-    });
-  }
-
-  return filterAddressQuery;
 };
 
 export const isAddressExist = async (
   user: Users,
   payload: AddAddressPayload,
 ) => {
-  const existingAddresses = await checkAddressQuery(user, payload).getOne();
+  const existingAddresses = await getAddressWithExactDetails(user, payload);
 
   return { id: existingAddresses?.id, exist: !!existingAddresses };
 };
@@ -111,11 +71,10 @@ export const isAddressExistExceptSelf = async (
   user: Users,
   payload: UpdateAddressPayload,
 ) => {
-  const existingAddressesExceptSelf = await checkAddressQuery(user, payload)
-    .andWhere({ id: Not(payload.addressId) })
-    .getMany();
+  const existingAddressesExceptSelf =
+    await getAddressWithExactDetailsExceptSelf(user, payload);
 
-  return existingAddressesExceptSelf.length > 0;
+  return !!existingAddressesExceptSelf;
 };
 
 export const updateAddress = async (
@@ -124,38 +83,13 @@ export const updateAddress = async (
 ) => {
   await oneDefaultAddressOnly(user, payload);
 
-  const response = await addressRepository.update(
-    { id: payload.addressId },
-    {
-      receiverName: payload.receiverName,
-      receiverCountryCode: payload.receiverCountryCode,
-      receiverPhoneNumber: payload.receiverPhoneNumber,
-      addressLineOne: payload.addressLineOne,
-      addressLineTwo: payload.addressLineTwo,
-      postcode: payload.postcode,
-      city: payload.city,
-      state: payload.state,
-      country: payload.country,
-      isDefault: payload.isDefault,
-      tag: payload.tag,
-    },
-  );
+  const response = await updateAddressById(payload);
 
   return response;
 };
 
 export const deleteAddress = async (payload: DeleteAddressPayload) => {
-  const response = await addressRepository
-    .createQueryBuilder()
-    .delete()
-    .where({ id: payload.addressId })
-    .execute();
+  const response = await deleteAddressById(payload.addressId);
 
   return response;
-};
-
-export const getStateList = async () => {
-  const states = await stateRepository.createQueryBuilder().getMany();
-
-  return states;
 };

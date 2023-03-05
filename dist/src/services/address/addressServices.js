@@ -9,9 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStateList = exports.deleteAddress = exports.updateAddress = exports.isAddressExistExceptSelf = exports.isAddressExist = exports.checkAddressQuery = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.isAddressIdExist = exports.getUserExistingAddressQuery = exports.validateTag = void 0;
-const typeorm_1 = require("typeorm");
-const dataSource_1 = require("../../dataSource");
+exports.deleteAddress = exports.updateAddress = exports.isAddressExistExceptSelf = exports.isAddressExist = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.isAddressIdExist = exports.validateTag = void 0;
+const addressRepository_1 = require("../../repositories/addressRepository");
 const validateTag = (tag) => {
     if (tag !== 'Work' && tag !== 'Home') {
         return false;
@@ -19,35 +18,20 @@ const validateTag = (tag) => {
     return true;
 };
 exports.validateTag = validateTag;
-const getUserExistingAddressQuery = (user) => {
-    const existingAddresses = dataSource_1.addressRepository
-        .createQueryBuilder('addresses')
-        .leftJoin('addresses.user', 'user')
-        .leftJoinAndSelect('addresses.state', 'state')
-        .where('user.id = :id', { id: user.id });
-    return existingAddresses;
-};
-exports.getUserExistingAddressQuery = getUserExistingAddressQuery;
 const isAddressIdExist = (user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
-    const addressAvailable = yield (0, exports.getUserExistingAddressQuery)(user)
-        .andWhere({
-        id: addressId,
-    })
-        .getExists();
-    return addressAvailable;
+    const addressAvailable = yield (0, addressRepository_1.getUserAddressById)(user, addressId);
+    return !!addressAvailable;
 });
 exports.isAddressIdExist = isAddressIdExist;
 const getAddressList = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield (0, exports.getUserExistingAddressQuery)(user)
-        .orderBy({ 'addresses.updated_at': 'DESC' })
-        .getMany();
+    const existingAddresses = yield (0, addressRepository_1.getUserAdresses)(user);
     return existingAddresses;
 });
 exports.getAddressList = getAddressList;
 const updateOtherAddressDefaultToFalse = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const existingAddresses = yield (0, exports.getAddressList)(user);
     existingAddresses.map((address) => __awaiter(void 0, void 0, void 0, function* () {
-        yield dataSource_1.addressRepository.update({ id: address.id }, { isDefault: false });
+        yield (0, addressRepository_1.updateAddressDefaultToFalse)(address.id);
     }));
 });
 exports.updateOtherAddressDefaultToFalse = updateOtherAddressDefaultToFalse;
@@ -60,76 +44,29 @@ const oneDefaultAddressOnly = (user, payload) => __awaiter(void 0, void 0, void 
 exports.oneDefaultAddressOnly = oneDefaultAddressOnly;
 const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, exports.oneDefaultAddressOnly)(user, payload);
-    const response = yield dataSource_1.addressRepository.insert(Object.assign(Object.assign({}, payload), { user, state: payload.state }));
+    const response = yield (0, addressRepository_1.insertNewAddress)(payload, user);
     return response;
 });
 exports.addAddress = addAddress;
-const checkAddressQuery = (user, payload) => {
-    let filterAddressQuery = (0, exports.getUserExistingAddressQuery)(user).andWhere({
-        receiverName: payload.receiverName,
-        receiverCountryCode: payload.receiverCountryCode,
-        receiverPhoneNumber: payload.receiverPhoneNumber,
-        addressLineOne: payload.addressLineOne,
-        postcode: payload.postcode,
-        city: payload.city,
-        state: payload.state,
-        country: payload.country,
-    });
-    if (payload.addressLineTwo === null) {
-        filterAddressQuery = filterAddressQuery.andWhere({
-            addressLineTwo: (0, typeorm_1.IsNull)(),
-        });
-    }
-    else {
-        filterAddressQuery = filterAddressQuery.andWhere({
-            addressLineTwo: payload.addressLineTwo,
-        });
-    }
-    return filterAddressQuery;
-};
-exports.checkAddressQuery = checkAddressQuery;
 const isAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield (0, exports.checkAddressQuery)(user, payload).getOne();
+    const existingAddresses = yield (0, addressRepository_1.getAddressWithExactDetails)(user, payload);
     return { id: existingAddresses === null || existingAddresses === void 0 ? void 0 : existingAddresses.id, exist: !!existingAddresses };
 });
 exports.isAddressExist = isAddressExist;
 const isAddressExistExceptSelf = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddressesExceptSelf = yield (0, exports.checkAddressQuery)(user, payload)
-        .andWhere({ id: (0, typeorm_1.Not)(payload.addressId) })
-        .getMany();
-    return existingAddressesExceptSelf.length > 0;
+    const existingAddressesExceptSelf = yield (0, addressRepository_1.getAddressWithExactDetailsExceptSelf)(user, payload);
+    return !!existingAddressesExceptSelf;
 });
 exports.isAddressExistExceptSelf = isAddressExistExceptSelf;
 const updateAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, exports.oneDefaultAddressOnly)(user, payload);
-    const response = yield dataSource_1.addressRepository.update({ id: payload.addressId }, {
-        receiverName: payload.receiverName,
-        receiverCountryCode: payload.receiverCountryCode,
-        receiverPhoneNumber: payload.receiverPhoneNumber,
-        addressLineOne: payload.addressLineOne,
-        addressLineTwo: payload.addressLineTwo,
-        postcode: payload.postcode,
-        city: payload.city,
-        state: payload.state,
-        country: payload.country,
-        isDefault: payload.isDefault,
-        tag: payload.tag,
-    });
+    const response = yield (0, addressRepository_1.updateAddressById)(payload);
     return response;
 });
 exports.updateAddress = updateAddress;
 const deleteAddress = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield dataSource_1.addressRepository
-        .createQueryBuilder()
-        .delete()
-        .where({ id: payload.addressId })
-        .execute();
+    const response = yield (0, addressRepository_1.deleteAddressById)(payload.addressId);
     return response;
 });
 exports.deleteAddress = deleteAddress;
-const getStateList = () => __awaiter(void 0, void 0, void 0, function* () {
-    const states = yield dataSource_1.stateRepository.createQueryBuilder().getMany();
-    return states;
-});
-exports.getStateList = getStateList;
 //# sourceMappingURL=addressServices.js.map

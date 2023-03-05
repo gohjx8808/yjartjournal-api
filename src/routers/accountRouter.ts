@@ -1,6 +1,6 @@
 import { Response, Router } from 'express';
 import multer from 'multer';
-import { Users } from '../entities/Users';
+import Users from '../entities/Users';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import UpdateAccountValidator from '../requestValidators/UpdateAccountValidator';
 import {

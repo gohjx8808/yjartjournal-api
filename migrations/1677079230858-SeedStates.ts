@@ -1,5 +1,6 @@
 import { MigrationInterface } from 'typeorm';
-import { stateRepository } from '../src/dataSource';
+import { manager } from '../src/dataSource';
+import States from '../src/entities/States';
 
 export class SeedStates1677079230858 implements MigrationInterface {
   states = [
@@ -22,7 +23,7 @@ export class SeedStates1677079230858 implements MigrationInterface {
 
   public async up(): Promise<void> {
     this.states.map(async (state) => {
-      await stateRepository.insert({ name: state });
+      await manager.getRepository(States).insert({ name: state });
     });
   }
 

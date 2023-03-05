@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
-import { Users } from '../../entities/Users';
+import Users from '../../entities/Users';
 import {
   isAddressExistExceptSelf,
   isAddressIdExist,
-  validateTag
+  validateTag,
 } from '../../services/address/addressServices';
 import { UpdateAddressPayload } from '../../services/address/typings';
 import { CustomAuthenticatedRequest } from '../../typings';

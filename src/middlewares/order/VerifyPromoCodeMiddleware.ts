@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { Users } from '../../entities/Users';
+import Users from '../../entities/Users';
 import { VerifyPromoCodePayload } from '../../services/order/typings';
 import {
   getPromoCodeByName,

@@ -1,5 +1,5 @@
-import { addressRepository } from '../../dataSource';
-import { Users } from '../../entities/Users';
+import Users from '../../entities/Users';
+import { insertNewAddress } from '../../repositories/addressRepository';
 import { addAddress, isAddressExist } from '../address/addressServices';
 import { CalculateShippingFeePayload, CheckoutPayload } from './typings';
 
@@ -48,7 +48,7 @@ const insertCheckoutAddress = async (payload: CheckoutPayload, user: Users) => {
       addressId = existingSameAddress.id;
     }
   } else {
-    addressId = (await addressRepository.insert(payload)).identifiers[0].id;
+    addressId = (await insertNewAddress(addressData)).identifiers[0].id;
   }
 
   return addressId;

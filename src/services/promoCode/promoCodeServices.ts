@@ -1,6 +1,6 @@
 import { orderRepository, promoCodeRepository } from '../../dataSource';
 import PromoCodes from '../../entities/PromoCodes';
-import { Users } from '../../entities/Users';
+import Users from '../../entities/Users';
 import { getAddressList } from '../address/addressServices';
 
 export const getPromoCodeByName = async (promoCode: string) => {

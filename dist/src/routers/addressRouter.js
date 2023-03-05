@@ -19,6 +19,7 @@ const AddAddressMiddleware_1 = __importDefault(require("../middlewares/address/A
 const DeleteAddressMiddleware_1 = __importDefault(require("../middlewares/address/DeleteAddressMiddleware"));
 const UpdateAddressMiddleware_1 = __importDefault(require("../middlewares/address/UpdateAddressMiddleware"));
 const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddleware"));
+const stateRepository_1 = require("../repositories/stateRepository");
 const AddAddressValidator_1 = __importDefault(require("../requestValidators/address/AddAddressValidator"));
 const DeleteAddressValidator_1 = __importDefault(require("../requestValidators/address/DeleteAddressValidator"));
 const UpdateAddressValidator_1 = __importDefault(require("../requestValidators/address/UpdateAddressValidator"));
@@ -31,7 +32,7 @@ exports.addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res
     return res.json({ data: response });
 }));
 exports.addressRouter.get('/state-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield (0, addressServices_1.getStateList)();
+    const response = yield (0, stateRepository_1.getStateList)();
     return res.json({ data: response });
 }));
 exports.addressRouter.post('/add', ...[

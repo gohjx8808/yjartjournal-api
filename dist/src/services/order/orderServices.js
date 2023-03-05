@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkout = exports.calculateShippingFee = void 0;
-const dataSource_1 = require("../../dataSource");
+const addressRepository_1 = require("../../repositories/addressRepository");
 const addressServices_1 = require("../address/addressServices");
 const calculateShippingFee = (payload) => {
     const stateId = payload.state.id;
@@ -58,7 +58,7 @@ const insertCheckoutAddress = (payload, user) => __awaiter(void 0, void 0, void 
         }
     }
     else {
-        addressId = (yield dataSource_1.addressRepository.insert(payload)).identifiers[0].id;
+        addressId = (yield (0, addressRepository_1.insertNewAddress)(addressData)).identifiers[0].id;
     }
     return addressId;
 });

@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { Users } from '../../entities/Users';
+import Users from '../../entities/Users';
 import { isAddressIdExist } from '../../services/address/addressServices';
 import { DeleteAddressPayload } from '../../services/address/typings';
 import { CustomAuthenticatedRequest } from '../../typings';

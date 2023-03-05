@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import Orders from './Orders';
 import States from './States';
-import { Users } from './Users';
+import Users from './Users';
 
 @Entity()
 class Addresses {

@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Addresses_1 = __importDefault(require("./Addresses"));
@@ -77,5 +76,5 @@ __decorate([
 Users = __decorate([
     (0, typeorm_1.Entity)()
 ], Users);
-exports.Users = Users;
+exports.default = Users;
 //# sourceMappingURL=Users.js.map

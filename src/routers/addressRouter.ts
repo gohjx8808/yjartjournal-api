@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { Users } from '../entities/Users';
+import Users from '../entities/Users';
 import AddAddressMiddleware from '../middlewares/address/AddAddressMiddleware';
 import DeleteAddressMiddleware from '../middlewares/address/DeleteAddressMiddleware';
 import UpdateAddressMiddleware from '../middlewares/address/UpdateAddressMiddleware';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
+import { getStateList } from '../repositories/stateRepository';
 import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
 import DeleteAddressValidator from '../requestValidators/address/DeleteAddressValidator';
 import UpdateAddressValidator from '../requestValidators/address/UpdateAddressValidator';
@@ -12,7 +13,6 @@ import {
   addAddress,
   deleteAddress,
   getAddressList,
-  getStateList,
   updateAddress,
 } from '../services/address/addressServices';
 import {
@@ -37,14 +37,11 @@ addressRouter.get(
   },
 );
 
-addressRouter.get(
-  '/state-options',
-  async (_req, res) => {
-    const response = await getStateList();
+addressRouter.get('/state-options', async (_req, res) => {
+  const response = await getStateList();
 
-    return res.json({ data: response });
-  },
-);
+  return res.json({ data: response });
+});
 
 addressRouter.post(
   '/add',

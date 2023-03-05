@@ -8,11 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.insertNewUser = exports.getUserByEmail = exports.updateUserById = exports.getUserById = void 0;
 const dataSource_1 = require("../dataSource");
-const Users_1 = require("../entities/Users");
-const userManager = dataSource_1.manager.getRepository(Users_1.Users);
+const Users_1 = __importDefault(require("../entities/Users"));
+const userManager = dataSource_1.manager.getRepository(Users_1.default);
 const getUserById = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const userDetails = yield userManager
         .createQueryBuilder()

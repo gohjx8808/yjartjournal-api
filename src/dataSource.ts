@@ -10,7 +10,7 @@ import OrderStatuses from './entities/OrderStatuses';
 import PromoCodes from './entities/PromoCodes';
 import SortOptions from './entities/SortOptions';
 import States from './entities/States';
-import { Users } from './entities/Users';
+import Users from './entities/Users';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -41,12 +41,8 @@ export const dataSource = new DataSource({
 
 export const manager = dataSource.manager;
 
-export const addressRepository = manager.getRepository(Addresses);
-
 export const promoCodeRepository = manager.getRepository(PromoCodes);
 
 export const orderRepository = manager.getRepository(Orders);
 
 export const checkoutItemRepository = manager.getRepository(CheckoutItems);
-
-export const stateRepository = manager.getRepository(States);

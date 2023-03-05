@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { Users } from '../entities/Users';
+import Users from '../entities/Users';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import CheckoutMiddleware from '../middlewares/order/CheckoutMiddleware';
 import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';

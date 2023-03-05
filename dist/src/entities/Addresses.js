@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
 const States_1 = __importDefault(require("./States"));
-const Users_1 = require("./Users");
+const Users_1 = __importDefault(require("./Users"));
 let Addresses = class Addresses {
 };
 __decorate([
@@ -24,9 +24,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Addresses.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Users_1.Users, (user) => user.addresses, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => Users_1.default, (user) => user.addresses, { nullable: true }),
     (0, typeorm_1.JoinColumn)({ name: "user_id", referencedColumnName: "id" }),
-    __metadata("design:type", Users_1.Users)
+    __metadata("design:type", Users_1.default)
 ], Addresses.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: "receiver_name" }),

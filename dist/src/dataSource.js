@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stateRepository = exports.checkoutItemRepository = exports.orderRepository = exports.promoCodeRepository = exports.addressRepository = exports.manager = exports.dataSource = void 0;
+exports.checkoutItemRepository = exports.orderRepository = exports.promoCodeRepository = exports.manager = exports.dataSource = void 0;
 const typeorm_1 = require("typeorm");
 const _1672062650913_SeedSortOptions_1 = require("../migrations/1672062650913-SeedSortOptions");
 const _1675693903490_SeedOrderStatuses_1 = require("../migrations/1675693903490-SeedOrderStatuses");
@@ -16,7 +16,7 @@ const OrderStatuses_1 = __importDefault(require("./entities/OrderStatuses"));
 const PromoCodes_1 = __importDefault(require("./entities/PromoCodes"));
 const SortOptions_1 = __importDefault(require("./entities/SortOptions"));
 const States_1 = __importDefault(require("./entities/States"));
-const Users_1 = require("./entities/Users");
+const Users_1 = __importDefault(require("./entities/Users"));
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.POSTGRESQL_DB_HOST,
@@ -27,7 +27,7 @@ exports.dataSource = new typeorm_1.DataSource({
     entities: [
         SortOptions_1.default,
         Feedbacks_1.default,
-        Users_1.Users,
+        Users_1.default,
         States_1.default,
         Addresses_1.default,
         PromoCodes_1.default,
@@ -44,9 +44,7 @@ exports.dataSource = new typeorm_1.DataSource({
     logging: false,
 });
 exports.manager = exports.dataSource.manager;
-exports.addressRepository = exports.manager.getRepository(Addresses_1.default);
 exports.promoCodeRepository = exports.manager.getRepository(PromoCodes_1.default);
 exports.orderRepository = exports.manager.getRepository(Orders_1.default);
 exports.checkoutItemRepository = exports.manager.getRepository(CheckoutItems_1.default);
-exports.stateRepository = exports.manager.getRepository(States_1.default);
 //# sourceMappingURL=dataSource.js.map
