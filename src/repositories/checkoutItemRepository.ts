@@ -4,14 +4,11 @@ import { CheckoutProductData } from '../services/order/typings';
 
 const checkoutItemManager = manager.getRepository(CheckoutItems);
 
-export const insertNewCheckoutItem = async (
+export const insertNewCheckoutItem = (
   payload: CheckoutProductData,
   orderId: number,
-) => {
-  const result = await checkoutItemManager.insert({
+) =>
+  checkoutItemManager.insert({
     ...payload,
     order: { id: orderId },
   });
-
-  return result;
-};

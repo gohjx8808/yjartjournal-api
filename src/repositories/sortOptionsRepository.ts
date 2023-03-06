@@ -3,8 +3,4 @@ import SortOptions from '../entities/SortOptions';
 
 const sortOptionsManager = manager.getRepository(SortOptions);
 
-export const getSortOptions = async () => {
-  const sortData = await sortOptionsManager.find();
-
-  return sortData;
-};
+export const getSortOptions = () => sortOptionsManager.find();

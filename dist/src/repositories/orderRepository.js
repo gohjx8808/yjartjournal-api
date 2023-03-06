@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -16,17 +7,11 @@ exports.insertNewOrder = exports.getOrderByAddressPromoCodeUsed = void 0;
 const dataSource_1 = require("../dataSource");
 const Orders_1 = __importDefault(require("../entities/Orders"));
 const orderManager = dataSource_1.manager.getRepository(Orders_1.default);
-const getOrderByAddressPromoCodeUsed = (address, promoCode) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield orderManager.findBy({
-        address: address,
-        promoCodeUsed: promoCode,
-    });
-    return result;
+const getOrderByAddressPromoCodeUsed = (address, promoCode) => orderManager.findBy({
+    address: address,
+    promoCodeUsed: promoCode,
 });
 exports.getOrderByAddressPromoCodeUsed = getOrderByAddressPromoCodeUsed;
-const insertNewOrder = (payload, addressId) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield orderManager.insert(Object.assign(Object.assign({}, payload), { address: { id: addressId }, orderStatus: { id: 1 } }));
-    return result;
-});
+const insertNewOrder = (payload, addressId) => orderManager.insert(Object.assign(Object.assign({}, payload), { address: { id: addressId }, orderStatus: { id: 1 } }));
 exports.insertNewOrder = insertNewOrder;
 //# sourceMappingURL=orderRepository.js.map

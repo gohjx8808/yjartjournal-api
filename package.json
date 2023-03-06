@@ -16,6 +16,7 @@
   "author": "jingxuan.goh",
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.0.2",
+    "@sendgrid/mail": "^7.7.0",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.13",
     "contentful": "^9.2.14",

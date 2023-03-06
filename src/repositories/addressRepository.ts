@@ -9,59 +9,40 @@ import {
 
 export const addressManager = manager.getRepository(Addresses);
 
-export const getAddressByUserQuery = (user: Users) => {
-  const userAddresses = addressManager
+export const getAddressByUserQuery = (user: Users) =>
+  addressManager
     .createQueryBuilder('addresses')
     .leftJoin('addresses.user', 'user')
     .leftJoinAndSelect('addresses.state', 'state')
     .where('user.id = :id', { id: user.id });
 
-  return userAddresses;
-};
-
-export const getUserAdresses = async (user: Users) => {
-  const existingAddresses = await getAddressByUserQuery(user)
+export const getUserAdresses = (user: Users) =>
+  getAddressByUserQuery(user)
     .orderBy({ 'addresses.updated_at': 'DESC' })
     .getMany();
 
-  return existingAddresses;
-};
-
-export const getUserAddressById = async (user: Users, addressId: number) => {
-  const result = await getAddressByUserQuery(user)
+export const getUserAddressById = (user: Users, addressId: number) =>
+  getAddressByUserQuery(user)
     .andWhere({
       id: addressId,
     })
     .getOne();
 
-  return result;
-};
+export const updateAddressDefaultToFalse = (addressId: number) =>
+  addressManager.update({ id: addressId }, { isDefault: false });
 
-export const updateAddressDefaultToFalse = async (addressId: number) => {
-  await addressManager.update({ id: addressId }, { isDefault: false });
-};
-
-export const insertNewAddress = async (
-  payload: AddAddressPayload,
-  user?: Users,
-) => {
-  const result = await addressManager.insert({
+export const insertNewAddress = (payload: AddAddressPayload, user?: Users) =>
+  addressManager.insert({
     ...payload,
     user,
   });
 
-  return result;
-};
-
-export const deleteAddressById = async (addressId: number) => {
-  const result = await addressManager
+export const deleteAddressById = (addressId: number) =>
+  addressManager
     .createQueryBuilder()
     .delete()
     .where({ id: addressId })
     .execute();
-
-  return result;
-};
 
 export const getAddressWithExactDetailsQuery = (
   user: Users,
@@ -91,28 +72,21 @@ export const getAddressWithExactDetailsQuery = (
   return filterAddressQuery;
 };
 
-export const getAddressWithExactDetails = async (
+export const getAddressWithExactDetails = (
   user: Users,
   payload: AddAddressPayload,
-) => {
-  const result = await getAddressWithExactDetailsQuery(user, payload).getOne();
+) => getAddressWithExactDetailsQuery(user, payload).getOne();
 
-  return result;
-};
-
-export const getAddressWithExactDetailsExceptSelf = async (
+export const getAddressWithExactDetailsExceptSelf = (
   user: Users,
   payload: UpdateAddressPayload,
-) => {
-  const result = await getAddressWithExactDetailsQuery(user, payload)
+) =>
+  getAddressWithExactDetailsQuery(user, payload)
     .andWhere({ id: Not(payload.addressId) })
     .getOne();
 
-  return result;
-};
-
-export const updateAddressById = async (payload: UpdateAddressPayload) => {
-  const result = await addressManager.update(
+export const updateAddressById = (payload: UpdateAddressPayload) =>
+  addressManager.update(
     { id: payload.addressId },
     {
       receiverName: payload.receiverName,
@@ -128,6 +102,3 @@ export const updateAddressById = async (payload: UpdateAddressPayload) => {
       tag: payload.tag,
     },
   );
-
-  return result;
-};

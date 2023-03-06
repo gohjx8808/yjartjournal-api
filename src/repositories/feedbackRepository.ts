@@ -4,8 +4,5 @@ import { FeedbackPayload } from '../services/feedback/typings';
 
 const feedbackManager = manager.getRepository(Feedbacks);
 
-export const insertNewFeedback = async (payload: FeedbackPayload) => {
-  const feedbackCreated = await feedbackManager.insert(payload);
-
-  return feedbackCreated;
-};
+export const insertNewFeedback = (payload: FeedbackPayload) =>
+  feedbackManager.insert(payload);

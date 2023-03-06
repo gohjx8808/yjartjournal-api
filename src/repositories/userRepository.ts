@@ -5,8 +5,8 @@ import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
 
 const userManager = manager.getRepository(Users);
 
-export const getUserById = async (userId: number) => {
-  const userDetails = await userManager
+export const getUserById = (userId: number) =>
+  userManager
     .createQueryBuilder()
     .where({ id: userId })
     .select([
@@ -21,36 +21,18 @@ export const getUserById = async (userId: number) => {
     ])
     .getOne();
 
-  return userDetails;
-};
+export const updateUserById = (userId: number, payload: UpdateAccountPayload) =>
+  userManager.update({ id: userId }, payload);
 
-export const updateUserById = async (
-  userId: number,
-  payload: UpdateAccountPayload,
-) => {
-  const result = await userManager.update({ id: userId }, payload);
+export const getUserByEmail = (email: string) =>
+  userManager.createQueryBuilder().where({ email: email }).getOne();
 
-  return result;
-};
-
-export const getUserByEmail = async (email: string) => {
-  const result = await userManager
-    .createQueryBuilder()
-    .where({ email: email })
-    .getOne();
-
-  return result;
-};
-
-export const insertNewUser = async (
+export const insertNewUser = (
   payload: SignUpPayload,
   encryptedPassword: EncryptedPassword,
-) => {
-  const response = await userManager.insert({
+) =>
+  userManager.insert({
     ...payload,
     password: encryptedPassword.content,
     iv: encryptedPassword.iv,
   });
-
-  return response;
-};

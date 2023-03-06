@@ -6,27 +6,21 @@ import { OrderInsertPayload } from '../services/order/typings';
 
 const orderManager = manager.getRepository(Orders);
 
-export const getOrderByAddressPromoCodeUsed = async (
+export const getOrderByAddressPromoCodeUsed = (
   address: Addresses,
   promoCode: PromoCodes,
-) => {
-  const result = await orderManager.findBy({
+) =>
+  orderManager.findBy({
     address: address,
     promoCodeUsed: promoCode,
   });
 
-  return result;
-};
-
-export const insertNewOrder = async (
+export const insertNewOrder = (
   payload: OrderInsertPayload,
   addressId: number,
-) => {
-  const result = await orderManager.insert({
+) =>
+  orderManager.insert({
     ...payload,
     address: { id: addressId },
     orderStatus: { id: 1 },
   });
-
-  return result;
-};
