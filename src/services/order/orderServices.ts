@@ -9,6 +9,7 @@ import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository
 import { insertNewOrder } from '../../repositories/orderRepository';
 import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 import { getUserById } from '../../repositories/userRepository';
+import { OptionData } from '../../typings';
 import { addAddress, isAddressExist } from '../address/addressServices';
 import {
   CalculateShippingFeePayload,
@@ -91,33 +92,30 @@ const insertCheckoutItemData = (
     return response;
   });
 
-export const checkout = async (payload: CheckoutPayload, user: Users) => {
-  const addressId = await insertCheckoutAddress(payload, user);
-
-  const order = await insertOrderData(payload, addressId);
-
-  insertCheckoutItemData(payload.products, order.identifiers[0].id);
-
-  const addressDetails = await getAddressById(addressId);
-
+const calculateDiscount = async (
+  promoCodeUsed: OptionData,
+  totalAmount: number,
+) => {
   let discountMargin;
   let discountAmount = 0;
-  if (payload.promoCodeUsed) {
-    const promoCodeDetails = await getPromoCodeById(payload.promoCodeUsed.id);
+  if (promoCodeUsed) {
+    const promoCodeDetails = await getPromoCodeById(promoCodeUsed.id);
     if (promoCodeDetails.promoType === 'percent') {
       discountMargin = `${promoCodeDetails.promoValue}%`;
-      discountAmount =
-        payload.totalAmount * (promoCodeDetails.promoValue / 100);
+      discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);
     } else {
       discountAmount = promoCodeDetails.promoValue;
     }
   }
 
-  const formattedProducts = payload.products.map((product) => ({
-    ...product,
-    totalPrice: product.totalPrice.toFixed(2),
-  }));
+  return { discountMargin, discountAmount };
+};
 
+const sendPaymentEmail = async (
+  payload: CheckoutPayload,
+  user: Users,
+  addressId: number,
+) => {
   const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
   const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
 
@@ -126,6 +124,18 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
     const userDetails = await getUserById(user.id);
     buyerName = userDetails.preferredName || userDetails.name;
   }
+
+  const addressDetails = await getAddressById(addressId);
+
+  const formattedProducts = payload.products.map((product) => ({
+    ...product,
+    totalPrice: product.totalPrice.toFixed(2),
+  }));
+
+  const discountDetails = await calculateDiscount(
+    payload.promoCodeUsed,
+    payload.totalAmount,
+  );
 
   const emailMsg: MailDataRequired = {
     personalizations: [{ to: [{ email: payload.buyerEmail }] }],
@@ -136,13 +146,13 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
       buyerName: buyerName,
       checkoutItems: formattedProducts,
       totalAmount: payload.totalAmount.toFixed(2),
-      discountMargin: discountMargin,
-      discountAmount: discountAmount.toFixed(2),
+      discountMargin: discountDetails.discountMargin,
+      discountAmount: discountDetails.discountAmount.toFixed(2),
       shippingFee: payload.shippingFee.toFixed(2),
       totalAfterShipping: (
         payload.totalAmount +
         payload.shippingFee -
-        discountAmount
+        discountDetails.discountAmount
       ).toFixed(2),
       note: payload.note,
       receiverName: addressDetails.receiverName,
@@ -159,6 +169,16 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
   };
 
   await sendEmail(emailMsg);
+};
+
+export const checkout = async (payload: CheckoutPayload, user: Users) => {
+  const addressId = await insertCheckoutAddress(payload, user);
+
+  const order = await insertOrderData(payload, addressId);
+
+  insertCheckoutItemData(payload.products, order.identifiers[0].id);
+
+  await sendPaymentEmail(payload, user, addressId);
 
   return { message: 'Order successfully created!' };
 };

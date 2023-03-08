@@ -83,25 +83,22 @@ const insertCheckoutItemData = (payload, orderId) => payload.map((item) => __awa
     const response = yield (0, checkoutItemRepository_1.insertNewCheckoutItem)(item, orderId);
     return response;
 }));
-const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
-    const addressId = yield insertCheckoutAddress(payload, user);
-    const order = yield insertOrderData(payload, addressId);
-    insertCheckoutItemData(payload.products, order.identifiers[0].id);
-    const addressDetails = yield (0, addressRepository_1.getAddressById)(addressId);
+const calculateDiscount = (promoCodeUsed, totalAmount) => __awaiter(void 0, void 0, void 0, function* () {
     let discountMargin;
     let discountAmount = 0;
-    if (payload.promoCodeUsed) {
-        const promoCodeDetails = yield (0, promoCodeRepository_1.getPromoCodeById)(payload.promoCodeUsed.id);
+    if (promoCodeUsed) {
+        const promoCodeDetails = yield (0, promoCodeRepository_1.getPromoCodeById)(promoCodeUsed.id);
         if (promoCodeDetails.promoType === 'percent') {
             discountMargin = `${promoCodeDetails.promoValue}%`;
-            discountAmount =
-                payload.totalAmount * (promoCodeDetails.promoValue / 100);
+            discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);
         }
         else {
             discountAmount = promoCodeDetails.promoValue;
         }
     }
-    const formattedProducts = payload.products.map((product) => (Object.assign(Object.assign({}, product), { totalPrice: product.totalPrice.toFixed(2) })));
+    return { discountMargin, discountAmount };
+});
+const sendPaymentEmail = (payload, user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
     const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
     const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
     let buyerName = payload.buyerEmail;
@@ -109,6 +106,9 @@ const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* 
         const userDetails = yield (0, userRepository_1.getUserById)(user.id);
         buyerName = userDetails.preferredName || userDetails.name;
     }
+    const addressDetails = yield (0, addressRepository_1.getAddressById)(addressId);
+    const formattedProducts = payload.products.map((product) => (Object.assign(Object.assign({}, product), { totalPrice: product.totalPrice.toFixed(2) })));
+    const discountDetails = yield calculateDiscount(payload.promoCodeUsed, payload.totalAmount);
     const emailMsg = {
         personalizations: [{ to: [{ email: payload.buyerEmail }] }],
         from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
@@ -117,12 +117,12 @@ const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* 
             buyerName: buyerName,
             checkoutItems: formattedProducts,
             totalAmount: payload.totalAmount.toFixed(2),
-            discountMargin: discountMargin,
-            discountAmount: discountAmount.toFixed(2),
+            discountMargin: discountDetails.discountMargin,
+            discountAmount: discountDetails.discountAmount.toFixed(2),
             shippingFee: payload.shippingFee.toFixed(2),
             totalAfterShipping: (payload.totalAmount +
                 payload.shippingFee -
-                discountAmount).toFixed(2),
+                discountDetails.discountAmount).toFixed(2),
             note: payload.note,
             receiverName: addressDetails.receiverName,
             receiverContact: `+${addressDetails.receiverCountryCode} ${addressDetails.receiverPhoneNumber}`,
@@ -134,6 +134,12 @@ const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* 
         },
     };
     yield (0, sgMail_1.sendEmail)(emailMsg);
+});
+const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
+    const addressId = yield insertCheckoutAddress(payload, user);
+    const order = yield insertOrderData(payload, addressId);
+    insertCheckoutItemData(payload.products, order.identifiers[0].id);
+    yield sendPaymentEmail(payload, user, addressId);
     return { message: 'Order successfully created!' };
 });
 exports.checkout = checkout;
