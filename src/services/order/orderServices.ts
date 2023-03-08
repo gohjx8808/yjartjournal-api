@@ -1,7 +1,13 @@
+import { MailDataRequired } from '@sendgrid/mail';
 import Users from '../../entities/Users';
-import { insertNewAddress } from '../../repositories/addressRepository';
+import { sendEmail } from '../../mail/sgMail';
+import {
+  getAddressById,
+  insertNewAddress,
+} from '../../repositories/addressRepository';
 import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository';
 import { insertNewOrder } from '../../repositories/orderRepository';
+import { getUserById } from '../../repositories/userRepository';
 import { addAddress, isAddressExist } from '../address/addressServices';
 import {
   CalculateShippingFeePayload,
@@ -89,10 +95,55 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
 
   const order = await insertOrderData(payload, addressId);
 
-  const checkoutItemDatas = insertCheckoutItemData(
+  insertCheckoutItemData(
     payload.products,
     order.identifiers[0].id,
   );
 
-  return checkoutItemDatas;
+  const addressDetails = await getAddressById(addressId);
+
+  const formattedProducts = payload.products.map((product) => ({
+    ...product,
+    totalPrice: product.totalPrice.toFixed(2),
+  }));
+
+  const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
+  const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
+
+  let buyerName = payload.buyerEmail;
+  if (user) {
+    const userDetails = await getUserById(user.id);
+    buyerName = userDetails.preferredName || userDetails.name;
+  }
+
+  const emailMsg: MailDataRequired = {
+    personalizations: [{ to: [{ email: payload.buyerEmail }] }],
+    from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
+    templateId:
+      payload.paymentMethod === 'TNG' ? tngTemplateId : bankTransferTemplateId,
+    dynamicTemplateData: {
+      buyerName: buyerName,
+      checkoutItems: formattedProducts,
+      totalAmount: payload.totalAmount.toFixed(2),
+      shippingFee: payload.shippingFee.toFixed(2),
+      totalAfterShipping: (payload.totalAmount + payload.shippingFee).toFixed(
+        2,
+      ),
+      note: payload.note,
+      receiverName: addressDetails.receiverName,
+      receiverContact: `+${addressDetails.receiverCountryCode} ${addressDetails.receiverPhoneNumber}`,
+      receiverAddress:
+        `${addressDetails.addressLineOne}, ${
+          addressDetails.addressLineTwo
+            ? addressDetails.addressLineTwo + ','
+            : ''
+        } ` +
+        `${addressDetails.postcode} ${addressDetails.city}, ${addressDetails.state.name} ` +
+        `${addressDetails.country}`,
+    },
+  };
+
+  await sendEmail(emailMsg);
+
+  return addressDetails;
 };

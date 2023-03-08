@@ -102,3 +102,6 @@ export const updateAddressById = (payload: UpdateAddressPayload) =>
       tag: payload.tag,
     },
   );
+
+export const getAddressById = (addressId: number) =>
+  addressManager.findOne({ where: { id: addressId }, relations: ['state'] });

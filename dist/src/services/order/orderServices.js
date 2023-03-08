@@ -10,9 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkout = exports.calculateShippingFee = void 0;
+const sgMail_1 = require("../../mail/sgMail");
 const addressRepository_1 = require("../../repositories/addressRepository");
 const checkoutItemRepository_1 = require("../../repositories/checkoutItemRepository");
 const orderRepository_1 = require("../../repositories/orderRepository");
+const userRepository_1 = require("../../repositories/userRepository");
 const addressServices_1 = require("../address/addressServices");
 const calculateShippingFee = (payload) => {
     const stateId = payload.state.id;
@@ -83,8 +85,38 @@ const insertCheckoutItemData = (payload, orderId) => payload.map((item) => __awa
 const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
     const addressId = yield insertCheckoutAddress(payload, user);
     const order = yield insertOrderData(payload, addressId);
-    const checkoutItemDatas = insertCheckoutItemData(payload.products, order.identifiers[0].id);
-    return checkoutItemDatas;
+    insertCheckoutItemData(payload.products, order.identifiers[0].id);
+    const addressDetails = yield (0, addressRepository_1.getAddressById)(addressId);
+    const formattedProducts = payload.products.map((product) => (Object.assign(Object.assign({}, product), { totalPrice: product.totalPrice.toFixed(2) })));
+    const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
+    const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
+    let buyerName = payload.buyerEmail;
+    if (user) {
+        const userDetails = yield (0, userRepository_1.getUserById)(user.id);
+        buyerName = userDetails.preferredName || userDetails.name;
+    }
+    const emailMsg = {
+        personalizations: [{ to: [{ email: payload.buyerEmail }] }],
+        from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
+        templateId: payload.paymentMethod === 'TNG' ? tngTemplateId : bankTransferTemplateId,
+        dynamicTemplateData: {
+            buyerName: buyerName,
+            checkoutItems: formattedProducts,
+            totalAmount: payload.totalAmount.toFixed(2),
+            shippingFee: payload.shippingFee.toFixed(2),
+            totalAfterShipping: (payload.totalAmount + payload.shippingFee).toFixed(2),
+            note: payload.note,
+            receiverName: addressDetails.receiverName,
+            receiverContact: `+${addressDetails.receiverCountryCode} ${addressDetails.receiverPhoneNumber}`,
+            receiverAddress: `${addressDetails.addressLineOne}, ${addressDetails.addressLineTwo
+                ? addressDetails.addressLineTwo + ','
+                : ''} ` +
+                `${addressDetails.postcode} ${addressDetails.city}, ${addressDetails.state.name} ` +
+                `${addressDetails.country}`,
+        },
+    };
+    yield (0, sgMail_1.sendEmail)(emailMsg);
+    return addressDetails;
 });
 exports.checkout = checkout;
 //# sourceMappingURL=orderServices.js.map

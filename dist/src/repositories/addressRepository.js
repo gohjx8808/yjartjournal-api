@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAddressById = exports.getAddressWithExactDetailsExceptSelf = exports.getAddressWithExactDetails = exports.getAddressWithExactDetailsQuery = exports.deleteAddressById = exports.insertNewAddress = exports.updateAddressDefaultToFalse = exports.getUserAddressById = exports.getUserAdresses = exports.getAddressByUserQuery = exports.addressManager = void 0;
+exports.getAddressById = exports.updateAddressById = exports.getAddressWithExactDetailsExceptSelf = exports.getAddressWithExactDetails = exports.getAddressWithExactDetailsQuery = exports.deleteAddressById = exports.insertNewAddress = exports.updateAddressDefaultToFalse = exports.getUserAddressById = exports.getUserAdresses = exports.getAddressByUserQuery = exports.addressManager = void 0;
 const typeorm_1 = require("typeorm");
 const dataSource_1 = require("../dataSource");
 const Addresses_1 = __importDefault(require("../entities/Addresses"));
@@ -78,4 +78,6 @@ const updateAddressById = (payload) => exports.addressManager.update({ id: paylo
     tag: payload.tag,
 });
 exports.updateAddressById = updateAddressById;
+const getAddressById = (addressId) => exports.addressManager.findOne({ where: { id: addressId }, relations: ['state'] });
+exports.getAddressById = getAddressById;
 //# sourceMappingURL=addressRepository.js.map
