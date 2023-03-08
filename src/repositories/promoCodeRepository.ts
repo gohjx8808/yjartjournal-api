@@ -7,3 +7,6 @@ export const getPromoCodeByName = (promoCode: string) =>
   promoCodeManager.findOneBy({
     name: promoCode,
   });
+
+export const getPromoCodeById = (promoCodeId: number) =>
+  promoCodeManager.findOneBy({ id: promoCodeId });

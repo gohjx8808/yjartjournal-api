@@ -7,6 +7,7 @@ import {
 } from '../../repositories/addressRepository';
 import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository';
 import { insertNewOrder } from '../../repositories/orderRepository';
+import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 import { getUserById } from '../../repositories/userRepository';
 import { addAddress, isAddressExist } from '../address/addressServices';
 import {
@@ -95,12 +96,22 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
 
   const order = await insertOrderData(payload, addressId);
 
-  insertCheckoutItemData(
-    payload.products,
-    order.identifiers[0].id,
-  );
+  insertCheckoutItemData(payload.products, order.identifiers[0].id);
 
   const addressDetails = await getAddressById(addressId);
+
+  let discountMargin;
+  let discountAmount = 0;
+  if (payload.promoCodeUsed) {
+    const promoCodeDetails = await getPromoCodeById(payload.promoCodeUsed.id);
+    if (promoCodeDetails.promoType === 'percent') {
+      discountMargin = `${promoCodeDetails.promoValue}%`;
+      discountAmount =
+        payload.totalAmount * (promoCodeDetails.promoValue / 100);
+    } else {
+      discountAmount = promoCodeDetails.promoValue;
+    }
+  }
 
   const formattedProducts = payload.products.map((product) => ({
     ...product,
@@ -125,10 +136,14 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
       buyerName: buyerName,
       checkoutItems: formattedProducts,
       totalAmount: payload.totalAmount.toFixed(2),
+      discountMargin: discountMargin,
+      discountAmount: discountAmount.toFixed(2),
       shippingFee: payload.shippingFee.toFixed(2),
-      totalAfterShipping: (payload.totalAmount + payload.shippingFee).toFixed(
-        2,
-      ),
+      totalAfterShipping: (
+        payload.totalAmount +
+        payload.shippingFee -
+        discountAmount
+      ).toFixed(2),
       note: payload.note,
       receiverName: addressDetails.receiverName,
       receiverContact: `+${addressDetails.receiverCountryCode} ${addressDetails.receiverPhoneNumber}`,
@@ -145,5 +160,5 @@ export const checkout = async (payload: CheckoutPayload, user: Users) => {
 
   await sendEmail(emailMsg);
 
-  return addressDetails;
+  return { message: 'Order successfully created!' };
 };
