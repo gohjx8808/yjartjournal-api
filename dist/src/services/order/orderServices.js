@@ -54,9 +54,9 @@ const insertCheckoutAddress = (payload, user) => __awaiter(void 0, void 0, void 
         isDefault: false,
     };
     if (user && payload.addToAddressBook) {
-        const existingSameAddress = yield (0, addressServices_1.isAddressExist)(user, addressData);
+        const existingSameAddress = yield (0, addressServices_1.isAddressExist)(user.id, addressData);
         if (!existingSameAddress.exist) {
-            addressId = (yield (0, addressServices_1.addAddress)(user, addressData)).identifiers[0].id;
+            addressId = (yield (0, addressServices_1.addAddress)(user.id, addressData)).identifiers[0].id;
         }
         else {
             addressId = existingSameAddress.id;

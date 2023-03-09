@@ -1,7 +1,6 @@
 import { IsNull, Not } from 'typeorm';
 import { manager } from '../dataSource';
 import Addresses from '../entities/Addresses';
-import Users from '../entities/Users';
 import {
   AddAddressPayload,
   UpdateAddressPayload,
@@ -9,20 +8,20 @@ import {
 
 export const addressManager = manager.getRepository(Addresses);
 
-export const getAddressByUserQuery = (user: Users) =>
+export const getAddressByUserIdQuery = (userId: number) =>
   addressManager
     .createQueryBuilder('addresses')
     .leftJoin('addresses.user', 'user')
     .leftJoinAndSelect('addresses.state', 'state')
-    .where('user.id = :id', { id: user.id });
+    .where('user.id = :id', { id: userId });
 
-export const getUserAdresses = (user: Users) =>
-  getAddressByUserQuery(user)
+export const getUserAdresses = (userId: number) =>
+  getAddressByUserIdQuery(userId)
     .orderBy({ 'addresses.updated_at': 'DESC' })
     .getMany();
 
-export const getUserAddressById = (user: Users, addressId: number) =>
-  getAddressByUserQuery(user)
+export const getUserAddressById = (userId: number, addressId: number) =>
+  getAddressByUserIdQuery(userId)
     .andWhere({
       id: addressId,
     })
@@ -31,10 +30,10 @@ export const getUserAddressById = (user: Users, addressId: number) =>
 export const updateAddressDefaultToFalse = (addressId: number) =>
   addressManager.update({ id: addressId }, { isDefault: false });
 
-export const insertNewAddress = (payload: AddAddressPayload, user?: Users) =>
+export const insertNewAddress = (payload: AddAddressPayload, userId?: number) =>
   addressManager.insert({
     ...payload,
-    user,
+    user: { id: userId },
   });
 
 export const deleteAddressById = (addressId: number) =>
@@ -45,10 +44,10 @@ export const deleteAddressById = (addressId: number) =>
     .execute();
 
 export const getAddressWithExactDetailsQuery = (
-  user: Users,
+  userId: number,
   payload: AddAddressPayload | UpdateAddressPayload,
 ) => {
-  let filterAddressQuery = getAddressByUserQuery(user).andWhere({
+  let filterAddressQuery = getAddressByUserIdQuery(userId).andWhere({
     receiverName: payload.receiverName,
     receiverCountryCode: payload.receiverCountryCode,
     receiverPhoneNumber: payload.receiverPhoneNumber,
@@ -73,15 +72,15 @@ export const getAddressWithExactDetailsQuery = (
 };
 
 export const getAddressWithExactDetails = (
-  user: Users,
+  userId: number,
   payload: AddAddressPayload,
-) => getAddressWithExactDetailsQuery(user, payload).getOne();
+) => getAddressWithExactDetailsQuery(userId, payload).getOne();
 
 export const getAddressWithExactDetailsExceptSelf = (
-  user: Users,
+  userId: number,
   payload: UpdateAddressPayload,
 ) =>
-  getAddressWithExactDetailsQuery(user, payload)
+  getAddressWithExactDetailsQuery(userId, payload)
     .andWhere({ id: Not(payload.addressId) })
     .getOne();
 

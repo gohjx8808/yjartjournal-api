@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import Users from '../../entities/Users';
+import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
 import {
   isAddressExistExceptSelf,
   isAddressIdExist,
@@ -15,7 +15,7 @@ const UpdateAddressMiddleware =
       res: Response,
       next: NextFunction,
     ) => {
-      const user = req.user.valueOf() as Users;
+      const user = typeAuthenticatedUser(req);
       const payload = req.body;
 
       if (payload.tag) {
@@ -26,14 +26,14 @@ const UpdateAddressMiddleware =
         }
       }
 
-      const addressIdExist = await isAddressIdExist(user, payload.addressId);
+      const addressIdExist = await isAddressIdExist(user.id, payload.addressId);
 
       if (!addressIdExist) {
         return res.status(422).json({ message: 'Address ID not exist!' });
       }
 
       const sameAddressExistExceptSelf = await isAddressExistExceptSelf(
-        user,
+        user.id,
         payload,
       );
 

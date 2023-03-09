@@ -18,48 +18,48 @@ const validateTag = (tag) => {
     return true;
 };
 exports.validateTag = validateTag;
-const isAddressIdExist = (user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
-    const addressAvailable = yield (0, addressRepository_1.getUserAddressById)(user, addressId);
+const isAddressIdExist = (userId, addressId) => __awaiter(void 0, void 0, void 0, function* () {
+    const addressAvailable = yield (0, addressRepository_1.getUserAddressById)(userId, addressId);
     return !!addressAvailable;
 });
 exports.isAddressIdExist = isAddressIdExist;
-const getAddressList = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield (0, addressRepository_1.getUserAdresses)(user);
+const getAddressList = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingAddresses = yield (0, addressRepository_1.getUserAdresses)(userId);
     return existingAddresses;
 });
 exports.getAddressList = getAddressList;
-const updateOtherAddressDefaultToFalse = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield (0, exports.getAddressList)(user);
+const updateOtherAddressDefaultToFalse = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingAddresses = yield (0, exports.getAddressList)(userId);
     existingAddresses.map((address) => __awaiter(void 0, void 0, void 0, function* () {
         yield (0, addressRepository_1.updateAddressDefaultToFalse)(address.id);
     }));
 });
 exports.updateOtherAddressDefaultToFalse = updateOtherAddressDefaultToFalse;
-const oneDefaultAddressOnly = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
+const oneDefaultAddressOnly = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
     payload.isDefault = Boolean(payload.isDefault);
     if (payload.isDefault === true) {
-        yield (0, exports.updateOtherAddressDefaultToFalse)(user);
+        yield (0, exports.updateOtherAddressDefaultToFalse)(userId);
     }
 });
 exports.oneDefaultAddressOnly = oneDefaultAddressOnly;
-const addAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, exports.oneDefaultAddressOnly)(user, payload);
-    const response = yield (0, addressRepository_1.insertNewAddress)(payload, user);
+const addAddress = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, exports.oneDefaultAddressOnly)(userId, payload);
+    const response = yield (0, addressRepository_1.insertNewAddress)(payload, userId);
     return response;
 });
 exports.addAddress = addAddress;
-const isAddressExist = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddresses = yield (0, addressRepository_1.getAddressWithExactDetails)(user, payload);
+const isAddressExist = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingAddresses = yield (0, addressRepository_1.getAddressWithExactDetails)(userId, payload);
     return { id: existingAddresses === null || existingAddresses === void 0 ? void 0 : existingAddresses.id, exist: !!existingAddresses };
 });
 exports.isAddressExist = isAddressExist;
-const isAddressExistExceptSelf = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingAddressesExceptSelf = yield (0, addressRepository_1.getAddressWithExactDetailsExceptSelf)(user, payload);
+const isAddressExistExceptSelf = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingAddressesExceptSelf = yield (0, addressRepository_1.getAddressWithExactDetailsExceptSelf)(userId, payload);
     return !!existingAddressesExceptSelf;
 });
 exports.isAddressExistExceptSelf = isAddressExistExceptSelf;
-const updateAddress = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, exports.oneDefaultAddressOnly)(user, payload);
+const updateAddress = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, exports.oneDefaultAddressOnly)(userId, payload);
     const response = yield (0, addressRepository_1.updateAddressById)(payload);
     return response;
 });

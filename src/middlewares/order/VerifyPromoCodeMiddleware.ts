@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import Users from '../../entities/Users';
+import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
 import { getPromoCodeByName } from '../../repositories/promoCodeRepository';
 import { VerifyPromoCodePayload } from '../../services/order/typings';
 import { validatePromoCode } from '../../services/promoCode/promoCodeServices';
@@ -13,11 +13,14 @@ const VerifyPromoCodeMiddleware =
       next: NextFunction,
     ) => {
       const payload = req.body;
-      const user = req.user.valueOf() as Users;
+      const user = typeAuthenticatedUser(req);
 
       const existingPromoCode = await getPromoCodeByName(payload.promoCode);
 
-      const verificationResult = await validatePromoCode(existingPromoCode, user);
+      const verificationResult = await validatePromoCode(
+        existingPromoCode,
+        user.id,
+      );
 
       if (!verificationResult.success) {
         return res.status(422).json({ message: verificationResult.message });

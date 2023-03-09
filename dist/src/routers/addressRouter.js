@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addressRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
+const sharedHelper_1 = require("../helpers/sharedHelper");
 const AddAddressMiddleware_1 = __importDefault(require("../middlewares/address/AddAddressMiddleware"));
 const DeleteAddressMiddleware_1 = __importDefault(require("../middlewares/address/DeleteAddressMiddleware"));
 const UpdateAddressMiddleware_1 = __importDefault(require("../middlewares/address/UpdateAddressMiddleware"));
@@ -27,8 +28,8 @@ const addressServices_1 = require("../services/address/addressServices");
 const upload = (0, multer_1.default)();
 exports.addressRouter = (0, express_1.Router)();
 exports.addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.user.valueOf();
-    const response = yield (0, addressServices_1.getAddressList)(user);
+    const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
+    const response = yield (0, addressServices_1.getAddressList)(user.id);
     return res.json({ data: response });
 }));
 exports.addressRouter.get('/state-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,9 +42,9 @@ exports.addressRouter.post('/add', ...[
     ...AddAddressValidator_1.default,
     (0, AddAddressMiddleware_1.default)(),
 ], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.user.valueOf();
+    const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const payload = req.body;
-    const response = yield (0, addressServices_1.addAddress)(user, payload);
+    const response = yield (0, addressServices_1.addAddress)(user.id, payload);
     return res.json(response);
 }));
 exports.addressRouter.post('/update', ...[
@@ -52,9 +53,9 @@ exports.addressRouter.post('/update', ...[
     ...UpdateAddressValidator_1.default,
     (0, UpdateAddressMiddleware_1.default)(),
 ], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.user.valueOf();
+    const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const payload = req.body;
-    const response = yield (0, addressServices_1.updateAddress)(user, payload);
+    const response = yield (0, addressServices_1.updateAddress)(user.id, payload);
     return res.json(response);
 }));
 exports.addressRouter.post('/delete', ...[

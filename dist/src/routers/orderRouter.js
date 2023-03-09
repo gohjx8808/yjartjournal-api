@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.orderRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
+const sharedHelper_1 = require("../helpers/sharedHelper");
 const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddleware"));
 const CheckoutMiddleware_1 = __importDefault(require("../middlewares/order/CheckoutMiddleware"));
 const VerifyPromoCodeMiddleware_1 = __importDefault(require("../middlewares/order/VerifyPromoCodeMiddleware"));
@@ -46,9 +47,8 @@ exports.orderRouter.post('/checkout', ...[
     ...CheckoutValidator_1.default,
     (0, CheckoutMiddleware_1.default)(),
 ], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     const payload = req.body;
-    const user = (_a = req.user) === null || _a === void 0 ? void 0 : _a.valueOf();
+    const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const response = yield (0, orderServices_1.checkout)(payload, user);
     return res.json({ data: response });
 }));

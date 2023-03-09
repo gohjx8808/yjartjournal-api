@@ -1,9 +1,11 @@
 import PromoCodes from '../../entities/PromoCodes';
-import Users from '../../entities/Users';
 import { getOrderByAddressPromoCodeUsed } from '../../repositories/orderRepository';
 import { getAddressList } from '../address/addressServices';
 
-export const validatePromoCode = async (promoCode: PromoCodes, user: Users) => {
+export const validatePromoCode = async (
+  promoCode: PromoCodes,
+  userId: number,
+) => {
   if (!promoCode) {
     return { success: false, message: 'Invalid promo code.' };
   }
@@ -18,7 +20,7 @@ export const validatePromoCode = async (promoCode: PromoCodes, user: Users) => {
     return { success: false, message: 'Promo expired.' };
   }
 
-  const userAddresses = await getAddressList(user);
+  const userAddresses = await getAddressList(userId);
   let promoCodeUsedAmount = 0;
   userAddresses.map(async (address) => {
     const addressPromoCode = await getOrderByAddressPromoCodeUsed(

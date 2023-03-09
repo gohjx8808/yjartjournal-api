@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import Users from '../entities/Users';
+import { typeAuthenticatedUser } from '../helpers/sharedHelper';
 import AddAddressMiddleware from '../middlewares/address/AddAddressMiddleware';
 import DeleteAddressMiddleware from '../middlewares/address/DeleteAddressMiddleware';
 import UpdateAddressMiddleware from '../middlewares/address/UpdateAddressMiddleware';
@@ -30,8 +30,8 @@ addressRouter.get(
   '/list',
   JwtAuthMiddleware(),
   async (req: CustomAuthenticatedRequest, res) => {
-    const user = req.user.valueOf() as Users;
-    const response = await getAddressList(user);
+    const user = typeAuthenticatedUser(req);
+    const response = await getAddressList(user.id);
 
     return res.json({ data: response });
   },
@@ -52,10 +52,10 @@ addressRouter.post(
     AddAddressMiddleware(),
   ],
   async (req: CustomAuthenticatedRequest<AddAddressPayload>, res) => {
-    const user = req.user.valueOf() as Users;
+    const user = typeAuthenticatedUser(req);
     const payload = req.body;
 
-    const response = await addAddress(user, payload);
+    const response = await addAddress(user.id, payload);
 
     return res.json(response);
   },
@@ -70,10 +70,10 @@ addressRouter.post(
     UpdateAddressMiddleware(),
   ],
   async (req: CustomAuthenticatedRequest<UpdateAddressPayload>, res) => {
-    const user = req.user.valueOf() as Users;
+    const user = typeAuthenticatedUser(req);
     const payload = req.body;
 
-    const response = await updateAddress(user, payload);
+    const response = await updateAddress(user.id, payload);
 
     return res.json(response);
   },

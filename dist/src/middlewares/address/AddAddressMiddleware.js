@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const sharedHelper_1 = require("../../helpers/sharedHelper");
 const addressServices_1 = require("../../services/address/addressServices");
 const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const user = req.user.valueOf();
+    const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     if (payload.tag) {
         if (!(0, addressServices_1.validateTag)(payload.tag)) {
             return res
@@ -20,7 +21,7 @@ const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0,
                 .json({ message: 'Invalid tag. Please select a valid tag.' });
         }
     }
-    const addressExist = (yield (0, addressServices_1.isAddressExist)(user, payload)).exist;
+    const addressExist = (yield (0, addressServices_1.isAddressExist)(user.id, payload)).exist;
     if (addressExist) {
         return res.status(422).json({
             message: 'Duplicated address detected. Please use a different address.',

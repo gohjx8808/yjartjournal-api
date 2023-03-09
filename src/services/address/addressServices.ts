@@ -1,4 +1,3 @@
-import Users from '../../entities/Users';
 import {
   deleteAddressById,
   getAddressWithExactDetails,
@@ -22,66 +21,69 @@ export const validateTag = (tag: string) => {
   return true;
 };
 
-export const isAddressIdExist = async (user: Users, addressId: number) => {
-  const addressAvailable = await getUserAddressById(user, addressId);
+export const isAddressIdExist = async (userId: number, addressId: number) => {
+  const addressAvailable = await getUserAddressById(userId, addressId);
 
   return !!addressAvailable;
 };
 
-export const getAddressList = async (user: Users) => {
-  const existingAddresses = await getUserAdresses(user);
+export const getAddressList = async (userId: number) => {
+  const existingAddresses = await getUserAdresses(userId);
 
   return existingAddresses;
 };
 
-export const updateOtherAddressDefaultToFalse = async (user: Users) => {
-  const existingAddresses = await getAddressList(user);
+export const updateOtherAddressDefaultToFalse = async (userId: number) => {
+  const existingAddresses = await getAddressList(userId);
   existingAddresses.map(async (address) => {
     await updateAddressDefaultToFalse(address.id);
   });
 };
 
 export const oneDefaultAddressOnly = async (
-  user: Users,
+  userId: number,
   payload: AddAddressPayload | UpdateAddressPayload,
 ) => {
   payload.isDefault = Boolean(payload.isDefault);
   if (payload.isDefault === true) {
-    await updateOtherAddressDefaultToFalse(user);
+    await updateOtherAddressDefaultToFalse(userId);
   }
 };
 
-export const addAddress = async (user: Users, payload: AddAddressPayload) => {
-  await oneDefaultAddressOnly(user, payload);
-  const response = await insertNewAddress(payload, user);
+export const addAddress = async (
+  userId: number,
+  payload: AddAddressPayload,
+) => {
+  await oneDefaultAddressOnly(userId, payload);
+  const response = await insertNewAddress(payload, userId);
 
   return response;
 };
 
 export const isAddressExist = async (
-  user: Users,
+  userId: number,
   payload: AddAddressPayload,
 ) => {
-  const existingAddresses = await getAddressWithExactDetails(user, payload);
+  const existingAddresses = await getAddressWithExactDetails(userId, payload);
 
   return { id: existingAddresses?.id, exist: !!existingAddresses };
 };
 
 export const isAddressExistExceptSelf = async (
-  user: Users,
+  userId: number,
   payload: UpdateAddressPayload,
 ) => {
   const existingAddressesExceptSelf =
-    await getAddressWithExactDetailsExceptSelf(user, payload);
+    await getAddressWithExactDetailsExceptSelf(userId, payload);
 
   return !!existingAddressesExceptSelf;
 };
 
 export const updateAddress = async (
-  user: Users,
+  userId: number,
   payload: UpdateAddressPayload,
 ) => {
-  await oneDefaultAddressOnly(user, payload);
+  await oneDefaultAddressOnly(userId, payload);
 
   const response = await updateAddressById(payload);
 

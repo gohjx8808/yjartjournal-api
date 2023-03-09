@@ -1,5 +1,4 @@
 import { MailDataRequired } from '@sendgrid/mail';
-import Users from '../../entities/Users';
 import { sendEmail } from '../../mail/sgMail';
 import {
   getAddressById,
@@ -11,6 +10,7 @@ import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 import { getUserById } from '../../repositories/userRepository';
 import { OptionData } from '../../typings';
 import { addAddress, isAddressExist } from '../address/addressServices';
+import { AuthenticatedUserData } from '../user/typings';
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,
@@ -38,7 +38,10 @@ export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
   }
 };
 
-const insertCheckoutAddress = async (payload: CheckoutPayload, user: Users) => {
+const insertCheckoutAddress = async (
+  payload: CheckoutPayload,
+  user: AuthenticatedUserData,
+) => {
   let addressId = payload.addressId;
 
   const addressData = {
@@ -55,9 +58,9 @@ const insertCheckoutAddress = async (payload: CheckoutPayload, user: Users) => {
   };
 
   if (user && payload.addToAddressBook) {
-    const existingSameAddress = await isAddressExist(user, addressData);
+    const existingSameAddress = await isAddressExist(user.id, addressData);
     if (!existingSameAddress.exist) {
-      addressId = (await addAddress(user, addressData)).identifiers[0].id;
+      addressId = (await addAddress(user.id, addressData)).identifiers[0].id;
     } else {
       addressId = existingSameAddress.id;
     }
@@ -113,7 +116,7 @@ const calculateDiscount = async (
 
 const sendPaymentEmail = async (
   payload: CheckoutPayload,
-  user: Users,
+  user: AuthenticatedUserData,
   addressId: number,
 ) => {
   const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
@@ -171,7 +174,10 @@ const sendPaymentEmail = async (
   await sendEmail(emailMsg);
 };
 
-export const checkout = async (payload: CheckoutPayload, user: Users) => {
+export const checkout = async (
+  payload: CheckoutPayload,
+  user: AuthenticatedUserData,
+) => {
   const addressId = await insertCheckoutAddress(payload, user);
 
   const order = await insertOrderData(payload, addressId);

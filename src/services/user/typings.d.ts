@@ -18,3 +18,8 @@ export interface EncryptedPassword {
   iv: string;
   content: string;
 }
+
+export interface AuthenticatedUserData {
+  email: string;
+  id: number;
+}

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validatePromoCode = void 0;
 const orderRepository_1 = require("../../repositories/orderRepository");
 const addressServices_1 = require("../address/addressServices");
-const validatePromoCode = (promoCode, user) => __awaiter(void 0, void 0, void 0, function* () {
+const validatePromoCode = (promoCode, userId) => __awaiter(void 0, void 0, void 0, function* () {
     if (!promoCode) {
         return { success: false, message: 'Invalid promo code.' };
     }
@@ -23,7 +23,7 @@ const validatePromoCode = (promoCode, user) => __awaiter(void 0, void 0, void 0,
     if (currentDate > promoCode.expiredAt) {
         return { success: false, message: 'Promo expired.' };
     }
-    const userAddresses = yield (0, addressServices_1.getAddressList)(user);
+    const userAddresses = yield (0, addressServices_1.getAddressList)(userId);
     let promoCodeUsedAmount = 0;
     userAddresses.map((address) => __awaiter(void 0, void 0, void 0, function* () {
         const addressPromoCode = yield (0, orderRepository_1.getOrderByAddressPromoCodeUsed)(address, promoCode);

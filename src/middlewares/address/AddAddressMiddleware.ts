@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import Users from '../../entities/Users';
+import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
 import {
   isAddressExist,
   validateTag,
@@ -15,7 +15,7 @@ const AddAddressMiddleware =
       next: NextFunction,
     ) => {
       const payload = req.body;
-      const user = req.user.valueOf() as Users;
+      const user = typeAuthenticatedUser(req);
 
       if (payload.tag) {
         if (!validateTag(payload.tag)) {
@@ -25,7 +25,7 @@ const AddAddressMiddleware =
         }
       }
 
-      const addressExist = (await isAddressExist(user, payload)).exist;
+      const addressExist = (await isAddressExist(user.id, payload)).exist;
 
       if (addressExist) {
         return res.status(422).json({

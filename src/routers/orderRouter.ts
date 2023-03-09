@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import Users from '../entities/Users';
+import { typeAuthenticatedUser } from '../helpers/sharedHelper';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import CheckoutMiddleware from '../middlewares/order/CheckoutMiddleware';
 import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';
@@ -61,7 +61,7 @@ orderRouter.post<{}, any, CheckoutPayload>(
   ],
   async (req: CustomAuthenticatedRequest<CheckoutPayload>, res) => {
     const payload = req.body;
-    const user = req.user?.valueOf() as Users;
+    const user = typeAuthenticatedUser(req);
 
     const response = await checkout(payload, user);
 
