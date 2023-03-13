@@ -35,5 +35,5 @@ export const validatePromoCode = async (
     return { success: false, message: 'Promo limit exceeded.' };
   }
 
-  return { success: false, message: '' };
+  return { success: true, message: '' };
 };

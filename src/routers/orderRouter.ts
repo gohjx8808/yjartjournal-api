@@ -35,7 +35,7 @@ orderRouter.post<{}, any, VerifyPromoCodePayload>(
     const payload = req.body;
     const response = await getPromoCodeByName(payload.promoCode);
 
-    return res.json({ response });
+    return res.json({ data: response });
   },
 );
 

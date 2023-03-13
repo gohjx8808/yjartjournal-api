@@ -32,7 +32,7 @@ const validatePromoCode = (promoCode, userId) => __awaiter(void 0, void 0, void 
     if (promoCodeUsedAmount > promoCode.useLimit) {
         return { success: false, message: 'Promo limit exceeded.' };
     }
-    return { success: false, message: '' };
+    return { success: true, message: '' };
 });
 exports.validatePromoCode = validatePromoCode;
 //# sourceMappingURL=promoCodeServices.js.map

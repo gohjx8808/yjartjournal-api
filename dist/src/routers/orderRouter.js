@@ -34,7 +34,7 @@ exports.orderRouter.post('/verify-promo-code', ...[
 ], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, promoCodeRepository_1.getPromoCodeByName)(payload.promoCode);
-    return res.json({ response });
+    return res.json({ data: response });
 }));
 exports.orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {
     const payload = req.body;

@@ -18,13 +18,13 @@ const JwtAuthMiddleware =
 
         verify(token, process.env.JWT_SIGN_TOKEN, (err, user) => {
           if (err) {
-            handleError(required, next, res);
+            return handleError(required, next, res);
           }
           req.user = user;
           next();
         });
       } else {
-        handleError(required, next, res);
+        return handleError(required, next, res);
       }
     };
 

@@ -13,14 +13,14 @@ const JwtAuthMiddleware = (required = true) => (req, res, next) => {
         const token = authHeader.split(' ')[1];
         (0, jsonwebtoken_1.verify)(token, process.env.JWT_SIGN_TOKEN, (err, user) => {
             if (err) {
-                handleError(required, next, res);
+                return handleError(required, next, res);
             }
             req.user = user;
             next();
         });
     }
     else {
-        handleError(required, next, res);
+        return handleError(required, next, res);
     }
 };
 exports.default = JwtAuthMiddleware;
