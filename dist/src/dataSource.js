@@ -14,6 +14,7 @@ const Feedbacks_1 = __importDefault(require("./entities/Feedbacks"));
 const Orders_1 = __importDefault(require("./entities/Orders"));
 const OrderStatuses_1 = __importDefault(require("./entities/OrderStatuses"));
 const PromoCodes_1 = __importDefault(require("./entities/PromoCodes"));
+const ResetPasswordTokens_1 = __importDefault(require("./entities/ResetPasswordTokens"));
 const SortOptions_1 = __importDefault(require("./entities/SortOptions"));
 const States_1 = __importDefault(require("./entities/States"));
 const Users_1 = __importDefault(require("./entities/Users"));
@@ -34,6 +35,7 @@ exports.dataSource = new typeorm_1.DataSource({
         OrderStatuses_1.default,
         Orders_1.default,
         CheckoutItems_1.default,
+        ResetPasswordTokens_1.default,
     ],
     migrations: [
         _1672062650913_SeedSortOptions_1.SeedSortOptions1672062650913,

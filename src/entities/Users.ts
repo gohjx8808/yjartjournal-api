@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import Addresses from './Addresses';
+import ResetPasswordTokens from './ResetPasswordTokens';
 
 @Entity()
 class Users {
@@ -52,6 +53,12 @@ class Users {
 
   @OneToMany(() => Addresses, (address) => address.user)
     addresses: Addresses;
+
+  @OneToMany(
+    () => ResetPasswordTokens,
+    (resetPasswordToken) => resetPasswordToken.user
+  )
+    resetPasswordTokens: ResetPasswordTokens[];
 }
 
 export default Users;

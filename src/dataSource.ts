@@ -8,6 +8,7 @@ import Feedbacks from './entities/Feedbacks';
 import Orders from './entities/Orders';
 import OrderStatuses from './entities/OrderStatuses';
 import PromoCodes from './entities/PromoCodes';
+import ResetPasswordTokens from './entities/ResetPasswordTokens';
 import SortOptions from './entities/SortOptions';
 import States from './entities/States';
 import Users from './entities/Users';
@@ -29,6 +30,7 @@ export const dataSource = new DataSource({
     OrderStatuses,
     Orders,
     CheckoutItems,
+    ResetPasswordTokens,
   ],
   migrations: [
     SeedSortOptions1672062650913,
