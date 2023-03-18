@@ -9,7 +9,7 @@ import { generateAccessToken, signUpUser } from '../services/user/userServices';
 
 const upload = multer();
 
-export const userRouter = Router();
+const userRouter = Router();
 
 userRouter.post<{}, any, SignUpPayload>(
   '/sign-up',
@@ -30,6 +30,8 @@ userRouter.post<{}, any, SignInPayload>(
 
     const response = await generateAccessToken(payload);
 
-    return res.json({ data:response });
+    return res.json({ data: response });
   },
 );
+
+export default userRouter;

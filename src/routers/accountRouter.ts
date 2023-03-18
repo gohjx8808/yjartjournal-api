@@ -12,7 +12,7 @@ import { CustomAuthenticatedRequest } from '../typings';
 
 const upload = multer();
 
-export const accountRouter = Router();
+const accountRouter = Router();
 
 accountRouter.get(
   '/details',
@@ -37,3 +37,5 @@ accountRouter.post(
     return res.json(response);
   },
 );
+
+export default accountRouter;

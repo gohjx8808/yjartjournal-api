@@ -24,7 +24,7 @@ import { CustomAuthenticatedRequest } from '../typings';
 
 const upload = multer();
 
-export const addressRouter = Router();
+const addressRouter = Router();
 
 addressRouter.get(
   '/list',
@@ -95,3 +95,5 @@ addressRouter.post(
     return res.json(response);
   },
 );
+
+export default addressRouter;

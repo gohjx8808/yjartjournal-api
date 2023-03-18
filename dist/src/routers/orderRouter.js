@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.orderRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const sharedHelper_1 = require("../helpers/sharedHelper");
@@ -25,8 +24,8 @@ const CheckoutValidator_1 = __importDefault(require("../requestValidators/order/
 const VerifyPromoCodeValidator_1 = __importDefault(require("../requestValidators/order/VerifyPromoCodeValidator"));
 const orderServices_1 = require("../services/order/orderServices");
 const upload = (0, multer_1.default)();
-exports.orderRouter = (0, express_1.Router)();
-exports.orderRouter.post('/verify-promo-code', ...[
+const orderRouter = (0, express_1.Router)();
+orderRouter.post('/verify-promo-code', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),
     ...VerifyPromoCodeValidator_1.default,
@@ -36,12 +35,12 @@ exports.orderRouter.post('/verify-promo-code', ...[
     const response = yield (0, promoCodeRepository_1.getPromoCodeByName)(payload.promoCode);
     return res.json({ data: response });
 }));
-exports.orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {
+orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {
     const payload = req.body;
     const response = (0, orderServices_1.calculateShippingFee)(payload);
     return res.json({ data: { shippingFee: response } });
 });
-exports.orderRouter.post('/checkout', ...[
+orderRouter.post('/checkout', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(false),
     ...CheckoutValidator_1.default,
@@ -52,4 +51,5 @@ exports.orderRouter.post('/checkout', ...[
     const response = yield (0, orderServices_1.checkout)(payload, user);
     return res.json({ data: response });
 }));
+exports.default = orderRouter;
 //# sourceMappingURL=orderRouter.js.map

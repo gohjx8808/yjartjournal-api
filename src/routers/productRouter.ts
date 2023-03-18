@@ -8,9 +8,10 @@ import {
   getProductCategories,
 } from '../services/product/productServices';
 import { GetAllProductsPayload } from '../services/product/typings';
+
 const upload = multer();
 
-export const productRouter = Router();
+const productRouter = Router();
 
 productRouter.get('/categories', async (_req, res) => {
   const categories = await getProductCategories();
@@ -35,3 +36,5 @@ productRouter.get('/image-gallery', async (_req, res) => {
   const productImages = await getAllImages();
   return res.json({ data: productImages });
 });
+
+export default productRouter;

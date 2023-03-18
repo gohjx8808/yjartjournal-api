@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addressRouter = void 0;
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const sharedHelper_1 = require("../helpers/sharedHelper");
@@ -26,17 +25,17 @@ const DeleteAddressValidator_1 = __importDefault(require("../requestValidators/a
 const UpdateAddressValidator_1 = __importDefault(require("../requestValidators/address/UpdateAddressValidator"));
 const addressServices_1 = require("../services/address/addressServices");
 const upload = (0, multer_1.default)();
-exports.addressRouter = (0, express_1.Router)();
-exports.addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const addressRouter = (0, express_1.Router)();
+addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const response = yield (0, addressServices_1.getAddressList)(user.id);
     return res.json({ data: response });
 }));
-exports.addressRouter.get('/state-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+addressRouter.get('/state-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield (0, stateRepository_1.getStateList)();
     return res.json({ data: response });
 }));
-exports.addressRouter.post('/add', ...[
+addressRouter.post('/add', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),
     ...AddAddressValidator_1.default,
@@ -47,7 +46,7 @@ exports.addressRouter.post('/add', ...[
     const response = yield (0, addressServices_1.addAddress)(user.id, payload);
     return res.json(response);
 }));
-exports.addressRouter.post('/update', ...[
+addressRouter.post('/update', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),
     ...UpdateAddressValidator_1.default,
@@ -58,7 +57,7 @@ exports.addressRouter.post('/update', ...[
     const response = yield (0, addressServices_1.updateAddress)(user.id, payload);
     return res.json(response);
 }));
-exports.addressRouter.post('/delete', ...[
+addressRouter.post('/delete', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),
     ...DeleteAddressValidator_1.default,
@@ -68,4 +67,5 @@ exports.addressRouter.post('/delete', ...[
     const response = yield (0, addressServices_1.deleteAddress)(payload);
     return res.json(response);
 }));
+exports.default = addressRouter;
 //# sourceMappingURL=addressRouter.js.map

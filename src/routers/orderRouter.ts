@@ -21,7 +21,7 @@ import { CustomAuthenticatedRequest } from '../typings';
 
 const upload = multer();
 
-export const orderRouter = Router();
+const orderRouter = Router();
 
 orderRouter.post<{}, any, VerifyPromoCodePayload>(
   '/verify-promo-code',
@@ -68,3 +68,5 @@ orderRouter.post<{}, any, CheckoutPayload>(
     return res.json({ data: response });
   },
 );
+
+export default orderRouter;

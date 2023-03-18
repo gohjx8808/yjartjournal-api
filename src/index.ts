@@ -1,12 +1,12 @@
 require('dotenv').config({ path: './.env' });
 import express from 'express';
 import { dataSource } from './dataSource';
-import { accountRouter } from './routers/accountRouter';
-import { addressRouter } from './routers/addressRouter';
-import { feedbackRouter } from './routers/feedbackRouter';
-import { orderRouter } from './routers/orderRouter';
-import { productRouter } from './routers/productRouter';
-import { userRouter } from './routers/userRouter';
+import accountRouter from './routers/accountRouter';
+import addressRouter from './routers/addressRouter';
+import feedbackRouter from './routers/feedbackRouter';
+import orderRouter from './routers/orderRouter';
+import productRouter from './routers/productRouter';
+import userRouter from './routers/userRouter';
 var cors = require('cors');
 
 const app: express.Application = express();
