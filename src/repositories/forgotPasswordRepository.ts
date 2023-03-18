@@ -19,3 +19,10 @@ export const insertNewResetPasswordToken = async (
 
   return { token, expiredAt };
 };
+
+export const getResetPasswordEntryByToken = (token: string) =>
+  resetPasswordManager.findOne({ where: { token }, relations: ['user'] });
+
+export const updateResetPasswordTokenUsage = async (token: string) => {
+  await resetPasswordManager.update({ token }, { isUsed: true });
+};

@@ -9,11 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.performForgotPasswordOperation = void 0;
+exports.resetUserPassword = exports.performForgotPasswordOperation = void 0;
 const crypto_1 = require("crypto");
 const sgMail_1 = require("../../mail/sgMail");
 const forgotPasswordRepository_1 = require("../../repositories/forgotPasswordRepository");
 const userRepository_1 = require("../../repositories/userRepository");
+const userServices_1 = require("../user/userServices");
 const insertForgotPasswordToken = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const token = (0, crypto_1.randomBytes)(16).toString('hex');
     const result = yield (0, forgotPasswordRepository_1.insertNewResetPasswordToken)(user, token);
@@ -39,4 +40,10 @@ const performForgotPasswordOperation = (email) => __awaiter(void 0, void 0, void
     yield sendForgotPasswordEmail(email, userDetails.preferredName || userDetails.name, resetPasswordLink, tokenDetails.expiredAt.toLocaleDateString('en-GB'));
 });
 exports.performForgotPasswordOperation = performForgotPasswordOperation;
+const resetUserPassword = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const tokenDetails = yield (0, forgotPasswordRepository_1.getResetPasswordEntryByToken)(payload.token);
+    yield (0, userServices_1.updateUserPassword)(tokenDetails.user.id, payload.password);
+    yield (0, forgotPasswordRepository_1.updateResetPasswordTokenUsage)(payload.token);
+});
+exports.resetUserPassword = resetUserPassword;
 //# sourceMappingURL=forgotPasswordServices.js.map

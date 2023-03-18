@@ -3,6 +3,7 @@ import { encrypt } from '../../helpers/cryptoHelper';
 import {
   getUserByEmail,
   insertNewUser,
+  updatePasswordByUserId,
 } from '../../repositories/userRepository';
 import { SignInPayload, SignUpPayload } from './typings';
 
@@ -23,4 +24,13 @@ export const generateAccessToken = async (payload: SignInPayload) => {
   );
 
   return { accessToken, user };
+};
+
+export const updateUserPassword = async (
+  userId: number,
+  newPassword: string,
+) => {
+  const encryptedNewPassword = encrypt(newPassword);
+
+  await updatePasswordByUserId(userId, encryptedNewPassword);
 };

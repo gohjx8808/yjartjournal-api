@@ -2,8 +2,14 @@ import { MailDataRequired } from '@sendgrid/mail';
 import { randomBytes } from 'crypto';
 import Users from '../../entities/Users';
 import { sendEmail } from '../../mail/sgMail';
-import { insertNewResetPasswordToken } from '../../repositories/forgotPasswordRepository';
+import {
+  getResetPasswordEntryByToken,
+  insertNewResetPasswordToken,
+  updateResetPasswordTokenUsage,
+} from '../../repositories/forgotPasswordRepository';
 import { getUserByEmail } from '../../repositories/userRepository';
+import { updateUserPassword } from '../user/userServices';
+import { ResetPasswordPayload } from './typings';
 
 const insertForgotPasswordToken = async (user: Users) => {
   const token = randomBytes(16).toString('hex');
@@ -45,4 +51,12 @@ export const performForgotPasswordOperation = async (email: string) => {
     resetPasswordLink,
     tokenDetails.expiredAt.toLocaleDateString('en-GB'),
   );
+};
+
+export const resetUserPassword = async (payload: ResetPasswordPayload) => {
+  const tokenDetails = await getResetPasswordEntryByToken(payload.token);
+
+  await updateUserPassword(tokenDetails.user.id, payload.password);
+
+  await updateResetPasswordTokenUsage(payload.token);
 };

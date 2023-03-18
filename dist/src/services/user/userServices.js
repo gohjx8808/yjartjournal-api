@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateAccessToken = exports.signUpUser = void 0;
+exports.updateUserPassword = exports.generateAccessToken = exports.signUpUser = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const cryptoHelper_1 = require("../../helpers/cryptoHelper");
 const userRepository_1 = require("../../repositories/userRepository");
@@ -25,4 +25,9 @@ const generateAccessToken = (payload) => __awaiter(void 0, void 0, void 0, funct
     return { accessToken, user };
 });
 exports.generateAccessToken = generateAccessToken;
+const updateUserPassword = (userId, newPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    const encryptedNewPassword = (0, cryptoHelper_1.encrypt)(newPassword);
+    yield (0, userRepository_1.updatePasswordByUserId)(userId, encryptedNewPassword);
+});
+exports.updateUserPassword = updateUserPassword;
 //# sourceMappingURL=userServices.js.map

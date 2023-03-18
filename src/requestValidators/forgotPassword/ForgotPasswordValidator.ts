@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import customValidator from '../customValidator';
 
-const forgotPasswordValidator = customValidator([
+const ForgotPasswordValidator = customValidator([
   body('email')
     .notEmpty()
     .withMessage('Email is required.')
@@ -9,4 +9,4 @@ const forgotPasswordValidator = customValidator([
     .withMessage('Invalid email.'),
 ]);
 
-export default forgotPasswordValidator;
+export default ForgotPasswordValidator;

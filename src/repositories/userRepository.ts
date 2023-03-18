@@ -36,3 +36,13 @@ export const insertNewUser = (
     password: encryptedPassword.content,
     iv: encryptedPassword.iv,
   });
+
+export const updatePasswordByUserId = async (
+  userId: number,
+  newEncryptedPassword: EncryptedPassword,
+) => {
+  await userManager.update(
+    { id: userId },
+    { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv },
+  );
+};
