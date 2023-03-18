@@ -22,10 +22,10 @@ class ResetPasswordTokens {
   @Column()
     token: string;
 
-  @Column({ name: "expired_at" })
+  @Column({ name: "expired_at", type: "date" })
     expiredAt: Date;
 
-  @Column({ name: "is_used" })
+  @Column({ name: "is_used", default: false })
     isUsed: boolean;
 
   @CreateDateColumn({ name: "created_at" })

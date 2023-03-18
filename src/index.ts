@@ -4,6 +4,7 @@ import { dataSource } from './dataSource';
 import accountRouter from './routers/accountRouter';
 import addressRouter from './routers/addressRouter';
 import feedbackRouter from './routers/feedbackRouter';
+import forgotPasswordRouter from './routers/forgotPasswordRouter';
 import orderRouter from './routers/orderRouter';
 import productRouter from './routers/productRouter';
 import userRouter from './routers/userRouter';
@@ -35,6 +36,8 @@ dataSource.initialize().then(async () => {
   app.use('/addresses', addressRouter);
 
   app.use('/orders', orderRouter);
+
+  app.use('/forgot-password', forgotPasswordRouter);
 
   app.listen(port);
 });

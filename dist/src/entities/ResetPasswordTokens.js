@@ -31,11 +31,11 @@ __decorate([
     __metadata("design:type", String)
 ], ResetPasswordTokens.prototype, "token", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "expired_at" }),
+    (0, typeorm_1.Column)({ name: "expired_at", type: "date" }),
     __metadata("design:type", Date)
 ], ResetPasswordTokens.prototype, "expiredAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "is_used" }),
+    (0, typeorm_1.Column)({ name: "is_used", default: false }),
     __metadata("design:type", Boolean)
 ], ResetPasswordTokens.prototype, "isUsed", void 0);
 __decorate([

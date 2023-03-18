@@ -18,6 +18,7 @@ const dataSource_1 = require("./dataSource");
 const accountRouter_1 = __importDefault(require("./routers/accountRouter"));
 const addressRouter_1 = __importDefault(require("./routers/addressRouter"));
 const feedbackRouter_1 = __importDefault(require("./routers/feedbackRouter"));
+const forgotPasswordRouter_1 = __importDefault(require("./routers/forgotPasswordRouter"));
 const orderRouter_1 = __importDefault(require("./routers/orderRouter"));
 const productRouter_1 = __importDefault(require("./routers/productRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
@@ -37,6 +38,7 @@ dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0
     app.use('/account', accountRouter_1.default);
     app.use('/addresses', addressRouter_1.default);
     app.use('/orders', orderRouter_1.default);
+    app.use('/forgot-password', forgotPasswordRouter_1.default);
     app.listen(port);
 }));
 //# sourceMappingURL=index.js.map
