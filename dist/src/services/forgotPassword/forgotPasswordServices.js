@@ -36,7 +36,7 @@ const performForgotPasswordOperation = (email) => __awaiter(void 0, void 0, void
     const userDetails = yield (0, userRepository_1.getUserByEmail)(email);
     const tokenDetails = yield insertForgotPasswordToken(userDetails);
     const resetPasswordLink = `${process.env.YJARTJOURNAL_LINK}/${tokenDetails.token}`;
-    yield sendForgotPasswordEmail(email, userDetails.preferredName || userDetails.name, resetPasswordLink, tokenDetails.expiredAt.toLocaleDateString());
+    yield sendForgotPasswordEmail(email, userDetails.preferredName || userDetails.name, resetPasswordLink, tokenDetails.expiredAt.toLocaleDateString('en-GB'));
 });
 exports.performForgotPasswordOperation = performForgotPasswordOperation;
 //# sourceMappingURL=forgotPasswordServices.js.map

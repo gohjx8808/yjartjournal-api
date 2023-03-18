@@ -43,6 +43,6 @@ export const performForgotPasswordOperation = async (email: string) => {
     email,
     userDetails.preferredName || userDetails.name,
     resetPasswordLink,
-    tokenDetails.expiredAt.toLocaleDateString(),
+    tokenDetails.expiredAt.toLocaleDateString('en-GB'),
   );
 };
