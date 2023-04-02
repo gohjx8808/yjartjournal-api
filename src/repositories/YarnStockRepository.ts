@@ -11,6 +11,9 @@ class YarnStockRepository {
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
     });
+
+  getAll = () =>
+    yarnStockManager.find({ relations: ['yarnColorCategory', 'yarnCategory'] });
 }
 
 export default YarnStockRepository;
