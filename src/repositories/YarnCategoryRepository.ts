@@ -4,10 +4,7 @@ import YarnCategories from '../entities/YarnCategories';
 const yarnCategoryManager = manager.getRepository(YarnCategories);
 
 class YarnCategoryRepository {
-  getAll = async () => {
-    const res = await yarnCategoryManager.find();
-    return res;
-  };
+  getAll = () => yarnCategoryManager.find();
 }
 
 export default YarnCategoryRepository;

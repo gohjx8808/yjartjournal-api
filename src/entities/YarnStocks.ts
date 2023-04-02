@@ -27,19 +27,22 @@ class YarnStocks {
   @JoinColumn({ name: "yarn_color_category_id", referencedColumnName: "id" })
     yarnColorCategory: YarnColorCategories;
 
+  @Column({ name: "detailed_color" })
+    detailedColor: string;
+
   @Column({ name: "cost_per_item", type: "float" })
     costPerItem: number;
 
   @Column({ name: "in_stock_quantity" })
     inStockQuantity: number;
 
-  @Column({ name: "used_quantity" })
+  @Column({ name: "used_quantity", default:0 })
     usedQuantity: number;
 
   @Column({ name: "reorder_level" })
     reorderLevel: number;
 
-  @Column({ name: "last_ordered_at", type: "date" })
+  @Column({ name: "last_ordered_at", type: "date", nullable: true })
     lastOrderedAt: Date;
 
   @CreateDateColumn({ name: "created_at", select: false })
