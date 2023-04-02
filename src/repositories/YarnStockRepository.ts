@@ -13,7 +13,9 @@ class YarnStockRepository {
     });
 
   getAll = () =>
-    yarnStockManager.find({ relations: ['yarnColorCategory', 'yarnCategory'] });
+    yarnStockManager.find({
+      relations: ['yarnColorCategory', 'yarnCategory'],
+    });
 }
 
 export default YarnStockRepository;

@@ -9,3 +9,8 @@ export interface AddNewYarnStockPayload {
   reorderLevel: number;
   lastOrderedDate?: Date;
 }
+
+export interface GetYarnStockPayload {
+  yarnCategoryIds: number[];
+  yarnColorCategoryIds: number[];
+}
