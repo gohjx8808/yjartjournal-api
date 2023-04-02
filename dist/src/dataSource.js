@@ -8,6 +8,8 @@ const typeorm_1 = require("typeorm");
 const _1672062650913_SeedSortOptions_1 = require("../migrations/1672062650913-SeedSortOptions");
 const _1675693903490_SeedOrderStatuses_1 = require("../migrations/1675693903490-SeedOrderStatuses");
 const _1677079230858_SeedStates_1 = require("../migrations/1677079230858-SeedStates");
+const _1680409712499_SeedYarnCategories_1 = require("../migrations/1680409712499-SeedYarnCategories");
+const _1680410495324_SeedYarnColorCategories_1 = require("../migrations/1680410495324-SeedYarnColorCategories");
 const Addresses_1 = __importDefault(require("./entities/Addresses"));
 const CheckoutItems_1 = __importDefault(require("./entities/CheckoutItems"));
 const Feedbacks_1 = __importDefault(require("./entities/Feedbacks"));
@@ -18,6 +20,9 @@ const ResetPasswordTokens_1 = __importDefault(require("./entities/ResetPasswordT
 const SortOptions_1 = __importDefault(require("./entities/SortOptions"));
 const States_1 = __importDefault(require("./entities/States"));
 const Users_1 = __importDefault(require("./entities/Users"));
+const YarnCategories_1 = __importDefault(require("./entities/YarnCategories"));
+const YarnColorCategories_1 = __importDefault(require("./entities/YarnColorCategories"));
+const YarnStocks_1 = __importDefault(require("./entities/YarnStocks"));
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.POSTGRESQL_DB_HOST,
@@ -36,11 +41,16 @@ exports.dataSource = new typeorm_1.DataSource({
         Orders_1.default,
         CheckoutItems_1.default,
         ResetPasswordTokens_1.default,
+        YarnStocks_1.default,
+        YarnCategories_1.default,
+        YarnColorCategories_1.default,
     ],
     migrations: [
         _1672062650913_SeedSortOptions_1.SeedSortOptions1672062650913,
         _1675693903490_SeedOrderStatuses_1.SeedOrderStatuses1675693903490,
         _1677079230858_SeedStates_1.SeedStates1677079230858,
+        _1680409712499_SeedYarnCategories_1.SeedYarnCategories1680409712499,
+        _1680410495324_SeedYarnColorCategories_1.SeedYarnColorCategories1680410495324,
     ],
     synchronize: true,
     logging: false,

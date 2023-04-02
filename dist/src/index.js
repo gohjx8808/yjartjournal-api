@@ -21,6 +21,7 @@ const feedbackRouter_1 = __importDefault(require("./routers/feedbackRouter"));
 const forgotPasswordRouter_1 = __importDefault(require("./routers/forgotPasswordRouter"));
 const orderRouter_1 = __importDefault(require("./routers/orderRouter"));
 const productRouter_1 = __importDefault(require("./routers/productRouter"));
+const stockRouter_1 = __importDefault(require("./routers/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 var cors = require('cors');
 const app = (0, express_1.default)();
@@ -39,6 +40,7 @@ dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0
     app.use('/addresses', addressRouter_1.default);
     app.use('/orders', orderRouter_1.default);
     app.use('/forgot-password', forgotPasswordRouter_1.default);
+    app.use('/stocks', stockRouter_1.default);
     app.listen(port);
 }));
 //# sourceMappingURL=index.js.map
