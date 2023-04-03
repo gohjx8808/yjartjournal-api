@@ -4,6 +4,7 @@ import YarnStockRepository from '../../repositories/YarnStockRepository';
 import {
   AddNewYarnStockPayload,
   GetYarnStockPayload,
+  StockData,
   UpdateYarnQuantityPayload,
 } from './typings';
 
@@ -35,7 +36,15 @@ class YarnStockService {
       );
     }
 
-    return filtered;
+    const formattedStockData: StockData[] = filtered.map((stock) => {
+      if (stock.inStockQuantity < stock.reorderLevel) {
+        return { ...stock, reorderStatus: 'reorder' };
+      }
+
+      return { ...stock, reorderStatus: 'optimum' };
+    });
+
+    return formattedStockData;
   };
 
   getAllYarnCategories = async () => {

@@ -33,7 +33,13 @@ class YarnStockService {
             if (payload.yarnColorCategoryIds.length > 0) {
                 filtered = yarnStocks.filter((stock) => payload.yarnColorCategoryIds.includes(stock.yarnColorCategory.id));
             }
-            return filtered;
+            const formattedStockData = filtered.map((stock) => {
+                if (stock.inStockQuantity < stock.reorderLevel) {
+                    return Object.assign(Object.assign({}, stock), { reorderStatus: 'reorder' });
+                }
+                return Object.assign(Object.assign({}, stock), { reorderStatus: 'optimum' });
+            });
+            return formattedStockData;
         });
         this.getAllYarnCategories = () => __awaiter(this, void 0, void 0, function* () {
             const response = yield this.yarnCategoryRepository.getAll();
