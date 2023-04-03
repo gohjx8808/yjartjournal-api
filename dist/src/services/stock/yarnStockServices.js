@@ -43,6 +43,19 @@ class YarnStockService {
             const response = yield this.yarnColorCategoryRepository.getAll();
             return response;
         });
+        this.updateYarnStockAmount = (payload) => __awaiter(this, void 0, void 0, function* () {
+            const currentYarnStock = yield this.yarnStockRepository.getById(payload.yarnId);
+            if (!currentYarnStock) {
+                return { msg: 'Invalid yarn id.', success: false };
+            }
+            const currentQuantity = currentYarnStock.inStockQuantity;
+            let currentUsedQuantity = currentYarnStock.usedQuantity;
+            if (payload.quantity < currentQuantity) {
+                currentUsedQuantity += currentQuantity - payload.quantity;
+            }
+            const response = yield this.yarnStockRepository.updateQuantity(payload.yarnId, payload.quantity, currentUsedQuantity);
+            return { response, success: true };
+        });
     }
 }
 exports.default = YarnStockService;

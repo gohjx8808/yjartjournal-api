@@ -1,4 +1,4 @@
-import { OptionData } from '../../typings';
+import { OptionData } from "../../typings";
 
 export interface AddNewYarnStockPayload {
   yarnCategory: OptionData;
@@ -13,4 +13,9 @@ export interface AddNewYarnStockPayload {
 export interface GetYarnStockPayload {
   yarnCategoryIds: number[];
   yarnColorCategoryIds: number[];
+}
+
+export interface UpdateYarnQuantityPayload {
+  yarnId: number;
+  quantity: number;
 }

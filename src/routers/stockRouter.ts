@@ -2,9 +2,11 @@ import { Router } from 'express';
 import multer from 'multer';
 import AddNewStockValidator from '../requestValidators/stock/AddNewStockValidator';
 import GetYarnStockValidator from '../requestValidators/stock/GetYarnStockValidator';
+import UpdateStockQuantityValidator from '../requestValidators/stock/UpdateStockQuantityValidator';
 import {
   AddNewYarnStockPayload,
   GetYarnStockPayload,
+  UpdateYarnQuantityPayload,
 } from '../services/stock/typings';
 import YarnStockService from '../services/stock/yarnStockServices';
 
@@ -45,6 +47,21 @@ stockRouter.get<{}, any, GetYarnStockPayload>(
     const response = await yarnStockService.getAllYarnStock(payload);
 
     return res.json({ data: response });
+  },
+);
+
+stockRouter.post<{}, any, UpdateYarnQuantityPayload>(
+  '/update-quantity',
+  ...[upload.none(), ...UpdateStockQuantityValidator],
+  async (req, res) => {
+    const payload = req.body;
+
+    const response = await yarnStockService.updateYarnStockAmount(payload);
+
+    if (!response.success) {
+      return res.status(422).json({ message: response.msg });
+    }
+    return res.json(response);
   },
 );
 

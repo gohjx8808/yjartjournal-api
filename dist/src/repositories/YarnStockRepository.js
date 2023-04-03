@@ -23,6 +23,11 @@ class YarnStockRepository {
         this.getAll = () => yarnStockManager.find({
             relations: ['yarnColorCategory', 'yarnCategory'],
         });
+        this.updateQuantity = (yarnId, inStockQuantity, usedQuantity) => yarnStockManager.update({ id: yarnId }, { inStockQuantity, usedQuantity });
+        this.getById = (yarnId) => yarnStockManager.findOne({
+            where: { id: yarnId },
+            relations: ['yarnColorCategory', 'yarnCategory'],
+        });
     }
 }
 exports.default = YarnStockRepository;

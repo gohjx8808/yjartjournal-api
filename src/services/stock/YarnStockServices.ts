@@ -1,7 +1,11 @@
 import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
 import YarnColorCategoryRepository from '../../repositories/YarnColorCategoryRepository';
 import YarnStockRepository from '../../repositories/YarnStockRepository';
-import { AddNewYarnStockPayload, GetYarnStockPayload } from './typings';
+import {
+  AddNewYarnStockPayload,
+  GetYarnStockPayload,
+  UpdateYarnQuantityPayload,
+} from './typings';
 
 class YarnStockService {
   private yarnStockRepository = new YarnStockRepository();
@@ -42,6 +46,30 @@ class YarnStockService {
   getAllYarnColorCategories = async () => {
     const response = await this.yarnColorCategoryRepository.getAll();
     return response;
+  };
+
+  updateYarnStockAmount = async (payload: UpdateYarnQuantityPayload) => {
+    const currentYarnStock = await this.yarnStockRepository.getById(
+      payload.yarnId,
+    );
+
+    if (!currentYarnStock) {
+      return { msg: 'Invalid yarn id.', success: false };
+    }
+
+    const currentQuantity = currentYarnStock.inStockQuantity;
+    let currentUsedQuantity = currentYarnStock.usedQuantity;
+
+    if (payload.quantity < currentQuantity) {
+      currentUsedQuantity += currentQuantity - payload.quantity;
+    }
+
+    const response = await this.yarnStockRepository.updateQuantity(
+      payload.yarnId,
+      payload.quantity,
+      currentUsedQuantity,
+    );
+    return { response, success: true };
   };
 }
 
