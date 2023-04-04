@@ -13,22 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const YarnCategoryRepository_1 = __importDefault(require("../../repositories/YarnCategoryRepository"));
-class YarnCategoryServices {
-    constructor() {
-        this.yarnCategoryRepository = new YarnCategoryRepository_1.default();
-        this.getAllYarnCategories = () => __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.yarnCategoryRepository.getAll();
-            return response;
-        });
-        this.addNewYarnCategory = (payload) => __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.yarnCategoryRepository.addNew(payload);
-            return response;
-        });
-        this.updateYarnCategory = (payload) => __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.yarnCategoryRepository.update(payload);
-            return response;
-        });
+const UpdateYarnCategoryMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const yarnCategoryRepository = new YarnCategoryRepository_1.default();
+    const existingById = yield yarnCategoryRepository.getById(payload.id);
+    if (!existingById) {
+        return res.status(404).json({ message: 'Invalid yarn category id.' });
     }
-}
-exports.default = YarnCategoryServices;
-//# sourceMappingURL=YarnCategoryServices.js.map
+    const existingByName = yield yarnCategoryRepository.getByNameExceptSelf(payload);
+    if (existingByName) {
+        return res.status(422).json({ message: 'Duplicated yarn category detected.' });
+    }
+    return next();
+});
+exports.default = UpdateYarnCategoryMiddleware;
+//# sourceMappingURL=UpdateYarnCategoryMiddleware.js.map

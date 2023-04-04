@@ -14,12 +14,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
+const UpdateYarnCategoryMiddleware_1 = __importDefault(require("../../middlewares/stocks/UpdateYarnCategoryMiddleware"));
+const AddNewYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/AddNewYarnCategoryValidator"));
+const UpdateYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator"));
 const YarnCategoryServices_1 = __importDefault(require("../../services/stock/YarnCategoryServices"));
 const yarnCategoryRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnCategoryService = new YarnCategoryServices_1.default();
 yarnCategoryRouter.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield yarnCategoryService.getAllYarnCategories();
+    return res.json({ data: response });
+}));
+yarnCategoryRouter.post('/add-new', ...[upload.none(), ...AddNewYarnCategoryValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const response = yield yarnCategoryService.addNewYarnCategory(payload);
+    return res.json({ data: response });
+}));
+yarnCategoryRouter.post('/update', ...[upload.none(), ...UpdateYarnCategoryValidator_1.default, UpdateYarnCategoryMiddleware_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const response = yield yarnCategoryService.updateYarnCategory(payload);
     return res.json({ data: response });
 }));
 exports.default = yarnCategoryRouter;

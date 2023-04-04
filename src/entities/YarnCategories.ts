@@ -14,7 +14,7 @@ class YarnCategories {
   @PrimaryGeneratedColumn()
     id: number;
 
-  @Column()
+  @Column({ unique: true })
     name: string;
 
   @CreateDateColumn({ name: "created_at", select: false })

@@ -32,3 +32,11 @@ export interface StockData {
   lastOrderedAt: Date;
   reorderStatus: 'reorder' | 'optimum';
 }
+
+export interface AddNewYarnCategoryPayload {
+  name: string;
+}
+
+export interface UpdateYarnCategoryPayload extends AddNewYarnCategoryPayload {
+  id: number;
+}
