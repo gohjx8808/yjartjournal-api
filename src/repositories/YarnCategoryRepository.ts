@@ -22,8 +22,10 @@ class YarnCategoryRepository {
       { conflictPaths: ['name'], skipUpdateIfNoValuesChanged: true },
     );
 
-  update = (paload: UpdateYarnCategoryPayload) =>
-    yarnCategoryManager.update({ id: paload.id }, { name: paload.name });
+  update = (payload: UpdateYarnCategoryPayload) =>
+    yarnCategoryManager.update({ id: payload.id }, { name: payload.name });
+
+  delete = (id: number) => yarnCategoryManager.delete({ id });
 }
 
 export default YarnCategoryRepository;

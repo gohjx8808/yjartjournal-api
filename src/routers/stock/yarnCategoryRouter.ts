@@ -1,9 +1,15 @@
 import { Router } from 'express';
 import multer from 'multer';
+import DeleteYarnCategoryMiddleware from '../../middlewares/stocks/DeleteYarnCategoryMiddleware';
 import UpdateYarnCategoryMiddleware from '../../middlewares/stocks/UpdateYarnCategoryMiddleware';
 import AddNewYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/AddNewYarnCategoryValidator';
+import DeleteYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/DeleteYarnCategoryValidator';
 import UpdateYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator';
-import { AddNewYarnCategoryPayload, UpdateYarnCategoryPayload } from '../../services/stock/typings';
+import {
+  AddNewYarnCategoryPayload,
+  DeleteYarnCategoryPayload,
+  UpdateYarnCategoryPayload,
+} from '../../services/stock/typings';
 import YarnCategoryServices from '../../services/stock/YarnCategoryServices';
 
 const yarnCategoryRouter = Router();
@@ -30,10 +36,29 @@ yarnCategoryRouter.post<{}, any, AddNewYarnCategoryPayload>(
 
 yarnCategoryRouter.post<{}, any, UpdateYarnCategoryPayload>(
   '/update',
-  ...[upload.none(), ...UpdateYarnCategoryValidator, UpdateYarnCategoryMiddleware],
+  ...[
+    upload.none(),
+    ...UpdateYarnCategoryValidator,
+    UpdateYarnCategoryMiddleware,
+  ],
   async (req, res) => {
     const payload = req.body;
     const response = await yarnCategoryService.updateYarnCategory(payload);
+
+    return res.json({ data: response });
+  },
+);
+
+yarnCategoryRouter.post<{}, any, DeleteYarnCategoryPayload>(
+  '/delete',
+  ...[
+    upload.none(),
+    ...DeleteYarnCategoryValidator,
+    DeleteYarnCategoryMiddleware,
+  ],
+  async (req, res) => {
+    const payload = req.body;
+    const response = await yarnCategoryService.deleteYarnCategory(payload);
 
     return res.json({ data: response });
   },

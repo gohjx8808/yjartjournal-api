@@ -37,6 +37,9 @@ export interface AddNewYarnCategoryPayload {
   name: string;
 }
 
-export interface UpdateYarnCategoryPayload extends AddNewYarnCategoryPayload {
+export interface DeleteYarnCategoryPayload {
   id: number;
 }
+
+export type UpdateYarnCategoryPayload = AddNewYarnCategoryPayload &
+DeleteYarnCategoryPayload;

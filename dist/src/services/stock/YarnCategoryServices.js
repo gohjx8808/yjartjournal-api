@@ -28,6 +28,10 @@ class YarnCategoryServices {
             const response = yield this.yarnCategoryRepository.update(payload);
             return response;
         });
+        this.deleteYarnCategory = (payload) => __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.yarnCategoryRepository.delete(payload.id);
+            return response;
+        });
     }
 }
 exports.default = YarnCategoryServices;

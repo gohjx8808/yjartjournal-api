@@ -14,8 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
+const DeleteYarnCategoryMiddleware_1 = __importDefault(require("../../middlewares/stocks/DeleteYarnCategoryMiddleware"));
 const UpdateYarnCategoryMiddleware_1 = __importDefault(require("../../middlewares/stocks/UpdateYarnCategoryMiddleware"));
 const AddNewYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/AddNewYarnCategoryValidator"));
+const DeleteYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/DeleteYarnCategoryValidator"));
 const UpdateYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator"));
 const YarnCategoryServices_1 = __importDefault(require("../../services/stock/YarnCategoryServices"));
 const yarnCategoryRouter = (0, express_1.Router)();
@@ -30,9 +32,22 @@ yarnCategoryRouter.post('/add-new', ...[upload.none(), ...AddNewYarnCategoryVali
     const response = yield yarnCategoryService.addNewYarnCategory(payload);
     return res.json({ data: response });
 }));
-yarnCategoryRouter.post('/update', ...[upload.none(), ...UpdateYarnCategoryValidator_1.default, UpdateYarnCategoryMiddleware_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+yarnCategoryRouter.post('/update', ...[
+    upload.none(),
+    ...UpdateYarnCategoryValidator_1.default,
+    UpdateYarnCategoryMiddleware_1.default,
+], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield yarnCategoryService.updateYarnCategory(payload);
+    return res.json({ data: response });
+}));
+yarnCategoryRouter.post('/delete', ...[
+    upload.none(),
+    ...DeleteYarnCategoryValidator_1.default,
+    DeleteYarnCategoryMiddleware_1.default,
+], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const response = yield yarnCategoryService.deleteYarnCategory(payload);
     return res.json({ data: response });
 }));
 exports.default = yarnCategoryRouter;

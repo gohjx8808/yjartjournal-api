@@ -1,6 +1,7 @@
 import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
 import {
   AddNewYarnCategoryPayload,
+  DeleteYarnCategoryPayload,
   UpdateYarnCategoryPayload,
 } from './typings';
 
@@ -19,6 +20,11 @@ class YarnCategoryServices {
 
   updateYarnCategory = async (payload: UpdateYarnCategoryPayload) => {
     const response = await this.yarnCategoryRepository.update(payload);
+    return response;
+  };
+
+  deleteYarnCategory = async (payload: DeleteYarnCategoryPayload) => {
+    const response = await this.yarnCategoryRepository.delete(payload.id);
     return response;
   };
 }
