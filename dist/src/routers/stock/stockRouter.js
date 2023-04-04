@@ -14,21 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
-const AddNewStockValidator_1 = __importDefault(require("../requestValidators/stock/AddNewStockValidator"));
-const GetYarnStockValidator_1 = __importDefault(require("../requestValidators/stock/GetYarnStockValidator"));
-const UpdateStockQuantityValidator_1 = __importDefault(require("../requestValidators/stock/UpdateStockQuantityValidator"));
-const yarnStockServices_1 = __importDefault(require("../services/stock/yarnStockServices"));
+const AddNewStockValidator_1 = __importDefault(require("../../requestValidators/stock/AddNewStockValidator"));
+const GetYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/GetYarnStockValidator"));
+const UpdateStockQuantityValidator_1 = __importDefault(require("../../requestValidators/stock/UpdateStockQuantityValidator"));
+const yarnStockServices_1 = __importDefault(require("../../services/stock/yarnStockServices"));
+const yarnCategoryRouter_1 = __importDefault(require("./yarnCategoryRouter"));
+const yarnColorCategoryRouter_1 = __importDefault(require("./yarnColorCategoryRouter"));
 const stockRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnStockService = new yarnStockServices_1.default();
-stockRouter.get('/yarn-categories', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield yarnStockService.getAllYarnCategories();
-    return res.json({ data: response });
-}));
-stockRouter.get('/yarn-color-categories', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield yarnStockService.getAllYarnColorCategories();
-    return res.json({ data: response });
-}));
+stockRouter.use('/yarn-categories', yarnCategoryRouter_1.default);
+stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter_1.default);
 stockRouter.post('/add-new', ...[upload.none(), ...AddNewStockValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield yarnStockService.insertNewYarnStock(payload);

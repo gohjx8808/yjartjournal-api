@@ -1,31 +1,25 @@
 import { Router } from 'express';
 import multer from 'multer';
-import AddNewStockValidator from '../requestValidators/stock/AddNewStockValidator';
-import GetYarnStockValidator from '../requestValidators/stock/GetYarnStockValidator';
-import UpdateStockQuantityValidator from '../requestValidators/stock/UpdateStockQuantityValidator';
+import AddNewStockValidator from '../../requestValidators/stock/AddNewStockValidator';
+import GetYarnStockValidator from '../../requestValidators/stock/GetYarnStockValidator';
+import UpdateStockQuantityValidator from '../../requestValidators/stock/UpdateStockQuantityValidator';
 import {
   AddNewYarnStockPayload,
   GetYarnStockPayload,
   UpdateYarnQuantityPayload,
-} from '../services/stock/typings';
-import YarnStockService from '../services/stock/yarnStockServices';
+} from '../../services/stock/typings';
+import YarnStockServices from '../../services/stock/yarnStockServices';
+import yarnCategoryRouter from './yarnCategoryRouter';
+import yarnColorCategoryRouter from './yarnColorCategoryRouter';
 
 const stockRouter = Router();
 const upload = multer();
 
-const yarnStockService = new YarnStockService();
+const yarnStockService = new YarnStockServices();
 
-stockRouter.get('/yarn-categories', async (_req, res) => {
-  const response = await yarnStockService.getAllYarnCategories();
+stockRouter.use('/yarn-categories', yarnCategoryRouter);
 
-  return res.json({ data: response });
-});
-
-stockRouter.get('/yarn-color-categories', async (_req, res) => {
-  const response = await yarnStockService.getAllYarnColorCategories();
-
-  return res.json({ data: response });
-});
+stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter);
 
 stockRouter.post<{}, any, AddNewYarnStockPayload>(
   '/add-new',

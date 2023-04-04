@@ -1,5 +1,3 @@
-import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
-import YarnColorCategoryRepository from '../../repositories/YarnColorCategoryRepository';
 import YarnStockRepository from '../../repositories/YarnStockRepository';
 import {
   AddNewYarnStockPayload,
@@ -8,12 +6,8 @@ import {
   UpdateYarnQuantityPayload,
 } from './typings';
 
-class YarnStockService {
+class YarnStockServices {
   private yarnStockRepository = new YarnStockRepository();
-
-  private yarnCategoryRepository = new YarnCategoryRepository();
-
-  private yarnColorCategoryRepository = new YarnColorCategoryRepository();
 
   insertNewYarnStock = async (payload: AddNewYarnStockPayload) => {
     const res = await this.yarnStockRepository.insertNewYarnStock(payload);
@@ -47,16 +41,6 @@ class YarnStockService {
     return formattedStockData;
   };
 
-  getAllYarnCategories = async () => {
-    const response = await this.yarnCategoryRepository.getAll();
-    return response;
-  };
-
-  getAllYarnColorCategories = async () => {
-    const response = await this.yarnColorCategoryRepository.getAll();
-    return response;
-  };
-
   updateYarnStockAmount = async (payload: UpdateYarnQuantityPayload) => {
     const currentYarnStock = await this.yarnStockRepository.getById(
       payload.yarnId,
@@ -82,4 +66,4 @@ class YarnStockService {
   };
 }
 
-export default YarnStockService;
+export default YarnStockServices;

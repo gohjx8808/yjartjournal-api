@@ -7,7 +7,7 @@ import feedbackRouter from './routers/feedbackRouter';
 import forgotPasswordRouter from './routers/forgotPasswordRouter';
 import orderRouter from './routers/orderRouter';
 import productRouter from './routers/productRouter';
-import stockRouter from './routers/stockRouter';
+import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
 var cors = require('cors');
 

@@ -12,14 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const YarnCategoryRepository_1 = __importDefault(require("../../repositories/YarnCategoryRepository"));
-const YarnColorCategoryRepository_1 = __importDefault(require("../../repositories/YarnColorCategoryRepository"));
 const YarnStockRepository_1 = __importDefault(require("../../repositories/YarnStockRepository"));
-class YarnStockService {
+class YarnStockServices {
     constructor() {
         this.yarnStockRepository = new YarnStockRepository_1.default();
-        this.yarnCategoryRepository = new YarnCategoryRepository_1.default();
-        this.yarnColorCategoryRepository = new YarnColorCategoryRepository_1.default();
         this.insertNewYarnStock = (payload) => __awaiter(this, void 0, void 0, function* () {
             const res = yield this.yarnStockRepository.insertNewYarnStock(payload);
             return res;
@@ -41,14 +37,6 @@ class YarnStockService {
             });
             return formattedStockData;
         });
-        this.getAllYarnCategories = () => __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.yarnCategoryRepository.getAll();
-            return response;
-        });
-        this.getAllYarnColorCategories = () => __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.yarnColorCategoryRepository.getAll();
-            return response;
-        });
         this.updateYarnStockAmount = (payload) => __awaiter(this, void 0, void 0, function* () {
             const currentYarnStock = yield this.yarnStockRepository.getById(payload.yarnId);
             if (!currentYarnStock) {
@@ -64,5 +52,5 @@ class YarnStockService {
         });
     }
 }
-exports.default = YarnStockService;
+exports.default = YarnStockServices;
 //# sourceMappingURL=yarnStockServices.js.map
