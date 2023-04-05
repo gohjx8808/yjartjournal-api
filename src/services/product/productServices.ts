@@ -1,8 +1,8 @@
-import { createClient } from "contentful";
+import { createClient } from 'contentful';
 import {
   getContentfulOrderByKeyword,
   randomizeImages,
-} from "../../helpers/productHelper";
+} from '../../helpers/productHelper';
 import {
   GalleryData,
   GetAllProductsPayload,
@@ -10,40 +10,40 @@ import {
   ProductData,
   RawGalleryData,
   RawProductData,
-} from "./typings";
+} from './typings';
 
 const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID || "",
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || "",
+  space: process.env.CONTENTFUL_SPACE_ID || '',
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
 
 export const getProductCategories = async () => {
   const productCategories = await client
     .getEntries<RawProductData>({
-      content_type: "products",
-      select: "fields.category",
-    })
+    content_type: 'products',
+    select: 'fields.category',
+  })
     .then((entries) =>
       entries.items.map((entry) => {
         const data = entry.fields;
 
         return data.category;
-      })
+      }),
     );
 
   return [...new Set(productCategories)].sort();
 };
 
 export const getAllProducts = async (
-  payload: GetAllProductsPayload
+  payload: GetAllProductsPayload,
 ): Promise<ProductData[]> => {
   const sortOrder = getContentfulOrderByKeyword(payload.sortId);
   return client
     .getEntries<RawProductData>({
-      "fields.name[match]": payload.search,
-      content_type: "products",
-      order: sortOrder,
-    })
+    'fields.name[match]': payload.search,
+    content_type: 'products',
+    order: sortOrder,
+  })
     .then((entries) =>
       entries.items.map((entry) => {
         const data = entry.fields;
@@ -62,13 +62,13 @@ export const getAllProducts = async (
           contentDescription: data.contentDescription,
           productImages: pickedData,
         };
-      })
+      }),
     );
 };
 
 export const getAllImages = async (): Promise<GalleryData[]> => {
   const assets = await client.getEntries<RawGalleryData>({
-    content_type: "gallery",
+    content_type: 'gallery',
   });
 
   return randomizeImages(assets.items);

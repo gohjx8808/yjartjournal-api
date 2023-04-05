@@ -1,4 +1,4 @@
-import { OptionData } from "../../typings";
+import { OptionData } from '../../typings';
 
 export interface AddNewYarnStockPayload {
   yarnCategory: OptionData;
@@ -30,7 +30,7 @@ export interface StockData {
   usedQuantity: number;
   reorderLevel: number;
   lastOrderedAt: Date;
-  reorderStatus: "reorder" | "optimum";
+  reorderStatus: 'reorder' | 'optimum';
 }
 
 export interface AddNewYarnCategoryPayload {
@@ -42,11 +42,11 @@ export interface DeleteYarnCategoryPayload {
 }
 
 export type UpdateYarnCategoryPayload = AddNewYarnCategoryPayload &
-  DeleteYarnCategoryPayload;
+DeleteYarnCategoryPayload;
 
 export type AddNewYarnColorCategoryPayload = AddNewYarnCategoryPayload;
 
 export type DeleteYarnColorCategoryPayload = DeleteYarnCategoryPayload;
 
 export type UpdateYarnColorCategoryPayload = AddNewYarnColorCategoryPayload &
-  DeleteYarnColorCategoryPayload;
+DeleteYarnColorCategoryPayload;

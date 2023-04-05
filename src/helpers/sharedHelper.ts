@@ -1,5 +1,5 @@
-import { AuthenticatedUserData } from "../services/user/typings";
-import { CustomAuthenticatedRequest } from "../typings";
+import { AuthenticatedUserData } from '../services/user/typings';
+import { CustomAuthenticatedRequest } from '../typings';
 
 export const typeAuthenticatedUser = (req: CustomAuthenticatedRequest) => {
   if (req.user) {

@@ -1,9 +1,9 @@
-import YarnColorCategoryRepository from "../../repositories/YarnColorCategoryRepository";
+import YarnColorCategoryRepository from '../../repositories/YarnColorCategoryRepository';
 import {
   AddNewYarnColorCategoryPayload,
   DeleteYarnColorCategoryPayload,
   UpdateYarnColorCategoryPayload,
-} from "./typings";
+} from './typings';
 
 class YarnColorCategoryServices {
   private yarnColorCategoryRepository = new YarnColorCategoryRepository();

@@ -1,14 +1,14 @@
-import { manager } from "../dataSource";
-import Addresses from "../entities/Addresses";
-import Orders from "../entities/Orders";
-import PromoCodes from "../entities/PromoCodes";
-import { OrderInsertPayload } from "../services/order/typings";
+import { manager } from '../dataSource';
+import Addresses from '../entities/Addresses';
+import Orders from '../entities/Orders';
+import PromoCodes from '../entities/PromoCodes';
+import { OrderInsertPayload } from '../services/order/typings';
 
 const orderManager = manager.getRepository(Orders);
 
 export const getOrderByAddressPromoCodeUsed = (
   address: Addresses,
-  promoCode: PromoCodes
+  promoCode: PromoCodes,
 ) =>
   orderManager.findBy({
     address: address,
@@ -17,7 +17,7 @@ export const getOrderByAddressPromoCodeUsed = (
 
 export const insertNewOrder = (
   payload: OrderInsertPayload,
-  addressId: number
+  addressId: number,
 ) =>
   orderManager.insert({
     ...payload,

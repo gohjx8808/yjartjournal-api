@@ -7,38 +7,38 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
-import Orders from "./Orders";
+} from 'typeorm';
+import Orders from './Orders';
 
 @Entity()
 class CheckoutItems {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number;
 
   @ManyToOne(() => Orders, (order) => order.checkoutItems)
   @JoinColumn({ name: "order_id", referencedColumnName: "id" })
-  order: Orders;
+    order: Orders;
 
   @Column({ name: "product_id" })
-  productId: string;
+    productId: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column("float", { name: "price_per_item", scale: 2 })
-  pricePerItem: number;
+    pricePerItem: number;
 
   @Column()
-  quantity: number;
+    quantity: number;
 
   @Column("float", { name: "total_price", scale: 2 })
-  totalPrice: number;
+    totalPrice: number;
 
   @CreateDateColumn({ name: "created_at" })
-  createdAt: Date;
+    createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date;
+    updatedAt: Date;
 }
 
 export default CheckoutItems;

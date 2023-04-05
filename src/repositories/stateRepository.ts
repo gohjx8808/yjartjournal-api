@@ -1,5 +1,5 @@
-import { manager } from "../dataSource";
-import States from "../entities/States";
+import { manager } from '../dataSource';
+import States from '../entities/States';
 
 const stateManager = manager.getRepository(States);
 

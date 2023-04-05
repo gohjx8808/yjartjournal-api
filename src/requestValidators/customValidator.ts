@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import { ValidationChain, validationResult } from "express-validator";
-import { Middleware } from "express-validator/src/base";
+import { NextFunction, Request, Response } from 'express';
+import { ValidationChain, validationResult } from 'express-validator';
+import { Middleware } from 'express-validator/src/base';
 
 const customValidator = (
   validationChain: ValidationChain[],
-  additionalValidator?: Middleware
+  additionalValidator?: Middleware,
 ) => {
   let combinedValidator = null;
   if (additionalValidator) {

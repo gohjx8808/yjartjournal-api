@@ -6,40 +6,40 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
-import Orders from "./Orders";
+} from 'typeorm';
+import Orders from './Orders';
 
 @Entity()
 class PromoCodes {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column({ name: "promo_type" })
-  promoType: string;
+    promoType: string;
 
   @Column({ name: "promo_value" })
-  promoValue: number;
+    promoValue: number;
 
   @Column({ name: "use_limit", nullable: true })
-  useLimit: number;
+    useLimit: number;
 
   @Column({ name: "started_at" })
-  startedAt: Date;
+    startedAt: Date;
 
   @Column({ name: "expired_at" })
-  expiredAt: Date;
+    expiredAt: Date;
 
   @CreateDateColumn({ name: "created_at" })
-  createdAt: Date;
+    createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date;
+    updatedAt: Date;
 
   @OneToMany(() => Orders, (order) => order.promoCodeUsed)
-  orders: Orders[];
+    orders: Orders[];
 }
 
 export default PromoCodes;

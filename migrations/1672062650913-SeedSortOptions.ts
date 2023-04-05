@@ -1,20 +1,20 @@
-import { MigrationInterface } from "typeorm";
-import { dataSource } from "../src/dataSource";
-import SortOptions from "../src/entities/SortOptions";
+import { MigrationInterface } from 'typeorm';
+import { dataSource } from '../src/dataSource';
+import SortOptions from '../src/entities/SortOptions';
 
 export class SeedSortOptions1672062650913 implements MigrationInterface {
   SortOptionsSeed = [
     {
-      name: "Name: A to Z",
+      name: 'Name: A to Z',
     },
     {
-      name: "Name: Z to A",
+      name: 'Name: Z to A',
     },
     {
-      name: "Price: Low to High",
+      name: 'Price: Low to High',
     },
     {
-      name: "Price: High to Low",
+      name: 'Price: High to Low',
     },
   ];
 

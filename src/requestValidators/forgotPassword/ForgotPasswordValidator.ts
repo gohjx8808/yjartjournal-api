@@ -1,12 +1,12 @@
-import { body } from "express-validator";
-import customValidator from "../customValidator";
+import { body } from 'express-validator';
+import customValidator from '../customValidator';
 
 const ForgotPasswordValidator = customValidator([
-  body("email")
+  body('email')
     .notEmpty()
-    .withMessage("Email is required.")
+    .withMessage('Email is required.')
     .isEmail()
-    .withMessage("Invalid email."),
+    .withMessage('Invalid email.'),
 ]);
 
 export default ForgotPasswordValidator;

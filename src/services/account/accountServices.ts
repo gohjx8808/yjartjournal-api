@@ -1,5 +1,5 @@
-import { getUserById, updateUserById } from "../../repositories/userRepository";
-import { UpdateAccountPayload } from "./typings";
+import { getUserById, updateUserById } from '../../repositories/userRepository';
+import { UpdateAccountPayload } from './typings';
 
 export const getUserAccount = async (userId: number) => {
   const userDetails = await getUserById(userId);
@@ -9,7 +9,7 @@ export const getUserAccount = async (userId: number) => {
 
 export const updateUserAccount = async (
   userId: number,
-  payload: UpdateAccountPayload
+  payload: UpdateAccountPayload,
 ) => {
   const result = await updateUserById(userId, payload);
 

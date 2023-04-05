@@ -1,23 +1,23 @@
-import { IsNull, Not } from "typeorm";
-import { manager } from "../dataSource";
-import Addresses from "../entities/Addresses";
+import { IsNull, Not } from 'typeorm';
+import { manager } from '../dataSource';
+import Addresses from '../entities/Addresses';
 import {
   AddAddressPayload,
   UpdateAddressPayload,
-} from "../services/address/typings";
+} from '../services/address/typings';
 
 export const addressManager = manager.getRepository(Addresses);
 
 export const getAddressByUserIdQuery = (userId: number) =>
   addressManager
-    .createQueryBuilder("addresses")
-    .leftJoin("addresses.user", "user")
-    .leftJoinAndSelect("addresses.state", "state")
-    .where("user.id = :id", { id: userId });
+    .createQueryBuilder('addresses')
+    .leftJoin('addresses.user', 'user')
+    .leftJoinAndSelect('addresses.state', 'state')
+    .where('user.id = :id', { id: userId });
 
 export const getUserAdresses = (userId: number) =>
   getAddressByUserIdQuery(userId)
-    .orderBy({ "addresses.updated_at": "DESC" })
+    .orderBy({ 'addresses.updated_at': 'DESC' })
     .getMany();
 
 export const getUserAddressById = (userId: number, addressId: number) =>
@@ -45,7 +45,7 @@ export const deleteAddressById = (addressId: number) =>
 
 export const getAddressWithExactDetailsQuery = (
   userId: number,
-  payload: AddAddressPayload | UpdateAddressPayload
+  payload: AddAddressPayload | UpdateAddressPayload,
 ) => {
   let filterAddressQuery = getAddressByUserIdQuery(userId).andWhere({
     receiverName: payload.receiverName,
@@ -73,12 +73,12 @@ export const getAddressWithExactDetailsQuery = (
 
 export const getAddressWithExactDetails = (
   userId: number,
-  payload: AddAddressPayload
+  payload: AddAddressPayload,
 ) => getAddressWithExactDetailsQuery(userId, payload).getOne();
 
 export const getAddressWithExactDetailsExceptSelf = (
   userId: number,
-  payload: UpdateAddressPayload
+  payload: UpdateAddressPayload,
 ) =>
   getAddressWithExactDetailsQuery(userId, payload)
     .andWhere({ id: Not(payload.addressId) })
@@ -99,8 +99,8 @@ export const updateAddressById = (payload: UpdateAddressPayload) =>
       country: payload.country,
       isDefault: payload.isDefault,
       tag: payload.tag,
-    }
+    },
   );
 
 export const getAddressById = (addressId: number) =>
-  addressManager.findOne({ where: { id: addressId }, relations: ["state"] });
+  addressManager.findOne({ where: { id: addressId }, relations: ['state'] });

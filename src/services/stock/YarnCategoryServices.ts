@@ -1,9 +1,9 @@
-import YarnCategoryRepository from "../../repositories/YarnCategoryRepository";
+import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
 import {
   AddNewYarnCategoryPayload,
   DeleteYarnCategoryPayload,
   UpdateYarnCategoryPayload,
-} from "./typings";
+} from './typings';
 
 class YarnCategoryServices {
   private yarnCategoryRepository = new YarnCategoryRepository();

@@ -1,17 +1,17 @@
-import { body } from "express-validator";
-import customValidator from "../customValidator";
+import { body } from 'express-validator';
+import customValidator from '../customValidator';
 
 const UpdateStockQuantityValidator = customValidator([
-  body("yarnId")
+  body('yarnId')
     .notEmpty()
-    .withMessage("Yarn id is required.")
+    .withMessage('Yarn id is required.')
     .isInt()
-    .withMessage("Invalid yarn id."),
-  body("quantity")
+    .withMessage('Invalid yarn id.'),
+  body('quantity')
     .notEmpty()
-    .withMessage("Quantity is required.")
+    .withMessage('Quantity is required.')
     .isInt()
-    .withMessage("Invalid quantity."),
+    .withMessage('Invalid quantity.'),
 ]);
 
 export default UpdateStockQuantityValidator;

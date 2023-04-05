@@ -7,15 +7,15 @@ import {
   insertNewAddress,
   updateAddressById,
   updateAddressDefaultToFalse,
-} from "../../repositories/addressRepository";
+} from '../../repositories/addressRepository';
 import {
   AddAddressPayload,
   DeleteAddressPayload,
   UpdateAddressPayload,
-} from "./typings";
+} from './typings';
 
 export const validateTag = (tag: string) => {
-  if (tag !== "Work" && tag !== "Home") {
+  if (tag !== 'Work' && tag !== 'Home') {
     return false;
   }
   return true;
@@ -42,7 +42,7 @@ export const updateOtherAddressDefaultToFalse = async (userId: number) => {
 
 export const oneDefaultAddressOnly = async (
   userId: number,
-  payload: AddAddressPayload | UpdateAddressPayload
+  payload: AddAddressPayload | UpdateAddressPayload,
 ) => {
   payload.isDefault = Boolean(payload.isDefault);
   if (payload.isDefault === true) {
@@ -52,7 +52,7 @@ export const oneDefaultAddressOnly = async (
 
 export const addAddress = async (
   userId: number,
-  payload: AddAddressPayload
+  payload: AddAddressPayload,
 ) => {
   await oneDefaultAddressOnly(userId, payload);
   const response = await insertNewAddress(payload, userId);
@@ -62,7 +62,7 @@ export const addAddress = async (
 
 export const isAddressExist = async (
   userId: number,
-  payload: AddAddressPayload
+  payload: AddAddressPayload,
 ) => {
   const existingAddresses = await getAddressWithExactDetails(userId, payload);
 
@@ -71,7 +71,7 @@ export const isAddressExist = async (
 
 export const isAddressExistExceptSelf = async (
   userId: number,
-  payload: UpdateAddressPayload
+  payload: UpdateAddressPayload,
 ) => {
   const existingAddressesExceptSelf =
     await getAddressWithExactDetailsExceptSelf(userId, payload);
@@ -81,7 +81,7 @@ export const isAddressExistExceptSelf = async (
 
 export const updateAddress = async (
   userId: number,
-  payload: UpdateAddressPayload
+  payload: UpdateAddressPayload,
 ) => {
   await oneDefaultAddressOnly(userId, payload);
 

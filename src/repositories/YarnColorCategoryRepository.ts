@@ -1,10 +1,10 @@
-import { Not } from "typeorm";
-import { manager } from "../dataSource";
-import YarnColorCategories from "../entities/YarnColorCategories";
+import { Not } from 'typeorm';
+import { manager } from '../dataSource';
+import YarnColorCategories from '../entities/YarnColorCategories';
 import {
   AddNewYarnColorCategoryPayload,
   UpdateYarnColorCategoryPayload,
-} from "../services/stock/typings";
+} from '../services/stock/typings';
 
 const yarnColorCategoryManager = manager.getRepository(YarnColorCategories);
 
@@ -22,7 +22,7 @@ class YarnColorCategoryRepository {
   addNew = (payload: AddNewYarnColorCategoryPayload) =>
     yarnColorCategoryManager.upsert(
       { name: payload.name },
-      { conflictPaths: ["name"], skipUpdateIfNoValuesChanged: true }
+      { conflictPaths: ['name'], skipUpdateIfNoValuesChanged: true },
     );
 
   update = (payload: UpdateYarnColorCategoryPayload) =>

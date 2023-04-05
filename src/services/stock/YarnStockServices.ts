@@ -1,10 +1,10 @@
-import YarnStockRepository from "../../repositories/YarnStockRepository";
+import YarnStockRepository from '../../repositories/YarnStockRepository';
 import {
   AddNewYarnStockPayload,
   GetYarnStockPayload,
   StockData,
   UpdateYarnQuantityPayload,
-} from "./typings";
+} from './typings';
 
 class YarnStockServices {
   private yarnStockRepository = new YarnStockRepository();
@@ -20,22 +20,22 @@ class YarnStockServices {
     let filtered = yarnStocks;
     if (payload.yarnCategoryIds.length > 0) {
       filtered = yarnStocks.filter((stock) =>
-        payload.yarnCategoryIds.includes(stock.yarnCategory.id)
+        payload.yarnCategoryIds.includes(stock.yarnCategory.id),
       );
     }
 
     if (payload.yarnColorCategoryIds.length > 0) {
       filtered = yarnStocks.filter((stock) =>
-        payload.yarnColorCategoryIds.includes(stock.yarnColorCategory.id)
+        payload.yarnColorCategoryIds.includes(stock.yarnColorCategory.id),
       );
     }
 
     const formattedStockData: StockData[] = filtered.map((stock) => {
       if (stock.inStockQuantity < stock.reorderLevel) {
-        return { ...stock, reorderStatus: "reorder" };
+        return { ...stock, reorderStatus: 'reorder' };
       }
 
-      return { ...stock, reorderStatus: "optimum" };
+      return { ...stock, reorderStatus: 'optimum' };
     });
 
     return formattedStockData;
@@ -43,11 +43,11 @@ class YarnStockServices {
 
   updateYarnStockAmount = async (payload: UpdateYarnQuantityPayload) => {
     const currentYarnStock = await this.yarnStockRepository.getById(
-      payload.yarnId
+      payload.yarnId,
     );
 
     if (!currentYarnStock) {
-      return { msg: "Invalid yarn id.", success: false };
+      return { msg: 'Invalid yarn id.', success: false };
     }
 
     const currentQuantity = currentYarnStock.inStockQuantity;
@@ -60,7 +60,7 @@ class YarnStockServices {
     const response = await this.yarnStockRepository.updateQuantity(
       payload.yarnId,
       payload.quantity,
-      currentUsedQuantity
+      currentUsedQuantity,
     );
     return { response, success: true };
   };

@@ -1,4 +1,4 @@
-import { OptionData } from "../../typings";
+import { OptionData } from '../../typings';
 
 export interface AddAddressPayload {
   receiverName: string;
