@@ -6,40 +6,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("../customValidator"));
 const AddNewStockValidator = (0, customValidator_1.default)([
-    (0, express_validator_1.body)('yarnCategory')
+    (0, express_validator_1.body)("yarnCategory")
         .notEmpty()
-        .withMessage('Yarn category is required.')
+        .withMessage("Yarn category is required.")
         .isObject()
-        .withMessage('Invalid yarn category.'),
-    (0, express_validator_1.body)('yarnColorCategory')
+        .withMessage("Invalid yarn category."),
+    (0, express_validator_1.body)("yarnColorCategory")
         .notEmpty()
-        .withMessage('Yarn color category is required.')
+        .withMessage("Yarn color category is required.")
         .isObject()
-        .withMessage('Invalid yarn color category.'),
-    (0, express_validator_1.body)('detailedColor')
+        .withMessage("Invalid yarn color category."),
+    (0, express_validator_1.body)("detailedColor")
         .notEmpty()
-        .withMessage('Detailed color is required.')
+        .withMessage("Detailed color is required.")
         .isString()
-        .withMessage('Invalid detailed color.'),
-    (0, express_validator_1.body)('cost')
+        .withMessage("Invalid detailed color."),
+    (0, express_validator_1.body)("cost")
         .notEmpty()
-        .withMessage('Cost is required.')
+        .withMessage("Cost is required.")
         .isFloat()
-        .withMessage('Invalid cost.'),
-    (0, express_validator_1.body)('quantity')
+        .withMessage("Invalid cost."),
+    (0, express_validator_1.body)("quantity")
         .notEmpty()
-        .withMessage('Quantity is required.')
+        .withMessage("Quantity is required.")
         .isInt()
-        .withMessage('Invalid quantity.'),
-    (0, express_validator_1.body)('reorderLevel')
+        .withMessage("Invalid quantity."),
+    (0, express_validator_1.body)("reorderLevel")
         .notEmpty()
-        .withMessage('Reorder level is required.')
+        .withMessage("Reorder level is required.")
         .isInt()
-        .withMessage('Invalid reorder level.'),
-    (0, express_validator_1.body)('lastOrderedDate')
+        .withMessage("Invalid reorder level."),
+    (0, express_validator_1.body)("lastOrderedDate")
         .optional()
         .isDate()
-        .withMessage('Invalid last ordered date.'),
+        .withMessage("Invalid last ordered date."),
 ]);
 exports.default = AddNewStockValidator;
 //# sourceMappingURL=AddNewStockValidator.js.map

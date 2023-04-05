@@ -43,3 +43,10 @@ export interface DeleteYarnCategoryPayload {
 
 export type UpdateYarnCategoryPayload = AddNewYarnCategoryPayload &
 DeleteYarnCategoryPayload;
+
+export type AddNewYarnColorCategoryPayload = AddNewYarnCategoryPayload;
+
+export type DeleteYarnColorCategoryPayload = DeleteYarnCategoryPayload;
+
+export type UpdateYarnColorCategoryPayload = AddNewYarnColorCategoryPayload &
+DeleteYarnColorCategoryPayload;

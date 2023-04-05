@@ -18,21 +18,21 @@ const States_1 = __importDefault(require("../src/entities/States"));
 class SeedStates1677079230858 {
     constructor() {
         this.states = [
-            'Perlis',
-            'Penang',
-            'Kedah',
-            'Perak',
-            'Pahang',
-            'Selangor',
-            'Negeri Sembilan',
-            'Melaka',
-            'Johor',
-            'Kelantan',
-            'Terengganu',
-            'Sabah',
-            'Sarawak',
-            'Wilayah Persekutuan Kuala Lumpur',
-            'Wilayah Persekutuan Labuan',
+            "Perlis",
+            "Penang",
+            "Kedah",
+            "Perak",
+            "Pahang",
+            "Selangor",
+            "Negeri Sembilan",
+            "Melaka",
+            "Johor",
+            "Kelantan",
+            "Terengganu",
+            "Sabah",
+            "Sarawak",
+            "Wilayah Persekutuan Kuala Lumpur",
+            "Wilayah Persekutuan Labuan",
         ];
     }
     up() {

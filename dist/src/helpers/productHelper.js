@@ -5,13 +5,13 @@ const productConstants_1 = require("../constants/productConstants");
 const getContentfulOrderByKeyword = (sortById) => {
     switch (+sortById) {
         case productConstants_1.ProductSort.A_TO_Z:
-            return 'fields.name';
+            return "fields.name";
         case productConstants_1.ProductSort.Z_TO_A:
-            return '-fields.name';
+            return "-fields.name";
         case productConstants_1.ProductSort.LOW_TO_HIGH:
-            return 'fields.price';
+            return "fields.price";
         case productConstants_1.ProductSort.HIGH_TO_LOW:
-            return '-fields.price';
+            return "-fields.price";
     }
 };
 exports.getContentfulOrderByKeyword = getContentfulOrderByKeyword;

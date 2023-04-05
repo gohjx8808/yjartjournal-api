@@ -12,19 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const YarnCategoryRepository_1 = __importDefault(require("../../repositories/YarnCategoryRepository"));
-const UpdateYarnCategoryMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const YarnColorCategoryRepository_1 = __importDefault(require("../../../repositories/YarnColorCategoryRepository"));
+const DeleteYarnColorCategoryMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const yarnCategoryRepository = new YarnCategoryRepository_1.default();
-    const existingById = yield yarnCategoryRepository.getById(payload.id);
+    const yarnColorCategoryRepository = new YarnColorCategoryRepository_1.default();
+    const existingById = yield yarnColorCategoryRepository.getById(payload.id);
     if (!existingById) {
-        return res.status(404).json({ message: 'Invalid yarn category id.' });
-    }
-    const existingByName = yield yarnCategoryRepository.getByNameExceptSelf(payload);
-    if (existingByName) {
-        return res.status(422).json({ message: 'Duplicated yarn category detected.' });
+        return res.status(404).json({ message: "Invalid yarn color category id." });
     }
     return next();
 });
-exports.default = UpdateYarnCategoryMiddleware;
-//# sourceMappingURL=UpdateYarnCategoryMiddleware.js.map
+exports.default = DeleteYarnColorCategoryMiddleware;
+//# sourceMappingURL=DeleteYarnColorCategoryMiddleware.js.map

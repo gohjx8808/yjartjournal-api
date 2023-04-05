@@ -31,16 +31,16 @@ class YarnStockServices {
             }
             const formattedStockData = filtered.map((stock) => {
                 if (stock.inStockQuantity < stock.reorderLevel) {
-                    return Object.assign(Object.assign({}, stock), { reorderStatus: 'reorder' });
+                    return Object.assign(Object.assign({}, stock), { reorderStatus: "reorder" });
                 }
-                return Object.assign(Object.assign({}, stock), { reorderStatus: 'optimum' });
+                return Object.assign(Object.assign({}, stock), { reorderStatus: "optimum" });
             });
             return formattedStockData;
         });
         this.updateYarnStockAmount = (payload) => __awaiter(this, void 0, void 0, function* () {
             const currentYarnStock = yield this.yarnStockRepository.getById(payload.yarnId);
             if (!currentYarnStock) {
-                return { msg: 'Invalid yarn id.', success: false };
+                return { msg: "Invalid yarn id.", success: false };
             }
             const currentQuantity = currentYarnStock.inStockQuantity;
             let currentUsedQuantity = currentYarnStock.usedQuantity;

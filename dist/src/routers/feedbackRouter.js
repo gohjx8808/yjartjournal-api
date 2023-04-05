@@ -18,7 +18,7 @@ const FeedbackValidator_1 = __importDefault(require("../requestValidators/Feedba
 const feedbackServices_1 = require("../services/feedback/feedbackServices");
 const upload = (0, multer_1.default)();
 const feedbackRouter = (0, express_1.Router)();
-feedbackRouter.post('/submit', ...[upload.none(), ...FeedbackValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+feedbackRouter.post("/submit", ...[upload.none(), ...FeedbackValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, feedbackServices_1.saveFeedback)(payload);
     return res.json({ response });

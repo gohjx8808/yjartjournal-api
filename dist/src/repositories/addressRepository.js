@@ -9,13 +9,13 @@ const dataSource_1 = require("../dataSource");
 const Addresses_1 = __importDefault(require("../entities/Addresses"));
 exports.addressManager = dataSource_1.manager.getRepository(Addresses_1.default);
 const getAddressByUserIdQuery = (userId) => exports.addressManager
-    .createQueryBuilder('addresses')
-    .leftJoin('addresses.user', 'user')
-    .leftJoinAndSelect('addresses.state', 'state')
-    .where('user.id = :id', { id: userId });
+    .createQueryBuilder("addresses")
+    .leftJoin("addresses.user", "user")
+    .leftJoinAndSelect("addresses.state", "state")
+    .where("user.id = :id", { id: userId });
 exports.getAddressByUserIdQuery = getAddressByUserIdQuery;
 const getUserAdresses = (userId) => (0, exports.getAddressByUserIdQuery)(userId)
-    .orderBy({ 'addresses.updated_at': 'DESC' })
+    .orderBy({ "addresses.updated_at": "DESC" })
     .getMany();
 exports.getUserAdresses = getUserAdresses;
 const getUserAddressById = (userId, addressId) => (0, exports.getAddressByUserIdQuery)(userId)
@@ -78,6 +78,6 @@ const updateAddressById = (payload) => exports.addressManager.update({ id: paylo
     tag: payload.tag,
 });
 exports.updateAddressById = updateAddressById;
-const getAddressById = (addressId) => exports.addressManager.findOne({ where: { id: addressId }, relations: ['state'] });
+const getAddressById = (addressId) => exports.addressManager.findOne({ where: { id: addressId }, relations: ["state"] });
 exports.getAddressById = getAddressById;
 //# sourceMappingURL=addressRepository.js.map

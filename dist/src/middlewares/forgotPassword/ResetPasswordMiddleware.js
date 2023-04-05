@@ -14,16 +14,16 @@ const ResetPasswordMiddleware = () => (req, res, next) => __awaiter(void 0, void
     const payload = req.body;
     const tokenDetails = yield (0, forgotPasswordRepository_1.getResetPasswordEntryByToken)(payload.token);
     if (!tokenDetails) {
-        return res.status(404).json({ message: 'Invalid token.' });
+        return res.status(404).json({ message: "Invalid token." });
     }
     if (tokenDetails.expiredAt < new Date()) {
         return res.status(410).json({
-            message: 'The token is expired. Please request for a new token.',
+            message: "The token is expired. Please request for a new token.",
         });
     }
     if (tokenDetails.isUsed) {
         return res.status(410).json({
-            message: 'The token is used. Please request for a new token.',
+            message: "The token is used. Please request for a new token.",
         });
     }
     return next();

@@ -20,6 +20,18 @@ class YarnColorCategoryServices {
             const response = yield this.yarnColorCategoryRepository.getAll();
             return response;
         });
+        this.addNewYarnCategory = (payload) => __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.yarnColorCategoryRepository.addNew(payload);
+            return response;
+        });
+        this.updateYarnCategory = (payload) => __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.yarnColorCategoryRepository.update(payload);
+            return response;
+        });
+        this.deleteYarnCategory = (payload) => __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.yarnColorCategoryRepository.delete(payload.id);
+            return response;
+        });
     }
 }
 exports.default = YarnColorCategoryServices;

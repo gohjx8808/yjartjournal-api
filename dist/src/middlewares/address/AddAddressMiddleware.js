@@ -18,13 +18,13 @@ const AddAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void 0,
         if (!(0, addressServices_1.validateTag)(payload.tag)) {
             return res
                 .status(422)
-                .json({ message: 'Invalid tag. Please select a valid tag.' });
+                .json({ message: "Invalid tag. Please select a valid tag." });
         }
     }
     const addressExist = (yield (0, addressServices_1.isAddressExist)(user.id, payload)).exist;
     if (addressExist) {
         return res.status(422).json({
-            message: 'Duplicated address detected. Please use a different address.',
+            message: "Duplicated address detected. Please use a different address.",
         });
     }
     next();

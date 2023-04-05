@@ -13,14 +13,14 @@ exports.getAllImages = exports.getAllProducts = exports.getProductCategories = v
 const contentful_1 = require("contentful");
 const productHelper_1 = require("../../helpers/productHelper");
 const client = (0, contentful_1.createClient)({
-    space: process.env.CONTENTFUL_SPACE_ID || '',
-    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
+    space: process.env.CONTENTFUL_SPACE_ID || "",
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || "",
 });
 const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* () {
     const productCategories = yield client
         .getEntries({
-        content_type: 'products',
-        select: 'fields.category',
+        content_type: "products",
+        select: "fields.category",
     })
         .then((entries) => entries.items.map((entry) => {
         const data = entry.fields;
@@ -33,8 +33,8 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
     const sortOrder = (0, productHelper_1.getContentfulOrderByKeyword)(payload.sortId);
     return client
         .getEntries({
-        'fields.name[match]': payload.search,
-        content_type: 'products',
+        "fields.name[match]": payload.search,
+        content_type: "products",
         order: sortOrder,
     })
         .then((entries) => entries.items.map((entry) => {
@@ -53,7 +53,7 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
 exports.getAllProducts = getAllProducts;
 const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
     const assets = yield client.getEntries({
-        content_type: 'gallery',
+        content_type: "gallery",
     });
     return (0, productHelper_1.randomizeImages)(assets.items);
 });

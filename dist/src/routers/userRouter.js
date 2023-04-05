@@ -21,12 +21,12 @@ const SignUpValidator_1 = __importDefault(require("../requestValidators/user/Sig
 const userServices_1 = require("../services/user/userServices");
 const upload = (0, multer_1.default)();
 const userRouter = (0, express_1.Router)();
-userRouter.post('/sign-up', ...[upload.none(), ...SignUpValidator_1.default, (0, SignUpMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+userRouter.post("/sign-up", ...[upload.none(), ...SignUpValidator_1.default, (0, SignUpMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, userServices_1.signUpUser)(payload);
     return res.json(response);
 }));
-userRouter.post('/sign-in', ...[upload.none(), ...SignInValidator_1.default, (0, SignInMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+userRouter.post("/sign-in", ...[upload.none(), ...SignInValidator_1.default, (0, SignInMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield (0, userServices_1.generateAccessToken)(payload);
     return res.json({ data: response });

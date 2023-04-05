@@ -16,15 +16,15 @@ const forgotPasswordRepository_1 = require("../../repositories/forgotPasswordRep
 const userRepository_1 = require("../../repositories/userRepository");
 const userServices_1 = require("../user/userServices");
 const insertForgotPasswordToken = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = (0, crypto_1.randomBytes)(16).toString('hex');
+    const token = (0, crypto_1.randomBytes)(16).toString("hex");
     const result = yield (0, forgotPasswordRepository_1.insertNewResetPasswordToken)(user, token);
     return result;
 });
 const sendForgotPasswordEmail = (email, name, resetPasswordLink, expiredAt) => __awaiter(void 0, void 0, void 0, function* () {
     const emailMsg = {
         personalizations: [{ to: [{ email }] }],
-        from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
-        templateId: 'd-76de8ebd97e34a549b7cdf1e0f259481',
+        from: { email: "yj.artjournal@gmail.com", name: "YJ Art Journal" },
+        templateId: "d-76de8ebd97e34a549b7cdf1e0f259481",
         dynamicTemplateData: {
             name,
             expiredAt,
@@ -37,7 +37,7 @@ const performForgotPasswordOperation = (email) => __awaiter(void 0, void 0, void
     const userDetails = yield (0, userRepository_1.getUserByEmail)(email);
     const tokenDetails = yield insertForgotPasswordToken(userDetails);
     const resetPasswordLink = `${process.env.YJARTJOURNAL_LINK}/${tokenDetails.token}`;
-    yield sendForgotPasswordEmail(email, userDetails.preferredName || userDetails.name, resetPasswordLink, tokenDetails.expiredAt.toLocaleDateString('en-GB'));
+    yield sendForgotPasswordEmail(email, userDetails.preferredName || userDetails.name, resetPasswordLink, tokenDetails.expiredAt.toLocaleDateString("en-GB"));
 });
 exports.performForgotPasswordOperation = performForgotPasswordOperation;
 const resetUserPassword = (payload) => __awaiter(void 0, void 0, void 0, function* () {

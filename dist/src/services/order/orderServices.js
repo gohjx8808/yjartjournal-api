@@ -88,7 +88,7 @@ const calculateDiscount = (promoCodeUsed, totalAmount) => __awaiter(void 0, void
     let discountAmount = 0;
     if (promoCodeUsed) {
         const promoCodeDetails = yield (0, promoCodeRepository_1.getPromoCodeById)(promoCodeUsed.id);
-        if (promoCodeDetails.promoType === 'percent') {
+        if (promoCodeDetails.promoType === "percent") {
             discountMargin = `${promoCodeDetails.promoValue}%`;
             discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);
         }
@@ -99,8 +99,8 @@ const calculateDiscount = (promoCodeUsed, totalAmount) => __awaiter(void 0, void
     return { discountMargin, discountAmount };
 });
 const sendPaymentEmail = (payload, user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
-    const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
-    const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
+    const bankTransferTemplateId = "d-ce30ae1412f546d592d214d4fc8efa90";
+    const tngTemplateId = "d-13380bdf16624fb6bf11c56450dde78d";
     let buyerName = payload.buyerEmail;
     if (user) {
         const userDetails = yield (0, userRepository_1.getUserById)(user.id);
@@ -111,8 +111,8 @@ const sendPaymentEmail = (payload, user, addressId) => __awaiter(void 0, void 0,
     const discountDetails = yield calculateDiscount(payload.promoCodeUsed, payload.totalAmount);
     const emailMsg = {
         personalizations: [{ to: [{ email: payload.buyerEmail }] }],
-        from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
-        templateId: payload.paymentMethod === 'TNG' ? tngTemplateId : bankTransferTemplateId,
+        from: { email: "yj.artjournal@gmail.com", name: "YJ Art Journal" },
+        templateId: payload.paymentMethod === "TNG" ? tngTemplateId : bankTransferTemplateId,
         dynamicTemplateData: {
             buyerName: buyerName,
             checkoutItems: formattedProducts,
@@ -127,8 +127,8 @@ const sendPaymentEmail = (payload, user, addressId) => __awaiter(void 0, void 0,
             receiverName: addressDetails.receiverName,
             receiverContact: `+${addressDetails.receiverCountryCode} ${addressDetails.receiverPhoneNumber}`,
             receiverAddress: `${addressDetails.addressLineOne}, ${addressDetails.addressLineTwo
-                ? addressDetails.addressLineTwo + ','
-                : ''} ` +
+                ? addressDetails.addressLineTwo + ","
+                : ""} ` +
                 `${addressDetails.postcode} ${addressDetails.city}, ${addressDetails.state.name} ` +
                 `${addressDetails.country}`,
         },
@@ -140,7 +140,7 @@ const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* 
     const order = yield insertOrderData(payload, addressId);
     insertCheckoutItemData(payload.products, order.identifiers[0].id);
     yield sendPaymentEmail(payload, user, addressId);
-    return { message: 'Order successfully created!' };
+    return { message: "Order successfully created!" };
 });
 exports.checkout = checkout;
 //# sourceMappingURL=orderServices.js.map

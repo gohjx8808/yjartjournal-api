@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
-import DeleteYarnCategoryMiddleware from '../../middlewares/stocks/DeleteYarnCategoryMiddleware';
-import UpdateYarnCategoryMiddleware from '../../middlewares/stocks/UpdateYarnCategoryMiddleware';
+import DeleteYarnCategoryMiddleware from '../../middlewares/stocks/yarnCategory/DeleteYarnCategoryMiddleware';
+import UpdateYarnCategoryMiddleware from '../../middlewares/stocks/yarnCategory/UpdateYarnCategoryMiddleware';
 import AddNewYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/AddNewYarnCategoryValidator';
 import DeleteYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/DeleteYarnCategoryValidator';
 import UpdateYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator';

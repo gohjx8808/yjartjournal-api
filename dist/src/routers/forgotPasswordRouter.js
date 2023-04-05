@@ -21,16 +21,16 @@ const ResetPasswordValidator_1 = __importDefault(require("../requestValidators/f
 const forgotPasswordServices_1 = require("../services/forgotPassword/forgotPasswordServices");
 const upload = (0, multer_1.default)();
 const forgotPasswordRouter = (0, express_1.Router)();
-forgotPasswordRouter.post('/', ...[upload.none(), ...ForgotPasswordValidator_1.default, (0, forgotPasswordMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+forgotPasswordRouter.post("/", ...[upload.none(), ...ForgotPasswordValidator_1.default, (0, forgotPasswordMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     yield (0, forgotPasswordServices_1.performForgotPasswordOperation)(payload.email);
-    return res.json({ message: 'Reset password email sent.' });
+    return res.json({ message: "Reset password email sent." });
 }));
-forgotPasswordRouter.post('/reset-password', ...[upload.none(), ...ResetPasswordValidator_1.default, (0, ResetPasswordMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+forgotPasswordRouter.post("/reset-password", ...[upload.none(), ...ResetPasswordValidator_1.default, (0, ResetPasswordMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     yield (0, forgotPasswordServices_1.resetUserPassword)(payload);
     return res.json({
-        message: 'Your password had been reset. Please login using your new password.',
+        message: "Your password had been reset. Please login using your new password.",
     });
 }));
 exports.default = forgotPasswordRouter;

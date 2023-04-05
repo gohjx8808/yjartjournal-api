@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
-import { DeleteYarnCategoryPayload } from '../../services/stock/typings';
+import YarnCategoryRepository from '../../../repositories/YarnCategoryRepository';
+import { DeleteYarnCategoryPayload } from '../../../services/stock/typings';
 
 const DeleteYarnCategoryMiddleware = async (
   req: Request<{}, any, DeleteYarnCategoryPayload>,

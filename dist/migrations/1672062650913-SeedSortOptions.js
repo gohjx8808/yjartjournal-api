@@ -19,22 +19,24 @@ class SeedSortOptions1672062650913 {
     constructor() {
         this.SortOptionsSeed = [
             {
-                name: 'Name: A to Z',
+                name: "Name: A to Z",
             },
             {
-                name: 'Name: Z to A',
+                name: "Name: Z to A",
             },
             {
-                name: 'Price: Low to High',
+                name: "Price: Low to High",
             },
             {
-                name: 'Price: High to Low',
+                name: "Price: High to Low",
             },
         ];
     }
     up() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dataSource_1.dataSource.manager.getRepository(SortOptions_1.default).save(this.SortOptionsSeed);
+            yield dataSource_1.dataSource.manager
+                .getRepository(SortOptions_1.default)
+                .save(this.SortOptionsSeed);
         });
     }
     // eslint-disable-next-line @typescript-eslint/no-empty-function

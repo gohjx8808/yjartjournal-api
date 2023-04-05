@@ -6,16 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("../customValidator"));
 const UpdateStockQuantityValidator = (0, customValidator_1.default)([
-    (0, express_validator_1.body)('yarnId')
+    (0, express_validator_1.body)("yarnId")
         .notEmpty()
-        .withMessage('Yarn id is required.')
+        .withMessage("Yarn id is required.")
         .isInt()
-        .withMessage('Invalid yarn id.'),
-    (0, express_validator_1.body)('quantity')
+        .withMessage("Invalid yarn id."),
+    (0, express_validator_1.body)("quantity")
         .notEmpty()
-        .withMessage('Quantity is required.')
+        .withMessage("Quantity is required.")
         .isInt()
-        .withMessage('Invalid quantity.'),
+        .withMessage("Invalid quantity."),
 ]);
 exports.default = UpdateStockQuantityValidator;
 //# sourceMappingURL=UpdateStockQuantityValidator.js.map

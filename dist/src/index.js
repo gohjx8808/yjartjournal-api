@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config({ path: './.env' });
+require("dotenv").config({ path: "./.env" });
 const express_1 = __importDefault(require("express"));
 const dataSource_1 = require("./dataSource");
 const accountRouter_1 = __importDefault(require("./routers/accountRouter"));
@@ -23,24 +23,24 @@ const orderRouter_1 = __importDefault(require("./routers/orderRouter"));
 const productRouter_1 = __importDefault(require("./routers/productRouter"));
 const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
-var cors = require('cors');
+var cors = require("cors");
 const app = (0, express_1.default)();
 dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
     yield dataSource_1.dataSource.runMigrations();
     const port = 3000;
     app.use(cors());
     app.use(express_1.default.json());
-    app.get('/', (_req, _res) => {
-        _res.send('TypeScript With Express');
+    app.get("/", (_req, _res) => {
+        _res.send("TypeScript With Express");
     });
-    app.use('/products', productRouter_1.default);
-    app.use('/feedbacks', feedbackRouter_1.default);
-    app.use('/users', userRouter_1.default);
-    app.use('/account', accountRouter_1.default);
-    app.use('/addresses', addressRouter_1.default);
-    app.use('/orders', orderRouter_1.default);
-    app.use('/forgot-password', forgotPasswordRouter_1.default);
-    app.use('/stocks', stockRouter_1.default);
+    app.use("/products", productRouter_1.default);
+    app.use("/feedbacks", feedbackRouter_1.default);
+    app.use("/users", userRouter_1.default);
+    app.use("/account", accountRouter_1.default);
+    app.use("/addresses", addressRouter_1.default);
+    app.use("/orders", orderRouter_1.default);
+    app.use("/forgot-password", forgotPasswordRouter_1.default);
+    app.use("/stocks", stockRouter_1.default);
     app.listen(port);
 }));
 //# sourceMappingURL=index.js.map

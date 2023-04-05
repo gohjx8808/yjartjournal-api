@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
-import { UpdateYarnCategoryPayload } from '../../services/stock/typings';
+import YarnCategoryRepository from '../../../repositories/YarnCategoryRepository';
+import { UpdateYarnCategoryPayload } from '../../../services/stock/typings';
 
 const UpdateYarnCategoryMiddleware = async (
   req: Request<{}, any, UpdateYarnCategoryPayload>,

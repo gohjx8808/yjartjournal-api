@@ -17,19 +17,19 @@ const UpdateAddressMiddleware = () => (req, res, next) => __awaiter(void 0, void
     if (payload.tag) {
         if (!(0, addressServices_1.validateTag)(payload.tag)) {
             return res.status(422).json({
-                message: 'Invalid tag. Please select a valid tag.',
+                message: "Invalid tag. Please select a valid tag.",
             });
         }
     }
     const addressIdExist = yield (0, addressServices_1.isAddressIdExist)(user.id, payload.addressId);
     if (!addressIdExist) {
-        return res.status(422).json({ message: 'Address ID not exist!' });
+        return res.status(422).json({ message: "Address ID not exist!" });
     }
     const sameAddressExistExceptSelf = yield (0, addressServices_1.isAddressExistExceptSelf)(user.id, payload);
     if (sameAddressExistExceptSelf) {
         return res
             .status(422)
-            .json({ message: 'Duplicated address exists after update!' });
+            .json({ message: "Duplicated address exists after update!" });
     }
     next();
 });

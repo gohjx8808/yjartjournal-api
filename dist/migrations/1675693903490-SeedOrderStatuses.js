@@ -18,10 +18,10 @@ const OrderStatuses_1 = __importDefault(require("../src/entities/OrderStatuses")
 class SeedOrderStatuses1675693903490 {
     constructor() {
         this.orderStatusesSeed = [
-            { name: 'Pending Payment' },
-            { name: 'Crocheting' },
-            { name: 'Shipped' },
-            { name: 'Delivered' },
+            { name: "Pending Payment" },
+            { name: "Crocheting" },
+            { name: "Shipped" },
+            { name: "Delivered" },
         ];
     }
     up() {

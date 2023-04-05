@@ -18,9 +18,9 @@ const YarnCategories_1 = __importDefault(require("../src/entities/YarnCategories
 class SeedYarnCategories1680409712499 {
     constructor() {
         this.yarnCategoriesSeed = [
-            '5ply Cotton Yarn',
-            'Chenille Velvet Yarn',
-            'Coral Yarn',
+            "5ply Cotton Yarn",
+            "Chenille Velvet Yarn",
+            "Coral Yarn",
         ];
     }
     up() {
