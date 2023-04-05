@@ -1,7 +1,7 @@
-import { manager } from '../dataSource';
-import Users from '../entities/Users';
-import { UpdateAccountPayload } from '../services/account/typings';
-import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
+import { manager } from "../dataSource";
+import Users from "../entities/Users";
+import { UpdateAccountPayload } from "../services/account/typings";
+import { EncryptedPassword, SignUpPayload } from "../services/user/typings";
 
 const userManager = manager.getRepository(Users);
 
@@ -10,14 +10,14 @@ export const getUserById = (userId: number) =>
     .createQueryBuilder()
     .where({ id: userId })
     .select([
-      'Users.id',
-      'Users.name',
-      'Users.preferredName',
-      'Users.email',
-      'Users.countryCode',
-      'Users.phoneNumber',
-      'Users.gender',
-      'Users.dob',
+      "Users.id",
+      "Users.name",
+      "Users.preferredName",
+      "Users.email",
+      "Users.countryCode",
+      "Users.phoneNumber",
+      "Users.gender",
+      "Users.dob",
     ])
     .getOne();
 
@@ -29,7 +29,7 @@ export const getUserByEmail = (email: string) =>
 
 export const insertNewUser = (
   payload: SignUpPayload,
-  encryptedPassword: EncryptedPassword,
+  encryptedPassword: EncryptedPassword
 ) =>
   userManager.insert({
     ...payload,
@@ -39,10 +39,10 @@ export const insertNewUser = (
 
 export const updatePasswordByUserId = async (
   userId: number,
-  newEncryptedPassword: EncryptedPassword,
+  newEncryptedPassword: EncryptedPassword
 ) => {
   await userManager.update(
     { id: userId },
-    { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv },
+    { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv }
   );
 };

@@ -14,14 +14,14 @@ const orderRepository_1 = require("../../repositories/orderRepository");
 const addressServices_1 = require("../address/addressServices");
 const validatePromoCode = (promoCode, userId) => __awaiter(void 0, void 0, void 0, function* () {
     if (!promoCode) {
-        return { success: false, message: "Invalid promo code." };
+        return { success: false, message: 'Invalid promo code.' };
     }
     const currentDate = new Date();
     if (currentDate < promoCode.startedAt) {
-        return { success: false, message: "Promo is not started." };
+        return { success: false, message: 'Promo is not started.' };
     }
     if (currentDate > promoCode.expiredAt) {
-        return { success: false, message: "Promo expired." };
+        return { success: false, message: 'Promo expired.' };
     }
     const userAddresses = yield (0, addressServices_1.getAddressList)(userId);
     let promoCodeUsedAmount = 0;
@@ -30,9 +30,9 @@ const validatePromoCode = (promoCode, userId) => __awaiter(void 0, void 0, void 
         promoCodeUsedAmount += addressPromoCode.length;
     }));
     if (promoCodeUsedAmount > promoCode.useLimit) {
-        return { success: false, message: "Promo limit exceeded." };
+        return { success: false, message: 'Promo limit exceeded.' };
     }
-    return { success: true, message: "" };
+    return { success: true, message: '' };
 });
 exports.validatePromoCode = validatePromoCode;
 //# sourceMappingURL=promoCodeServices.js.map

@@ -18,7 +18,7 @@ const ForgotPasswordMiddleware = () => (req, res, next) => __awaiter(void 0, voi
     }
     return res
         .status(404)
-        .json({ message: "The email inserted is not in the system." });
+        .json({ message: 'The email inserted is not in the system.' });
 });
 exports.default = ForgotPasswordMiddleware;
 //# sourceMappingURL=forgotPasswordMiddleware.js.map

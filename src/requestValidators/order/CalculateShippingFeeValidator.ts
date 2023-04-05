@@ -1,17 +1,17 @@
-import { body } from 'express-validator';
-import customValidator from '../customValidator';
+import { body } from "express-validator";
+import customValidator from "../customValidator";
 
 const CalculateShippingFeeValidator = customValidator([
-  body('state')
+  body("state")
     .notEmpty()
-    .withMessage('State is required.')
+    .withMessage("State is required.")
     .isObject()
-    .withMessage('Invalid state.'),
-  body('totalAmount')
+    .withMessage("Invalid state."),
+  body("totalAmount")
     .notEmpty()
-    .withMessage('Total amount is required.')
+    .withMessage("Total amount is required.")
     .isFloat()
-    .withMessage('Invalid total amount.'),
+    .withMessage("Invalid total amount."),
 ]);
 
 export default CalculateShippingFeeValidator;

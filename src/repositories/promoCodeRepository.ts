@@ -1,5 +1,5 @@
-import { manager } from '../dataSource';
-import PromoCodes from '../entities/PromoCodes';
+import { manager } from "../dataSource";
+import PromoCodes from "../entities/PromoCodes";
 
 const promoCodeManager = manager.getRepository(PromoCodes);
 

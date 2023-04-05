@@ -18,11 +18,11 @@ const YarnColorCategories_1 = __importDefault(require("../src/entities/YarnColor
 class SeedYarnColorCategories1680410495324 {
     constructor() {
         this.yarnColorCategoriesSeed = [
-            "White/Yellow",
-            "Brown/Grey",
-            "Pink/Red",
-            "Purple/Blue",
-            "Green",
+            'White/Yellow',
+            'Brown/Grey',
+            'Pink/Red',
+            'Purple/Blue',
+            'Green',
         ];
     }
     up() {

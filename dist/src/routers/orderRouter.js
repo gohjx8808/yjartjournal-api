@@ -25,7 +25,7 @@ const VerifyPromoCodeValidator_1 = __importDefault(require("../requestValidators
 const orderServices_1 = require("../services/order/orderServices");
 const upload = (0, multer_1.default)();
 const orderRouter = (0, express_1.Router)();
-orderRouter.post("/verify-promo-code", ...[
+orderRouter.post('/verify-promo-code', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),
     ...VerifyPromoCodeValidator_1.default,
@@ -35,12 +35,12 @@ orderRouter.post("/verify-promo-code", ...[
     const response = yield (0, promoCodeRepository_1.getPromoCodeByName)(payload.promoCode);
     return res.json({ data: response });
 }));
-orderRouter.post("/calculate-shipping-fee", ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {
+orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {
     const payload = req.body;
     const response = (0, orderServices_1.calculateShippingFee)(payload);
     return res.json({ data: { shippingFee: response } });
 });
-orderRouter.post("/checkout", ...[
+orderRouter.post('/checkout', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(false),
     ...CheckoutValidator_1.default,

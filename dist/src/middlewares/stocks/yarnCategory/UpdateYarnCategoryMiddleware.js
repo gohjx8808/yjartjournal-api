@@ -18,13 +18,13 @@ const UpdateYarnCategoryMiddleware = (req, res, next) => __awaiter(void 0, void 
     const yarnCategoryRepository = new YarnCategoryRepository_1.default();
     const existingById = yield yarnCategoryRepository.getById(payload.id);
     if (!existingById) {
-        return res.status(404).json({ message: "Invalid yarn category id." });
+        return res.status(404).json({ message: 'Invalid yarn category id.' });
     }
     const existingByName = yield yarnCategoryRepository.getByNameExceptSelf(payload);
     if (existingByName) {
         return res
             .status(422)
-            .json({ message: "Duplicated yarn category detected." });
+            .json({ message: 'Duplicated yarn category detected.' });
     }
     return next();
 });

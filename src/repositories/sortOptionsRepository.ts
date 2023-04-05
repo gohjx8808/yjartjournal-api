@@ -1,5 +1,5 @@
-import { manager } from '../dataSource';
-import SortOptions from '../entities/SortOptions';
+import { manager } from "../dataSource";
+import SortOptions from "../entities/SortOptions";
 
 const sortOptionsManager = manager.getRepository(SortOptions);
 

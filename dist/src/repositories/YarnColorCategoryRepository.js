@@ -15,7 +15,7 @@ class YarnColorCategoryRepository {
             name: payload.name,
             id: (0, typeorm_1.Not)(payload.id),
         });
-        this.addNew = (payload) => yarnColorCategoryManager.upsert({ name: payload.name }, { conflictPaths: ["name"], skipUpdateIfNoValuesChanged: true });
+        this.addNew = (payload) => yarnColorCategoryManager.upsert({ name: payload.name }, { conflictPaths: ['name'], skipUpdateIfNoValuesChanged: true });
         this.update = (payload) => yarnColorCategoryManager.update({ id: payload.id }, { name: payload.name });
         this.delete = (id) => yarnColorCategoryManager.delete({ id });
     }

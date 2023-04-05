@@ -6,59 +6,59 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import Addresses from './Addresses';
-import ResetPasswordTokens from './ResetPasswordTokens';
+} from "typeorm";
+import Addresses from "./Addresses";
+import ResetPasswordTokens from "./ResetPasswordTokens";
 
 @Entity()
 class Users {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @Column()
-    name: string;
+  name: string;
 
   @Column({ name: "preferred_name", nullable: true })
-    preferredName: string;
+  preferredName: string;
 
   @Column({ unique: true })
-    email: string;
+  email: string;
 
   @Column()
-    password: string;
+  password: string;
 
   @Column()
-    iv: string;
+  iv: string;
 
   @Column({ name: "country_code" })
-    countryCode: string;
+  countryCode: string;
 
   @Column({ name: "phone_number" })
-    phoneNumber: string;
+  phoneNumber: string;
 
   @Column({ type: "char" })
-    gender: string;
+  gender: string;
 
   @Column({ type: "date" })
-    dob: string;
+  dob: string;
 
   @Column({ name: "is_admin", default: false })
-    isAdmin: boolean;
+  isAdmin: boolean;
 
   @CreateDateColumn({ name: "created_at" })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-    updatedAt: Date;
+  updatedAt: Date;
 
   @OneToMany(() => Addresses, (address) => address.user)
-    addresses: Addresses;
+  addresses: Addresses;
 
   @OneToMany(
     () => ResetPasswordTokens,
     (resetPasswordToken) => resetPasswordToken.user
   )
-    resetPasswordTokens: ResetPasswordTokens[];
+  resetPasswordTokens: ResetPasswordTokens[];
 }
 
 export default Users;

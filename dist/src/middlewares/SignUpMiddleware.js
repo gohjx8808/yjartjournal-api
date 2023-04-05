@@ -15,8 +15,8 @@ const SignUpMiddleware = () => (req, res, next) => __awaiter(void 0, void 0, voi
     const userExist = yield (0, userRepository_1.getUserByEmail)(payload.email);
     if (userExist) {
         return res.status(422).json({
-            message: "The provided email is already in use by an existing user. " +
-                "Please register using another email or login using the correct credentials.",
+            message: 'The provided email is already in use by an existing user. ' +
+                'Please register using another email or login using the correct credentials.',
         });
     }
     next();

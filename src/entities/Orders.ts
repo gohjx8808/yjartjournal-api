@@ -8,52 +8,52 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import Addresses from './Addresses';
-import CheckoutItems from './CheckoutItems';
-import OrderStatuses from './OrderStatuses';
-import PromoCodes from './PromoCodes';
+} from "typeorm";
+import Addresses from "./Addresses";
+import CheckoutItems from "./CheckoutItems";
+import OrderStatuses from "./OrderStatuses";
+import PromoCodes from "./PromoCodes";
 
 @Entity()
 class Orders {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @Column({ name: "buyer_email" })
-    buyerEmail: string;
+  buyerEmail: string;
 
   @ManyToOne(() => Addresses, (address) => address.orders)
   @JoinColumn({ name: "address_id", referencedColumnName: "id" })
-    address: Addresses;
+  address: Addresses;
 
   @Column({ name: "shipping_fee", default: 0 })
-    shippingFee: number;
+  shippingFee: number;
 
   @Column("decimal", { name: "total_amount", scale: 2 })
-    totalAmount: number;
+  totalAmount: number;
 
   @Column({ name: "payment_method" })
-    paymentMethod: string;
+  paymentMethod: string;
 
   @ManyToOne(() => PromoCodes, (promoCode) => promoCode.orders)
   @JoinColumn({ name: "promo_code_used_id" })
-    promoCodeUsed: PromoCodes;
+  promoCodeUsed: PromoCodes;
 
   @Column({ nullable: true })
-    note: string;
+  note: string;
 
   @ManyToOne(() => OrderStatuses, (orderStatus) => orderStatus.orders)
   @JoinColumn({ name: "order_status_id", referencedColumnName: "id" })
-    orderStatus: OrderStatuses;
+  orderStatus: OrderStatuses;
 
   @CreateDateColumn({ name: "created_at" })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-    updatedAt: Date;
+  updatedAt: Date;
 
   @OneToMany(() => CheckoutItems, (item) => item.order)
-    checkoutItems: CheckoutItems[];
+  checkoutItems: CheckoutItems[];
 }
 
 export default Orders;

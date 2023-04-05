@@ -6,25 +6,25 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import YarnStocks from './YarnStocks';
+} from "typeorm";
+import YarnStocks from "./YarnStocks";
 
 @Entity()
 class YarnColorCategories {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @Column({ unique: true })
-    name: string;
+  name: string;
 
   @CreateDateColumn({ name: "created_at", select: false })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at", select: false })
-    updatedAt: Date;
+  updatedAt: Date;
 
   @OneToMany(() => YarnStocks, (yarnStocks) => yarnStocks.yarnColorCategory)
-    yarnStocks: YarnStocks;
+  yarnStocks: YarnStocks;
 }
 
 export default YarnColorCategories;

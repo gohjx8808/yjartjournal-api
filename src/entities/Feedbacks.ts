@@ -5,30 +5,30 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 class Feedbacks {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @Column()
-    name: string;
+  name: string;
 
   @Column()
-    email: string;
+  email: string;
 
   @Column()
-    feedback: string;
+  feedback: string;
 
-  @Column({ default: false, name:"is_replied" })
-    isReplied: boolean;
+  @Column({ default: false, name: "is_replied" })
+  isReplied: boolean;
 
   @CreateDateColumn({ name: "created_at" })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-    updatedAt: Date;
+  updatedAt: Date;
 }
 
 export default Feedbacks;

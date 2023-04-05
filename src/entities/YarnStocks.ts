@@ -7,49 +7,49 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import YarnCategories from './YarnCategories';
-import YarnColorCategories from './YarnColorCategories';
+} from "typeorm";
+import YarnCategories from "./YarnCategories";
+import YarnColorCategories from "./YarnColorCategories";
 
 @Entity()
 class YarnStocks {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @ManyToOne(() => YarnCategories, (yarnCategory) => yarnCategory.yarnStocks)
   @JoinColumn({ name: "yarn_category_id", referencedColumnName: "id" })
-    yarnCategory: YarnCategories;
+  yarnCategory: YarnCategories;
 
   @ManyToOne(
     () => YarnColorCategories,
     (yarnColorCategory) => yarnColorCategory.yarnStocks
   )
   @JoinColumn({ name: "yarn_color_category_id", referencedColumnName: "id" })
-    yarnColorCategory: YarnColorCategories;
+  yarnColorCategory: YarnColorCategories;
 
   @Column({ name: "detailed_color" })
-    detailedColor: string;
+  detailedColor: string;
 
   @Column({ name: "cost_per_item", type: "float" })
-    costPerItem: number;
+  costPerItem: number;
 
   @Column({ name: "in_stock_quantity" })
-    inStockQuantity: number;
+  inStockQuantity: number;
 
-  @Column({ name: "used_quantity", default:0 })
-    usedQuantity: number;
+  @Column({ name: "used_quantity", default: 0 })
+  usedQuantity: number;
 
   @Column({ name: "reorder_level" })
-    reorderLevel: number;
+  reorderLevel: number;
 
   @Column({ name: "last_ordered_at", type: "date", nullable: true })
-    lastOrderedAt: Date;
+  lastOrderedAt: Date;
 
   @CreateDateColumn({ name: "created_at", select: false })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at", select: false })
-    updatedAt: Date;
+  updatedAt: Date;
 }
 
 export default YarnStocks;

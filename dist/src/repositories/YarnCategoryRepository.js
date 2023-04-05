@@ -12,7 +12,7 @@ class YarnCategoryRepository {
         this.getAll = () => yarnCategoryManager.find();
         this.getById = (id) => yarnCategoryManager.findOneBy({ id });
         this.getByNameExceptSelf = (payload) => yarnCategoryManager.findOneBy({ name: payload.name, id: (0, typeorm_1.Not)(payload.id) });
-        this.addNew = (payload) => yarnCategoryManager.upsert({ name: payload.name }, { conflictPaths: ["name"], skipUpdateIfNoValuesChanged: true });
+        this.addNew = (payload) => yarnCategoryManager.upsert({ name: payload.name }, { conflictPaths: ['name'], skipUpdateIfNoValuesChanged: true });
         this.update = (payload) => yarnCategoryManager.update({ id: payload.id }, { name: payload.name });
         this.delete = (id) => yarnCategoryManager.delete({ id });
     }

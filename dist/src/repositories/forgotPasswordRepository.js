@@ -27,7 +27,7 @@ const insertNewResetPasswordToken = (user, token) => __awaiter(void 0, void 0, v
     return { token, expiredAt };
 });
 exports.insertNewResetPasswordToken = insertNewResetPasswordToken;
-const getResetPasswordEntryByToken = (token) => exports.resetPasswordManager.findOne({ where: { token }, relations: ["user"] });
+const getResetPasswordEntryByToken = (token) => exports.resetPasswordManager.findOne({ where: { token }, relations: ['user'] });
 exports.getResetPasswordEntryByToken = getResetPasswordEntryByToken;
 const updateResetPasswordTokenUsage = (token) => __awaiter(void 0, void 0, void 0, function* () {
     yield exports.resetPasswordManager.update({ token }, { isUsed: true });

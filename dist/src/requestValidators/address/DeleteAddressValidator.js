@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("../customValidator"));
 const DeleteAddressValidator = (0, customValidator_1.default)([
-    (0, express_validator_1.body)("addressId")
+    (0, express_validator_1.body)('addressId')
         .notEmpty()
-        .withMessage("Address ID is required.")
+        .withMessage('Address ID is required.')
         .isInt()
-        .withMessage("Invalid address ID."),
+        .withMessage('Invalid address ID.'),
 ]);
 exports.default = DeleteAddressValidator;
 //# sourceMappingURL=DeleteAddressValidator.js.map

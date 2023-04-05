@@ -7,7 +7,7 @@ const CheckoutMiddleware = () => (req, res, next) => {
     if (!user && payload.addressId) {
         return res
             .status(401)
-            .json({ message: "You are not allowed to use this address." });
+            .json({ message: 'You are not allowed to use this address.' });
     }
     next();
 };

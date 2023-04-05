@@ -1,117 +1,119 @@
-import { body, oneOf } from 'express-validator';
-import customValidator from '../customValidator';
+import { body, oneOf } from "express-validator";
+import customValidator from "../customValidator";
 
 const CheckoutValidator = customValidator(
   [
-    body('products.*')
+    body("products.*")
       .notEmpty()
-      .withMessage('At least one product is required.'),
-    body('products.*.productId').notEmpty().withMessage('Product ID is required.'),
-    body('products.*.name').notEmpty().withMessage('Product name is required.'),
-    body('products.*.pricePerItem')
+      .withMessage("At least one product is required."),
+    body("products.*.productId")
       .notEmpty()
-      .withMessage('Price per item of product is required.')
+      .withMessage("Product ID is required."),
+    body("products.*.name").notEmpty().withMessage("Product name is required."),
+    body("products.*.pricePerItem")
+      .notEmpty()
+      .withMessage("Price per item of product is required.")
       .isFloat()
-      .withMessage('Invalid price per item of product.'),
-    body('products.*.quantity')
+      .withMessage("Invalid price per item of product."),
+    body("products.*.quantity")
       .notEmpty()
-      .withMessage('Product quantity is required.')
+      .withMessage("Product quantity is required.")
       .isInt()
-      .withMessage('Invalid product quantity.'),
-    body('products.*.totalPrice')
+      .withMessage("Invalid product quantity."),
+    body("products.*.totalPrice")
       .notEmpty()
-      .withMessage('Total price of product is required.')
+      .withMessage("Total price of product is required.")
       .isFloat()
-      .withMessage('Invalid total price of product.'),
-    body('buyerEmail')
+      .withMessage("Invalid total price of product."),
+    body("buyerEmail")
       .notEmpty()
-      .withMessage('Buyer email is required.')
+      .withMessage("Buyer email is required.")
       .isEmail()
-      .withMessage('Invalid buyer email.'),
-    body('shippingFee')
+      .withMessage("Invalid buyer email."),
+    body("shippingFee")
       .notEmpty()
-      .withMessage('Shipping fee is required.')
+      .withMessage("Shipping fee is required.")
       .isInt()
-      .withMessage('Invalid shipping fee.'),
-    body('promoCodeUsed')
+      .withMessage("Invalid shipping fee."),
+    body("promoCodeUsed")
       .optional({ nullable: true })
       .isObject()
-      .withMessage('Invalid promo code.'),
-    body('note')
+      .withMessage("Invalid promo code."),
+    body("note")
       .optional({ nullable: true })
       .isString()
-      .withMessage('Invalid note.'),
-    body('addToAddressBook')
+      .withMessage("Invalid note."),
+    body("addToAddressBook")
       .notEmpty()
-      .withMessage('Add to address book is required.')
+      .withMessage("Add to address book is required.")
       .isBoolean()
-      .withMessage('Invalid add to address book option.'),
-    body('paymentMethod')
+      .withMessage("Invalid add to address book option."),
+    body("paymentMethod")
       .notEmpty()
-      .withMessage('Payment method is required.')
+      .withMessage("Payment method is required.")
       .matches(/^\b(TNG|Bank Transfer)\b$/)
-      .withMessage('Invalid payment method.'),
-    body('totalAmount')
+      .withMessage("Invalid payment method."),
+    body("totalAmount")
       .notEmpty()
-      .withMessage('Total amount is required.')
+      .withMessage("Total amount is required.")
       .isFloat()
-      .withMessage('Invalid total amount.'),
+      .withMessage("Invalid total amount."),
   ],
   oneOf([
     [
-      body('receiverName')
+      body("receiverName")
         .notEmpty()
-        .withMessage('Receiver name is required.')
+        .withMessage("Receiver name is required.")
         .isString()
-        .withMessage('Invalid receiver name.'),
-      body('receiverCountryCode')
+        .withMessage("Invalid receiver name."),
+      body("receiverCountryCode")
         .notEmpty()
-        .withMessage('Receiver country code is required.')
+        .withMessage("Receiver country code is required.")
         .isInt()
-        .withMessage('Invalid receiver country code.'),
-      body('receiverPhoneNumber')
+        .withMessage("Invalid receiver country code."),
+      body("receiverPhoneNumber")
         .notEmpty()
-        .withMessage('Receiver phone number is required.')
+        .withMessage("Receiver phone number is required.")
         .isInt()
-        .withMessage('Invalid receiver phone number.'),
-      body('addressLineOne')
+        .withMessage("Invalid receiver phone number."),
+      body("addressLineOne")
         .notEmpty()
-        .withMessage('Address line one is required.')
+        .withMessage("Address line one is required.")
         .isString()
-        .withMessage('Invalid address line one.'),
-      body('addressLineTwo')
+        .withMessage("Invalid address line one."),
+      body("addressLineTwo")
         .optional({ nullable: true })
         .isString()
-        .withMessage('Invalid address line two.'),
-      body('postcode')
+        .withMessage("Invalid address line two."),
+      body("postcode")
         .notEmpty()
-        .withMessage('Postcode is required.')
+        .withMessage("Postcode is required.")
         .isInt()
-        .withMessage('Invalid postcode.'),
-      body('city')
+        .withMessage("Invalid postcode."),
+      body("city")
         .notEmpty()
-        .withMessage('City is required.')
+        .withMessage("City is required.")
         .isString()
-        .withMessage('Invalid city.'),
-      body('state')
+        .withMessage("Invalid city."),
+      body("state")
         .notEmpty()
-        .withMessage('State is required.')
+        .withMessage("State is required.")
         .isObject()
-        .withMessage('Invalid state.'),
-      body('country')
+        .withMessage("Invalid state."),
+      body("country")
         .notEmpty()
-        .withMessage('Country is required.')
+        .withMessage("Country is required.")
         .isString()
-        .withMessage('Invalid country.')
+        .withMessage("Invalid country.")
         .matches(/^\bMalaysia\b$/)
-        .withMessage('Only Malaysia is allowed.'),
+        .withMessage("Only Malaysia is allowed."),
     ],
-    body('addressId')
+    body("addressId")
       .notEmpty()
-      .withMessage('Address ID is required.')
+      .withMessage("Address ID is required.")
       .isInt()
-      .withMessage('Invalid address ID'),
-  ]),
+      .withMessage("Invalid address ID"),
+  ])
 );
 
 export default CheckoutValidator;

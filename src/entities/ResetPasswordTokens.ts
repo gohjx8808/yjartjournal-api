@@ -7,32 +7,32 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import Users from './Users';
+} from "typeorm";
+import Users from "./Users";
 
 @Entity()
 class ResetPasswordTokens {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @ManyToOne(() => Users, (user) => user.resetPasswordTokens)
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
-    user: Users;
+  user: Users;
 
   @Column()
-    token: string;
+  token: string;
 
   @Column({ name: "expired_at", type: "date" })
-    expiredAt: Date;
+  expiredAt: Date;
 
   @Column({ name: "is_used", default: false })
-    isUsed: boolean;
+  isUsed: boolean;
 
   @CreateDateColumn({ name: "created_at" })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-    updatedAt: Date;
+  updatedAt: Date;
 }
 
 export default ResetPasswordTokens;

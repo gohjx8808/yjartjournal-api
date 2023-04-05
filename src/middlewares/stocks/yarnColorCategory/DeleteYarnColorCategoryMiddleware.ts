@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import YarnColorCategoryRepository from '../../../repositories/YarnColorCategoryRepository';
-import { DeleteYarnColorCategoryPayload } from '../../../services/stock/typings';
+import { NextFunction, Request, Response } from "express";
+import YarnColorCategoryRepository from "../../../repositories/YarnColorCategoryRepository";
+import { DeleteYarnColorCategoryPayload } from "../../../services/stock/typings";
 
 const DeleteYarnColorCategoryMiddleware = async (
   req: Request<{}, any, DeleteYarnColorCategoryPayload>,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const payload = req.body;
 
@@ -13,7 +13,7 @@ const DeleteYarnColorCategoryMiddleware = async (
 
   const existingById = await yarnColorCategoryRepository.getById(payload.id);
   if (!existingById) {
-    return res.status(404).json({ message: 'Invalid yarn color category id.' });
+    return res.status(404).json({ message: "Invalid yarn color category id." });
   }
 
   return next();

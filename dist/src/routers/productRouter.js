@@ -19,19 +19,19 @@ const GetProductValidator_1 = __importDefault(require("../requestValidators/GetP
 const productServices_1 = require("../services/product/productServices");
 const upload = (0, multer_1.default)();
 const productRouter = (0, express_1.Router)();
-productRouter.get("/categories", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+productRouter.get('/categories', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const categories = yield (0, productServices_1.getProductCategories)();
     return res.json({ data: categories });
 }));
-productRouter.post("/", ...[upload.none(), ...GetProductValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+productRouter.post('/', ...[upload.none(), ...GetProductValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     return res.json({ data: yield (0, productServices_1.getAllProducts)(payload) });
 }));
-productRouter.get("/sort-options", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+productRouter.get('/sort-options', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const sortOptions = yield (0, sortOptionsRepository_1.getSortOptions)();
     return res.json({ data: sortOptions });
 }));
-productRouter.get("/image-gallery", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+productRouter.get('/image-gallery', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productImages = yield (0, productServices_1.getAllImages)();
     return res.json({ data: productImages });
 }));

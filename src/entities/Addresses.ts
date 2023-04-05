@@ -8,62 +8,62 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import Orders from './Orders';
-import States from './States';
-import Users from './Users';
+} from "typeorm";
+import Orders from "./Orders";
+import States from "./States";
+import Users from "./Users";
 
 @Entity()
 class Addresses {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @ManyToOne(() => Users, (user) => user.addresses, { nullable: true })
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
-    user: Users;
+  user: Users;
 
   @Column({ name: "receiver_name" })
-    receiverName: string;
+  receiverName: string;
 
   @Column({ name: "receiver_country_code" })
-    receiverCountryCode: string;
+  receiverCountryCode: string;
 
   @Column({ name: "receiver_phone_number" })
-    receiverPhoneNumber: string;
+  receiverPhoneNumber: string;
 
   @Column({ name: "address_line_one" })
-    addressLineOne: string;
+  addressLineOne: string;
 
   @Column({ name: "address_line_two", nullable: true })
-    addressLineTwo: string;
+  addressLineTwo: string;
 
   @Column()
-    postcode: string;
+  postcode: string;
 
   @Column()
-    city: string;
+  city: string;
 
   @ManyToOne(() => States, (state) => state.addresses)
   @JoinColumn({ name: "state_id", referencedColumnName: "id" })
-    state: States;
+  state: States;
 
   @Column()
-    country: string;
+  country: string;
 
   @Column({ name: "is_default", default: false })
-    isDefault: boolean;
+  isDefault: boolean;
 
   @Column({ nullable: true })
-    tag: string;
+  tag: string;
 
   @CreateDateColumn({ name: "created_at" })
-    createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-    updatedAt: Date;
+  updatedAt: Date;
 
   @OneToMany(() => Orders, (order) => order.address)
-    orders: Orders[];
+  orders: Orders[];
 }
 
 export default Addresses;

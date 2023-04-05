@@ -6,61 +6,61 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("../customValidator"));
 const AddAddressValidator = (0, customValidator_1.default)([
-    (0, express_validator_1.body)("receiverName")
+    (0, express_validator_1.body)('receiverName')
         .notEmpty()
-        .withMessage("Receiver name is required.")
+        .withMessage('Receiver name is required.')
         .isString()
-        .withMessage("Invalid receiver name."),
-    (0, express_validator_1.body)("receiverCountryCode")
+        .withMessage('Invalid receiver name.'),
+    (0, express_validator_1.body)('receiverCountryCode')
         .notEmpty()
-        .withMessage("Receiver country code is required.")
+        .withMessage('Receiver country code is required.')
         .isInt()
-        .withMessage("Invalid receiver country code."),
-    (0, express_validator_1.body)("receiverPhoneNumber")
+        .withMessage('Invalid receiver country code.'),
+    (0, express_validator_1.body)('receiverPhoneNumber')
         .notEmpty()
-        .withMessage("Receiver phone number is required.")
+        .withMessage('Receiver phone number is required.')
         .isInt()
-        .withMessage("Invalid receiver phone number."),
-    (0, express_validator_1.body)("addressLineOne")
+        .withMessage('Invalid receiver phone number.'),
+    (0, express_validator_1.body)('addressLineOne')
         .notEmpty()
-        .withMessage("Address line one is required.")
+        .withMessage('Address line one is required.')
         .isString()
-        .withMessage("Invalid address line one."),
-    (0, express_validator_1.body)("addressLineTwo")
+        .withMessage('Invalid address line one.'),
+    (0, express_validator_1.body)('addressLineTwo')
         .optional({ nullable: true })
         .isString()
-        .withMessage("Invalid address line two."),
-    (0, express_validator_1.body)("postcode")
+        .withMessage('Invalid address line two.'),
+    (0, express_validator_1.body)('postcode')
         .notEmpty()
-        .withMessage("Postcode is required.")
+        .withMessage('Postcode is required.')
         .isInt()
-        .withMessage("Invalid postcode."),
-    (0, express_validator_1.body)("city")
+        .withMessage('Invalid postcode.'),
+    (0, express_validator_1.body)('city')
         .notEmpty()
-        .withMessage("City is required.")
+        .withMessage('City is required.')
         .isString()
-        .withMessage("Invalid city."),
-    (0, express_validator_1.body)("state")
+        .withMessage('Invalid city.'),
+    (0, express_validator_1.body)('state')
         .notEmpty()
-        .withMessage("State is required.")
+        .withMessage('State is required.')
         .isObject()
-        .withMessage("Invalid state."),
-    (0, express_validator_1.body)("country")
+        .withMessage('Invalid state.'),
+    (0, express_validator_1.body)('country')
         .notEmpty()
-        .withMessage("Country is required.")
+        .withMessage('Country is required.')
         .isString()
-        .withMessage("Invalid country.")
+        .withMessage('Invalid country.')
         .matches(/^\bMalaysia\b$/)
-        .withMessage("Only Malaysia is allowed."),
-    (0, express_validator_1.body)("isDefault")
+        .withMessage('Only Malaysia is allowed.'),
+    (0, express_validator_1.body)('isDefault')
         .notEmpty()
-        .withMessage("Is default is required.")
+        .withMessage('Is default is required.')
         .isBoolean()
-        .withMessage("Invalid is default."),
-    (0, express_validator_1.body)("tag")
+        .withMessage('Invalid is default.'),
+    (0, express_validator_1.body)('tag')
         .optional({ nullable: true })
         .isString()
-        .withMessage("Invalid tag."),
+        .withMessage('Invalid tag.'),
 ]);
 exports.default = AddAddressValidator;
 //# sourceMappingURL=AddAddressValidator.js.map

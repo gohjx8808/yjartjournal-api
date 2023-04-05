@@ -20,12 +20,12 @@ const UpdateAccountValidator_1 = __importDefault(require("../requestValidators/U
 const accountServices_1 = require("../services/account/accountServices");
 const upload = (0, multer_1.default)();
 const accountRouter = (0, express_1.Router)();
-accountRouter.get("/details", (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+accountRouter.get('/details', (0, JwtAuthMiddleware_1.default)(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const details = yield (0, accountServices_1.getUserAccount)(user.id);
     return res.json({ data: details });
 }));
-accountRouter.post("/update", ...[upload.none(), ...UpdateAccountValidator_1.default, (0, JwtAuthMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+accountRouter.post('/update', ...[upload.none(), ...UpdateAccountValidator_1.default, (0, JwtAuthMiddleware_1.default)()], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const response = yield (0, accountServices_1.updateUserAccount)(user.id, payload);

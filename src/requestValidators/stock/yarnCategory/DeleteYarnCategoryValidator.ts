@@ -1,12 +1,12 @@
-import { body } from 'express-validator';
-import customValidator from '../../customValidator';
+import { body } from "express-validator";
+import customValidator from "../../customValidator";
 
 const DeleteYarnCategoryValidator = customValidator([
-  body('id')
+  body("id")
     .notEmpty()
-    .withMessage('Yarn category id is required.')
+    .withMessage("Yarn category id is required.")
     .isInt()
-    .withMessage('Invalid yarn category id.'),
+    .withMessage("Invalid yarn category id."),
 ]);
 
 export default DeleteYarnCategoryValidator;

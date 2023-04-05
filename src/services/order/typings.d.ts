@@ -1,4 +1,4 @@
-import { OptionData } from '../../typings';
+import { OptionData } from "../../typings";
 
 export interface VerifyPromoCodePayload {
   promoCode: string;
@@ -36,6 +36,6 @@ export interface OrderInsertPayload {
   shippingFee: number;
   promoCodeUsed?: OptionData;
   note?: string;
-  paymentMethod: 'TNG' | 'Bank Transfer';
+  paymentMethod: "TNG" | "Bank Transfer";
   totalAmount: number;
 }

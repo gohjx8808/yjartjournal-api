@@ -1,30 +1,30 @@
-import { Router } from 'express';
-import multer from 'multer';
-import { typeAuthenticatedUser } from '../helpers/sharedHelper';
-import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
-import CheckoutMiddleware from '../middlewares/order/CheckoutMiddleware';
-import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';
-import { getPromoCodeByName } from '../repositories/promoCodeRepository';
-import CalculateShippingFeeValidator from '../requestValidators/order/CalculateShippingFeeValidator';
-import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
-import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
+import { Router } from "express";
+import multer from "multer";
+import { typeAuthenticatedUser } from "../helpers/sharedHelper";
+import JwtAuthMiddleware from "../middlewares/JwtAuthMiddleware";
+import CheckoutMiddleware from "../middlewares/order/CheckoutMiddleware";
+import VerifyPromoCodeMiddleware from "../middlewares/order/VerifyPromoCodeMiddleware";
+import { getPromoCodeByName } from "../repositories/promoCodeRepository";
+import CalculateShippingFeeValidator from "../requestValidators/order/CalculateShippingFeeValidator";
+import CheckoutValidator from "../requestValidators/order/CheckoutValidator";
+import VerifyPromoCodeValidator from "../requestValidators/order/VerifyPromoCodeValidator";
 import {
   calculateShippingFee,
   checkout,
-} from '../services/order/orderServices';
+} from "../services/order/orderServices";
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,
   VerifyPromoCodePayload,
-} from '../services/order/typings';
-import { CustomAuthenticatedRequest } from '../typings';
+} from "../services/order/typings";
+import { CustomAuthenticatedRequest } from "../typings";
 
 const upload = multer();
 
 const orderRouter = Router();
 
 orderRouter.post<{}, any, VerifyPromoCodePayload>(
-  '/verify-promo-code',
+  "/verify-promo-code",
   ...[
     upload.none(),
     JwtAuthMiddleware(),
@@ -36,11 +36,11 @@ orderRouter.post<{}, any, VerifyPromoCodePayload>(
     const response = await getPromoCodeByName(payload.promoCode);
 
     return res.json({ data: response });
-  },
+  }
 );
 
 orderRouter.post<{}, any, CalculateShippingFeePayload>(
-  '/calculate-shipping-fee',
+  "/calculate-shipping-fee",
   ...[upload.none(), ...CalculateShippingFeeValidator],
   (req, res) => {
     const payload = req.body;
@@ -48,11 +48,11 @@ orderRouter.post<{}, any, CalculateShippingFeePayload>(
     const response = calculateShippingFee(payload);
 
     return res.json({ data: { shippingFee: response } });
-  },
+  }
 );
 
 orderRouter.post<{}, any, CheckoutPayload>(
-  '/checkout',
+  "/checkout",
   ...[
     upload.none(),
     JwtAuthMiddleware(false),
@@ -66,7 +66,7 @@ orderRouter.post<{}, any, CheckoutPayload>(
     const response = await checkout(payload, user);
 
     return res.json({ data: response });
-  },
+  }
 );
 
 export default orderRouter;

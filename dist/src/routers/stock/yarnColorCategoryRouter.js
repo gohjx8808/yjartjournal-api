@@ -23,16 +23,16 @@ const YarnColorCategoryServices_1 = __importDefault(require("../../services/stoc
 const yarnColorCategoryRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnColorCategoryServices = new YarnColorCategoryServices_1.default();
-yarnColorCategoryRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+yarnColorCategoryRouter.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield yarnColorCategoryServices.getAllYarnColorCategories();
     return res.json({ data: response });
 }));
-yarnColorCategoryRouter.post("/add-new", ...[upload.none(), ...AddNewYarnColorCategoryValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+yarnColorCategoryRouter.post('/add-new', ...[upload.none(), ...AddNewYarnColorCategoryValidator_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const response = yield yarnColorCategoryServices.addNewYarnCategory(payload);
     return res.json({ data: response });
 }));
-yarnColorCategoryRouter.post("/update", ...[
+yarnColorCategoryRouter.post('/update', ...[
     upload.none(),
     ...UpdateYarnColorCategoryValidator_1.default,
     UpdateYarnColorCategoryMiddleware_1.default,
@@ -41,7 +41,7 @@ yarnColorCategoryRouter.post("/update", ...[
     const response = yield yarnColorCategoryServices.updateYarnCategory(payload);
     return res.json({ data: response });
 }));
-yarnColorCategoryRouter.post("/delete", ...[
+yarnColorCategoryRouter.post('/delete', ...[
     upload.none(),
     ...DeleteYarnColorCategoryValidator_1.default,
     DeleteYarnColorCategoryMiddleware_1.default,

@@ -3,6 +3,6 @@ export interface UpdateAccountPayload {
   preferredName: string;
   countryCode: string;
   phoneNumber: string;
-  gender: 'M' | 'F';
+  gender: "M" | "F";
   dob: string;
 }

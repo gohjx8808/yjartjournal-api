@@ -18,7 +18,7 @@ const DeleteYarnColorCategoryMiddleware = (req, res, next) => __awaiter(void 0, 
     const yarnColorCategoryRepository = new YarnColorCategoryRepository_1.default();
     const existingById = yield yarnColorCategoryRepository.getById(payload.id);
     if (!existingById) {
-        return res.status(404).json({ message: "Invalid yarn color category id." });
+        return res.status(404).json({ message: 'Invalid yarn color category id.' });
     }
     return next();
 });

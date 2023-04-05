@@ -24,9 +24,9 @@ const YarnCategories_1 = __importDefault(require("./entities/YarnCategories"));
 const YarnColorCategories_1 = __importDefault(require("./entities/YarnColorCategories"));
 const YarnStocks_1 = __importDefault(require("./entities/YarnStocks"));
 exports.dataSource = new typeorm_1.DataSource({
-    type: "postgres",
+    type: 'postgres',
     host: process.env.POSTGRESQL_DB_HOST,
-    port: parseInt(process.env.POSTGRESQL_DB_PORT || "0", 10),
+    port: parseInt(process.env.POSTGRESQL_DB_PORT || '0', 10),
     username: process.env.POSTGRESQL_DB_USER,
     password: process.env.POSTGRESQL_DB_PASSWORD,
     database: process.env.POSTGRESQL_DB_DATABASE,

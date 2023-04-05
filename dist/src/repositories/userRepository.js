@@ -20,14 +20,14 @@ const getUserById = (userId) => userManager
     .createQueryBuilder()
     .where({ id: userId })
     .select([
-    "Users.id",
-    "Users.name",
-    "Users.preferredName",
-    "Users.email",
-    "Users.countryCode",
-    "Users.phoneNumber",
-    "Users.gender",
-    "Users.dob",
+    'Users.id',
+    'Users.name',
+    'Users.preferredName',
+    'Users.email',
+    'Users.countryCode',
+    'Users.phoneNumber',
+    'Users.gender',
+    'Users.dob',
 ])
     .getOne();
 exports.getUserById = getUserById;

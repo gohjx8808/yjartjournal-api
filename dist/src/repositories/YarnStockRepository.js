@@ -21,12 +21,12 @@ class YarnStockRepository {
             return yarnStockManager.insert(Object.assign(Object.assign({}, payload), { costPerItem: payload.cost, inStockQuantity: payload.quantity }));
         });
         this.getAll = () => yarnStockManager.find({
-            relations: ["yarnColorCategory", "yarnCategory"],
+            relations: ['yarnColorCategory', 'yarnCategory'],
         });
         this.updateQuantity = (yarnId, inStockQuantity, usedQuantity) => yarnStockManager.update({ id: yarnId }, { inStockQuantity, usedQuantity });
         this.getById = (yarnId) => yarnStockManager.findOne({
             where: { id: yarnId },
-            relations: ["yarnColorCategory", "yarnCategory"],
+            relations: ['yarnColorCategory', 'yarnCategory'],
         });
     }
 }

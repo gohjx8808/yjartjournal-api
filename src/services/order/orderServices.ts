@@ -1,21 +1,21 @@
-import { MailDataRequired } from '@sendgrid/mail';
-import { sendEmail } from '../../mail/sgMail';
+import { MailDataRequired } from "@sendgrid/mail";
+import { sendEmail } from "../../mail/sgMail";
 import {
   getAddressById,
   insertNewAddress,
-} from '../../repositories/addressRepository';
-import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository';
-import { insertNewOrder } from '../../repositories/orderRepository';
-import { getPromoCodeById } from '../../repositories/promoCodeRepository';
-import { getUserById } from '../../repositories/userRepository';
-import { OptionData } from '../../typings';
-import { addAddress, isAddressExist } from '../address/addressServices';
-import { AuthenticatedUserData } from '../user/typings';
+} from "../../repositories/addressRepository";
+import { insertNewCheckoutItem } from "../../repositories/checkoutItemRepository";
+import { insertNewOrder } from "../../repositories/orderRepository";
+import { getPromoCodeById } from "../../repositories/promoCodeRepository";
+import { getUserById } from "../../repositories/userRepository";
+import { OptionData } from "../../typings";
+import { addAddress, isAddressExist } from "../address/addressServices";
+import { AuthenticatedUserData } from "../user/typings";
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,
   CheckoutProductData,
-} from './typings';
+} from "./typings";
 
 export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
   const stateId = payload.state.id;
@@ -40,7 +40,7 @@ export const calculateShippingFee = (payload: CalculateShippingFeePayload) => {
 
 const insertCheckoutAddress = async (
   payload: CheckoutPayload,
-  user: AuthenticatedUserData,
+  user: AuthenticatedUserData
 ) => {
   let addressId = payload.addressId;
 
@@ -88,7 +88,7 @@ const insertOrderData = async (payload: CheckoutPayload, addressId: number) => {
 
 const insertCheckoutItemData = (
   payload: CheckoutProductData[],
-  orderId: number,
+  orderId: number
 ) =>
   payload.map(async (item) => {
     const response = await insertNewCheckoutItem(item, orderId);
@@ -97,13 +97,13 @@ const insertCheckoutItemData = (
 
 const calculateDiscount = async (
   promoCodeUsed: OptionData,
-  totalAmount: number,
+  totalAmount: number
 ) => {
   let discountMargin;
   let discountAmount = 0;
   if (promoCodeUsed) {
     const promoCodeDetails = await getPromoCodeById(promoCodeUsed.id);
-    if (promoCodeDetails.promoType === 'percent') {
+    if (promoCodeDetails.promoType === "percent") {
       discountMargin = `${promoCodeDetails.promoValue}%`;
       discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);
     } else {
@@ -117,10 +117,10 @@ const calculateDiscount = async (
 const sendPaymentEmail = async (
   payload: CheckoutPayload,
   user: AuthenticatedUserData,
-  addressId: number,
+  addressId: number
 ) => {
-  const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
-  const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
+  const bankTransferTemplateId = "d-ce30ae1412f546d592d214d4fc8efa90";
+  const tngTemplateId = "d-13380bdf16624fb6bf11c56450dde78d";
 
   let buyerName = payload.buyerEmail;
   if (user) {
@@ -137,14 +137,14 @@ const sendPaymentEmail = async (
 
   const discountDetails = await calculateDiscount(
     payload.promoCodeUsed,
-    payload.totalAmount,
+    payload.totalAmount
   );
 
   const emailMsg: MailDataRequired = {
     personalizations: [{ to: [{ email: payload.buyerEmail }] }],
-    from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
+    from: { email: "yj.artjournal@gmail.com", name: "YJ Art Journal" },
     templateId:
-      payload.paymentMethod === 'TNG' ? tngTemplateId : bankTransferTemplateId,
+      payload.paymentMethod === "TNG" ? tngTemplateId : bankTransferTemplateId,
     dynamicTemplateData: {
       buyerName: buyerName,
       checkoutItems: formattedProducts,
@@ -163,8 +163,8 @@ const sendPaymentEmail = async (
       receiverAddress:
         `${addressDetails.addressLineOne}, ${
           addressDetails.addressLineTwo
-            ? addressDetails.addressLineTwo + ','
-            : ''
+            ? addressDetails.addressLineTwo + ","
+            : ""
         } ` +
         `${addressDetails.postcode} ${addressDetails.city}, ${addressDetails.state.name} ` +
         `${addressDetails.country}`,
@@ -176,7 +176,7 @@ const sendPaymentEmail = async (
 
 export const checkout = async (
   payload: CheckoutPayload,
-  user: AuthenticatedUserData,
+  user: AuthenticatedUserData
 ) => {
   const addressId = await insertCheckoutAddress(payload, user);
 
@@ -186,5 +186,5 @@ export const checkout = async (
 
   await sendPaymentEmail(payload, user, addressId);
 
-  return { message: 'Order successfully created!' };
+  return { message: "Order successfully created!" };
 };

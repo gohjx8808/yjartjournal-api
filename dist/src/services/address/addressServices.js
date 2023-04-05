@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAddress = exports.updateAddress = exports.isAddressExistExceptSelf = exports.isAddressExist = exports.addAddress = exports.oneDefaultAddressOnly = exports.updateOtherAddressDefaultToFalse = exports.getAddressList = exports.isAddressIdExist = exports.validateTag = void 0;
 const addressRepository_1 = require("../../repositories/addressRepository");
 const validateTag = (tag) => {
-    if (tag !== "Work" && tag !== "Home") {
+    if (tag !== 'Work' && tag !== 'Home') {
         return false;
     }
     return true;

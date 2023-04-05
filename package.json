@@ -10,7 +10,7 @@
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "prettier": "prettier --write ."
   },
   "author": "jingxuan.goh",
