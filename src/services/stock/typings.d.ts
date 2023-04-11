@@ -30,7 +30,7 @@ export interface StockData {
   usedQuantity: number;
   reorderLevel: number;
   lastOrderedAt: Date;
-  reorderStatus: 'reorder' | 'optimum';
+  reorderStatus: 'Reorder' | 'Optimum';
 }
 
 export interface AddNewYarnCategoryPayload {

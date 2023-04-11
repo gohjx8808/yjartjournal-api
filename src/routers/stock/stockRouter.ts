@@ -1,16 +1,17 @@
 import { Router } from 'express';
 import multer from 'multer';
-import AddNewStockValidator from '../../requestValidators/stock/AddNewStockValidator';
-import GetYarnStockValidator from '../../requestValidators/stock/GetYarnStockValidator';
-import UpdateStockQuantityValidator from '../../requestValidators/stock/UpdateStockQuantityValidator';
+import AddNewStockValidator from '../../requestValidators/stock/yarnStock/AddNewStockValidator';
+import YarnStockServices from '../../services/stock/YarnStockServices';
 import {
   AddNewYarnStockPayload,
   GetYarnStockPayload,
   UpdateYarnQuantityPayload,
 } from '../../services/stock/typings';
-import YarnStockServices from '../../services/stock/yarnStockServices';
 import yarnCategoryRouter from './yarnCategoryRouter';
 import yarnColorCategoryRouter from './yarnColorCategoryRouter';
+import GetYarnStockValidator from '../../requestValidators/stock/yarnStock/GetYarnStockValidator';
+import UpdateStockQuantityValidator from '../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator';
+import AddYarnStockMiddleware from '../../middlewares/stocks/yarnStock/AddYarnStockMiddleware';
 
 const stockRouter = Router();
 const upload = multer();
@@ -23,7 +24,7 @@ stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter);
 
 stockRouter.post<{}, any, AddNewYarnStockPayload>(
   '/add-new',
-  ...[upload.none(), ...AddNewStockValidator],
+  ...[upload.none(), ...AddNewStockValidator, AddYarnStockMiddleware],
   async (req, res) => {
     const payload = req.body;
 
@@ -33,7 +34,7 @@ stockRouter.post<{}, any, AddNewYarnStockPayload>(
   },
 );
 
-stockRouter.get<{}, any, GetYarnStockPayload>(
+stockRouter.post<{}, any, GetYarnStockPayload>(
   '/yarn-stocks',
   ...[upload.none(), ...GetYarnStockValidator],
   async (req, res) => {

@@ -31,9 +31,9 @@ class YarnStockServices {
             }
             const formattedStockData = filtered.map((stock) => {
                 if (stock.inStockQuantity < stock.reorderLevel) {
-                    return Object.assign(Object.assign({}, stock), { reorderStatus: 'reorder' });
+                    return Object.assign(Object.assign({}, stock), { reorderStatus: 'Reorder' });
                 }
-                return Object.assign(Object.assign({}, stock), { reorderStatus: 'optimum' });
+                return Object.assign(Object.assign({}, stock), { reorderStatus: 'Optimum' });
             });
             return formattedStockData;
         });
@@ -53,4 +53,4 @@ class YarnStockServices {
     }
 }
 exports.default = YarnStockServices;
-//# sourceMappingURL=yarnStockServices.js.map
+//# sourceMappingURL=YarnStockServices.js.map

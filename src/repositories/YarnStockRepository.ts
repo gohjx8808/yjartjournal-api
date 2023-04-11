@@ -1,6 +1,7 @@
 import { manager } from '../dataSource';
 import YarnStocks from '../entities/YarnStocks';
 import { AddNewYarnStockPayload } from '../services/stock/typings';
+import { OptionData } from '../typings';
 
 const yarnStockManager = manager.getRepository(YarnStocks);
 
@@ -10,6 +11,7 @@ class YarnStockRepository {
       ...payload,
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
+      lastOrderedAt: payload.lastOrderedDate,
     });
 
   getAll = () =>
@@ -28,6 +30,17 @@ class YarnStockRepository {
     yarnStockManager.findOne({
       where: { id: yarnId },
       relations: ['yarnColorCategory', 'yarnCategory'],
+    });
+
+  getByCategoryColorCategoryDetailedColor = (
+    yarnCategory: OptionData,
+    yarnColorCategory: OptionData,
+    detailedColor: string,
+  ) =>
+    yarnStockManager.findOneBy({
+      yarnCategory,
+      yarnColorCategory,
+      detailedColor,
     });
 }
 

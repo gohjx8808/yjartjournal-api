@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import customValidator from '../customValidator';
+import customValidator from '../../customValidator';
 
 const GetYarnStockValidator = customValidator([
   body('yarnCategoryIds').isArray().withMessage('Invalid yarn category ids.'),

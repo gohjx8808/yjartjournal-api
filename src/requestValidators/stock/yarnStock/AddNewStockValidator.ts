@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import customValidator from '../customValidator';
+import customValidator from '../../customValidator';
 
 const AddNewStockValidator = customValidator([
   body('yarnCategory')
@@ -34,7 +34,8 @@ const AddNewStockValidator = customValidator([
     .withMessage('Invalid reorder level.'),
   body('lastOrderedDate')
     .optional()
-    .isDate()
+    .isISO8601()
+    .toDate()
     .withMessage('Invalid last ordered date.'),
 ]);
 

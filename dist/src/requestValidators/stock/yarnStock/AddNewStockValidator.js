@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
-const customValidator_1 = __importDefault(require("../customValidator"));
+const customValidator_1 = __importDefault(require("../../customValidator"));
 const AddNewStockValidator = (0, customValidator_1.default)([
     (0, express_validator_1.body)('yarnCategory')
         .notEmpty()
@@ -38,7 +38,8 @@ const AddNewStockValidator = (0, customValidator_1.default)([
         .withMessage('Invalid reorder level.'),
     (0, express_validator_1.body)('lastOrderedDate')
         .optional()
-        .isDate()
+        .isISO8601()
+        .toDate()
         .withMessage('Invalid last ordered date.'),
 ]);
 exports.default = AddNewStockValidator;

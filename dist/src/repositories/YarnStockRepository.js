@@ -18,7 +18,7 @@ const yarnStockManager = dataSource_1.manager.getRepository(YarnStocks_1.default
 class YarnStockRepository {
     constructor() {
         this.insertNewYarnStock = (payload) => __awaiter(this, void 0, void 0, function* () {
-            return yarnStockManager.insert(Object.assign(Object.assign({}, payload), { costPerItem: payload.cost, inStockQuantity: payload.quantity }));
+            return yarnStockManager.insert(Object.assign(Object.assign({}, payload), { costPerItem: payload.cost, inStockQuantity: payload.quantity, lastOrderedAt: payload.lastOrderedDate }));
         });
         this.getAll = () => yarnStockManager.find({
             relations: ['yarnColorCategory', 'yarnCategory'],
@@ -27,6 +27,11 @@ class YarnStockRepository {
         this.getById = (yarnId) => yarnStockManager.findOne({
             where: { id: yarnId },
             relations: ['yarnColorCategory', 'yarnCategory'],
+        });
+        this.getByCategoryColorCategoryDetailedColor = (yarnCategory, yarnColorCategory, detailedColor) => yarnStockManager.findOneBy({
+            yarnCategory,
+            yarnColorCategory,
+            detailedColor,
         });
     }
 }

@@ -32,10 +32,10 @@ class YarnStockServices {
 
     const formattedStockData: StockData[] = filtered.map((stock) => {
       if (stock.inStockQuantity < stock.reorderLevel) {
-        return { ...stock, reorderStatus: 'reorder' };
+        return { ...stock, reorderStatus: 'Reorder' };
       }
 
-      return { ...stock, reorderStatus: 'optimum' };
+      return { ...stock, reorderStatus: 'Optimum' };
     });
 
     return formattedStockData;
