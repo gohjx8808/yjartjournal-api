@@ -9,7 +9,7 @@ import {
 const yarnCategoryManager = manager.getRepository(YarnCategories);
 
 class YarnCategoryRepository {
-  getAll = () => yarnCategoryManager.find();
+  getAll = () => yarnCategoryManager.find({ order: { id: 'DESC' } });
 
   getById = (id: number) => yarnCategoryManager.findOneBy({ id });
 

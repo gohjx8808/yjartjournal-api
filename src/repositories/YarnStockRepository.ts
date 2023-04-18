@@ -42,6 +42,14 @@ class YarnStockRepository {
       yarnColorCategory,
       detailedColor,
     });
+
+  getByYarnCategoryId = (yarnCategoryId: number) =>
+    yarnStockManager.findOneBy({ yarnCategory: { id: yarnCategoryId } });
+
+  getByYarnColorCategoryId = (yarnColorCategoryId: number) =>
+    yarnStockManager.findOneBy({
+      yarnColorCategory: { id: yarnColorCategoryId },
+    });
 }
 
 export default YarnStockRepository;

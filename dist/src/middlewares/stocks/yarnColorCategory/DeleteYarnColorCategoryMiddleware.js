@@ -13,12 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const YarnColorCategoryRepository_1 = __importDefault(require("../../../repositories/YarnColorCategoryRepository"));
+const YarnStockRepository_1 = __importDefault(require("../../../repositories/YarnStockRepository"));
 const DeleteYarnColorCategoryMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const yarnColorCategoryRepository = new YarnColorCategoryRepository_1.default();
+    const yarnStockRepository = new YarnStockRepository_1.default();
     const existingById = yield yarnColorCategoryRepository.getById(payload.id);
     if (!existingById) {
         return res.status(404).json({ message: 'Invalid yarn color category id.' });
+    }
+    const existingYarnStock = yield yarnStockRepository.getByYarnColorCategoryId(payload.id);
+    if (existingYarnStock) {
+        return res
+            .status(422)
+            .json({
+            message: 'There is existing stock associates. Please remove it and try again.',
+        });
     }
     return next();
 });

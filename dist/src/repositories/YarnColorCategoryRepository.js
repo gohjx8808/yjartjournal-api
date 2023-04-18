@@ -9,7 +9,7 @@ const YarnColorCategories_1 = __importDefault(require("../entities/YarnColorCate
 const yarnColorCategoryManager = dataSource_1.manager.getRepository(YarnColorCategories_1.default);
 class YarnColorCategoryRepository {
     constructor() {
-        this.getAll = () => yarnColorCategoryManager.find();
+        this.getAll = () => yarnColorCategoryManager.find({ order: { id: 'DESC' } });
         this.getById = (id) => yarnColorCategoryManager.findOneBy({ id });
         this.getByNameExceptSelf = (payload) => yarnColorCategoryManager.findOneBy({
             name: payload.name,
