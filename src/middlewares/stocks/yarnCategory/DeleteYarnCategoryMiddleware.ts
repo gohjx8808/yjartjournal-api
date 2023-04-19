@@ -22,12 +22,10 @@ const DeleteYarnCategoryMiddleware = async (
     payload.id,
   );
   if (existingYarnStock) {
-    return res
-      .status(422)
-      .json({
-        message:
-          'There is existing stock associates. Please remove it and try again.',
-      });
+    return res.status(422).json({
+      message:
+        'There is existing stock associates. Please remove it and try again.',
+    });
   }
 
   return next();

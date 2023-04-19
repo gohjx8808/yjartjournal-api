@@ -50,3 +50,7 @@ export type DeleteYarnColorCategoryPayload = DeleteYarnCategoryPayload;
 
 export type UpdateYarnColorCategoryPayload = AddNewYarnColorCategoryPayload &
 DeleteYarnColorCategoryPayload;
+
+export interface DeleteYarnStockPayload {
+  yarnStockId: number;
+}

@@ -37,6 +37,7 @@ class YarnStockRepository {
         this.getByYarnColorCategoryId = (yarnColorCategoryId) => yarnStockManager.findOneBy({
             yarnColorCategory: { id: yarnColorCategoryId },
         });
+        this.deleteYarnStock = (yarnStockId) => yarnStockManager.delete({ id: yarnStockId });
     }
 }
 exports.default = YarnStockRepository;

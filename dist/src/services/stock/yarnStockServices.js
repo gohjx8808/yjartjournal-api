@@ -50,6 +50,10 @@ class YarnStockServices {
             const response = yield this.yarnStockRepository.updateQuantity(payload.yarnId, payload.quantity, currentUsedQuantity);
             return { response, success: true };
         });
+        this.deleteYarnStock = (payload) => __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.yarnStockRepository.deleteYarnStock(payload.yarnStockId);
+            return response;
+        });
     }
 }
 exports.default = YarnStockServices;

@@ -4,6 +4,7 @@ import AddNewStockValidator from '../../requestValidators/stock/yarnStock/AddNew
 import YarnStockServices from '../../services/stock/YarnStockServices';
 import {
   AddNewYarnStockPayload,
+  DeleteYarnStockPayload,
   GetYarnStockPayload,
   UpdateYarnQuantityPayload,
 } from '../../services/stock/typings';
@@ -12,6 +13,8 @@ import yarnColorCategoryRouter from './yarnColorCategoryRouter';
 import GetYarnStockValidator from '../../requestValidators/stock/yarnStock/GetYarnStockValidator';
 import UpdateStockQuantityValidator from '../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator';
 import AddYarnStockMiddleware from '../../middlewares/stocks/yarnStock/AddYarnStockMiddleware';
+import DeleteYarnStockValidator from '../../requestValidators/stock/yarnStock/DeleteYarnStockValidator';
+import DeleteYarnStockMiddleware from '../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware';
 
 const stockRouter = Router();
 const upload = multer();
@@ -27,7 +30,6 @@ stockRouter.post<{}, any, AddNewYarnStockPayload>(
   ...[upload.none(), ...AddNewStockValidator, AddYarnStockMiddleware],
   async (req, res) => {
     const payload = req.body;
-
     const response = await yarnStockService.insertNewYarnStock(payload);
 
     return res.json(response);
@@ -56,6 +58,17 @@ stockRouter.post<{}, any, UpdateYarnQuantityPayload>(
     if (!response.success) {
       return res.status(422).json({ message: response.msg });
     }
+    return res.json(response);
+  },
+);
+
+stockRouter.post<{}, any, DeleteYarnStockPayload>(
+  '/delete',
+  ...[upload.none(), ...DeleteYarnStockValidator, DeleteYarnStockMiddleware],
+  async (req, res) => {
+    const payload = req.body;
+    const response = await yarnStockService.deleteYarnStock(payload);
+
     return res.json(response);
   },
 );

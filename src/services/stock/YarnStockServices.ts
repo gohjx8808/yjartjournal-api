@@ -1,6 +1,7 @@
 import YarnStockRepository from '../../repositories/YarnStockRepository';
 import {
   AddNewYarnStockPayload,
+  DeleteYarnStockPayload,
   GetYarnStockPayload,
   StockData,
   UpdateYarnQuantityPayload,
@@ -63,6 +64,13 @@ class YarnStockServices {
       currentUsedQuantity,
     );
     return { response, success: true };
+  };
+
+  deleteYarnStock = async (payload: DeleteYarnStockPayload) => {
+    const response = await this.yarnStockRepository.deleteYarnStock(
+      payload.yarnStockId,
+    );
+    return response;
   };
 }
 

@@ -21,6 +21,8 @@ const yarnColorCategoryRouter_1 = __importDefault(require("./yarnColorCategoryRo
 const GetYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/GetYarnStockValidator"));
 const UpdateStockQuantityValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator"));
 const AddYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/AddYarnStockMiddleware"));
+const DeleteYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/DeleteYarnStockValidator"));
+const DeleteYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware"));
 const stockRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnStockService = new YarnStockServices_1.default();
@@ -42,6 +44,11 @@ stockRouter.post('/update-quantity', ...[upload.none(), ...UpdateStockQuantityVa
     if (!response.success) {
         return res.status(422).json({ message: response.msg });
     }
+    return res.json(response);
+}));
+stockRouter.post('/delete', ...[upload.none(), ...DeleteYarnStockValidator_1.default, DeleteYarnStockMiddleware_1.default], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const payload = req.body;
+    const response = yield yarnStockService.deleteYarnStock(payload);
     return res.json(response);
 }));
 exports.default = stockRouter;

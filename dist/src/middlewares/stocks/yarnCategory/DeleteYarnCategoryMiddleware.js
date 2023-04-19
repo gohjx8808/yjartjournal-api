@@ -24,9 +24,7 @@ const DeleteYarnCategoryMiddleware = (req, res, next) => __awaiter(void 0, void 
     }
     const existingYarnStock = yield yarnStockRepository.getByYarnCategoryId(payload.id);
     if (existingYarnStock) {
-        return res
-            .status(422)
-            .json({
+        return res.status(422).json({
             message: 'There is existing stock associates. Please remove it and try again.',
         });
     }
