@@ -68,7 +68,7 @@ class YarnStockServices {
 
   deleteYarnStock = async (payload: DeleteYarnStockPayload) => {
     const response = await this.yarnStockRepository.deleteYarnStock(
-      payload.yarnStockId,
+      payload.yarnId,
     );
     return response;
   };

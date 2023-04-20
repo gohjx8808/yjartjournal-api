@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const typeorm_1 = require("typeorm");
 const dataSource_1 = require("../dataSource");
 const YarnStocks_1 = __importDefault(require("../entities/YarnStocks"));
 const yarnStockManager = dataSource_1.manager.getRepository(YarnStocks_1.default);
@@ -28,16 +29,14 @@ class YarnStockRepository {
             where: { id: yarnId },
             relations: ['yarnColorCategory', 'yarnCategory'],
         });
-        this.getByCategoryColorCategoryDetailedColor = (yarnCategory, yarnColorCategory, detailedColor) => yarnStockManager.findOneBy({
-            yarnCategory: { id: yarnCategory.id },
-            yarnColorCategory: { id: yarnColorCategory.id },
-            detailedColor,
+        this.getByCategoryColorCategoryDetailedColor = (yarnCategory, yarnColorCategory, detailedColor, selfId = null) => yarnStockManager.findOne({
+            where: Object.assign({ yarnCategory: { id: yarnCategory.id }, yarnColorCategory: { id: yarnColorCategory.id }, detailedColor }, (selfId && { id: (0, typeorm_1.Not)(selfId) })),
         });
         this.getByYarnCategoryId = (yarnCategoryId) => yarnStockManager.findOneBy({ yarnCategory: { id: yarnCategoryId } });
         this.getByYarnColorCategoryId = (yarnColorCategoryId) => yarnStockManager.findOneBy({
             yarnColorCategory: { id: yarnColorCategoryId },
         });
-        this.deleteYarnStock = (yarnStockId) => yarnStockManager.delete({ id: yarnStockId });
+        this.deleteYarnStock = (yarnId) => yarnStockManager.delete({ id: yarnId });
     }
 }
 exports.default = YarnStockRepository;

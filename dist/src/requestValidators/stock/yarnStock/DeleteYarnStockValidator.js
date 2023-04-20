@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const customValidator_1 = __importDefault(require("../../customValidator"));
 const DeleteYarnStockValidator = (0, customValidator_1.default)([
-    (0, express_validator_1.body)('yarnStockId')
+    (0, express_validator_1.body)('yarnId')
         .notEmpty()
-        .withMessage('Yarn stock id is required.')
+        .withMessage('Yarn id is required.')
         .isInt()
-        .withMessage('Invalid yarn stock id.'),
+        .withMessage('Invalid yarn id.'),
 ]);
 exports.default = DeleteYarnStockValidator;
 //# sourceMappingURL=DeleteYarnStockValidator.js.map

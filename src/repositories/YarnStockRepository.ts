@@ -1,3 +1,4 @@
+import { Not } from 'typeorm';
 import { manager } from '../dataSource';
 import YarnStocks from '../entities/YarnStocks';
 import { AddNewYarnStockPayload } from '../services/stock/typings';
@@ -36,11 +37,15 @@ class YarnStockRepository {
     yarnCategory: OptionData,
     yarnColorCategory: OptionData,
     detailedColor: string,
+    selfId: number = null,
   ) =>
-    yarnStockManager.findOneBy({
-      yarnCategory: { id: yarnCategory.id },
-      yarnColorCategory: { id: yarnColorCategory.id },
-      detailedColor,
+    yarnStockManager.findOne({
+      where: {
+        yarnCategory: { id: yarnCategory.id },
+        yarnColorCategory: { id: yarnColorCategory.id },
+        detailedColor,
+        ...(selfId && { id: Not(selfId) }),
+      },
     });
 
   getByYarnCategoryId = (yarnCategoryId: number) =>
@@ -51,8 +56,7 @@ class YarnStockRepository {
       yarnColorCategory: { id: yarnColorCategoryId },
     });
 
-  deleteYarnStock = (yarnStockId: number) =>
-    yarnStockManager.delete({ id: yarnStockId });
+  deleteYarnStock = (yarnId: number) => yarnStockManager.delete({ id: yarnId });
 }
 
 export default YarnStockRepository;

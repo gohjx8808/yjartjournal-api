@@ -11,7 +11,7 @@ const DeleteYarnStockMiddleware = async (
 
   const payload = req.body;
 
-  const dataExist = await yarnStockRepository.getById(payload.yarnStockId);
+  const dataExist = await yarnStockRepository.getById(payload.yarnId);
 
   if (!dataExist) {
     return res.status(404).json({ message: 'Invalid yarn stock id.' });

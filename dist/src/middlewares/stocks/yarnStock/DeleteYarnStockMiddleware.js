@@ -16,7 +16,7 @@ const YarnStockRepository_1 = __importDefault(require("../../../repositories/Yar
 const DeleteYarnStockMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const yarnStockRepository = new YarnStockRepository_1.default();
     const payload = req.body;
-    const dataExist = yield yarnStockRepository.getById(payload.yarnStockId);
+    const dataExist = yield yarnStockRepository.getById(payload.yarnId);
     if (!dataExist) {
         return res.status(404).json({ message: 'Invalid yarn stock id.' });
     }

@@ -51,7 +51,7 @@ class YarnStockServices {
             return { response, success: true };
         });
         this.deleteYarnStock = (payload) => __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.yarnStockRepository.deleteYarnStock(payload.yarnStockId);
+            const response = yield this.yarnStockRepository.deleteYarnStock(payload.yarnId);
             return response;
         });
     }

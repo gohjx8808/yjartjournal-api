@@ -2,11 +2,11 @@ import { body } from 'express-validator';
 import customValidator from '../../customValidator';
 
 const DeleteYarnStockValidator = customValidator([
-  body('yarnStockId')
+  body('yarnId')
     .notEmpty()
-    .withMessage('Yarn stock id is required.')
+    .withMessage('Yarn id is required.')
     .isInt()
-    .withMessage('Invalid yarn stock id.'),
+    .withMessage('Invalid yarn id.'),
 ]);
 
 export default DeleteYarnStockValidator;

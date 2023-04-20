@@ -10,6 +10,10 @@ export interface AddNewYarnStockPayload {
   lastOrderedDate?: Date;
 }
 
+export interface DeleteYarnStockPayload {
+  yarnId: number;
+}
+
 export interface GetYarnStockPayload {
   yarnCategoryIds: number[];
   yarnColorCategoryIds: number[];
@@ -50,7 +54,3 @@ export type DeleteYarnColorCategoryPayload = DeleteYarnCategoryPayload;
 
 export type UpdateYarnColorCategoryPayload = AddNewYarnColorCategoryPayload &
 DeleteYarnColorCategoryPayload;
-
-export interface DeleteYarnStockPayload {
-  yarnStockId: number;
-}
