@@ -5,6 +5,7 @@ import {
   GetYarnStockPayload,
   StockData,
   UpdateYarnQuantityPayload,
+  UpdateYarnStockPayload,
 } from './typings';
 
 class YarnStockServices {
@@ -70,6 +71,11 @@ class YarnStockServices {
     const response = await this.yarnStockRepository.deleteYarnStock(
       payload.yarnId,
     );
+    return response;
+  };
+
+  updateYarnStock = async (payload: UpdateYarnStockPayload) => {
+    const response = await this.yarnStockRepository.updateYarnStock(payload);
     return response;
   };
 }

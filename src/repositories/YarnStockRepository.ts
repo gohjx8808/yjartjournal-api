@@ -1,7 +1,10 @@
 import { Not } from 'typeorm';
 import { manager } from '../dataSource';
 import YarnStocks from '../entities/YarnStocks';
-import { AddNewYarnStockPayload } from '../services/stock/typings';
+import {
+  AddNewYarnStockPayload,
+  UpdateYarnStockPayload,
+} from '../services/stock/typings';
 import { OptionData } from '../typings';
 
 const yarnStockManager = manager.getRepository(YarnStocks);
@@ -18,6 +21,7 @@ class YarnStockRepository {
   getAll = () =>
     yarnStockManager.find({
       relations: ['yarnColorCategory', 'yarnCategory'],
+      order: { createdAt: 'DESC' },
     });
 
   updateQuantity = (
@@ -57,6 +61,19 @@ class YarnStockRepository {
     });
 
   deleteYarnStock = (yarnId: number) => yarnStockManager.delete({ id: yarnId });
+
+  updateYarnStock = (payload: UpdateYarnStockPayload) =>
+    yarnStockManager.update(
+      { id: payload.yarnId },
+      {
+        yarnCategory: { id: payload.yarnCategory.id },
+        yarnColorCategory: { id: payload.yarnColorCategory.id },
+        detailedColor: payload.detailedColor,
+        costPerItem: payload.cost,
+        reorderLevel: payload.reorderLevel,
+        lastOrderedAt: payload.lastOrderedDate,
+      },
+    );
 }
 
 export default YarnStockRepository;

@@ -1,17 +1,23 @@
 import { OptionData } from '../../typings';
 
-export interface AddNewYarnStockPayload {
+export interface AddNewYarnStockPayload extends AddUpdateYarnStockPayload {
+  quantity: number;
+}
+
+export type UpdateYarnStockPayload = AddUpdateYarnStockPayload &
+DeleteYarnStockPayload;
+
+export interface DeleteYarnStockPayload {
+  yarnId: number;
+}
+
+export interface AddUpdateYarnStockPayload {
   yarnCategory: OptionData;
   yarnColorCategory: OptionData;
   detailedColor: string;
   cost: number;
-  quantity: number;
   reorderLevel: number;
   lastOrderedDate?: Date;
-}
-
-export interface DeleteYarnStockPayload {
-  yarnId: number;
 }
 
 export interface GetYarnStockPayload {

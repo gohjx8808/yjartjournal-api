@@ -23,6 +23,7 @@ class YarnStockRepository {
         });
         this.getAll = () => yarnStockManager.find({
             relations: ['yarnColorCategory', 'yarnCategory'],
+            order: { createdAt: 'DESC' },
         });
         this.updateQuantity = (yarnId, inStockQuantity, usedQuantity) => yarnStockManager.update({ id: yarnId }, { inStockQuantity, usedQuantity });
         this.getById = (yarnId) => yarnStockManager.findOne({
@@ -37,6 +38,14 @@ class YarnStockRepository {
             yarnColorCategory: { id: yarnColorCategoryId },
         });
         this.deleteYarnStock = (yarnId) => yarnStockManager.delete({ id: yarnId });
+        this.updateYarnStock = (payload) => yarnStockManager.update({ id: payload.yarnId }, {
+            yarnCategory: { id: payload.yarnCategory.id },
+            yarnColorCategory: { id: payload.yarnColorCategory.id },
+            detailedColor: payload.detailedColor,
+            costPerItem: payload.cost,
+            reorderLevel: payload.reorderLevel,
+            lastOrderedAt: payload.lastOrderedDate,
+        });
     }
 }
 exports.default = YarnStockRepository;
