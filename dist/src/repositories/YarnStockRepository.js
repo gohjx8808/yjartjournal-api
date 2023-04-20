@@ -29,8 +29,8 @@ class YarnStockRepository {
             relations: ['yarnColorCategory', 'yarnCategory'],
         });
         this.getByCategoryColorCategoryDetailedColor = (yarnCategory, yarnColorCategory, detailedColor) => yarnStockManager.findOneBy({
-            yarnCategory,
-            yarnColorCategory,
+            yarnCategory: { id: yarnCategory.id },
+            yarnColorCategory: { id: yarnColorCategory.id },
             detailedColor,
         });
         this.getByYarnCategoryId = (yarnCategoryId) => yarnStockManager.findOneBy({ yarnCategory: { id: yarnCategoryId } });

@@ -38,8 +38,8 @@ class YarnStockRepository {
     detailedColor: string,
   ) =>
     yarnStockManager.findOneBy({
-      yarnCategory,
-      yarnColorCategory,
+      yarnCategory: { id: yarnCategory.id },
+      yarnColorCategory: { id: yarnColorCategory.id },
       detailedColor,
     });
 
