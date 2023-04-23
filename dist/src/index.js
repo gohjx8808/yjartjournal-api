@@ -25,7 +25,7 @@ const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 var cors = require('cors');
 const app = (0, express_1.default)();
-dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
+exports.default = dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
     yield dataSource_1.dataSource.runMigrations();
     const port = 3000;
     app.use(cors());
@@ -43,5 +43,4 @@ dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0
     app.use('/stocks', stockRouter_1.default);
     app.listen(port);
 }));
-exports.default = app;
 //# sourceMappingURL=index.js.map

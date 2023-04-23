@@ -13,7 +13,7 @@ var cors = require('cors');
 
 const app: express.Application = express();
 
-dataSource.initialize().then(async () => {
+export default dataSource.initialize().then(async () => {
   await dataSource.runMigrations();
 
   const port: number = 3000;
@@ -44,5 +44,3 @@ dataSource.initialize().then(async () => {
 
   app.listen(port);
 });
-
-export default app;
