@@ -11,12 +11,11 @@ import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
 var cors = require('cors');
 
-const app: express.Application = express();
-
 export default dataSource.initialize().then(async () => {
   await dataSource.runMigrations();
 
   const port: number = 3000;
+  const app: express.Application = express();
 
   app.use(cors());
 
