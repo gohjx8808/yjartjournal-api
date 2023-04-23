@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
 import AddNewStockValidator from '../../requestValidators/stock/yarnStock/AddNewStockValidator';
-import YarnStockServices from '../../services/stock/YarnStockServices';
 import {
   AddNewYarnStockPayload,
   DeleteYarnStockPayload,
@@ -18,6 +17,7 @@ import DeleteYarnStockValidator from '../../requestValidators/stock/yarnStock/De
 import DeleteYarnStockMiddleware from '../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware';
 import UpdateStockValidator from '../../requestValidators/stock/yarnStock/UpdateStockValidator';
 import UpdateYarnStockMiddleware from '../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware';
+import YarnStockServices from '../../services/stock/YarnStockServices';
 
 const stockRouter = Router();
 const upload = multer();

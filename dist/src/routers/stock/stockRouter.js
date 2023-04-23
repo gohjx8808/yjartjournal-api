@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const AddNewStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/AddNewStockValidator"));
-const YarnStockServices_1 = __importDefault(require("../../services/stock/YarnStockServices"));
 const yarnCategoryRouter_1 = __importDefault(require("./yarnCategoryRouter"));
 const yarnColorCategoryRouter_1 = __importDefault(require("./yarnColorCategoryRouter"));
 const GetYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/GetYarnStockValidator"));
@@ -25,6 +24,7 @@ const DeleteYarnStockValidator_1 = __importDefault(require("../../requestValidat
 const DeleteYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware"));
 const UpdateStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockValidator"));
 const UpdateYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware"));
+const YarnStockServices_1 = __importDefault(require("../../services/stock/YarnStockServices"));
 const stockRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnStockService = new YarnStockServices_1.default();

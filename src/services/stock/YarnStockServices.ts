@@ -27,7 +27,7 @@ class YarnStockServices {
     }
 
     if (payload.yarnColorCategoryIds.length > 0) {
-      filtered = yarnStocks.filter((stock) =>
+      filtered = filtered.filter((stock) =>
         payload.yarnColorCategoryIds.includes(stock.yarnColorCategory.id),
       );
     }

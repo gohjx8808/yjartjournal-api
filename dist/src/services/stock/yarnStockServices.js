@@ -27,7 +27,7 @@ class YarnStockServices {
                 filtered = yarnStocks.filter((stock) => payload.yarnCategoryIds.includes(stock.yarnCategory.id));
             }
             if (payload.yarnColorCategoryIds.length > 0) {
-                filtered = yarnStocks.filter((stock) => payload.yarnColorCategoryIds.includes(stock.yarnColorCategory.id));
+                filtered = filtered.filter((stock) => payload.yarnColorCategoryIds.includes(stock.yarnColorCategory.id));
             }
             const formattedStockData = filtered.map((stock) => {
                 if (stock.inStockQuantity < stock.reorderLevel) {
