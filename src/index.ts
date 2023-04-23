@@ -44,3 +44,5 @@ dataSource.initialize().then(async () => {
 
   app.listen(port);
 });
+
+export default app;

@@ -43,4 +43,5 @@ dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0
     app.use('/stocks', stockRouter_1.default);
     app.listen(port);
 }));
+exports.default = app;
 //# sourceMappingURL=index.js.map
