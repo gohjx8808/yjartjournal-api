@@ -24,10 +24,10 @@ const productRouter_1 = __importDefault(require("./routers/productRouter"));
 const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 var cors = require('cors');
-exports.default = dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
+const app = (0, express_1.default)();
+dataSource_1.dataSource.initialize().then(() => __awaiter(void 0, void 0, void 0, function* () {
     yield dataSource_1.dataSource.runMigrations();
     const port = 3000;
-    const app = (0, express_1.default)();
     app.use(cors());
     app.use(express_1.default.json());
     app.get('/', (_req, _res) => {
