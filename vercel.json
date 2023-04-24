@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand":"vercel build && npm run migrate",
   "builds": [
     {
       "src": "dist/src/index.js",
