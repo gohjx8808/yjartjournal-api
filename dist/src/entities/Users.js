@@ -17,6 +17,21 @@ const typeorm_1 = require("typeorm");
 const Addresses_1 = __importDefault(require("./Addresses"));
 const ResetPasswordTokens_1 = __importDefault(require("./ResetPasswordTokens"));
 let Users = class Users {
+    id;
+    name;
+    preferredName;
+    email;
+    password;
+    iv;
+    countryCode;
+    phoneNumber;
+    gender;
+    dob;
+    isAdmin;
+    createdAt;
+    updatedAt;
+    addresses;
+    resetPasswordTokens;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

@@ -1,24 +1,15 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUserAccount = exports.getUserAccount = void 0;
 const userRepository_1 = require("../../repositories/userRepository");
-const getUserAccount = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const userDetails = yield (0, userRepository_1.getUserById)(userId);
+const getUserAccount = async (userId) => {
+    const userDetails = await (0, userRepository_1.getUserById)(userId);
     return userDetails;
-});
+};
 exports.getUserAccount = getUserAccount;
-const updateUserAccount = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield (0, userRepository_1.updateUserById)(userId, payload);
+const updateUserAccount = async (userId, payload) => {
+    const result = await (0, userRepository_1.updateUserById)(userId, payload);
     return result;
-});
+};
 exports.updateUserAccount = updateUserAccount;
 //# sourceMappingURL=accountServices.js.map

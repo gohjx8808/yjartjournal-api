@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllImages = exports.getAllProducts = exports.getProductCategories = void 0;
 const contentful_1 = require("contentful");
@@ -16,8 +7,8 @@ const client = (0, contentful_1.createClient)({
     space: process.env.CONTENTFUL_SPACE_ID || '',
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
-const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* () {
-    const productCategories = yield client
+const getProductCategories = async () => {
+    const productCategories = await client
         .getEntries({
         content_type: 'products',
         select: 'fields.category',
@@ -27,9 +18,9 @@ const getProductCategories = () => __awaiter(void 0, void 0, void 0, function* (
         return data.category;
     }));
     return [...new Set(productCategories)].sort();
-});
+};
 exports.getProductCategories = getProductCategories;
-const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllProducts = async (payload) => {
     const sortOrder = (0, productHelper_1.getContentfulOrderByKeyword)(payload.sortId);
     return client
         .getEntries({
@@ -47,15 +38,20 @@ const getAllProducts = (payload) => __awaiter(void 0, void 0, void 0, function* 
             });
         }
         delete data.productImage;
-        return Object.assign(Object.assign({}, data), { id: entry.sys.id, contentDescription: data.contentDescription, productImages: pickedData });
+        return {
+            ...data,
+            id: entry.sys.id,
+            contentDescription: data.contentDescription,
+            productImages: pickedData,
+        };
     }));
-});
+};
 exports.getAllProducts = getAllProducts;
-const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
-    const assets = yield client.getEntries({
+const getAllImages = async () => {
+    const assets = await client.getEntries({
         content_type: 'gallery',
     });
     return (0, productHelper_1.randomizeImages)(assets.items);
-});
+};
 exports.getAllImages = getAllImages;
 //# sourceMappingURL=productServices.js.map

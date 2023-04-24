@@ -16,6 +16,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
 let OrderStatuses = class OrderStatuses {
+    id;
+    name;
+    createdAt;
+    updatedAt;
+    orders;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

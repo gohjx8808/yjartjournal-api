@@ -12,6 +12,10 @@ const getOrderByAddressPromoCodeUsed = (address, promoCode) => orderManager.find
     promoCodeUsed: promoCode,
 });
 exports.getOrderByAddressPromoCodeUsed = getOrderByAddressPromoCodeUsed;
-const insertNewOrder = (payload, addressId) => orderManager.insert(Object.assign(Object.assign({}, payload), { address: { id: addressId }, orderStatus: { id: 1 } }));
+const insertNewOrder = (payload, addressId) => orderManager.insert({
+    ...payload,
+    address: { id: addressId },
+    orderStatus: { id: 1 },
+});
 exports.insertNewOrder = insertNewOrder;
 //# sourceMappingURL=orderRepository.js.map

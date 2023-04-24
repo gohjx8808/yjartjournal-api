@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkout = exports.calculateShippingFee = void 0;
 const sgMail_1 = require("../../mail/sgMail");
@@ -39,7 +30,7 @@ const calculateShippingFee = (payload) => {
     }
 };
 exports.calculateShippingFee = calculateShippingFee;
-const insertCheckoutAddress = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
+const insertCheckoutAddress = async (payload, user) => {
     let addressId = payload.addressId;
     const addressData = {
         receiverName: payload.receiverName,
@@ -54,20 +45,20 @@ const insertCheckoutAddress = (payload, user) => __awaiter(void 0, void 0, void 
         isDefault: false,
     };
     if (user && payload.addToAddressBook) {
-        const existingSameAddress = yield (0, addressServices_1.isAddressExist)(user.id, addressData);
+        const existingSameAddress = await (0, addressServices_1.isAddressExist)(user.id, addressData);
         if (!existingSameAddress.exist) {
-            addressId = (yield (0, addressServices_1.addAddress)(user.id, addressData)).identifiers[0].id;
+            addressId = (await (0, addressServices_1.addAddress)(user.id, addressData)).identifiers[0].id;
         }
         else {
             addressId = existingSameAddress.id;
         }
     }
     else {
-        addressId = (yield (0, addressRepository_1.insertNewAddress)(addressData)).identifiers[0].id;
+        addressId = (await (0, addressRepository_1.insertNewAddress)(addressData)).identifiers[0].id;
     }
     return addressId;
-});
-const insertOrderData = (payload, addressId) => __awaiter(void 0, void 0, void 0, function* () {
+};
+const insertOrderData = async (payload, addressId) => {
     const orderData = {
         buyerEmail: payload.buyerEmail,
         shippingFee: payload.shippingFee,
@@ -76,18 +67,18 @@ const insertOrderData = (payload, addressId) => __awaiter(void 0, void 0, void 0
         paymentMethod: payload.paymentMethod,
         totalAmount: payload.totalAmount,
     };
-    const response = yield (0, orderRepository_1.insertNewOrder)(orderData, addressId);
+    const response = await (0, orderRepository_1.insertNewOrder)(orderData, addressId);
+    return response;
+};
+const insertCheckoutItemData = (payload, orderId) => payload.map(async (item) => {
+    const response = await (0, checkoutItemRepository_1.insertNewCheckoutItem)(item, orderId);
     return response;
 });
-const insertCheckoutItemData = (payload, orderId) => payload.map((item) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield (0, checkoutItemRepository_1.insertNewCheckoutItem)(item, orderId);
-    return response;
-}));
-const calculateDiscount = (promoCodeUsed, totalAmount) => __awaiter(void 0, void 0, void 0, function* () {
+const calculateDiscount = async (promoCodeUsed, totalAmount) => {
     let discountMargin;
     let discountAmount = 0;
     if (promoCodeUsed) {
-        const promoCodeDetails = yield (0, promoCodeRepository_1.getPromoCodeById)(promoCodeUsed.id);
+        const promoCodeDetails = await (0, promoCodeRepository_1.getPromoCodeById)(promoCodeUsed.id);
         if (promoCodeDetails.promoType === 'percent') {
             discountMargin = `${promoCodeDetails.promoValue}%`;
             discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);
@@ -97,18 +88,21 @@ const calculateDiscount = (promoCodeUsed, totalAmount) => __awaiter(void 0, void
         }
     }
     return { discountMargin, discountAmount };
-});
-const sendPaymentEmail = (payload, user, addressId) => __awaiter(void 0, void 0, void 0, function* () {
+};
+const sendPaymentEmail = async (payload, user, addressId) => {
     const bankTransferTemplateId = 'd-ce30ae1412f546d592d214d4fc8efa90';
     const tngTemplateId = 'd-13380bdf16624fb6bf11c56450dde78d';
     let buyerName = payload.buyerEmail;
     if (user) {
-        const userDetails = yield (0, userRepository_1.getUserById)(user.id);
+        const userDetails = await (0, userRepository_1.getUserById)(user.id);
         buyerName = userDetails.preferredName || userDetails.name;
     }
-    const addressDetails = yield (0, addressRepository_1.getAddressById)(addressId);
-    const formattedProducts = payload.products.map((product) => (Object.assign(Object.assign({}, product), { totalPrice: product.totalPrice.toFixed(2) })));
-    const discountDetails = yield calculateDiscount(payload.promoCodeUsed, payload.totalAmount);
+    const addressDetails = await (0, addressRepository_1.getAddressById)(addressId);
+    const formattedProducts = payload.products.map((product) => ({
+        ...product,
+        totalPrice: product.totalPrice.toFixed(2),
+    }));
+    const discountDetails = await calculateDiscount(payload.promoCodeUsed, payload.totalAmount);
     const emailMsg = {
         personalizations: [{ to: [{ email: payload.buyerEmail }] }],
         from: { email: 'yj.artjournal@gmail.com', name: 'YJ Art Journal' },
@@ -133,14 +127,14 @@ const sendPaymentEmail = (payload, user, addressId) => __awaiter(void 0, void 0,
                 `${addressDetails.country}`,
         },
     };
-    yield (0, sgMail_1.sendEmail)(emailMsg);
-});
-const checkout = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
-    const addressId = yield insertCheckoutAddress(payload, user);
-    const order = yield insertOrderData(payload, addressId);
+    await (0, sgMail_1.sendEmail)(emailMsg);
+};
+const checkout = async (payload, user) => {
+    const addressId = await insertCheckoutAddress(payload, user);
+    const order = await insertOrderData(payload, addressId);
     insertCheckoutItemData(payload.products, order.identifiers[0].id);
-    yield sendPaymentEmail(payload, user, addressId);
+    await sendPaymentEmail(payload, user, addressId);
     return { message: 'Order successfully created!' };
-});
+};
 exports.checkout = checkout;
 //# sourceMappingURL=orderServices.js.map

@@ -16,6 +16,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const YarnStocks_1 = __importDefault(require("./YarnStocks"));
 let YarnCategories = class YarnCategories {
+    id;
+    name;
+    createdAt;
+    updatedAt;
+    yarnStocks;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

@@ -19,6 +19,18 @@ const CheckoutItems_1 = __importDefault(require("./CheckoutItems"));
 const OrderStatuses_1 = __importDefault(require("./OrderStatuses"));
 const PromoCodes_1 = __importDefault(require("./PromoCodes"));
 let Orders = class Orders {
+    id;
+    buyerEmail;
+    address;
+    shippingFee;
+    totalAmount;
+    paymentMethod;
+    promoCodeUsed;
+    note;
+    orderStatus;
+    createdAt;
+    updatedAt;
+    checkoutItems;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

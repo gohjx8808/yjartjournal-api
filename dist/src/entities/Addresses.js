@@ -18,6 +18,22 @@ const Orders_1 = __importDefault(require("./Orders"));
 const States_1 = __importDefault(require("./States"));
 const Users_1 = __importDefault(require("./Users"));
 let Addresses = class Addresses {
+    id;
+    user;
+    receiverName;
+    receiverCountryCode;
+    receiverPhoneNumber;
+    addressLineOne;
+    addressLineTwo;
+    postcode;
+    city;
+    state;
+    country;
+    isDefault;
+    tag;
+    createdAt;
+    updatedAt;
+    orders;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

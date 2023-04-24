@@ -16,6 +16,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Users_1 = __importDefault(require("./Users"));
 let ResetPasswordTokens = class ResetPasswordTokens {
+    id;
+    user;
+    token;
+    expiredAt;
+    isUsed;
+    createdAt;
+    updatedAt;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

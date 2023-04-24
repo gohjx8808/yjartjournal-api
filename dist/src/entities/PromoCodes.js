@@ -16,6 +16,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
 let PromoCodes = class PromoCodes {
+    id;
+    name;
+    promoType;
+    promoValue;
+    useLimit;
+    startedAt;
+    expiredAt;
+    createdAt;
+    updatedAt;
+    orders;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

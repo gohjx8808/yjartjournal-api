@@ -26,7 +26,10 @@ const getUserAddressById = (userId, addressId) => (0, exports.getAddressByUserId
 exports.getUserAddressById = getUserAddressById;
 const updateAddressDefaultToFalse = (addressId) => exports.addressManager.update({ id: addressId }, { isDefault: false });
 exports.updateAddressDefaultToFalse = updateAddressDefaultToFalse;
-const insertNewAddress = (payload, userId) => exports.addressManager.insert(Object.assign(Object.assign({}, payload), { user: { id: userId } }));
+const insertNewAddress = (payload, userId) => exports.addressManager.insert({
+    ...payload,
+    user: { id: userId },
+});
 exports.insertNewAddress = insertNewAddress;
 const deleteAddressById = (addressId) => exports.addressManager
     .createQueryBuilder()

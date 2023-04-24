@@ -7,6 +7,9 @@ exports.insertNewCheckoutItem = void 0;
 const dataSource_1 = require("../dataSource");
 const CheckoutItems_1 = __importDefault(require("../entities/CheckoutItems"));
 const checkoutItemManager = dataSource_1.manager.getRepository(CheckoutItems_1.default);
-const insertNewCheckoutItem = (payload, orderId) => checkoutItemManager.insert(Object.assign(Object.assign({}, payload), { order: { id: orderId } }));
+const insertNewCheckoutItem = (payload, orderId) => checkoutItemManager.insert({
+    ...payload,
+    order: { id: orderId },
+});
 exports.insertNewCheckoutItem = insertNewCheckoutItem;
 //# sourceMappingURL=checkoutItemRepository.js.map

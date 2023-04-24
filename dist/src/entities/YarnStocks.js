@@ -17,6 +17,17 @@ const typeorm_1 = require("typeorm");
 const YarnCategories_1 = __importDefault(require("./YarnCategories"));
 const YarnColorCategories_1 = __importDefault(require("./YarnColorCategories"));
 let YarnStocks = class YarnStocks {
+    id;
+    yarnCategory;
+    yarnColorCategory;
+    detailedColor;
+    costPerItem;
+    inStockQuantity;
+    usedQuantity;
+    reorderLevel;
+    lastOrderedAt;
+    createdAt;
+    updatedAt;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

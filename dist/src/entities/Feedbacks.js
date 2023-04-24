@@ -12,6 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 let Feedbacks = class Feedbacks {
+    id;
+    name;
+    email;
+    feedback;
+    isReplied;
+    createdAt;
+    updatedAt;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),

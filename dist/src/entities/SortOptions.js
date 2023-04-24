@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 let SortOptions = class SortOptions {
+    id;
+    name;
+    createdAt;
+    updatedAt;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
