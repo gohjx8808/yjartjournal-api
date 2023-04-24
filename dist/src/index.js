@@ -16,13 +16,12 @@ const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 var cors = require('cors');
 const app = (0, express_1.default)();
-dataSource_1.dataSource.initialize().then(async () => {
-    await dataSource_1.dataSource.runMigrations();
-});
+dataSource_1.dataSource.initialize();
 const port = 3000;
 app.use(cors());
 app.use(express_1.default.json());
-app.get('/', (_req, _res) => {
+app.get('/', async (_req, _res) => {
+    await dataSource_1.dataSource.runMigrations();
     _res.send('TypeScript With Express');
 });
 app.use('/products', productRouter_1.default);
