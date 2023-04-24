@@ -11,9 +11,9 @@ import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
 var cors = require('cors');
 
-const app: express.Application = express();
-
 dataSource.initialize();
+
+const app: express.Application = express();
 
 const port: number = 3000;
 
@@ -22,7 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', async (_req, _res) => {
-  await dataSource.runMigrations();
+  dataSource.initialize().then(async () => {
+    await dataSource.runMigrations();
+  });
   _res.send('TypeScript With Express');
 });
 
