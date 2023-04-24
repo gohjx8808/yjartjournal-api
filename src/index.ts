@@ -15,32 +15,34 @@ const app: express.Application = express();
 
 dataSource.initialize().then(async () => {
   await dataSource.runMigrations();
-
-  const port: number = 3000;
-
-  app.use(cors());
-
-  app.use(express.json());
-
-  app.get('/', (_req, _res) => {
-    _res.send('TypeScript With Express');
-  });
-
-  app.use('/products', productRouter);
-
-  app.use('/feedbacks', feedbackRouter);
-
-  app.use('/users', userRouter);
-
-  app.use('/account', accountRouter);
-
-  app.use('/addresses', addressRouter);
-
-  app.use('/orders', orderRouter);
-
-  app.use('/forgot-password', forgotPasswordRouter);
-
-  app.use('/stocks', stockRouter);
-
-  app.listen(port);
 });
+
+const port: number = 3000;
+
+app.use(cors());
+
+app.use(express.json());
+
+app.get('/', (_req, _res) => {
+  _res.send('TypeScript With Express');
+});
+
+app.use('/products', productRouter);
+
+app.use('/feedbacks', feedbackRouter);
+
+app.use('/users', userRouter);
+
+app.use('/account', accountRouter);
+
+app.use('/addresses', addressRouter);
+
+app.use('/orders', orderRouter);
+
+app.use('/forgot-password', forgotPasswordRouter);
+
+app.use('/stocks', stockRouter);
+
+app.listen(port);
+
+export default app;
