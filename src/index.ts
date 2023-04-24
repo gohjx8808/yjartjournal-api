@@ -13,9 +13,7 @@ var cors = require('cors');
 
 const app: express.Application = express();
 
-dataSource.initialize().then(async () => {
-  await dataSource.runMigrations();
-});
+dataSource.initialize();
 
 const port: number = 3000;
 

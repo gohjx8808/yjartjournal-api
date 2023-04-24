@@ -16,9 +16,7 @@ const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 var cors = require('cors');
 const app = (0, express_1.default)();
-dataSource_1.dataSource.initialize().then(async () => {
-    await dataSource_1.dataSource.runMigrations();
-});
+dataSource_1.dataSource.initialize();
 const port = 3000;
 app.use(cors());
 app.use(express_1.default.json());
