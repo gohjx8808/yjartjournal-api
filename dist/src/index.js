@@ -16,21 +16,22 @@ const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 var cors = require('cors');
 const app = (0, express_1.default)();
-dataSource_1.dataSource.initialize();
-const port = 3000;
-app.use(cors());
-app.use(express_1.default.json());
-app.get('/', (_req, _res) => {
-    _res.send('TypeScript With Express');
+dataSource_1.dataSource.initialize().then(() => {
+    const port = 3000;
+    app.use(cors());
+    app.use(express_1.default.json());
+    app.get('/', (_req, _res) => {
+        _res.send('TypeScript With Express');
+    });
+    app.use('/products', productRouter_1.default);
+    app.use('/feedbacks', feedbackRouter_1.default);
+    app.use('/users', userRouter_1.default);
+    app.use('/account', accountRouter_1.default);
+    app.use('/addresses', addressRouter_1.default);
+    app.use('/orders', orderRouter_1.default);
+    app.use('/forgot-password', forgotPasswordRouter_1.default);
+    app.use('/stocks', stockRouter_1.default);
+    app.listen(port);
 });
-app.use('/products', productRouter_1.default);
-app.use('/feedbacks', feedbackRouter_1.default);
-app.use('/users', userRouter_1.default);
-app.use('/account', accountRouter_1.default);
-app.use('/addresses', addressRouter_1.default);
-app.use('/orders', orderRouter_1.default);
-app.use('/forgot-password', forgotPasswordRouter_1.default);
-app.use('/stocks', stockRouter_1.default);
-app.listen(port);
-exports.default = app;
+// export default app;
 //# sourceMappingURL=index.js.map
