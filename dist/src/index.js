@@ -19,8 +19,9 @@ const app = (0, express_1.default)();
 const port = 3000;
 app.use(cors());
 app.use(express_1.default.json());
-app.use(async () => {
+app.use(async (_req, _res, next) => {
     await dataSource_1.dataSource.initialize();
+    return next();
 });
 app.get('/', (_req, _res) => {
     _res.send('TypeScript With Express');

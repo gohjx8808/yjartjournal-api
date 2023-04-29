@@ -19,8 +19,9 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use(async () => {
+app.use(async (_req, _res, next) => {
   await dataSource.initialize();
+  return next();
 });
 
 app.get('/', (_req, _res) => {
