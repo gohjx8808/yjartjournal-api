@@ -18,6 +18,7 @@ import YarnCategories from './entities/YarnCategories';
 import YarnColorCategories from './entities/YarnColorCategories';
 import YarnStocks from './entities/YarnStocks';
 import { readFileSync } from 'fs';
+import path from 'path';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -51,7 +52,7 @@ export const dataSource = new DataSource({
   synchronize: true,
   logging: false,
   ssl: {
-    ca: readFileSync('./ca.pem').toString(),
+    ca: readFileSync(path.join(__dirname, '..', 'ca.pem')).toString(),
   },
 });
 
