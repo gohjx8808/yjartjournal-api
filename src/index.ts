@@ -8,6 +8,7 @@ import orderRouter from './routers/orderRouter';
 import productRouter from './routers/productRouter';
 import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
+import { dataSource } from './dataSource';
 var cors = require('cors');
 
 const app: express.Application = express();
@@ -17,6 +18,10 @@ const port: number = 3000;
 app.use(cors());
 
 app.use(express.json());
+
+app.use(async () => {
+  await dataSource.initialize();
+});
 
 app.get('/', (_req, _res) => {
   _res.send('TypeScript With Express');
