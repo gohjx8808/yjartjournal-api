@@ -54,9 +54,9 @@ exports.dataSource = new typeorm_1.DataSource({
     ],
     synchronize: true,
     logging: false,
-    ssl: process.env.NODE_ENV === 'production' && {
-        ca: process.env.AIVEN_DB_CERT,
-    },
+    // ssl: process.env.NODE_ENV === 'production' && {
+    //   ca: process.env.AIVEN_DB_CERT,
+    // },
 });
 exports.manager = exports.dataSource.manager;
 //# sourceMappingURL=dataSource.js.map

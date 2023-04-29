@@ -49,9 +49,9 @@ export const dataSource = new DataSource({
   ],
   synchronize: true,
   logging: false,
-  ssl: process.env.NODE_ENV === 'production' && {
-    ca: process.env.AIVEN_DB_CERT,
-  },
+  // ssl: process.env.NODE_ENV === 'production' && {
+  //   ca: process.env.AIVEN_DB_CERT,
+  // },
 });
 
 export const manager = dataSource.manager;
