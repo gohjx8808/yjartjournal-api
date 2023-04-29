@@ -22,6 +22,7 @@ app.use(express_1.default.json());
 app.use(async (_req, _res, next) => {
     if (!dataSource_1.dataSource.isInitialized) {
         await dataSource_1.dataSource.initialize();
+        await dataSource_1.dataSource.runMigrations();
     }
     return next();
 });
