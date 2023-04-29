@@ -20,7 +20,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use(async (_req, _res, next) => {
-  await dataSource.initialize();
+  if (!dataSource.isInitialized) {
+    await dataSource.initialize();
+  }
   return next();
 });
 
