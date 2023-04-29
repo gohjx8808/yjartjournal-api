@@ -49,7 +49,7 @@ export const dataSource = new DataSource({
   ],
   synchronize: true,
   logging: false,
-  ssl: {
+  ssl: process.env.NODE_ENV === 'production' && {
     ca: process.env.AIVEN_DB_CERT,
   },
 });
