@@ -1,3 +1,4 @@
+import { dataSource } from '../../dataSource';
 import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
 import {
   AddNewYarnCategoryPayload,
@@ -9,6 +10,7 @@ class YarnCategoryServices {
   private yarnCategoryRepository = new YarnCategoryRepository();
 
   getAllYarnCategories = async () => {
+    await dataSource.initialize();
     const response = await this.yarnCategoryRepository.getAll();
     return response;
   };
