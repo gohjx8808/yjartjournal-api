@@ -17,7 +17,6 @@ import Users from './entities/Users';
 import YarnCategories from './entities/YarnCategories';
 import YarnColorCategories from './entities/YarnColorCategories';
 import YarnStocks from './entities/YarnStocks';
-import { readFileSync } from 'fs';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -52,7 +51,7 @@ export const dataSource = new DataSource({
   synchronize: true,
   logging: false,
   ssl: process.env.NODE_ENV === 'production' && {
-    ca: readFileSync(process.env.AIVEN_DB_CERT).toString(),
+    ca: process.env.AIVEN_DB_CERT,
   },
 });
 
