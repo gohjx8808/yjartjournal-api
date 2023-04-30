@@ -23,8 +23,10 @@ const Users_1 = __importDefault(require("./entities/Users"));
 const YarnCategories_1 = __importDefault(require("./entities/YarnCategories"));
 const YarnColorCategories_1 = __importDefault(require("./entities/YarnColorCategories"));
 const YarnStocks_1 = __importDefault(require("./entities/YarnStocks"));
+const fs_1 = require("fs");
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
+    // url:'postgres://avnadmin:AVNS_pbdKboPQuSMw7SUjGNq@pg-2ea2107d-yjartjournal.aivencloud.com:27376/defaultdb?sslmode=require',
     host: process.env.POSTGRESQL_DB_HOST,
     port: parseInt(process.env.POSTGRESQL_DB_PORT || '0', 10),
     username: process.env.POSTGRESQL_DB_USER,
@@ -54,9 +56,9 @@ exports.dataSource = new typeorm_1.DataSource({
     ],
     synchronize: true,
     logging: false,
-    // ssl: process.env.NODE_ENV === 'production' && {
-    //   ca: process.env.AIVEN_DB_CERT,
-    // },
+    ssl: process.env.NODE_ENV === 'production' && {
+        ca: (0, fs_1.readFileSync)(process.env.AIVEN_DB_CERT).toString(),
+    },
 });
 exports.manager = exports.dataSource.manager;
 //# sourceMappingURL=dataSource.js.map
