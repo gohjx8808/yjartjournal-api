@@ -10,7 +10,8 @@
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "ts-node -r dotenv/config ./node_modules/.bin/typeorm migration:run --dataSource src/dataSource.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
