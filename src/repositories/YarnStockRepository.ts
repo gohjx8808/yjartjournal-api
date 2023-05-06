@@ -20,7 +20,7 @@ class YarnStockRepository {
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
       lastOrderedAt: payload.lastOrderedDate,
-      imageUrl: uploadedImg.url,
+      imageUrl: uploadedImg.secure_url,
       imageId: uploadedImg.public_id,
     });
 
@@ -82,7 +82,7 @@ class YarnStockRepository {
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
         imageId: updatedImg.public_id,
-        imageUrl: updatedImg.url,
+        imageUrl: updatedImg.secure_url,
       },
     );
 }
