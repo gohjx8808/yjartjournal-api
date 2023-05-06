@@ -1,4 +1,5 @@
 import YarnStockRepository from '../../repositories/YarnStockRepository';
+import { v2 as cloudinary } from 'cloudinary';
 import {
   AddNewYarnStockPayload,
   DeleteYarnStockPayload,
@@ -12,7 +13,17 @@ class YarnStockServices {
   private yarnStockRepository = new YarnStockRepository();
 
   insertNewYarnStock = async (payload: AddNewYarnStockPayload) => {
-    const res = await this.yarnStockRepository.insertNewYarnStock(payload);
+    const stockImg = payload.image;
+    let uploadedImgUrl = '';
+    if (stockImg) {
+      uploadedImgUrl = (
+        await cloudinary.uploader.upload(stockImg, { folder: 'yarnStocks' })
+      ).url;
+    }
+    const res = await this.yarnStockRepository.insertNewYarnStock(
+      payload,
+      uploadedImgUrl,
+    );
     return res;
   };
 

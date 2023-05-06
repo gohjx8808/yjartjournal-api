@@ -37,6 +37,9 @@ const AddNewStockValidator = customValidator([
     .isISO8601()
     .toDate()
     .withMessage('Invalid last ordered date.'),
+  body('image')
+    .optional({ nullable: true })
+    .matches(/data:image\/png;base64,/),
 ]);
 
 export default AddNewStockValidator;

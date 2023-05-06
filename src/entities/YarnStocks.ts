@@ -45,6 +45,9 @@ class YarnStocks {
   @Column({ name: "last_ordered_at", type: "date", nullable: true })
     lastOrderedAt: Date;
 
+  @Column({ nullable: true })
+    image: string;
+
   @CreateDateColumn({ name: "created_at", select: false })
     createdAt: Date;
 

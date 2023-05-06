@@ -14,7 +14,14 @@ const productRouter_1 = __importDefault(require("./routers/productRouter"));
 const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
 const dataSource_1 = require("./dataSource");
+const cloudinary_1 = require("cloudinary");
 var cors = require('cors');
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
+});
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(cors());
@@ -37,5 +44,4 @@ app.use('/orders', orderRouter_1.default);
 app.use('/forgot-password', forgotPasswordRouter_1.default);
 app.use('/stocks', stockRouter_1.default);
 app.listen(port);
-// export default app;
 //# sourceMappingURL=index.js.map

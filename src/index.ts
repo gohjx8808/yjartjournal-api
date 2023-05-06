@@ -9,7 +9,15 @@ import productRouter from './routers/productRouter';
 import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
 import { dataSource } from './dataSource';
+import { v2 as cloudinary } from 'cloudinary';
 var cors = require('cors');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
 const app: express.Application = express();
 
@@ -47,5 +55,3 @@ app.use('/forgot-password', forgotPasswordRouter);
 app.use('/stocks', stockRouter);
 
 app.listen(port);
-
-// export default app;

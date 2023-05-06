@@ -8,11 +8,12 @@ const dataSource_1 = require("../dataSource");
 const YarnStocks_1 = __importDefault(require("../entities/YarnStocks"));
 const yarnStockManager = dataSource_1.manager.getRepository(YarnStocks_1.default);
 class YarnStockRepository {
-    insertNewYarnStock = async (payload) => yarnStockManager.insert({
+    insertNewYarnStock = async (payload, uploadedImgUrl) => yarnStockManager.insert({
         ...payload,
         costPerItem: payload.cost,
         inStockQuantity: payload.quantity,
         lastOrderedAt: payload.lastOrderedDate,
+        image: uploadedImgUrl,
     });
     getAll = () => yarnStockManager.find({
         relations: ['yarnColorCategory', 'yarnCategory'],

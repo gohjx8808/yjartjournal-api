@@ -10,12 +10,16 @@ import { OptionData } from '../typings';
 const yarnStockManager = manager.getRepository(YarnStocks);
 
 class YarnStockRepository {
-  insertNewYarnStock = async (payload: AddNewYarnStockPayload) =>
+  insertNewYarnStock = async (
+    payload: AddNewYarnStockPayload,
+    uploadedImgUrl: string,
+  ) =>
     yarnStockManager.insert({
       ...payload,
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
       lastOrderedAt: payload.lastOrderedDate,
+      image: uploadedImgUrl,
     });
 
   getAll = () =>
