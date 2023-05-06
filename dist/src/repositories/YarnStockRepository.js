@@ -8,12 +8,13 @@ const dataSource_1 = require("../dataSource");
 const YarnStocks_1 = __importDefault(require("../entities/YarnStocks"));
 const yarnStockManager = dataSource_1.manager.getRepository(YarnStocks_1.default);
 class YarnStockRepository {
-    insertNewYarnStock = async (payload, uploadedImgUrl) => yarnStockManager.insert({
+    insertNewYarnStock = async (payload, uploadedImg) => yarnStockManager.insert({
         ...payload,
         costPerItem: payload.cost,
         inStockQuantity: payload.quantity,
         lastOrderedAt: payload.lastOrderedDate,
-        image: uploadedImgUrl,
+        imageUrl: uploadedImg.url,
+        imageId: uploadedImg.public_id,
     });
     getAll = () => yarnStockManager.find({
         relations: ['yarnColorCategory', 'yarnCategory'],
@@ -37,13 +38,15 @@ class YarnStockRepository {
         yarnColorCategory: { id: yarnColorCategoryId },
     });
     deleteYarnStock = (yarnId) => yarnStockManager.delete({ id: yarnId });
-    updateYarnStock = (payload) => yarnStockManager.update({ id: payload.yarnId }, {
+    updateYarnStock = (payload, updatedImg) => yarnStockManager.update({ id: payload.yarnId }, {
         yarnCategory: { id: payload.yarnCategory.id },
         yarnColorCategory: { id: payload.yarnColorCategory.id },
         detailedColor: payload.detailedColor,
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
+        imageId: updatedImg.public_id,
+        imageUrl: updatedImg.url,
     });
 }
 exports.default = YarnStockRepository;

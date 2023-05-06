@@ -26,7 +26,8 @@ let YarnStocks = class YarnStocks {
     usedQuantity;
     reorderLevel;
     lastOrderedAt;
-    image;
+    imageUrl;
+    imageId;
     createdAt;
     updatedAt;
 };
@@ -69,9 +70,13 @@ __decorate([
     __metadata("design:type", Date)
 ], YarnStocks.prototype, "lastOrderedAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: "image_url", nullable: true }),
     __metadata("design:type", String)
-], YarnStocks.prototype, "image", void 0);
+], YarnStocks.prototype, "imageUrl", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: "image_id", nullable: true }),
+    __metadata("design:type", String)
+], YarnStocks.prototype, "imageId", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: "created_at", select: false }),
     __metadata("design:type", Date)

@@ -6,20 +6,22 @@ import {
   UpdateYarnStockPayload,
 } from '../services/stock/typings';
 import { OptionData } from '../typings';
+import { UploadApiResponse } from 'cloudinary';
 
 const yarnStockManager = manager.getRepository(YarnStocks);
 
 class YarnStockRepository {
   insertNewYarnStock = async (
     payload: AddNewYarnStockPayload,
-    uploadedImgUrl: string,
+    uploadedImg: UploadApiResponse,
   ) =>
     yarnStockManager.insert({
       ...payload,
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
       lastOrderedAt: payload.lastOrderedDate,
-      image: uploadedImgUrl,
+      imageUrl: uploadedImg.url,
+      imageId: uploadedImg.public_id,
     });
 
   getAll = () =>
@@ -66,7 +68,10 @@ class YarnStockRepository {
 
   deleteYarnStock = (yarnId: number) => yarnStockManager.delete({ id: yarnId });
 
-  updateYarnStock = (payload: UpdateYarnStockPayload) =>
+  updateYarnStock = (
+    payload: UpdateYarnStockPayload,
+    updatedImg: UploadApiResponse,
+  ) =>
     yarnStockManager.update(
       { id: payload.yarnId },
       {
@@ -76,6 +81,8 @@ class YarnStockRepository {
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
+        imageId: updatedImg.public_id,
+        imageUrl: updatedImg.url,
       },
     );
 }

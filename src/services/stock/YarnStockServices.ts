@@ -1,5 +1,5 @@
 import YarnStockRepository from '../../repositories/YarnStockRepository';
-import { v2 as cloudinary } from 'cloudinary';
+import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import {
   AddNewYarnStockPayload,
   DeleteYarnStockPayload,
@@ -14,15 +14,15 @@ class YarnStockServices {
 
   insertNewYarnStock = async (payload: AddNewYarnStockPayload) => {
     const stockImg = payload.image;
-    let uploadedImgUrl = '';
+    let uploadedImg: UploadApiResponse;
     if (stockImg) {
-      uploadedImgUrl = (
-        await cloudinary.uploader.upload(stockImg, { folder: 'yarnStocks' })
-      ).url;
+      uploadedImg = await cloudinary.uploader.upload(stockImg, {
+        folder: 'yarnStocks',
+      });
     }
     const res = await this.yarnStockRepository.insertNewYarnStock(
       payload,
-      uploadedImgUrl,
+      uploadedImg,
     );
     return res;
   };
@@ -79,6 +79,8 @@ class YarnStockServices {
   };
 
   deleteYarnStock = async (payload: DeleteYarnStockPayload) => {
+    const stock = await this.yarnStockRepository.getById(payload.yarnId);
+    await cloudinary.uploader.destroy(stock.imageId);
     const response = await this.yarnStockRepository.deleteYarnStock(
       payload.yarnId,
     );
@@ -86,7 +88,21 @@ class YarnStockServices {
   };
 
   updateYarnStock = async (payload: UpdateYarnStockPayload) => {
-    const response = await this.yarnStockRepository.updateYarnStock(payload);
+    const stock = await this.yarnStockRepository.getById(payload.yarnId);
+    const stockImg = payload.image;
+    let updatedImg: UploadApiResponse;
+    if (stockImg) {
+      await cloudinary.uploader.destroy(stock.imageId);
+      updatedImg = await cloudinary.uploader.upload(stockImg, {
+        folder: 'yarnStocks',
+        public_id: stock.imageId,
+        overwrite: true,
+      });
+    }
+    const response = await this.yarnStockRepository.updateYarnStock(
+      payload,
+      updatedImg,
+    );
     return response;
   };
 }
