@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const YarnStockRepository_1 = __importDefault(require("../../repositories/YarnStockRepository"));
 const cloudinary_1 = require("cloudinary");
+const YarnStockRepository_1 = __importDefault(require("../../repositories/YarnStockRepository"));
 class YarnStockServices {
     yarnStockRepository = new YarnStockRepository_1.default();
     insertNewYarnStock = async (payload) => {
         const stockImg = payload.image;
-        let uploadedImg;
+        let uploadedImg = null;
         if (stockImg) {
             uploadedImg = await cloudinary_1.v2.uploader.upload(stockImg, {
                 folder: 'yarnStocks',
@@ -59,10 +59,12 @@ class YarnStockServices {
         const stockImg = payload.image;
         let updatedImg;
         if (stockImg) {
-            await cloudinary_1.v2.uploader.destroy(stock.imageId);
+            if (stock.imageId) {
+                await cloudinary_1.v2.uploader.destroy(stock.imageId);
+            }
             updatedImg = await cloudinary_1.v2.uploader.upload(stockImg, {
                 folder: 'yarnStocks',
-                public_id: stock.imageId,
+                public_id: stock.imageId ?? null,
                 overwrite: true,
             });
         }

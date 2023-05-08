@@ -18,7 +18,7 @@ export interface AddUpdateYarnStockPayload {
   cost: number;
   reorderLevel: number;
   lastOrderedDate?: Date;
-  image?: string;
+  image?: string | null;
 }
 
 export interface GetYarnStockPayload {

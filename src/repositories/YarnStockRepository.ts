@@ -1,3 +1,4 @@
+import { UploadApiResponse } from 'cloudinary';
 import { Not } from 'typeorm';
 import { manager } from '../dataSource';
 import YarnStocks from '../entities/YarnStocks';
@@ -6,22 +7,21 @@ import {
   UpdateYarnStockPayload,
 } from '../services/stock/typings';
 import { OptionData } from '../typings';
-import { UploadApiResponse } from 'cloudinary';
 
 const yarnStockManager = manager.getRepository(YarnStocks);
 
 class YarnStockRepository {
   insertNewYarnStock = async (
     payload: AddNewYarnStockPayload,
-    uploadedImg: UploadApiResponse,
+    uploadedImg: UploadApiResponse | null,
   ) =>
     yarnStockManager.insert({
       ...payload,
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
       lastOrderedAt: payload.lastOrderedDate,
-      imageUrl: uploadedImg.secure_url,
-      imageId: uploadedImg.public_id,
+      imageUrl: uploadedImg?.secure_url,
+      imageId: uploadedImg?.public_id,
     });
 
   getAll = () =>

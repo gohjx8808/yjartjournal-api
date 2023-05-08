@@ -13,8 +13,8 @@ class YarnStockRepository {
         costPerItem: payload.cost,
         inStockQuantity: payload.quantity,
         lastOrderedAt: payload.lastOrderedDate,
-        imageUrl: uploadedImg.secure_url,
-        imageId: uploadedImg.public_id,
+        imageUrl: uploadedImg?.secure_url,
+        imageId: uploadedImg?.public_id,
     });
     getAll = () => yarnStockManager.find({
         relations: ['yarnColorCategory', 'yarnCategory'],

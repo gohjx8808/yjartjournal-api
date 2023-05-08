@@ -1,5 +1,5 @@
-import YarnStockRepository from '../../repositories/YarnStockRepository';
 import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
+import YarnStockRepository from '../../repositories/YarnStockRepository';
 import {
   AddNewYarnStockPayload,
   DeleteYarnStockPayload,
@@ -14,7 +14,7 @@ class YarnStockServices {
 
   insertNewYarnStock = async (payload: AddNewYarnStockPayload) => {
     const stockImg = payload.image;
-    let uploadedImg: UploadApiResponse;
+    let uploadedImg: UploadApiResponse = null;
     if (stockImg) {
       uploadedImg = await cloudinary.uploader.upload(stockImg, {
         folder: 'yarnStocks',
@@ -92,10 +92,12 @@ class YarnStockServices {
     const stockImg = payload.image;
     let updatedImg: UploadApiResponse;
     if (stockImg) {
-      await cloudinary.uploader.destroy(stock.imageId);
+      if (stock.imageId) {
+        await cloudinary.uploader.destroy(stock.imageId);
+      }
       updatedImg = await cloudinary.uploader.upload(stockImg, {
         folder: 'yarnStocks',
-        public_id: stock.imageId,
+        public_id: stock.imageId ?? null,
         overwrite: true,
       });
     }
