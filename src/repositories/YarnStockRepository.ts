@@ -5,6 +5,7 @@ import YarnStocks from '../entities/YarnStocks';
 import {
   AddNewYarnStockPayload,
   UpdateYarnStockPayload,
+  UpdatedImageData,
 } from '../services/stock/typings';
 import { OptionData } from '../typings';
 
@@ -70,7 +71,7 @@ class YarnStockRepository {
 
   updateYarnStock = (
     payload: UpdateYarnStockPayload,
-    updatedImg: UploadApiResponse,
+    updatedImg: UpdatedImageData,
   ) =>
     yarnStockManager.update(
       { id: payload.yarnId },
@@ -81,8 +82,8 @@ class YarnStockRepository {
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
-        imageId: updatedImg.public_id,
-        imageUrl: updatedImg.secure_url,
+        imageId: updatedImg.id,
+        imageUrl: updatedImg.url,
       },
     );
 }

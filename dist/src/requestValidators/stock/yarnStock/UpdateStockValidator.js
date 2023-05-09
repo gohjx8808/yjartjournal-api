@@ -42,6 +42,15 @@ const UpdateStockValidator = (0, customValidator_1.default)([
         .isISO8601()
         .toDate()
         .withMessage('Invalid last ordered date.'),
+    (0, express_validator_1.body)('image.base64Data')
+        .optional({ nullable: true })
+        .isString()
+        .withMessage('Invalid base64 data.'),
+    (0, express_validator_1.body)('image.isUpdated')
+        .notEmpty()
+        .withMessage('Is updated is required.')
+        .isBoolean()
+        .withMessage('Invalid value.'),
 ]);
 exports.default = UpdateStockValidator;
 //# sourceMappingURL=UpdateStockValidator.js.map

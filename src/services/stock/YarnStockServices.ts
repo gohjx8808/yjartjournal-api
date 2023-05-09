@@ -7,6 +7,7 @@ import {
   StockData,
   UpdateYarnQuantityPayload,
   UpdateYarnStockPayload,
+  UpdatedImageData,
 } from './typings';
 
 class YarnStockServices {
@@ -89,17 +90,31 @@ class YarnStockServices {
 
   updateYarnStock = async (payload: UpdateYarnStockPayload) => {
     const stock = await this.yarnStockRepository.getById(payload.yarnId);
-    const stockImg = payload.image;
-    let updatedImg: UploadApiResponse;
-    if (stockImg) {
+    const inputImg = payload.image;
+    let updatedImg: UpdatedImageData = {
+      id: stock.imageId ?? null,
+      url: stock.imageUrl ?? null,
+    };
+    if (inputImg.base64Data) {
+      // remove existing image if exists
       if (stock.imageId) {
         await cloudinary.uploader.destroy(stock.imageId);
       }
-      updatedImg = await cloudinary.uploader.upload(stockImg, {
-        folder: 'yarnStocks',
-        public_id: stock.imageId ?? null,
-        overwrite: true,
-      });
+      const uploadedImg = await cloudinary.uploader.upload(
+        inputImg.base64Data,
+        {
+          folder: 'yarnStocks',
+          public_id: stock.imageId ?? null,
+          overwrite: true,
+        },
+      );
+      updatedImg = { id: uploadedImg.public_id, url: uploadedImg.secure_url };
+    } else {
+      // delete image
+      if (inputImg.isUpdated) {
+        await cloudinary.uploader.destroy(stock.imageId);
+        updatedImg = { id: null, url: null };
+      }
     }
     const response = await this.yarnStockRepository.updateYarnStock(
       payload,

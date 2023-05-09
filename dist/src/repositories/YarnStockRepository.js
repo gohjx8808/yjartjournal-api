@@ -45,8 +45,8 @@ class YarnStockRepository {
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
-        imageId: updatedImg.public_id,
-        imageUrl: updatedImg.secure_url,
+        imageId: updatedImg.id,
+        imageUrl: updatedImg.url,
     });
 }
 exports.default = YarnStockRepository;

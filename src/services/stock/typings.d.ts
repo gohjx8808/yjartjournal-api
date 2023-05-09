@@ -2,10 +2,14 @@ import { OptionData } from '../../typings';
 
 export interface AddNewYarnStockPayload extends AddUpdateYarnStockPayload {
   quantity: number;
+  image: string;
 }
 
-export type UpdateYarnStockPayload = AddUpdateYarnStockPayload &
-DeleteYarnStockPayload;
+export interface UpdateYarnStockPayload
+  extends AddUpdateYarnStockPayload,
+  DeleteYarnStockPayload {
+  image: StockImagePayload;
+}
 
 export interface DeleteYarnStockPayload {
   yarnId: number;
@@ -18,7 +22,11 @@ export interface AddUpdateYarnStockPayload {
   cost: number;
   reorderLevel: number;
   lastOrderedDate?: Date;
-  image?: string | null;
+}
+
+interface StockImagePayload {
+  isUpdated: boolean;
+  base64Data: string | null;
 }
 
 export interface GetYarnStockPayload {
@@ -61,3 +69,8 @@ export type DeleteYarnColorCategoryPayload = DeleteYarnCategoryPayload;
 
 export type UpdateYarnColorCategoryPayload = AddNewYarnColorCategoryPayload &
 DeleteYarnColorCategoryPayload;
+
+export interface UpdatedImageData {
+  url: string | null;
+  id: string | null;
+}
