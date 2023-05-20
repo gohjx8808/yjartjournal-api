@@ -7,8 +7,8 @@ import { SeedYarnColorCategories1680410495324 } from '../migrations/168041049532
 import Addresses from './entities/Addresses';
 import CheckoutItems from './entities/CheckoutItems';
 import Feedbacks from './entities/Feedbacks';
-import Orders from './entities/Orders';
 import OrderStatuses from './entities/OrderStatuses';
+import Orders from './entities/Orders';
 import PromoCodes from './entities/PromoCodes';
 import ResetPasswordTokens from './entities/ResetPasswordTokens';
 import SortOptions from './entities/SortOptions';

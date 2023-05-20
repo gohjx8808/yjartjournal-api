@@ -62,13 +62,9 @@ class YarnStockServices {
             url: stock.imageUrl ?? null,
         };
         if (inputImg.base64Data) {
-            // remove existing image if exists
-            if (stock.imageId) {
-                await cloudinary_1.v2.uploader.destroy(stock.imageId);
-            }
             const uploadedImg = await cloudinary_1.v2.uploader.upload(inputImg.base64Data, {
                 folder: 'yarnStocks',
-                public_id: stock.imageId ?? null,
+                public_id: stock.imageId?.replace('yarnStocks/', '') ?? null,
                 overwrite: true,
             });
             updatedImg = { id: uploadedImg.public_id, url: uploadedImg.secure_url };

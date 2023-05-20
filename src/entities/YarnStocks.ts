@@ -43,13 +43,13 @@ class YarnStocks {
     reorderLevel: number;
 
   @Column({ name: "last_ordered_at", type: "date", nullable: true })
-    lastOrderedAt: Date;
+    lastOrderedAt?: Date;
 
   @Column({ name: "image_url", nullable: true })
-    imageUrl: string;
+    imageUrl?: string;
 
   @Column({ name: "image_id", nullable: true })
-    imageId: string;
+    imageId?: string;
 
   @CreateDateColumn({ name: "created_at", select: false })
     createdAt: Date;

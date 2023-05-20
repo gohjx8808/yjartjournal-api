@@ -48,7 +48,7 @@ export interface StockData {
   inStockQuantity: number;
   usedQuantity: number;
   reorderLevel: number;
-  lastOrderedAt: Date;
+  lastOrderedAt?: Date;
   reorderStatus: 'Reorder' | 'Optimum';
 }
 
