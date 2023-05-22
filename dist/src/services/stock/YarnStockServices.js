@@ -50,7 +50,9 @@ class YarnStockServices {
     };
     deleteYarnStock = async (payload) => {
         const stock = await this.yarnStockRepository.getById(payload.yarnId);
-        await cloudinary_1.v2.uploader.destroy(stock.imageId);
+        if (stock.imageId) {
+            await cloudinary_1.v2.uploader.destroy(stock.imageId);
+        }
         const response = await this.yarnStockRepository.deleteYarnStock(payload.yarnId);
         return response;
     };
