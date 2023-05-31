@@ -10,6 +10,7 @@ import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
 import { dataSource } from './dataSource';
 import { v2 as cloudinary } from 'cloudinary';
+import dashboardRouter from './routers/dashboardRouter';
 var cors = require('cors');
 
 cloudinary.config({
@@ -53,5 +54,7 @@ app.use('/orders', orderRouter);
 app.use('/forgot-password', forgotPasswordRouter);
 
 app.use('/stocks', stockRouter);
+
+app.use('/dashboard', dashboardRouter);
 
 app.listen(port);
