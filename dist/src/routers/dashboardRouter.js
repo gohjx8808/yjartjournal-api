@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const dashboardServices_1 = __importDefault(require("../services/dashboard/dashboardServices"));
+const DashboardServices_1 = __importDefault(require("../services/dashboard/DashboardServices"));
 const dashboardRouter = (0, express_1.Router)();
-const dashboardServices = new dashboardServices_1.default();
+const dashboardServices = new DashboardServices_1.default();
 dashboardRouter.get('/yarn-stock-count', async (_req, res) => {
     const stockCount = await dashboardServices.getStockCount();
     return res.json({ data: stockCount });
