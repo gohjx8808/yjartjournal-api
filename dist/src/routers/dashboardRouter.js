@@ -7,7 +7,7 @@ const express_1 = require("express");
 const DashboardServices_1 = __importDefault(require("../services/dashboard/DashboardServices"));
 const dashboardRouter = (0, express_1.Router)();
 const dashboardServices = new DashboardServices_1.default();
-dashboardRouter.get('/yarn-stock-count', async (_req, res) => {
+dashboardRouter.get('/yarn-stock-overview', async (_req, res) => {
     const stockCount = await dashboardServices.getStockCount();
     return res.json({ data: stockCount });
 });

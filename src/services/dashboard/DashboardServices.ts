@@ -35,13 +35,13 @@ class DashboardServices {
   getYarnCategoryCount = async () => {
     const yarnCategories = await this.yarnCategoryRepository.getAll();
 
-    return yarnCategories.reduce((acc) => acc + 1, 0);
+    return { categoryCount: yarnCategories.reduce((acc) => acc + 1, 0) };
   };
 
   getYarnColorCategoryCount = async () => {
     const colorCategories = await this.yarnColorCategoryRepository.getAll();
 
-    return colorCategories.reduce((acc) => acc + 1, 0);
+    return { colorCategoryCount: colorCategories.reduce((acc) => acc + 1, 0) };
   };
 }
 

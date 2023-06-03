@@ -5,7 +5,7 @@ const dashboardRouter = Router();
 
 const dashboardServices = new DashboardServices();
 
-dashboardRouter.get('/yarn-stock-count', async (_req, res) => {
+dashboardRouter.get('/yarn-stock-overview', async (_req, res) => {
   const stockCount = await dashboardServices.getStockCount();
 
   return res.json({ data: stockCount });
