@@ -1,6 +1,6 @@
-import YarnStockRepository from '../../repositories/YarnStockRepository';
-import YarnColorCategoryRepository from '../../repositories/YarnColorCategoryRepository';
 import YarnCategoryRepository from '../../repositories/YarnCategoryRepository';
+import YarnColorCategoryRepository from '../../repositories/YarnColorCategoryRepository';
+import YarnStockRepository from '../../repositories/YarnStockRepository';
 
 class DashboardServices {
   private yarnStockRepository = new YarnStockRepository();
@@ -9,15 +9,44 @@ class DashboardServices {
 
   private yarnCategoryRepository = new YarnCategoryRepository();
 
-  getStockCount = async () => {
+  getYarnStockOverview = async () => {
     const yarnStocks = await this.yarnStockRepository.getAll();
+    const yarnCategories = await this.yarnCategoryRepository.getAll();
+    const yarnColorCategories = await this.yarnColorCategoryRepository.getAll();
+
+    const categoryChart = yarnCategories.map((category) => {
+      return { x: category.name, y: 0 };
+    });
+
+    const colorCategoryChart = yarnColorCategories.map((colorCategory) => {
+      return { x: colorCategory.name, y: 0 };
+    });
 
     const totalYarn = 0;
     const totalReorderYarn = 0;
 
-    return yarnStocks.reduce(
+    const yarnStockOverview = yarnStocks.reduce(
       (accumulator, stock) => {
         accumulator.totalYarn += 1;
+
+        const targetCategoryIndex = categoryChart.findIndex(
+          (arr) => arr.x === stock.yarnCategory.name,
+        );
+        const targetCategory = categoryChart[targetCategoryIndex];
+        accumulator.categoryChart[targetCategoryIndex] = {
+          ...targetCategory,
+          y: targetCategory.y + 1,
+        };
+
+        const targetColorCategoryIndex = colorCategoryChart.findIndex(
+          (arr) => arr.x === stock.yarnColorCategory.name,
+        );
+        const targetColorCategory =
+          colorCategoryChart[targetColorCategoryIndex];
+        accumulator.colorCategoryChart[targetColorCategoryIndex] = {
+          ...targetColorCategory,
+          y: targetColorCategory.y + 1,
+        };
 
         if (stock.inStockQuantity < stock.reorderLevel) {
           accumulator.totalReorderYarn += 1;
@@ -28,20 +57,16 @@ class DashboardServices {
       {
         totalYarn,
         totalReorderYarn,
+        categoryChart,
+        colorCategoryChart,
       },
     );
-  };
 
-  getYarnCategoryCount = async () => {
-    const yarnCategories = await this.yarnCategoryRepository.getAll();
-
-    return { categoryCount: yarnCategories.reduce((acc) => acc + 1, 0) };
-  };
-
-  getYarnColorCategoryCount = async () => {
-    const colorCategories = await this.yarnColorCategoryRepository.getAll();
-
-    return { colorCategoryCount: colorCategories.reduce((acc) => acc + 1, 0) };
+    return {
+      yarnStockOverview,
+      categoryCount: yarnCategories.reduce((acc) => acc + 1, 0),
+      colorCategoryCount: yarnColorCategories.reduce((acc) => acc + 1, 0),
+    };
   };
 }
 
