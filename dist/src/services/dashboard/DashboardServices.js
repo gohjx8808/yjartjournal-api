@@ -14,28 +14,14 @@ class DashboardServices {
         const yarnStocks = await this.yarnStockRepository.getAll();
         const yarnCategories = await this.yarnCategoryRepository.getAll();
         const yarnColorCategories = await this.yarnColorCategoryRepository.getAll();
-        const categoryChart = yarnCategories.map((category) => {
-            return { x: category.name, y: 0 };
-        });
-        const colorCategoryChart = yarnColorCategories.map((colorCategory) => {
-            return { x: colorCategory.name, y: 0 };
-        });
         const totalYarn = 0;
         const totalReorderYarn = 0;
+        const categoryChart = [];
+        const colorCategoryChart = [];
         const yarnStockOverview = yarnStocks.reduce((accumulator, stock) => {
             accumulator.totalYarn += 1;
-            const targetCategoryIndex = categoryChart.findIndex((arr) => arr.x === stock.yarnCategory.name);
-            const targetCategory = categoryChart[targetCategoryIndex];
-            accumulator.categoryChart[targetCategoryIndex] = {
-                ...targetCategory,
-                y: targetCategory.y + 1,
-            };
-            const targetColorCategoryIndex = colorCategoryChart.findIndex((arr) => arr.x === stock.yarnColorCategory.name);
-            const targetColorCategory = colorCategoryChart[targetColorCategoryIndex];
-            accumulator.colorCategoryChart[targetColorCategoryIndex] = {
-                ...targetColorCategory,
-                y: targetColorCategory.y + 1,
-            };
+            accumulator.categoryChart = this.formatChartData(accumulator.categoryChart, stock.yarnCategory);
+            accumulator.colorCategoryChart = this.formatChartData(accumulator.colorCategoryChart, stock.yarnColorCategory);
             if (stock.inStockQuantity < stock.reorderLevel) {
                 accumulator.totalReorderYarn += 1;
             }
@@ -52,6 +38,27 @@ class DashboardServices {
             colorCategoryCount: yarnColorCategories.reduce((acc) => acc + 1, 0),
         };
     };
+    formatChartData(chart, compareData) {
+        const targetIndex = chart.findIndex((arr) => arr.x === compareData.id);
+        if (targetIndex !== -1) {
+            const target = chart[targetIndex];
+            chart[targetIndex] = {
+                ...target,
+                y: target.y + 1,
+            };
+        }
+        else {
+            let formattedName = compareData.name.replaceAll(' ', '\n');
+            const sliceIndex = formattedName.indexOf('/');
+            formattedName = `${formattedName.substring(0, sliceIndex + 1)}\n${formattedName.substring(sliceIndex + 1)}`;
+            chart.push({
+                x: compareData.id,
+                y: 1,
+                name: formattedName,
+            });
+        }
+        return chart;
+    }
 }
 exports.default = DashboardServices;
 //# sourceMappingURL=DashboardServices.js.map
