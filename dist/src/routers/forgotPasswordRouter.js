@@ -5,14 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
-const forgotPasswordMiddleware_1 = __importDefault(require("../middlewares/forgotPassword/forgotPasswordMiddleware"));
+const ForgotPasswordMiddleware_1 = __importDefault(require("../middlewares/forgotPassword/ForgotPasswordMiddleware"));
 const ResetPasswordMiddleware_1 = __importDefault(require("../middlewares/forgotPassword/ResetPasswordMiddleware"));
 const ForgotPasswordValidator_1 = __importDefault(require("../requestValidators/forgotPassword/ForgotPasswordValidator"));
 const ResetPasswordValidator_1 = __importDefault(require("../requestValidators/forgotPassword/ResetPasswordValidator"));
 const forgotPasswordServices_1 = require("../services/forgotPassword/forgotPasswordServices");
 const upload = (0, multer_1.default)();
 const forgotPasswordRouter = (0, express_1.Router)();
-forgotPasswordRouter.post('/', ...[upload.none(), ...ForgotPasswordValidator_1.default, (0, forgotPasswordMiddleware_1.default)()], async (req, res) => {
+forgotPasswordRouter.post('/', ...[upload.none(), ...ForgotPasswordValidator_1.default, (0, ForgotPasswordMiddleware_1.default)()], async (req, res) => {
     const payload = req.body;
     await (0, forgotPasswordServices_1.performForgotPasswordOperation)(payload.email);
     return res.json({ message: 'Reset password email sent.' });

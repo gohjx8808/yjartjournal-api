@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import ForgotPasswordMiddleware from '../middlewares/forgotPassword/forgotPasswordMiddleware';
+import ForgotPasswordMiddleware from '../middlewares/forgotPassword/ForgotPasswordMiddleware';
 import ResetPasswordMiddleware from '../middlewares/forgotPassword/ResetPasswordMiddleware';
 import ForgotPasswordValidator from '../requestValidators/forgotPassword/ForgotPasswordValidator';
 import ResetPasswordValidator from '../requestValidators/forgotPassword/ResetPasswordValidator';

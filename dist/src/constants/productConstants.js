@@ -7,5 +7,5 @@ var ProductSort;
     ProductSort[ProductSort["Z_TO_A"] = 2] = "Z_TO_A";
     ProductSort[ProductSort["LOW_TO_HIGH"] = 3] = "LOW_TO_HIGH";
     ProductSort[ProductSort["HIGH_TO_LOW"] = 4] = "HIGH_TO_LOW";
-})(ProductSort = exports.ProductSort || (exports.ProductSort = {}));
+})(ProductSort || (exports.ProductSort = ProductSort = {}));
 //# sourceMappingURL=productConstants.js.map
