@@ -11,16 +11,26 @@ const UpdateStockValidator = (0, customValidator_1.default)([
         .withMessage('Yarn id is required.')
         .isInt()
         .withMessage('Invalid yarn id.'),
-    (0, express_validator_1.body)('yarnCategory')
+    (0, express_validator_1.body)('yarnCategory.id')
         .notEmpty()
-        .withMessage('Yarn category is required.')
-        .isObject()
-        .withMessage('Invalid yarn category.'),
-    (0, express_validator_1.body)('yarnColorCategory')
+        .withMessage('Yarn category id is required.')
+        .isInt()
+        .withMessage('Invalid yarn category id.'),
+    (0, express_validator_1.body)('yarnCategory.name')
         .notEmpty()
-        .withMessage('Yarn color category is required.')
-        .isObject()
-        .withMessage('Invalid yarn color category.'),
+        .withMessage('Yarn category name is required.')
+        .isString()
+        .withMessage('Invalid yarn category name.'),
+    (0, express_validator_1.body)('yarnColorCategory.id')
+        .notEmpty()
+        .withMessage('Yarn color category id is required.')
+        .isInt()
+        .withMessage('Invalid yarn color category id.'),
+    (0, express_validator_1.body)('yarnColorCategory.name')
+        .notEmpty()
+        .withMessage('Yarn color category name is required.')
+        .isString()
+        .withMessage('Invalid yarn color category name.'),
     (0, express_validator_1.body)('detailedColor')
         .notEmpty()
         .withMessage('Detailed color is required.')

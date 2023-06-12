@@ -35,10 +35,14 @@ const CheckoutValidator = customValidator(
       .withMessage('Shipping fee is required.')
       .isInt()
       .withMessage('Invalid shipping fee.'),
-    body('promoCodeUsed')
+    body('promoCodeUsed.id')
       .optional({ nullable: true })
-      .isObject()
-      .withMessage('Invalid promo code.'),
+      .isInt()
+      .withMessage('Invalid promo code id.'),
+    body('promoCodeUsed.name')
+      .optional({ nullable: true })
+      .isString()
+      .withMessage('Invalid promo code name.'),
     body('note')
       .optional({ nullable: true })
       .isString()
@@ -95,11 +99,16 @@ const CheckoutValidator = customValidator(
         .withMessage('City is required.')
         .isString()
         .withMessage('Invalid city.'),
-      body('state')
+      body('state.id')
         .notEmpty()
-        .withMessage('State is required.')
-        .isObject()
-        .withMessage('Invalid state.'),
+        .withMessage('State id is required.')
+        .isInt()
+        .withMessage('Invalid state id.'),
+      body('state.name')
+        .notEmpty()
+        .withMessage('State name is required.')
+        .isString()
+        .withMessage('Invalid state name.'),
       body('country')
         .notEmpty()
         .withMessage('Country is required.')

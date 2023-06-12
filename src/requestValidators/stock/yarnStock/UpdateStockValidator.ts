@@ -7,16 +7,26 @@ const UpdateStockValidator = customValidator([
     .withMessage('Yarn id is required.')
     .isInt()
     .withMessage('Invalid yarn id.'),
-  body('yarnCategory')
+  body('yarnCategory.id')
     .notEmpty()
-    .withMessage('Yarn category is required.')
-    .isObject()
-    .withMessage('Invalid yarn category.'),
-  body('yarnColorCategory')
+    .withMessage('Yarn category id is required.')
+    .isInt()
+    .withMessage('Invalid yarn category id.'),
+  body('yarnCategory.name')
     .notEmpty()
-    .withMessage('Yarn color category is required.')
-    .isObject()
-    .withMessage('Invalid yarn color category.'),
+    .withMessage('Yarn category name is required.')
+    .isString()
+    .withMessage('Invalid yarn category name.'),
+  body('yarnColorCategory.id')
+    .notEmpty()
+    .withMessage('Yarn color category id is required.')
+    .isInt()
+    .withMessage('Invalid yarn color category id.'),
+  body('yarnColorCategory.name')
+    .notEmpty()
+    .withMessage('Yarn color category name is required.')
+    .isString()
+    .withMessage('Invalid yarn color category name.'),
   body('detailedColor')
     .notEmpty()
     .withMessage('Detailed color is required.')

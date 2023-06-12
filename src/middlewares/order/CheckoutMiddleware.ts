@@ -1,10 +1,11 @@
 import { NextFunction, Response } from 'express';
 import { CheckoutPayload } from '../../services/order/typings';
 import { CustomAuthenticatedRequest } from '../../typings';
+import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 
 const CheckoutMiddleware =
   () =>
-    (
+    async (
       req: CustomAuthenticatedRequest<CheckoutPayload>,
       res: Response,
       next: NextFunction,
@@ -18,6 +19,11 @@ const CheckoutMiddleware =
           .json({ message: 'You are not allowed to use this address.' });
       }
 
+      const existingPromoCode = await getPromoCodeById(payload.promoCodeUsed.id);
+
+      if (!existingPromoCode) {
+        return res.status(404).json({ message: 'Invalid promo code.' });
+      }
       next();
     };
 

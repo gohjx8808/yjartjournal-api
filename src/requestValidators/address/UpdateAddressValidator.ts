@@ -41,11 +41,16 @@ const UpdateAddressValidator = customValidator([
     .withMessage('City is required.')
     .isString()
     .withMessage('Invalid city.'),
-  body('state')
+  body('state.id')
     .notEmpty()
-    .withMessage('State is required.')
-    .isObject()
-    .withMessage('Invalid state.'),
+    .withMessage('State id is required.')
+    .isInt()
+    .withMessage('Invalid state id.'),
+  body('state.name')
+    .notEmpty()
+    .withMessage('State name is required.')
+    .isString()
+    .withMessage('Invalid state name.'),
   body('country')
     .notEmpty()
     .withMessage('Country is required.')

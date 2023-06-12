@@ -38,10 +38,14 @@ const CheckoutValidator = (0, customValidator_1.default)([
         .withMessage('Shipping fee is required.')
         .isInt()
         .withMessage('Invalid shipping fee.'),
-    (0, express_validator_1.body)('promoCodeUsed')
+    (0, express_validator_1.body)('promoCodeUsed.id')
         .optional({ nullable: true })
-        .isObject()
-        .withMessage('Invalid promo code.'),
+        .isInt()
+        .withMessage('Invalid promo code id.'),
+    (0, express_validator_1.body)('promoCodeUsed.name')
+        .optional({ nullable: true })
+        .isString()
+        .withMessage('Invalid promo code name.'),
     (0, express_validator_1.body)('note')
         .optional({ nullable: true })
         .isString()
@@ -97,11 +101,16 @@ const CheckoutValidator = (0, customValidator_1.default)([
             .withMessage('City is required.')
             .isString()
             .withMessage('Invalid city.'),
-        (0, express_validator_1.body)('state')
+        (0, express_validator_1.body)('state.id')
             .notEmpty()
-            .withMessage('State is required.')
-            .isObject()
-            .withMessage('Invalid state.'),
+            .withMessage('State id is required.')
+            .isInt()
+            .withMessage('Invalid state id.'),
+        (0, express_validator_1.body)('state.name')
+            .notEmpty()
+            .withMessage('State name is required.')
+            .isString()
+            .withMessage('Invalid state name.'),
         (0, express_validator_1.body)('country')
             .notEmpty()
             .withMessage('Country is required.')
