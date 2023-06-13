@@ -1,9 +1,11 @@
 export interface RawProductData {
-  name: string;
-  productImage: import('contentful').Asset[];
-  price: number;
-  contentDescription: import('@contentful/rich-text-types').Document;
-  category: string;
+  name: import('contentful').EntryFieldTypes.Text;
+  productImage: import('contentful').EntryFieldTypes.Array<
+  import('contentful').EntryFieldTypes.AssetLink
+  >;
+  price: import('contentful').EntryFieldTypes.Number;
+  contentDescription: import('contentful').EntryFieldTypes.RichText;
+  category: import('contentful').EntryFieldTypes.Text;
 }
 
 export interface ProductData
@@ -27,10 +29,12 @@ export interface GetAllProductsPayload {
 }
 
 export interface RawGalleryData {
-  name: string;
-  productPhoto1: import('contentful').Asset[];
-  row: number;
-  column: number;
+  name: import('contentful').EntryFieldTypes.Text;
+  productPhoto1: import('contentful').EntryFieldTypes.Array<
+  import('contentful').EntryFieldTypes.AssetLink
+  >;
+  row: import('contentful').EntryFieldTypes.Number;
+  column: import('contentful').EntryFieldTypes.Number;
 }
 
 export interface GalleryData {

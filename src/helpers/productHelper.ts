@@ -1,13 +1,13 @@
-import { Entry } from 'contentful';
+import { Entry, EntrySkeletonType } from 'contentful';
 import { ProductSort } from '../constants/productConstants';
 import { GalleryData, RawGalleryData } from '../services/product/typings';
 
 export const getContentfulOrderByKeyword = (sortById: number) => {
   switch (+sortById) {
-    case ProductSort.A_TO_Z:
-      return 'fields.name';
-    case ProductSort.Z_TO_A:
-      return '-fields.name';
+    // case ProductSort.A_TO_Z:
+    //   return 'fields.name';
+    // case ProductSort.Z_TO_A:
+    //   return '-fields.name';
     case ProductSort.LOW_TO_HIGH:
       return 'fields.price';
     case ProductSort.HIGH_TO_LOW:
@@ -16,7 +16,11 @@ export const getContentfulOrderByKeyword = (sortById: number) => {
 };
 
 export const separateLargeSmallImages = (
-  assetItems: Entry<RawGalleryData>[],
+  assetItems: Entry<
+  EntrySkeletonType<RawGalleryData, 'gallery'>,
+  'WITHOUT_UNRESOLVABLE_LINKS',
+  string
+  >[],
 ) => {
   let regularProductImages: GalleryData[] = [];
   let largeProductImages: GalleryData[] = [];
@@ -45,7 +49,13 @@ export const separateLargeSmallImages = (
   };
 };
 
-export const randomizeImages = (assetItems: Entry<RawGalleryData>[]) => {
+export const randomizeImages = (
+  assetItems: Entry<
+  EntrySkeletonType<RawGalleryData, 'gallery'>,
+  'WITHOUT_UNRESOLVABLE_LINKS',
+  string
+  >[],
+) => {
   const separatedImages = separateLargeSmallImages(assetItems);
 
   const productImagesSet: GalleryData[] = [];
