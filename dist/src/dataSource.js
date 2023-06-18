@@ -23,6 +23,7 @@ const Users_1 = __importDefault(require("./entities/Users"));
 const YarnCategories_1 = __importDefault(require("./entities/YarnCategories"));
 const YarnColorCategories_1 = __importDefault(require("./entities/YarnColorCategories"));
 const YarnStocks_1 = __importDefault(require("./entities/YarnStocks"));
+const _1687077669275_DeleteIsAdminColumnInUsers_1 = require("../migrations/1687077669275-DeleteIsAdminColumnInUsers");
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
     // url:'postgres://avnadmin:AVNS_pbdKboPQuSMw7SUjGNq@pg-2ea2107d-yjartjournal.aivencloud.com:27376/defaultdb?sslmode=require',
@@ -52,6 +53,7 @@ exports.dataSource = new typeorm_1.DataSource({
         _1677079230858_SeedStates_1.SeedStates1677079230858,
         _1680409712499_SeedYarnCategories_1.SeedYarnCategories1680409712499,
         _1680410495324_SeedYarnColorCategories_1.SeedYarnColorCategories1680410495324,
+        _1687077669275_DeleteIsAdminColumnInUsers_1.DeleteIsAdminColumnInUsers1687077669275,
     ],
     synchronize: true,
     logging: false,

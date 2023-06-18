@@ -27,7 +27,6 @@ let Users = class Users {
     phoneNumber;
     gender;
     dob;
-    isAdmin;
     createdAt;
     updatedAt;
     addresses;
@@ -42,7 +41,7 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "preferred_name", nullable: true }),
+    (0, typeorm_1.Column)({ name: 'preferred_name', nullable: true }),
     __metadata("design:type", String)
 ], Users.prototype, "preferredName", void 0);
 __decorate([
@@ -58,31 +57,27 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "iv", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "country_code" }),
+    (0, typeorm_1.Column)({ name: 'country_code' }),
     __metadata("design:type", String)
 ], Users.prototype, "countryCode", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "phone_number" }),
+    (0, typeorm_1.Column)({ name: 'phone_number' }),
     __metadata("design:type", String)
 ], Users.prototype, "phoneNumber", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "char" }),
+    (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Users.prototype, "gender", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "date" }),
+    (0, typeorm_1.Column)({ type: 'date' }),
     __metadata("design:type", String)
 ], Users.prototype, "dob", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "is_admin", default: false }),
-    __metadata("design:type", Boolean)
-], Users.prototype, "isAdmin", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at' }),
     __metadata("design:type", Date)
 ], Users.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at' }),
     __metadata("design:type", Date)
 ], Users.prototype, "updatedAt", void 0);
 __decorate([

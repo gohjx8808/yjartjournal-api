@@ -18,7 +18,7 @@ class Users {
   @Column()
     name: string;
 
-  @Column({ name: "preferred_name", nullable: true })
+  @Column({ name: 'preferred_name', nullable: true })
     preferredName: string;
 
   @Column({ unique: true })
@@ -30,25 +30,22 @@ class Users {
   @Column()
     iv: string;
 
-  @Column({ name: "country_code" })
+  @Column({ name: 'country_code' })
     countryCode: string;
 
-  @Column({ name: "phone_number" })
+  @Column({ name: 'phone_number' })
     phoneNumber: string;
 
-  @Column({ type: "char" })
+  @Column({ type: 'char' })
     gender: string;
 
-  @Column({ type: "date" })
+  @Column({ type: 'date' })
     dob: string;
 
-  @Column({ name: "is_admin", default: false })
-    isAdmin: boolean;
-
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
   @OneToMany(() => Addresses, (address) => address.user)
@@ -56,7 +53,7 @@ class Users {
 
   @OneToMany(
     () => ResetPasswordTokens,
-    (resetPasswordToken) => resetPasswordToken.user
+    (resetPasswordToken) => resetPasswordToken.user,
   )
     resetPasswordTokens: ResetPasswordTokens[];
 }
