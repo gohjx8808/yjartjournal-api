@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
 let OrderStatuses = class OrderStatuses {
@@ -31,11 +30,11 @@ __decorate([
     __metadata("design:type", String)
 ], OrderStatuses.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at' }),
     __metadata("design:type", Date)
 ], OrderStatuses.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at' }),
     __metadata("design:type", Date)
 ], OrderStatuses.prototype, "updatedAt", void 0);
 __decorate([

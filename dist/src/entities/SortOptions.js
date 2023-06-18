@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 let SortOptions = class SortOptions {
     id;
@@ -26,11 +25,11 @@ __decorate([
     __metadata("design:type", String)
 ], SortOptions.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at' }),
     __metadata("design:type", Date)
 ], SortOptions.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at' }),
     __metadata("design:type", Date)
 ], SortOptions.prototype, "updatedAt", void 0);
 SortOptions = __decorate([

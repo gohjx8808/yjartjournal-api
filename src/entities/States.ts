@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
   CreateDateColumn,
@@ -17,10 +16,10 @@ class States {
   @Column()
     name: string;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
   @OneToMany(() => Addresses, (address) => address.state)

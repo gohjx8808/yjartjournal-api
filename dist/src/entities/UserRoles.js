@@ -13,36 +13,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const YarnStocks_1 = __importDefault(require("./YarnStocks"));
-let YarnCategories = class YarnCategories {
+const Users_1 = __importDefault(require("./Users"));
+const Roles_1 = __importDefault(require("./Roles"));
+let UserRoles = class UserRoles {
     id;
-    name;
+    user;
+    role;
     createdAt;
     updatedAt;
-    yarnStocks;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], YarnCategories.prototype, "id", void 0);
+], UserRoles.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], YarnCategories.prototype, "name", void 0);
+    (0, typeorm_1.ManyToOne)(() => Users_1.default, (user) => user.userRoles),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id', referencedColumnName: 'id' }),
+    __metadata("design:type", Users_1.default)
+], UserRoles.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', select: false }),
+    (0, typeorm_1.ManyToOne)(() => Roles_1.default, (roles) => roles.userRoles),
+    (0, typeorm_1.JoinColumn)({ name: 'role_id', referencedColumnName: 'id' }),
+    __metadata("design:type", Roles_1.default)
+], UserRoles.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at' }),
     __metadata("design:type", Date)
-], YarnCategories.prototype, "createdAt", void 0);
+], UserRoles.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', select: false }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at' }),
     __metadata("design:type", Date)
-], YarnCategories.prototype, "updatedAt", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => YarnStocks_1.default, (yarnStocks) => yarnStocks.yarnCategory),
-    __metadata("design:type", YarnStocks_1.default)
-], YarnCategories.prototype, "yarnStocks", void 0);
-YarnCategories = __decorate([
+], UserRoles.prototype, "updatedAt", void 0);
+UserRoles = __decorate([
     (0, typeorm_1.Entity)()
-], YarnCategories);
-exports.default = YarnCategories;
-//# sourceMappingURL=YarnCategories.js.map
+], UserRoles);
+exports.default = UserRoles;
+//# sourceMappingURL=UserRoles.js.map

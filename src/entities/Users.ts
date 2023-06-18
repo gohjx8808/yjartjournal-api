@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +8,7 @@ import {
 } from 'typeorm';
 import Addresses from './Addresses';
 import ResetPasswordTokens from './ResetPasswordTokens';
+import UserRoles from './UserRoles';
 
 @Entity()
 class Users {
@@ -56,6 +56,9 @@ class Users {
     (resetPasswordToken) => resetPasswordToken.user,
   )
     resetPasswordTokens: ResetPasswordTokens[];
+
+  @OneToMany(() => UserRoles, (userRole) => userRole.user)
+    userRoles: UserRoles[];
 }
 
 export default Users;

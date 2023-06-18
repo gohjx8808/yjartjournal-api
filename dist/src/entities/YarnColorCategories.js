@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const YarnStocks_1 = __importDefault(require("./YarnStocks"));
 let YarnColorCategories = class YarnColorCategories {
@@ -31,11 +30,11 @@ __decorate([
     __metadata("design:type", String)
 ], YarnColorCategories.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: "created_at", select: false }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', select: false }),
     __metadata("design:type", Date)
 ], YarnColorCategories.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: "updated_at", select: false }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', select: false }),
     __metadata("design:type", Date)
 ], YarnColorCategories.prototype, "updatedAt", void 0);
 __decorate([

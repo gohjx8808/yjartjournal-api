@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
   CreateDateColumn,
@@ -17,25 +16,25 @@ class PromoCodes {
   @Column()
     name: string;
 
-  @Column({ name: "promo_type" })
+  @Column({ name: 'promo_type' })
     promoType: string;
 
-  @Column({ name: "promo_value" })
+  @Column({ name: 'promo_value' })
     promoValue: number;
 
-  @Column({ name: "use_limit", nullable: true })
+  @Column({ name: 'use_limit', nullable: true })
     useLimit: number;
 
-  @Column({ name: "started_at" })
+  @Column({ name: 'started_at' })
     startedAt: Date;
 
-  @Column({ name: "expired_at" })
+  @Column({ name: 'expired_at' })
     expiredAt: Date;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
   @OneToMany(() => Orders, (order) => order.promoCodeUsed)

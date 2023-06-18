@@ -2,32 +2,26 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import UserRoles from './UserRoles';
 
 @Entity()
-class Feedbacks {
+export default class Roles {
   @PrimaryGeneratedColumn()
     id: number;
 
   @Column()
     name: string;
 
-  @Column()
-    email: string;
-
-  @Column()
-    feedback: string;
-
-  @Column({ default: false, name: 'is_replied' })
-    isReplied: boolean;
-
   @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
-}
 
-export default Feedbacks;
+  @OneToMany(() => UserRoles, (userRole) => userRole.role)
+    userRoles: UserRoles[];
+}

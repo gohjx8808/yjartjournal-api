@@ -1,1 +1,0 @@
-{"version":3,"file":"1687077669275-DeleteIsAdminColumnInUsers.js","sourceRoot":"","sources":["../../migrations/1687077669275-DeleteIsAdminColumnInUsers.ts"],"names":[],"mappings":";;;AAEA,MAAa,uCAAuC;IAE3C,KAAK,CAAC,EAAE,CAAC,WAAwB;QACtC,MAAM,WAAW,CAAC,UAAU,CAAC,OAAO,EAAE,UAAU,CAAC,CAAC;IACpD,CAAC;IAED,gEAAgE;IACzD,KAAK,CAAC,IAAI,KAAmB,CAAC;CACtC;AARD,0FAQC"}

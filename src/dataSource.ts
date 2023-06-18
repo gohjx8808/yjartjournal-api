@@ -17,7 +17,9 @@ import Users from './entities/Users';
 import YarnCategories from './entities/YarnCategories';
 import YarnColorCategories from './entities/YarnColorCategories';
 import YarnStocks from './entities/YarnStocks';
-import { DeleteIsAdminColumnInUsers1687077669275 } from '../migrations/1687077669275-DeleteIsAdminColumnInUsers';
+import Roles from './entities/Roles';
+import UserRoles from './entities/UserRoles';
+import { SeedRoles1687096310531 } from '../migrations/1687096310531-SeedRoles';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -41,6 +43,8 @@ export const dataSource = new DataSource({
     YarnStocks,
     YarnCategories,
     YarnColorCategories,
+    Roles,
+    UserRoles,
   ],
   migrations: [
     SeedSortOptions1672062650913,
@@ -48,7 +52,7 @@ export const dataSource = new DataSource({
     SeedStates1677079230858,
     SeedYarnCategories1680409712499,
     SeedYarnColorCategories1680410495324,
-    DeleteIsAdminColumnInUsers1687077669275,
+    SeedRoles1687096310531,
   ],
   synchronize: true,
   logging: false,

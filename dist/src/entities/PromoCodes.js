@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
 let PromoCodes = class PromoCodes {
@@ -36,31 +35,31 @@ __decorate([
     __metadata("design:type", String)
 ], PromoCodes.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "promo_type" }),
+    (0, typeorm_1.Column)({ name: 'promo_type' }),
     __metadata("design:type", String)
 ], PromoCodes.prototype, "promoType", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "promo_value" }),
+    (0, typeorm_1.Column)({ name: 'promo_value' }),
     __metadata("design:type", Number)
 ], PromoCodes.prototype, "promoValue", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "use_limit", nullable: true }),
+    (0, typeorm_1.Column)({ name: 'use_limit', nullable: true }),
     __metadata("design:type", Number)
 ], PromoCodes.prototype, "useLimit", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "started_at" }),
+    (0, typeorm_1.Column)({ name: 'started_at' }),
     __metadata("design:type", Date)
 ], PromoCodes.prototype, "startedAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: "expired_at" }),
+    (0, typeorm_1.Column)({ name: 'expired_at' }),
     __metadata("design:type", Date)
 ], PromoCodes.prototype, "expiredAt", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: "created_at" }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at' }),
     __metadata("design:type", Date)
 ], PromoCodes.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: "updated_at" }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at' }),
     __metadata("design:type", Date)
 ], PromoCodes.prototype, "updatedAt", void 0);
 __decorate([

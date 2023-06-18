@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
   CreateDateColumn,
@@ -17,10 +16,10 @@ class YarnColorCategories {
   @Column({ unique: true })
     name: string;
 
-  @CreateDateColumn({ name: "created_at", select: false })
+  @CreateDateColumn({ name: 'created_at', select: false })
     createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at", select: false })
+  @UpdateDateColumn({ name: 'updated_at', select: false })
     updatedAt: Date;
 
   @OneToMany(() => YarnStocks, (yarnStocks) => yarnStocks.yarnColorCategory)

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
   CreateDateColumn,
@@ -16,28 +15,28 @@ class CheckoutItems {
     id: number;
 
   @ManyToOne(() => Orders, (order) => order.checkoutItems)
-  @JoinColumn({ name: "order_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
     order: Orders;
 
-  @Column({ name: "product_id" })
+  @Column({ name: 'product_id' })
     productId: string;
 
   @Column()
     name: string;
 
-  @Column("float", { name: "price_per_item", scale: 2 })
+  @Column('float', { name: 'price_per_item', scale: 2 })
     pricePerItem: number;
 
   @Column()
     quantity: number;
 
-  @Column("float", { name: "total_price", scale: 2 })
+  @Column('float', { name: 'total_price', scale: 2 })
     totalPrice: number;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 }
 

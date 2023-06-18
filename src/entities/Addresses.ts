@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
   CreateDateColumn,
@@ -19,22 +18,22 @@ class Addresses {
     id: number;
 
   @ManyToOne(() => Users, (user) => user.addresses, { nullable: true })
-  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: Users;
 
-  @Column({ name: "receiver_name" })
+  @Column({ name: 'receiver_name' })
     receiverName: string;
 
-  @Column({ name: "receiver_country_code" })
+  @Column({ name: 'receiver_country_code' })
     receiverCountryCode: string;
 
-  @Column({ name: "receiver_phone_number" })
+  @Column({ name: 'receiver_phone_number' })
     receiverPhoneNumber: string;
 
-  @Column({ name: "address_line_one" })
+  @Column({ name: 'address_line_one' })
     addressLineOne: string;
 
-  @Column({ name: "address_line_two", nullable: true })
+  @Column({ name: 'address_line_two', nullable: true })
     addressLineTwo: string;
 
   @Column()
@@ -44,22 +43,22 @@ class Addresses {
     city: string;
 
   @ManyToOne(() => States, (state) => state.addresses)
-  @JoinColumn({ name: "state_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'state_id', referencedColumnName: 'id' })
     state: States;
 
   @Column()
     country: string;
 
-  @Column({ name: "is_default", default: false })
+  @Column({ name: 'is_default', default: false })
     isDefault: boolean;
 
   @Column({ nullable: true })
     tag: string;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
   @OneToMany(() => Orders, (order) => order.address)

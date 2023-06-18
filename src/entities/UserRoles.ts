@@ -1,5 +1,4 @@
 import {
-  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -8,24 +7,20 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import Users from './Users';
+import Roles from './Roles';
 
 @Entity()
-class ResetPasswordTokens {
+export default class UserRoles {
   @PrimaryGeneratedColumn()
     id: number;
 
-  @ManyToOne(() => Users, (user) => user.resetPasswordTokens)
+  @ManyToOne(() => Users, (user) => user.userRoles)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: Users;
 
-  @Column()
-    token: string;
-
-  @Column({ name: 'expired_at', type: 'date' })
-    expiredAt: Date;
-
-  @Column({ name: 'is_used', default: false })
-    isUsed: boolean;
+  @ManyToOne(() => Roles, (roles) => roles.userRoles)
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+    role: Roles;
 
   @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
@@ -33,5 +28,3 @@ class ResetPasswordTokens {
   @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 }
-
-export default ResetPasswordTokens;

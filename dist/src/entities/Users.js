@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const typeorm_1 = require("typeorm");
 const Addresses_1 = __importDefault(require("./Addresses"));
 const ResetPasswordTokens_1 = __importDefault(require("./ResetPasswordTokens"));
+const UserRoles_1 = __importDefault(require("./UserRoles"));
 let Users = class Users {
     id;
     name;
@@ -31,6 +31,7 @@ let Users = class Users {
     updatedAt;
     addresses;
     resetPasswordTokens;
+    userRoles;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
@@ -88,6 +89,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => ResetPasswordTokens_1.default, (resetPasswordToken) => resetPasswordToken.user),
     __metadata("design:type", Array)
 ], Users.prototype, "resetPasswordTokens", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => UserRoles_1.default, (userRole) => userRole.user),
+    __metadata("design:type", Array)
+], Users.prototype, "userRoles", void 0);
 Users = __decorate([
     (0, typeorm_1.Entity)()
 ], Users);
