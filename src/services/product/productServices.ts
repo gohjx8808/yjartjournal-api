@@ -10,7 +10,7 @@ import {
   RawGalleryData,
   RawProductData,
 } from './typings';
-import { ProductSort } from '../../constants/productConstants';
+import { ProductSort } from '../../entities/SortOptions';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID || '',

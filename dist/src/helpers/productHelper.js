@@ -1,16 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.randomizeImages = exports.separateLargeSmallImages = exports.getContentfulOrderByKeyword = void 0;
-const productConstants_1 = require("../constants/productConstants");
+const SortOptions_1 = require("../entities/SortOptions");
 const getContentfulOrderByKeyword = (sortById) => {
     switch (+sortById) {
-        // case ProductSort.A_TO_Z:
-        //   return 'fields.name';
-        // case ProductSort.Z_TO_A:
-        //   return '-fields.name';
-        case productConstants_1.ProductSort.LOW_TO_HIGH:
+        case SortOptions_1.ProductSort.LOW_TO_HIGH:
             return 'fields.price';
-        case productConstants_1.ProductSort.HIGH_TO_LOW:
+        case SortOptions_1.ProductSort.HIGH_TO_LOW:
             return '-fields.price';
     }
 };
