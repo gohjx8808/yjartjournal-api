@@ -10,4 +10,12 @@ export default class UserRolesRepository {
       role: { id: roleId },
     });
   };
+
+  existByRoleIdAndUserId = async (roleId: number, userId: number) => {
+    const result = await userRolesManager.exist({
+      where: { user: { id: userId }, role: { id: roleId } },
+    });
+
+    return result;
+  };
 }

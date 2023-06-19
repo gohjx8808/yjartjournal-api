@@ -13,6 +13,12 @@ class UserRolesRepository {
             role: { id: roleId },
         });
     };
+    existByRoleIdAndUserId = async (roleId, userId) => {
+        const result = await userRolesManager.exist({
+            where: { user: { id: userId }, role: { id: roleId } },
+        });
+        return result;
+    };
 }
 exports.default = UserRolesRepository;
 //# sourceMappingURL=UserRolesRepository.js.map

@@ -8,6 +8,11 @@ const SignInValidator = customValidator([
     .isEmail()
     .withMessage('Invalid email'),
   body('password').notEmpty().withMessage('Password is required'),
+  body('role')
+    .notEmpty()
+    .withMessage('Role is required')
+    .isInt()
+    .withMessage('Invalid role'),
 ]);
 
 export default SignInValidator;

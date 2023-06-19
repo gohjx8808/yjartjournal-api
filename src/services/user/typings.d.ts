@@ -12,6 +12,7 @@ export interface SignUpPayload {
 export interface SignInPayload {
   email: string;
   password: string;
+  role: number;
 }
 
 export interface EncryptedPassword {

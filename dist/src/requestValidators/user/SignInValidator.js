@@ -12,6 +12,11 @@ const SignInValidator = (0, customValidator_1.default)([
         .isEmail()
         .withMessage('Invalid email'),
     (0, express_validator_1.body)('password').notEmpty().withMessage('Password is required'),
+    (0, express_validator_1.body)('role')
+        .notEmpty()
+        .withMessage('Role is required')
+        .isInt()
+        .withMessage('Invalid role'),
 ]);
 exports.default = SignInValidator;
 //# sourceMappingURL=SignInValidator.js.map
