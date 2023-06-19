@@ -6,13 +6,22 @@ import {
   updatePasswordByUserId,
 } from '../../repositories/userRepository';
 import { SignInPayload, SignUpPayload } from './typings';
+import UserRolesRepository from '../../repositories/UserRolesRepository';
+import { AssignableRoles } from '../../entities/UserRoles';
+
+const userRolesRepository = new UserRolesRepository();
 
 export const signUpUser = async (payload: SignUpPayload) => {
   const encryptedPassword = encrypt(payload.password);
 
-  const response = await insertNewUser(payload, encryptedPassword);
+  const user = await insertNewUser(payload, encryptedPassword);
 
-  return response;
+  await userRolesRepository.insertNew(
+    user.identifiers[0].id,
+    AssignableRoles.CUSTOMER,
+  );
+
+  return user;
 };
 
 export const generateAccessToken = async (payload: SignInPayload) => {

@@ -12,9 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AssignableRoles = void 0;
 const typeorm_1 = require("typeorm");
 const Users_1 = __importDefault(require("./Users"));
 const Roles_1 = __importDefault(require("./Roles"));
+var AssignableRoles;
+(function (AssignableRoles) {
+    AssignableRoles[AssignableRoles["ADMIN_VIEW"] = 1] = "ADMIN_VIEW";
+    AssignableRoles[AssignableRoles["ADMIN"] = 2] = "ADMIN";
+    AssignableRoles[AssignableRoles["CUSTOMER"] = 3] = "CUSTOMER";
+})(AssignableRoles || (exports.AssignableRoles = AssignableRoles = {}));
 let UserRoles = class UserRoles {
     id;
     user;
