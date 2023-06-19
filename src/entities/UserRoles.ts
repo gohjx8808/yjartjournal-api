@@ -9,12 +9,6 @@ import {
 import Users from './Users';
 import Roles from './Roles';
 
-export enum AssignableRoles {
-  ADMIN_VIEW = 1,
-  ADMIN = 2,
-  CUSTOMER = 3,
-}
-
 @Entity()
 export default class UserRoles {
   @PrimaryGeneratedColumn()

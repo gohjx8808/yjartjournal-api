@@ -7,7 +7,7 @@ import {
 } from '../../repositories/userRepository';
 import { SignInPayload, SignUpPayload } from './typings';
 import UserRolesRepository from '../../repositories/UserRolesRepository';
-import { AssignableRoles } from '../../entities/UserRoles';
+import { AssignableRoles } from '../../entities/Roles';
 
 const userRolesRepository = new UserRolesRepository();
 

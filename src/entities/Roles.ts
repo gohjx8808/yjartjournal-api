@@ -8,6 +8,12 @@ import {
 } from 'typeorm';
 import UserRoles from './UserRoles';
 
+export enum AssignableRoles {
+  ADMIN_VIEW = 1,
+  ADMIN = 2,
+  CUSTOMER = 3,
+}
+
 @Entity()
 export default class Roles {
   @PrimaryGeneratedColumn()
