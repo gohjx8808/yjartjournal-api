@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cryptoHelper_1 = require("../helpers/cryptoHelper");
-const userRepository_1 = require("../repositories/userRepository");
-const UserRolesRepository_1 = __importDefault(require("../repositories/UserRolesRepository"));
 const RoleRepository_1 = __importDefault(require("../repositories/RoleRepository"));
+const UserRolesRepository_1 = __importDefault(require("../repositories/UserRolesRepository"));
+const userRepository_1 = require("../repositories/userRepository");
 const SignInMiddleware = () => async (req, res, next) => {
     const userRoleRepository = new UserRolesRepository_1.default();
     const roleRepository = new RoleRepository_1.default();
@@ -27,7 +27,7 @@ const SignInMiddleware = () => async (req, res, next) => {
             return res.status(404).json({ message: 'Invalid role!' });
         }
         else {
-            const userHaveRole = await userRoleRepository.existByRoleIdAndUserId(role.id, user.id);
+            const userHaveRole = await userRoleRepository.existByRoleIdsAndUserId([role.id], user.id);
             if (!userHaveRole) {
                 return res.status(401).json({ message: 'You are not permitted!' });
             }

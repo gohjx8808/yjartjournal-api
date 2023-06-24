@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { CustomAuthenticatedRequest } from '../typings';
 import { AssignableRoles } from '../entities/Roles';
 import UserRolesRepository from '../repositories/UserRolesRepository';
 import { AuthenticatedUserData } from '../services/user/typings';
+import { CustomAuthenticatedRequest } from '../typings';
 
 const handleError = (required: boolean, next: NextFunction, res: Response) => {
   if (required) {
@@ -12,7 +12,7 @@ const handleError = (required: boolean, next: NextFunction, res: Response) => {
 };
 
 const JwtAuthMiddleware =
-  (required = true, roleId: number = AssignableRoles.CUSTOMER) =>
+  (required = true, roleIds: number[] = [AssignableRoles.CUSTOMER]) =>
     (req: CustomAuthenticatedRequest, res: Response, next: NextFunction) => {
       const authHeader = req.headers.authorization;
       const userRolesRepository = new UserRolesRepository();
@@ -23,8 +23,8 @@ const JwtAuthMiddleware =
           if (err) {
             return handleError(required, next, res);
           } else {
-            const userHasRole = await userRolesRepository.existByRoleIdAndUserId(
-              roleId,
+            const userHasRole = await userRolesRepository.existByRoleIdsAndUserId(
+              roleIds,
               (user.valueOf() as AuthenticatedUserData).id,
             );
             if (!userHasRole) {

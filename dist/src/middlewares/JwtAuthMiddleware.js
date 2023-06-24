@@ -11,7 +11,7 @@ const handleError = (required, next, res) => {
         return res.status(401).json({ message: 'Unauthorized!' });
     }
 };
-const JwtAuthMiddleware = (required = true, roleId = Roles_1.AssignableRoles.CUSTOMER) => (req, res, next) => {
+const JwtAuthMiddleware = (required = true, roleIds = [Roles_1.AssignableRoles.CUSTOMER]) => (req, res, next) => {
     const authHeader = req.headers.authorization;
     const userRolesRepository = new UserRolesRepository_1.default();
     if (authHeader) {
@@ -21,7 +21,7 @@ const JwtAuthMiddleware = (required = true, roleId = Roles_1.AssignableRoles.CUS
                 return handleError(required, next, res);
             }
             else {
-                const userHasRole = await userRolesRepository.existByRoleIdAndUserId(roleId, user.valueOf().id);
+                const userHasRole = await userRolesRepository.existByRoleIdsAndUserId(roleIds, user.valueOf().id);
                 if (!userHasRole) {
                     return handleError(required, next, res);
                 }

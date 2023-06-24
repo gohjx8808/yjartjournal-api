@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { decrypt } from '../helpers/cryptoHelper';
+import RoleRepository from '../repositories/RoleRepository';
+import UserRolesRepository from '../repositories/UserRolesRepository';
 import { getUserByEmail } from '../repositories/userRepository';
 import { SignInPayload } from '../services/user/typings';
-import UserRolesRepository from '../repositories/UserRolesRepository';
-import RoleRepository from '../repositories/RoleRepository';
 
 const SignInMiddleware =
   () =>
@@ -35,8 +35,8 @@ const SignInMiddleware =
         if (!role) {
           return res.status(404).json({ message: 'Invalid role!' });
         } else {
-          const userHaveRole = await userRoleRepository.existByRoleIdAndUserId(
-            role.id,
+          const userHaveRole = await userRoleRepository.existByRoleIdsAndUserId(
+            [role.id],
             user.id,
           );
 

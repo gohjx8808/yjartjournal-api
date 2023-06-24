@@ -1,3 +1,4 @@
+import { In } from 'typeorm';
 import { manager } from '../dataSource';
 import UserRoles from '../entities/UserRoles';
 
@@ -11,9 +12,9 @@ export default class UserRolesRepository {
     });
   };
 
-  existByRoleIdAndUserId = async (roleId: number, userId: number) => {
+  existByRoleIdsAndUserId = async (roleIds: number[], userId: number) => {
     const result = await userRolesManager.exist({
-      where: { user: { id: userId }, role: { id: roleId } },
+      where: { user: { id: userId }, role: { id: In(roleIds) } },
     });
 
     return result;
