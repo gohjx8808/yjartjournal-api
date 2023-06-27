@@ -11,20 +11,27 @@ const AddNewYarnCategoryValidator_1 = __importDefault(require("../../requestVali
 const DeleteYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/DeleteYarnCategoryValidator"));
 const UpdateYarnCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator"));
 const YarnCategoryServices_1 = __importDefault(require("../../services/stock/YarnCategoryServices"));
+const JwtAuthMiddleware_1 = __importDefault(require("../../middlewares/JwtAuthMiddleware"));
+const Roles_1 = require("../../entities/Roles");
 const yarnCategoryRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnCategoryService = new YarnCategoryServices_1.default();
-yarnCategoryRouter.get('/', async (_req, res) => {
+yarnCategoryRouter.get('/', (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN, Roles_1.AssignableRoles.ADMIN_VIEW]), async (_req, res) => {
     const response = await yarnCategoryService.getAllYarnCategories();
     return res.json({ data: response });
 });
-yarnCategoryRouter.post('/add-new', ...[upload.none(), ...AddNewYarnCategoryValidator_1.default], async (req, res) => {
+yarnCategoryRouter.post('/add-new', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    ...AddNewYarnCategoryValidator_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnCategoryService.addNewYarnCategory(payload);
     return res.json({ data: response });
 });
 yarnCategoryRouter.post('/update', ...[
     upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     ...UpdateYarnCategoryValidator_1.default,
     UpdateYarnCategoryMiddleware_1.default,
 ], async (req, res) => {
@@ -34,6 +41,7 @@ yarnCategoryRouter.post('/update', ...[
 });
 yarnCategoryRouter.post('/delete', ...[
     upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     ...DeleteYarnCategoryValidator_1.default,
     DeleteYarnCategoryMiddleware_1.default,
 ], async (req, res) => {
