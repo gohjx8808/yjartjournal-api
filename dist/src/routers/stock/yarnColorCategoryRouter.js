@@ -11,20 +11,27 @@ const AddNewYarnColorCategoryValidator_1 = __importDefault(require("../../reques
 const DeleteYarnColorCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnColorCategory/DeleteYarnColorCategoryValidator"));
 const UpdateYarnColorCategoryValidator_1 = __importDefault(require("../../requestValidators/stock/yarnColorCategory/UpdateYarnColorCategoryValidator"));
 const YarnColorCategoryServices_1 = __importDefault(require("../../services/stock/YarnColorCategoryServices"));
+const Roles_1 = require("../../entities/Roles");
+const JwtAuthMiddleware_1 = __importDefault(require("../../middlewares/JwtAuthMiddleware"));
 const yarnColorCategoryRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnColorCategoryServices = new YarnColorCategoryServices_1.default();
-yarnColorCategoryRouter.get('/', async (_req, res) => {
+yarnColorCategoryRouter.get('/', (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN, Roles_1.AssignableRoles.ADMIN_VIEW]), async (_req, res) => {
     const response = await yarnColorCategoryServices.getAllYarnColorCategories();
     return res.json({ data: response });
 });
-yarnColorCategoryRouter.post('/add-new', ...[upload.none(), ...AddNewYarnColorCategoryValidator_1.default], async (req, res) => {
+yarnColorCategoryRouter.post('/add-new', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    ...AddNewYarnColorCategoryValidator_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnColorCategoryServices.addNewYarnCategory(payload);
     return res.json({ data: response });
 });
 yarnColorCategoryRouter.post('/update', ...[
     upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     ...UpdateYarnColorCategoryValidator_1.default,
     UpdateYarnColorCategoryMiddleware_1.default,
 ], async (req, res) => {
@@ -34,6 +41,7 @@ yarnColorCategoryRouter.post('/update', ...[
 });
 yarnColorCategoryRouter.post('/delete', ...[
     upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     ...DeleteYarnColorCategoryValidator_1.default,
     DeleteYarnColorCategoryMiddleware_1.default,
 ], async (req, res) => {
