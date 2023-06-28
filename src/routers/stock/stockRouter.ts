@@ -18,6 +18,8 @@ import DeleteYarnStockMiddleware from '../../middlewares/stocks/yarnStock/Delete
 import UpdateStockValidator from '../../requestValidators/stock/yarnStock/UpdateStockValidator';
 import UpdateYarnStockMiddleware from '../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware';
 import YarnStockServices from '../../services/stock/YarnStockServices';
+import { AssignableRoles } from '../../entities/Roles';
+import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
 
 const stockRouter = Router();
 const upload = multer();
@@ -30,7 +32,12 @@ stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter);
 
 stockRouter.post<{}, any, AddNewYarnStockPayload>(
   '/add-new',
-  ...[upload.none(), ...AddNewStockValidator, AddYarnStockMiddleware],
+  ...[
+    upload.none(),
+    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
+    ...AddNewStockValidator,
+    AddYarnStockMiddleware,
+  ],
   async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.insertNewYarnStock(payload);
@@ -41,7 +48,14 @@ stockRouter.post<{}, any, AddNewYarnStockPayload>(
 
 stockRouter.post<{}, any, GetYarnStockPayload>(
   '/yarn-stocks',
-  ...[upload.none(), ...GetYarnStockValidator],
+  ...[
+    upload.none(),
+    JwtAuthMiddleware(true, [
+      AssignableRoles.ADMIN,
+      AssignableRoles.ADMIN_VIEW,
+    ]),
+    ...GetYarnStockValidator,
+  ],
   async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.getAllYarnStock(payload);
@@ -52,7 +66,11 @@ stockRouter.post<{}, any, GetYarnStockPayload>(
 
 stockRouter.post<{}, any, UpdateYarnQuantityPayload>(
   '/update-quantity',
-  ...[upload.none(), ...UpdateStockQuantityValidator],
+  ...[
+    upload.none(),
+    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
+    ...UpdateStockQuantityValidator,
+  ],
   async (req, res) => {
     const payload = req.body;
 
@@ -67,7 +85,12 @@ stockRouter.post<{}, any, UpdateYarnQuantityPayload>(
 
 stockRouter.post<{}, any, DeleteYarnStockPayload>(
   '/delete',
-  ...[upload.none(), ...DeleteYarnStockValidator, DeleteYarnStockMiddleware],
+  ...[
+    upload.none(),
+    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
+    ...DeleteYarnStockValidator,
+    DeleteYarnStockMiddleware,
+  ],
   async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.deleteYarnStock(payload);
@@ -78,7 +101,12 @@ stockRouter.post<{}, any, DeleteYarnStockPayload>(
 
 stockRouter.post<{}, any, UpdateYarnStockPayload>(
   '/update',
-  ...[upload.none(), ...UpdateStockValidator, UpdateYarnStockMiddleware],
+  ...[
+    upload.none(),
+    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
+    ...UpdateStockValidator,
+    UpdateYarnStockMiddleware,
+  ],
   async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.updateYarnStock(payload);

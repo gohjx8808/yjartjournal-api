@@ -16,22 +16,40 @@ const DeleteYarnStockMiddleware_1 = __importDefault(require("../../middlewares/s
 const UpdateStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockValidator"));
 const UpdateYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware"));
 const YarnStockServices_1 = __importDefault(require("../../services/stock/YarnStockServices"));
+const Roles_1 = require("../../entities/Roles");
+const JwtAuthMiddleware_1 = __importDefault(require("../../middlewares/JwtAuthMiddleware"));
 const stockRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnStockService = new YarnStockServices_1.default();
 stockRouter.use('/yarn-categories', yarnCategoryRouter_1.default);
 stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter_1.default);
-stockRouter.post('/add-new', ...[upload.none(), ...AddNewStockValidator_1.default, AddYarnStockMiddleware_1.default], async (req, res) => {
+stockRouter.post('/add-new', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    ...AddNewStockValidator_1.default,
+    AddYarnStockMiddleware_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.insertNewYarnStock(payload);
     return res.json(response);
 });
-stockRouter.post('/yarn-stocks', ...[upload.none(), ...GetYarnStockValidator_1.default], async (req, res) => {
+stockRouter.post('/yarn-stocks', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [
+        Roles_1.AssignableRoles.ADMIN,
+        Roles_1.AssignableRoles.ADMIN_VIEW,
+    ]),
+    ...GetYarnStockValidator_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.getAllYarnStock(payload);
     return res.json({ data: response });
 });
-stockRouter.post('/update-quantity', ...[upload.none(), ...UpdateStockQuantityValidator_1.default], async (req, res) => {
+stockRouter.post('/update-quantity', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    ...UpdateStockQuantityValidator_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.updateYarnStockAmount(payload);
     if (!response.success) {
@@ -39,12 +57,22 @@ stockRouter.post('/update-quantity', ...[upload.none(), ...UpdateStockQuantityVa
     }
     return res.json(response);
 });
-stockRouter.post('/delete', ...[upload.none(), ...DeleteYarnStockValidator_1.default, DeleteYarnStockMiddleware_1.default], async (req, res) => {
+stockRouter.post('/delete', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    ...DeleteYarnStockValidator_1.default,
+    DeleteYarnStockMiddleware_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.deleteYarnStock(payload);
     return res.json(response);
 });
-stockRouter.post('/update', ...[upload.none(), ...UpdateStockValidator_1.default, UpdateYarnStockMiddleware_1.default], async (req, res) => {
+stockRouter.post('/update', ...[
+    upload.none(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    ...UpdateStockValidator_1.default,
+    UpdateYarnStockMiddleware_1.default,
+], async (req, res) => {
     const payload = req.body;
     const response = await yarnStockService.updateYarnStock(payload);
     return res.json(response);
