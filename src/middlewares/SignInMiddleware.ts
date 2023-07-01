@@ -4,6 +4,7 @@ import RoleRepository from '../repositories/RoleRepository';
 import UserRolesRepository from '../repositories/UserRolesRepository';
 import { getUserByEmail } from '../repositories/userRepository';
 import { SignInPayload } from '../services/user/typings';
+import { AssignableRoles } from '../entities/Roles';
 
 const SignInMiddleware =
   () =>
@@ -41,6 +42,21 @@ const SignInMiddleware =
           );
 
           if (!userHaveRole) {
+            if (role.id === AssignableRoles.ADMIN_VIEW) {
+              const userHaveAdminRole =
+              await userRoleRepository.existByRoleIdsAndUserId(
+                [AssignableRoles.ADMIN],
+                user.id,
+              );
+
+              if (!userHaveAdminRole) {
+                return res
+                  .status(401)
+                  .json({ message: 'You are not permitted!' });
+              } else {
+                return next();
+              }
+            }
             return res.status(401).json({ message: 'You are not permitted!' });
           }
         }

@@ -7,6 +7,7 @@ const cryptoHelper_1 = require("../helpers/cryptoHelper");
 const RoleRepository_1 = __importDefault(require("../repositories/RoleRepository"));
 const UserRolesRepository_1 = __importDefault(require("../repositories/UserRolesRepository"));
 const userRepository_1 = require("../repositories/userRepository");
+const Roles_1 = require("../entities/Roles");
 const SignInMiddleware = () => async (req, res, next) => {
     const userRoleRepository = new UserRolesRepository_1.default();
     const roleRepository = new RoleRepository_1.default();
@@ -29,6 +30,17 @@ const SignInMiddleware = () => async (req, res, next) => {
         else {
             const userHaveRole = await userRoleRepository.existByRoleIdsAndUserId([role.id], user.id);
             if (!userHaveRole) {
+                if (role.id === Roles_1.AssignableRoles.ADMIN_VIEW) {
+                    const userHaveAdminRole = await userRoleRepository.existByRoleIdsAndUserId([Roles_1.AssignableRoles.ADMIN], user.id);
+                    if (!userHaveAdminRole) {
+                        return res
+                            .status(401)
+                            .json({ message: 'You are not permitted!' });
+                    }
+                    else {
+                        return next();
+                    }
+                }
                 return res.status(401).json({ message: 'You are not permitted!' });
             }
         }
