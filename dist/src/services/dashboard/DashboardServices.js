@@ -39,12 +39,12 @@ class DashboardServices {
         };
     };
     formatChartData(chart, compareData) {
-        const targetIndex = chart.findIndex((arr) => arr.x === compareData.id);
+        const targetIndex = chart.findIndex((arr) => arr.id === compareData.id);
         if (targetIndex !== -1) {
             const target = chart[targetIndex];
             chart[targetIndex] = {
                 ...target,
-                y: target.y + 1,
+                value: target.value + 1,
             };
         }
         else {
@@ -52,8 +52,8 @@ class DashboardServices {
             const sliceIndex = formattedName.indexOf('/');
             formattedName = `${formattedName.substring(0, sliceIndex + 1)}\n${formattedName.substring(sliceIndex + 1)}`;
             chart.push({
-                x: compareData.id,
-                y: 1,
+                id: compareData.id,
+                value: 1,
                 name: formattedName,
             });
         }
