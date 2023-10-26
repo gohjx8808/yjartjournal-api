@@ -37,7 +37,7 @@ const AddNewStockValidator = (0, customValidator_1.default)([
         .isInt()
         .withMessage('Invalid reorder level.'),
     (0, express_validator_1.body)('lastOrderedDate')
-        .optional()
+        .optional({ nullable: true })
         .isISO8601()
         .toDate()
         .withMessage('Invalid last ordered date.'),
