@@ -7,7 +7,7 @@ const YarnStockRepository_1 = __importDefault(require("../../../repositories/Yar
 const AddYarnStockMiddleware = async (req, res, next) => {
     const payload = req.body;
     const yarnStockRepository = new YarnStockRepository_1.default();
-    const sameDataExist = await yarnStockRepository.getByCategoryColorCategoryDetailedColor(payload.yarnCategory, payload.yarnColorCategory, payload.detailedColor);
+    const sameDataExist = await yarnStockRepository.getByCategoryIdColorCategoryIdName(payload.yarnCategoryId, payload.yarnColorCategoryId, payload.name);
     if (sameDataExist) {
         return res.status(422).json({ message: 'Duplicated data detected.' });
     }

@@ -26,8 +26,8 @@ class YarnStocks {
   @JoinColumn({ name: 'yarn_color_category_id', referencedColumnName: 'id' })
     yarnColorCategory: YarnColorCategories;
 
-  @Column({ name: 'detailed_color' })
-    detailedColor: string;
+  @Column({ name: 'name' })
+    name: string;
 
   @Column({ name: 'cost_per_item', type: 'float' })
     costPerItem: number;

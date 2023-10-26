@@ -17,10 +17,10 @@ const UpdateYarnStockMiddleware = async (
   }
 
   const sameDataExist =
-    await yarnStockRepository.getByCategoryColorCategoryDetailedColor(
-      payload.yarnCategory,
-      payload.yarnColorCategory,
-      payload.detailedColor,
+    await yarnStockRepository.getByCategoryIdColorCategoryIdName(
+      payload.yarnCategoryId,
+      payload.yarnColorCategoryId,
+      payload.name,
       payload.yarnId,
     );
 

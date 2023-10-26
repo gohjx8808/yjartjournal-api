@@ -16,9 +16,9 @@ export interface DeleteYarnStockPayload {
 }
 
 export interface AddUpdateYarnStockPayload {
-  yarnCategory: OptionData;
-  yarnColorCategory: OptionData;
-  detailedColor: string;
+  yarnCategoryId: number;
+  yarnColorCategoryId: number;
+  name: string;
   cost: number;
   reorderLevel: number;
   lastOrderedDate?: Date;
@@ -43,7 +43,7 @@ export interface StockData {
   id: number;
   yarnCategory: OptionData;
   yarnColorCategory: OptionData;
-  detailedColor: string;
+  name: string;
   costPerItem: number;
   inStockQuantity: number;
   usedQuantity: number;

@@ -11,7 +11,7 @@ const UpdateYarnStockMiddleware = async (req, res, next) => {
     if (!dataExist) {
         return res.status(404).json({ message: 'Invalid yarn id.' });
     }
-    const sameDataExist = await yarnStockRepository.getByCategoryColorCategoryDetailedColor(payload.yarnCategory, payload.yarnColorCategory, payload.detailedColor, payload.yarnId);
+    const sameDataExist = await yarnStockRepository.getByCategoryIdColorCategoryIdName(payload.yarnCategoryId, payload.yarnColorCategoryId, payload.name, payload.yarnId);
     if (sameDataExist) {
         return res.status(422).json({ message: 'Duplicated data detected.' });
     }

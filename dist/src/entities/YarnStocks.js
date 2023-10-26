@@ -19,7 +19,7 @@ let YarnStocks = class YarnStocks {
     id;
     yarnCategory;
     yarnColorCategory;
-    detailedColor;
+    name;
     costPerItem;
     inStockQuantity;
     usedQuantity;
@@ -45,9 +45,9 @@ __decorate([
     __metadata("design:type", YarnColorCategories_1.default)
 ], YarnStocks.prototype, "yarnColorCategory", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'detailed_color' }),
+    (0, typeorm_1.Column)({ name: 'name' }),
     __metadata("design:type", String)
-], YarnStocks.prototype, "detailedColor", void 0);
+], YarnStocks.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'cost_per_item', type: 'float' }),
     __metadata("design:type", Number)

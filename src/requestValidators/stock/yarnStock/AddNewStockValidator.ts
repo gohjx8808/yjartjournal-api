@@ -2,31 +2,21 @@ import { body } from 'express-validator';
 import customValidator from '../../customValidator';
 
 const AddNewStockValidator = customValidator([
-  body('yarnCategory.id')
+  body('yarnCategoryId')
     .notEmpty()
     .withMessage('Yarn category id is required.')
     .isInt()
     .withMessage('Invalid yarn category id.'),
-  body('yarnCategory.name')
-    .notEmpty()
-    .withMessage('Yarn category name is required.')
-    .isString()
-    .withMessage('Invalid yarn category name.'),
-  body('yarnColorCategory.id')
+  body('yarnColorCategoryId')
     .notEmpty()
     .withMessage('Yarn color category id is required.')
     .isInt()
     .withMessage('Invalid yarn color category id.'),
-  body('yarnColorCategory.name')
+  body('name')
     .notEmpty()
-    .withMessage('Yarn color category name is required.')
+    .withMessage('Name is required.')
     .isString()
-    .withMessage('Invalid yarn color category name.'),
-  body('detailedColor')
-    .notEmpty()
-    .withMessage('Detailed color is required.')
-    .isString()
-    .withMessage('Invalid detailed color.'),
+    .withMessage('Invalid name.'),
   body('cost')
     .notEmpty()
     .withMessage('Cost is required.')

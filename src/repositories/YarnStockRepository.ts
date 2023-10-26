@@ -7,7 +7,6 @@ import {
   UpdateYarnStockPayload,
   UpdatedImageData,
 } from '../services/stock/typings';
-import { OptionData } from '../typings';
 
 const yarnStockManager = manager.getRepository(YarnStocks);
 
@@ -18,6 +17,8 @@ class YarnStockRepository {
   ) =>
     yarnStockManager.insert({
       ...payload,
+      yarnCategory: { id: payload.yarnCategoryId },
+      yarnColorCategory: { id: payload.yarnColorCategoryId },
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
       lastOrderedAt: payload.lastOrderedDate,
@@ -44,17 +45,17 @@ class YarnStockRepository {
       relations: ['yarnColorCategory', 'yarnCategory'],
     });
 
-  getByCategoryColorCategoryDetailedColor = (
-    yarnCategory: OptionData,
-    yarnColorCategory: OptionData,
-    detailedColor: string,
+  getByCategoryIdColorCategoryIdName = (
+    yarnCategoryId: number,
+    yarnColorCategoryId: number,
+    name: string,
     selfId: number = null,
   ) =>
     yarnStockManager.findOne({
       where: {
-        yarnCategory: { id: yarnCategory.id },
-        yarnColorCategory: { id: yarnColorCategory.id },
-        detailedColor,
+        yarnCategory: { id: yarnCategoryId },
+        yarnColorCategory: { id: yarnColorCategoryId },
+        name,
         ...(selfId && { id: Not(selfId) }),
       },
     });
@@ -76,9 +77,9 @@ class YarnStockRepository {
     yarnStockManager.update(
       { id: payload.yarnId },
       {
-        yarnCategory: { id: payload.yarnCategory.id },
-        yarnColorCategory: { id: payload.yarnColorCategory.id },
-        detailedColor: payload.detailedColor,
+        yarnCategory: { id: payload.yarnCategoryId },
+        yarnColorCategory: { id: payload.yarnColorCategoryId },
+        name: payload.name,
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,

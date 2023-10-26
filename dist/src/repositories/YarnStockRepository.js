@@ -10,6 +10,8 @@ const yarnStockManager = dataSource_1.manager.getRepository(YarnStocks_1.default
 class YarnStockRepository {
     insertNewYarnStock = async (payload, uploadedImg) => yarnStockManager.insert({
         ...payload,
+        yarnCategory: { id: payload.yarnCategoryId },
+        yarnColorCategory: { id: payload.yarnColorCategoryId },
         costPerItem: payload.cost,
         inStockQuantity: payload.quantity,
         lastOrderedAt: payload.lastOrderedDate,
@@ -25,11 +27,11 @@ class YarnStockRepository {
         where: { id: yarnId },
         relations: ['yarnColorCategory', 'yarnCategory'],
     });
-    getByCategoryColorCategoryDetailedColor = (yarnCategory, yarnColorCategory, detailedColor, selfId = null) => yarnStockManager.findOne({
+    getByCategoryIdColorCategoryIdName = (yarnCategoryId, yarnColorCategoryId, name, selfId = null) => yarnStockManager.findOne({
         where: {
-            yarnCategory: { id: yarnCategory.id },
-            yarnColorCategory: { id: yarnColorCategory.id },
-            detailedColor,
+            yarnCategory: { id: yarnCategoryId },
+            yarnColorCategory: { id: yarnColorCategoryId },
+            name,
             ...(selfId && { id: (0, typeorm_1.Not)(selfId) }),
         },
     });
@@ -39,9 +41,9 @@ class YarnStockRepository {
     });
     deleteYarnStock = (yarnId) => yarnStockManager.delete({ id: yarnId });
     updateYarnStock = (payload, updatedImg) => yarnStockManager.update({ id: payload.yarnId }, {
-        yarnCategory: { id: payload.yarnCategory.id },
-        yarnColorCategory: { id: payload.yarnColorCategory.id },
-        detailedColor: payload.detailedColor,
+        yarnCategory: { id: payload.yarnCategoryId },
+        yarnColorCategory: { id: payload.yarnColorCategoryId },
+        name: payload.name,
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
