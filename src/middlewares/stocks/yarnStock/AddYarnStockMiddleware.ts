@@ -11,7 +11,7 @@ const AddYarnStockMiddleware = async (
   const uploadedFile = req.file;
   const yarnStockRepository = new YarnStockRepository();
 
-  if (!uploadedFile.mimetype.startsWith('image/')) {
+  if (uploadedFile && !uploadedFile.mimetype.startsWith('image/')) {
     return res.status(422).json({ message: 'Please only submit image.' });
   }
 
