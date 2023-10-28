@@ -11,9 +11,9 @@ class YarnStockServices {
         const stockImg = payload.image;
         let uploadedImg = null;
         if (stockImg) {
-            uploadedImg = await cloudinary_1.v2.uploader.upload(stockImg, {
-                folder: 'yarnStocks',
-            });
+            // uploadedImg = await cloudinary.uploader.upload(stockImg, {
+            //   folder: 'yarnStocks',
+            // });
         }
         const res = await this.yarnStockRepository.insertNewYarnStock(payload, uploadedImg);
         return res;

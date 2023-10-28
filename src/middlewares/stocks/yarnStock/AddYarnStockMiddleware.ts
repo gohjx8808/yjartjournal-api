@@ -8,7 +8,12 @@ const AddYarnStockMiddleware = async (
   next: NextFunction,
 ) => {
   const payload = req.body;
+  const uploadedFile = req.file;
   const yarnStockRepository = new YarnStockRepository();
+
+  if (!uploadedFile.mimetype.startsWith('image/')) {
+    return res.status(422).json({ message: 'Please only submit image.' });
+  }
 
   const sameDataExist =
     await yarnStockRepository.getByCategoryIdColorCategoryIdName(

@@ -1,6 +1,16 @@
 import { Router } from 'express';
 import multer from 'multer';
+import { AssignableRoles } from '../../entities/Roles';
+import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
+import AddYarnStockMiddleware from '../../middlewares/stocks/yarnStock/AddYarnStockMiddleware';
+import DeleteYarnStockMiddleware from '../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware';
+import UpdateYarnStockMiddleware from '../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware';
 import AddNewStockValidator from '../../requestValidators/stock/yarnStock/AddNewStockValidator';
+import DeleteYarnStockValidator from '../../requestValidators/stock/yarnStock/DeleteYarnStockValidator';
+import GetYarnStockValidator from '../../requestValidators/stock/yarnStock/GetYarnStockValidator';
+import UpdateStockQuantityValidator from '../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator';
+import UpdateStockValidator from '../../requestValidators/stock/yarnStock/UpdateStockValidator';
+import YarnStockServices from '../../services/stock/YarnStockServices';
 import {
   AddNewYarnStockPayload,
   DeleteYarnStockPayload,
@@ -10,16 +20,6 @@ import {
 } from '../../services/stock/typings';
 import yarnCategoryRouter from './yarnCategoryRouter';
 import yarnColorCategoryRouter from './yarnColorCategoryRouter';
-import GetYarnStockValidator from '../../requestValidators/stock/yarnStock/GetYarnStockValidator';
-import UpdateStockQuantityValidator from '../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator';
-import AddYarnStockMiddleware from '../../middlewares/stocks/yarnStock/AddYarnStockMiddleware';
-import DeleteYarnStockValidator from '../../requestValidators/stock/yarnStock/DeleteYarnStockValidator';
-import DeleteYarnStockMiddleware from '../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware';
-import UpdateStockValidator from '../../requestValidators/stock/yarnStock/UpdateStockValidator';
-import UpdateYarnStockMiddleware from '../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware';
-import YarnStockServices from '../../services/stock/YarnStockServices';
-import { AssignableRoles } from '../../entities/Roles';
-import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
 
 const stockRouter = Router();
 const upload = multer();
@@ -33,7 +33,7 @@ stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter);
 stockRouter.post<{}, any, AddNewYarnStockPayload>(
   '/add-new',
   ...[
-    upload.none(),
+    upload.single('image'),
     JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
     ...AddNewStockValidator,
     AddYarnStockMiddleware,

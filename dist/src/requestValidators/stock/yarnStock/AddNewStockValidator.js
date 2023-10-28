@@ -41,9 +41,7 @@ const AddNewStockValidator = (0, customValidator_1.default)([
         .isISO8601()
         .toDate()
         .withMessage('Invalid last ordered date.'),
-    (0, express_validator_1.body)('image')
-        .optional({ nullable: true })
-        .matches(/data:image\/png;base64,/),
+    (0, express_validator_1.body)('image').optional({ nullable: true }),
 ]);
 exports.default = AddNewStockValidator;
 //# sourceMappingURL=AddNewStockValidator.js.map

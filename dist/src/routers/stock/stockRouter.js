@@ -5,26 +5,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
-const AddNewStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/AddNewStockValidator"));
-const yarnCategoryRouter_1 = __importDefault(require("./yarnCategoryRouter"));
-const yarnColorCategoryRouter_1 = __importDefault(require("./yarnColorCategoryRouter"));
-const GetYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/GetYarnStockValidator"));
-const UpdateStockQuantityValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator"));
-const AddYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/AddYarnStockMiddleware"));
-const DeleteYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/DeleteYarnStockValidator"));
-const DeleteYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware"));
-const UpdateStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockValidator"));
-const UpdateYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware"));
-const YarnStockServices_1 = __importDefault(require("../../services/stock/YarnStockServices"));
 const Roles_1 = require("../../entities/Roles");
 const JwtAuthMiddleware_1 = __importDefault(require("../../middlewares/JwtAuthMiddleware"));
+const AddYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/AddYarnStockMiddleware"));
+const DeleteYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware"));
+const UpdateYarnStockMiddleware_1 = __importDefault(require("../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware"));
+const AddNewStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/AddNewStockValidator"));
+const DeleteYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/DeleteYarnStockValidator"));
+const GetYarnStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/GetYarnStockValidator"));
+const UpdateStockQuantityValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator"));
+const UpdateStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockValidator"));
+const YarnStockServices_1 = __importDefault(require("../../services/stock/YarnStockServices"));
+const yarnCategoryRouter_1 = __importDefault(require("./yarnCategoryRouter"));
+const yarnColorCategoryRouter_1 = __importDefault(require("./yarnColorCategoryRouter"));
 const stockRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnStockService = new YarnStockServices_1.default();
 stockRouter.use('/yarn-categories', yarnCategoryRouter_1.default);
 stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter_1.default);
 stockRouter.post('/add-new', ...[
-    upload.none(),
+    upload.single('image'),
     (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     ...AddNewStockValidator_1.default,
     AddYarnStockMiddleware_1.default,

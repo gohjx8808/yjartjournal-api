@@ -1,8 +1,9 @@
+import { File } from 'buffer';
 import { OptionData } from '../../typings';
 
 export interface AddNewYarnStockPayload extends AddUpdateYarnStockPayload {
   quantity: number;
-  image: string;
+  image: File;
 }
 
 export interface UpdateYarnStockPayload
