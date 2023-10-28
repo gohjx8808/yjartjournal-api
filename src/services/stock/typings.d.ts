@@ -7,7 +7,7 @@ export interface AddNewYarnStockPayload extends AddUpdateYarnStockPayload {
 export interface UpdateYarnStockPayload
   extends AddUpdateYarnStockPayload,
   DeleteYarnStockPayload {
-  image: StockImagePayload;
+  isImageUpdated: boolean;
 }
 
 export interface DeleteYarnStockPayload {
@@ -21,11 +21,6 @@ export interface AddUpdateYarnStockPayload {
   cost: number;
   reorderLevel: number;
   lastOrderedDate?: Date;
-}
-
-interface StockImagePayload {
-  isUpdated: boolean;
-  base64Data: string | null;
 }
 
 export interface GetYarnStockPayload {

@@ -56,15 +56,14 @@ class YarnStockServices {
         const response = await this.yarnStockRepository.deleteYarnStock(payload.yarnId);
         return response;
     };
-    updateYarnStock = async (payload) => {
+    updateYarnStock = async (payload, uploadedFile) => {
         const stock = await this.yarnStockRepository.getById(payload.yarnId);
-        const inputImg = payload.image;
         let updatedImg = {
             id: stock.imageId ?? null,
             url: stock.imageUrl ?? null,
         };
-        if (inputImg.base64Data) {
-            const uploadedImg = await cloudinary_1.v2.uploader.upload(inputImg.base64Data, {
+        if (uploadedFile) {
+            const uploadedImg = await cloudinary_1.v2.uploader.upload((0, sharedHelper_1.formatImageFile)(uploadedFile), {
                 folder: 'yarnStocks',
                 public_id: stock.imageId?.replace('yarnStocks/', '') ?? null,
                 overwrite: true,
@@ -73,7 +72,7 @@ class YarnStockServices {
         }
         else {
             // delete image
-            if (inputImg.isUpdated) {
+            if (payload.isImageUpdated) {
                 await cloudinary_1.v2.uploader.destroy(stock.imageId);
                 updatedImg = { id: null, url: null };
             }

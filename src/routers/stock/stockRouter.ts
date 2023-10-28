@@ -106,14 +106,18 @@ stockRouter.post<{}, any, DeleteYarnStockPayload>(
 stockRouter.post<{}, any, UpdateYarnStockPayload>(
   '/update',
   ...[
-    upload.none(),
+    upload.single('image'),
     JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
     ...UpdateStockValidator,
     UpdateYarnStockMiddleware,
   ],
   async (req, res) => {
     const payload = req.body;
-    const response = await yarnStockService.updateYarnStock(payload);
+    const uploadedFile = req.file;
+    const response = await yarnStockService.updateYarnStock(
+      payload,
+      uploadedFile,
+    );
 
     return res.json(response);
   },

@@ -69,13 +69,14 @@ stockRouter.post('/delete', ...[
     return res.json(response);
 });
 stockRouter.post('/update', ...[
-    upload.none(),
+    upload.single('image'),
     (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     ...UpdateStockValidator_1.default,
     UpdateYarnStockMiddleware_1.default,
 ], async (req, res) => {
     const payload = req.body;
-    const response = await yarnStockService.updateYarnStock(payload);
+    const uploadedFile = req.file;
+    const response = await yarnStockService.updateYarnStock(payload, uploadedFile);
     return res.json(response);
 });
 exports.default = stockRouter;

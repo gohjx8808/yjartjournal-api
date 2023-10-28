@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const YarnStockRepository_1 = __importDefault(require("../../../repositories/YarnStockRepository"));
 const UpdateYarnStockMiddleware = async (req, res, next) => {
     const payload = req.body;
+    const uploadedFile = req.file;
     const yarnStockRepository = new YarnStockRepository_1.default();
+    if (uploadedFile && !uploadedFile.mimetype.startsWith('image/')) {
+        return res.status(422).json({ message: 'Please only submit image.' });
+    }
     const dataExist = await yarnStockRepository.getById(payload.yarnId);
     if (!dataExist) {
         return res.status(404).json({ message: 'Invalid yarn id.' });
