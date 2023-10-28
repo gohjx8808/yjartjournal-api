@@ -5,15 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const cloudinary_1 = require("cloudinary");
 const YarnStockRepository_1 = __importDefault(require("../../repositories/YarnStockRepository"));
+const sharedHelper_1 = require("../../helpers/sharedHelper");
 class YarnStockServices {
     yarnStockRepository = new YarnStockRepository_1.default();
-    insertNewYarnStock = async (payload) => {
-        const stockImg = payload.image;
+    insertNewYarnStock = async (payload, uploadedFile) => {
         let uploadedImg = null;
-        if (stockImg) {
-            // uploadedImg = await cloudinary.uploader.upload(stockImg, {
-            //   folder: 'yarnStocks',
-            // });
+        if (uploadedFile) {
+            uploadedImg = await cloudinary_1.v2.uploader.upload((0, sharedHelper_1.formatImageFile)(uploadedFile), {
+                folder: 'yarnStocks',
+            });
         }
         const res = await this.yarnStockRepository.insertNewYarnStock(payload, uploadedImg);
         return res;

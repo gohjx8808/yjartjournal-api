@@ -9,17 +9,23 @@ import {
   UpdateYarnStockPayload,
   UpdatedImageData,
 } from './typings';
+import { formatImageFile } from '../../helpers/sharedHelper';
 
 class YarnStockServices {
   private yarnStockRepository = new YarnStockRepository();
 
-  insertNewYarnStock = async (payload: AddNewYarnStockPayload) => {
-    const stockImg = payload.image;
+  insertNewYarnStock = async (
+    payload: AddNewYarnStockPayload,
+    uploadedFile: Express.Multer.File,
+  ) => {
     let uploadedImg: UploadApiResponse = null;
-    if (stockImg) {
-      // uploadedImg = await cloudinary.uploader.upload(stockImg, {
-      //   folder: 'yarnStocks',
-      // });
+    if (uploadedFile) {
+      uploadedImg = await cloudinary.uploader.upload(
+        formatImageFile(uploadedFile),
+        {
+          folder: 'yarnStocks',
+        },
+      );
     }
     const res = await this.yarnStockRepository.insertNewYarnStock(
       payload,

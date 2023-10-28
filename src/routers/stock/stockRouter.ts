@@ -40,7 +40,11 @@ stockRouter.post<{}, any, AddNewYarnStockPayload>(
   ],
   async (req, res) => {
     const payload = req.body;
-    const response = await yarnStockService.insertNewYarnStock(payload);
+    const uploadedFile = req.file;
+    const response = await yarnStockService.insertNewYarnStock(
+      payload,
+      uploadedFile,
+    );
 
     return res.json(response);
   },
