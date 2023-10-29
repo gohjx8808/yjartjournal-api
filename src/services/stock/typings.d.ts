@@ -44,6 +44,14 @@ export interface StockData {
   reorderLevel: number;
   lastOrderedAt?: Date;
   reorderStatus: 'Reorder' | 'Optimum';
+  yarnStockImages?: StockImage[];
+}
+
+interface StockImage {
+  id: number;
+  cloudinaryId: string;
+  originalName: string;
+  imageUrl: string;
 }
 
 export interface AddNewYarnCategoryPayload {
