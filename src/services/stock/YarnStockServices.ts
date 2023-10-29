@@ -1,4 +1,6 @@
 import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
+import { formatImageFile } from '../../helpers/sharedHelper';
+import YarnStockImageRepository from '../../repositories/YarnStockImageRepository';
 import YarnStockRepository from '../../repositories/YarnStockRepository';
 import {
   AddNewYarnStockPayload,
@@ -7,12 +9,12 @@ import {
   StockData,
   UpdateYarnQuantityPayload,
   UpdateYarnStockPayload,
-  UpdatedImageData,
 } from './typings';
-import { formatImageFile } from '../../helpers/sharedHelper';
 
 class YarnStockServices {
   private yarnStockRepository = new YarnStockRepository();
+
+  private yarnStockImageRepository = new YarnStockImageRepository();
 
   insertNewYarnStock = async (
     payload: AddNewYarnStockPayload,
@@ -27,10 +29,15 @@ class YarnStockServices {
         },
       );
     }
-    const res = await this.yarnStockRepository.insertNewYarnStock(
-      payload,
-      uploadedImg,
-    );
+    const res = await this.yarnStockRepository.insertNewYarnStock(payload);
+    if (uploadedImg) {
+      await this.yarnStockImageRepository.insertNewImage(
+        uploadedImg,
+        uploadedFile.originalname,
+        res.identifiers[0].id,
+      );
+    }
+
     return res;
   };
 
@@ -87,8 +94,9 @@ class YarnStockServices {
 
   deleteYarnStock = async (payload: DeleteYarnStockPayload) => {
     const stock = await this.yarnStockRepository.getById(payload.yarnId);
-    if (stock.imageId) {
-      await cloudinary.uploader.destroy(stock.imageId);
+    for (const image of stock.yarnStockImages) {
+      await cloudinary.uploader.destroy(image.cloudinaryId);
+      await this.yarnStockImageRepository.delete(image.id);
     }
     const response = await this.yarnStockRepository.deleteYarnStock(
       payload.yarnId,
@@ -100,32 +108,47 @@ class YarnStockServices {
     payload: UpdateYarnStockPayload,
     uploadedFile: Express.Multer.File,
   ) => {
-    const stock = await this.yarnStockRepository.getById(payload.yarnId);
-    let updatedImg: UpdatedImageData = {
-      id: stock.imageId ?? null,
-      url: stock.imageUrl ?? null,
-    };
+    const images = await this.yarnStockImageRepository.getByYarnStockId(
+      payload.yarnId,
+    );
+
+    const existingImageId = images[0] ? images[0].cloudinaryId : null;
     if (uploadedFile) {
-      const uploadedImg = await cloudinary.uploader.upload(
-        formatImageFile(uploadedFile),
-        {
-          folder: 'yarnStocks',
-          public_id: stock.imageId?.replace('yarnStocks/', '') ?? null,
-          overwrite: true,
-        },
-      );
-      updatedImg = { id: uploadedImg.public_id, url: uploadedImg.secure_url };
+      if (payload.isImageUpdated) {
+        const uploadedImg = await cloudinary.uploader.upload(
+          formatImageFile(uploadedFile),
+          {
+            folder: 'yarnStocks',
+            public_id: existingImageId?.replace('yarnStocks/', '') ?? null,
+            overwrite: true,
+          },
+        );
+        if (images[0]) {
+          await this.yarnStockImageRepository.update(
+            uploadedImg,
+            uploadedFile.originalname,
+            images[0].id,
+            payload.yarnId,
+          );
+        } else {
+          await this.yarnStockImageRepository.insertNewImage(
+            uploadedImg,
+            uploadedFile.originalname,
+            payload.yarnId,
+          );
+        }
+      }
     } else {
       // delete image
       if (payload.isImageUpdated) {
-        await cloudinary.uploader.destroy(stock.imageId);
-        updatedImg = { id: null, url: null };
+        if (existingImageId) {
+          await cloudinary.uploader.destroy(existingImageId);
+          await this.yarnStockImageRepository.delete(images[0].id);
+        }
       }
     }
-    const response = await this.yarnStockRepository.updateYarnStock(
-      payload,
-      updatedImg,
-    );
+    const response = await this.yarnStockRepository.updateYarnStock(payload);
+
     return response;
   };
 }

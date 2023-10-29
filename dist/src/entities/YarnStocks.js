@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const YarnCategories_1 = __importDefault(require("./YarnCategories"));
 const YarnColorCategories_1 = __importDefault(require("./YarnColorCategories"));
+const YarnStockImages_1 = __importDefault(require("./YarnStockImages"));
 let YarnStocks = class YarnStocks {
     id;
     yarnCategory;
@@ -25,10 +26,9 @@ let YarnStocks = class YarnStocks {
     usedQuantity;
     reorderLevel;
     lastOrderedAt;
-    imageUrl;
-    imageId;
     createdAt;
     updatedAt;
+    yarnStockImages;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
@@ -69,14 +69,6 @@ __decorate([
     __metadata("design:type", Date)
 ], YarnStocks.prototype, "lastOrderedAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'image_url', nullable: true }),
-    __metadata("design:type", String)
-], YarnStocks.prototype, "imageUrl", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ name: 'image_id', nullable: true }),
-    __metadata("design:type", String)
-], YarnStocks.prototype, "imageId", void 0);
-__decorate([
     (0, typeorm_1.CreateDateColumn)({ name: 'created_at', select: false }),
     __metadata("design:type", Date)
 ], YarnStocks.prototype, "createdAt", void 0);
@@ -84,6 +76,10 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', select: false }),
     __metadata("design:type", Date)
 ], YarnStocks.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => YarnStockImages_1.default, (yarnStockImage) => yarnStockImage.yarnStock),
+    __metadata("design:type", Array)
+], YarnStocks.prototype, "yarnStockImages", void 0);
 YarnStocks = __decorate([
     (0, typeorm_1.Entity)()
 ], YarnStocks);

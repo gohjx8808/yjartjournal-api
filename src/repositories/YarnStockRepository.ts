@@ -1,20 +1,15 @@
-import { UploadApiResponse } from 'cloudinary';
 import { Not } from 'typeorm';
 import { manager } from '../dataSource';
 import YarnStocks from '../entities/YarnStocks';
 import {
   AddNewYarnStockPayload,
   UpdateYarnStockPayload,
-  UpdatedImageData,
 } from '../services/stock/typings';
 
 const yarnStockManager = manager.getRepository(YarnStocks);
 
 class YarnStockRepository {
-  insertNewYarnStock = async (
-    payload: AddNewYarnStockPayload,
-    uploadedImg: UploadApiResponse | null,
-  ) =>
+  insertNewYarnStock = async (payload: AddNewYarnStockPayload) =>
     yarnStockManager.insert({
       ...payload,
       yarnCategory: { id: payload.yarnCategoryId },
@@ -22,13 +17,11 @@ class YarnStockRepository {
       costPerItem: payload.cost,
       inStockQuantity: payload.quantity,
       lastOrderedAt: payload.lastOrderedDate,
-      imageUrl: uploadedImg?.secure_url,
-      imageId: uploadedImg?.public_id,
     });
 
   getAll = () =>
     yarnStockManager.find({
-      relations: ['yarnColorCategory', 'yarnCategory'],
+      relations: ['yarnColorCategory', 'yarnCategory', 'yarnStockImages'],
       order: { createdAt: 'DESC' },
     });
 
@@ -42,7 +35,7 @@ class YarnStockRepository {
   getById = (yarnId: number) =>
     yarnStockManager.findOne({
       where: { id: yarnId },
-      relations: ['yarnColorCategory', 'yarnCategory'],
+      relations: ['yarnColorCategory', 'yarnCategory', 'yarnStockImages'],
     });
 
   getByCategoryIdColorCategoryIdName = (
@@ -70,10 +63,7 @@ class YarnStockRepository {
 
   deleteYarnStock = (yarnId: number) => yarnStockManager.delete({ id: yarnId });
 
-  updateYarnStock = (
-    payload: UpdateYarnStockPayload,
-    updatedImg: UpdatedImageData,
-  ) =>
+  updateYarnStock = (payload: UpdateYarnStockPayload) =>
     yarnStockManager.update(
       { id: payload.yarnId },
       {
@@ -83,8 +73,6 @@ class YarnStockRepository {
         costPerItem: payload.cost,
         reorderLevel: payload.reorderLevel,
         lastOrderedAt: payload.lastOrderedDate,
-        imageId: updatedImg.id,
-        imageUrl: updatedImg.url,
       },
     );
 }

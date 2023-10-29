@@ -26,6 +26,7 @@ const YarnStocks_1 = __importDefault(require("./entities/YarnStocks"));
 const Roles_1 = __importDefault(require("./entities/Roles"));
 const UserRoles_1 = __importDefault(require("./entities/UserRoles"));
 const _1687096310531_SeedRoles_1 = require("../migrations/1687096310531-SeedRoles");
+const YarnStockImages_1 = __importDefault(require("./entities/YarnStockImages"));
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
     // url:'postgres://avnadmin:AVNS_pbdKboPQuSMw7SUjGNq@pg-2ea2107d-yjartjournal.aivencloud.com:27376/defaultdb?sslmode=require',
@@ -50,6 +51,7 @@ exports.dataSource = new typeorm_1.DataSource({
         YarnColorCategories_1.default,
         Roles_1.default,
         UserRoles_1.default,
+        YarnStockImages_1.default,
     ],
     migrations: [
         _1672062650913_SeedSortOptions_1.SeedSortOptions1672062650913,

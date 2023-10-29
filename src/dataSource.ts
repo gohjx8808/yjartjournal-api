@@ -20,6 +20,7 @@ import YarnStocks from './entities/YarnStocks';
 import Roles from './entities/Roles';
 import UserRoles from './entities/UserRoles';
 import { SeedRoles1687096310531 } from '../migrations/1687096310531-SeedRoles';
+import YarnStockImages from './entities/YarnStockImages';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -45,6 +46,7 @@ export const dataSource = new DataSource({
     YarnColorCategories,
     Roles,
     UserRoles,
+    YarnStockImages,
   ],
   migrations: [
     SeedSortOptions1672062650913,

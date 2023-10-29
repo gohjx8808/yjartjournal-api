@@ -4,11 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import YarnCategories from './YarnCategories';
 import YarnColorCategories from './YarnColorCategories';
+import YarnStockImages from './YarnStockImages';
 
 @Entity()
 class YarnStocks {
@@ -44,17 +46,17 @@ class YarnStocks {
   @Column({ name: 'last_ordered_at', type: 'date', nullable: true })
     lastOrderedAt?: Date;
 
-  @Column({ name: 'image_url', nullable: true })
-    imageUrl?: string;
-
-  @Column({ name: 'image_id', nullable: true })
-    imageId?: string;
-
   @CreateDateColumn({ name: 'created_at', select: false })
     createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', select: false })
     updatedAt: Date;
+
+  @OneToMany(
+    () => YarnStockImages,
+    (yarnStockImage) => yarnStockImage.yarnStock,
+  )
+    yarnStockImages?: YarnStockImages[];
 }
 
 export default YarnStocks;

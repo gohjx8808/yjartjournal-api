@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cloudinary_1 = require("cloudinary");
-const YarnStockRepository_1 = __importDefault(require("../../repositories/YarnStockRepository"));
 const sharedHelper_1 = require("../../helpers/sharedHelper");
+const YarnStockImageRepository_1 = __importDefault(require("../../repositories/YarnStockImageRepository"));
+const YarnStockRepository_1 = __importDefault(require("../../repositories/YarnStockRepository"));
 class YarnStockServices {
     yarnStockRepository = new YarnStockRepository_1.default();
+    yarnStockImageRepository = new YarnStockImageRepository_1.default();
     insertNewYarnStock = async (payload, uploadedFile) => {
         let uploadedImg = null;
         if (uploadedFile) {
@@ -15,7 +17,10 @@ class YarnStockServices {
                 folder: 'yarnStocks',
             });
         }
-        const res = await this.yarnStockRepository.insertNewYarnStock(payload, uploadedImg);
+        const res = await this.yarnStockRepository.insertNewYarnStock(payload);
+        if (uploadedImg) {
+            await this.yarnStockImageRepository.insertNewImage(uploadedImg, uploadedFile.originalname, res.identifiers[0].id);
+        }
         return res;
     };
     getAllYarnStock = async (payload) => {
@@ -50,34 +55,41 @@ class YarnStockServices {
     };
     deleteYarnStock = async (payload) => {
         const stock = await this.yarnStockRepository.getById(payload.yarnId);
-        if (stock.imageId) {
-            await cloudinary_1.v2.uploader.destroy(stock.imageId);
+        for (const image of stock.yarnStockImages) {
+            await cloudinary_1.v2.uploader.destroy(image.cloudinaryId);
+            await this.yarnStockImageRepository.delete(image.id);
         }
         const response = await this.yarnStockRepository.deleteYarnStock(payload.yarnId);
         return response;
     };
     updateYarnStock = async (payload, uploadedFile) => {
-        const stock = await this.yarnStockRepository.getById(payload.yarnId);
-        let updatedImg = {
-            id: stock.imageId ?? null,
-            url: stock.imageUrl ?? null,
-        };
+        const images = await this.yarnStockImageRepository.getByYarnStockId(payload.yarnId);
+        const existingImageId = images[0] ? images[0].cloudinaryId : null;
         if (uploadedFile) {
-            const uploadedImg = await cloudinary_1.v2.uploader.upload((0, sharedHelper_1.formatImageFile)(uploadedFile), {
-                folder: 'yarnStocks',
-                public_id: stock.imageId?.replace('yarnStocks/', '') ?? null,
-                overwrite: true,
-            });
-            updatedImg = { id: uploadedImg.public_id, url: uploadedImg.secure_url };
+            if (payload.isImageUpdated) {
+                const uploadedImg = await cloudinary_1.v2.uploader.upload((0, sharedHelper_1.formatImageFile)(uploadedFile), {
+                    folder: 'yarnStocks',
+                    public_id: existingImageId?.replace('yarnStocks/', '') ?? null,
+                    overwrite: true,
+                });
+                if (images[0]) {
+                    await this.yarnStockImageRepository.update(uploadedImg, uploadedFile.originalname, images[0].id, payload.yarnId);
+                }
+                else {
+                    await this.yarnStockImageRepository.insertNewImage(uploadedImg, uploadedFile.originalname, payload.yarnId);
+                }
+            }
         }
         else {
             // delete image
             if (payload.isImageUpdated) {
-                await cloudinary_1.v2.uploader.destroy(stock.imageId);
-                updatedImg = { id: null, url: null };
+                if (existingImageId) {
+                    await cloudinary_1.v2.uploader.destroy(existingImageId);
+                    await this.yarnStockImageRepository.delete(images[0].id);
+                }
             }
         }
-        const response = await this.yarnStockRepository.updateYarnStock(payload, updatedImg);
+        const response = await this.yarnStockRepository.updateYarnStock(payload);
         return response;
     };
 }
