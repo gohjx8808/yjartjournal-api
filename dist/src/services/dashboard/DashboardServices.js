@@ -16,8 +16,16 @@ class DashboardServices {
         const yarnColorCategories = await this.yarnColorCategoryRepository.getAll();
         const totalYarn = 0;
         const totalReorderYarn = 0;
-        const categoryChart = [];
-        const colorCategoryChart = [];
+        let categoryChart = {
+            id: [],
+            value: [],
+            name: [],
+        };
+        let colorCategoryChart = {
+            id: [],
+            value: [],
+            name: [],
+        };
         const yarnStockOverview = yarnStocks.reduce((accumulator, stock) => {
             accumulator.totalYarn += 1;
             accumulator.categoryChart = this.formatChartData(accumulator.categoryChart, stock.yarnCategory);
@@ -39,23 +47,14 @@ class DashboardServices {
         };
     };
     formatChartData(chart, compareData) {
-        const targetIndex = chart.findIndex((arr) => arr.id === compareData.id);
-        if (targetIndex !== -1) {
-            const target = chart[targetIndex];
-            chart[targetIndex] = {
-                ...target,
-                value: target.value + 1,
-            };
+        const targetIndex = chart.id.findIndex((arr) => arr === compareData.id);
+        if (targetIndex === -1) {
+            chart.id.push(compareData.id);
+            chart.name.push(compareData.name);
+            chart.value.push(1);
         }
         else {
-            let formattedName = compareData.name.replaceAll(' ', '\n');
-            const sliceIndex = formattedName.indexOf('/');
-            formattedName = `${formattedName.substring(0, sliceIndex + 1)}\n${formattedName.substring(sliceIndex + 1)}`;
-            chart.push({
-                id: compareData.id,
-                value: 1,
-                name: formattedName,
-            });
+            chart.value[targetIndex] += 1;
         }
         return chart;
     }

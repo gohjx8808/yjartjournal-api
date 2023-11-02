@@ -19,8 +19,16 @@ class DashboardServices {
 
     const totalYarn = 0;
     const totalReorderYarn = 0;
-    const categoryChart: ChartData[] = [];
-    const colorCategoryChart: ChartData[] = [];
+    let categoryChart: ChartData = {
+      id: [],
+      value: [],
+      name: [],
+    };
+    let colorCategoryChart: ChartData = {
+      id: [],
+      value: [],
+      name: [],
+    };
 
     const yarnStockOverview = yarnStocks.reduce(
       (accumulator, stock) => {
@@ -57,29 +65,17 @@ class DashboardServices {
   };
 
   private formatChartData(
-    chart: ChartData[],
+    chart: ChartData,
     compareData: YarnCategories | YarnColorCategories,
   ) {
-    const targetIndex = chart.findIndex((arr) => arr.id === compareData.id);
+    const targetIndex = chart.id.findIndex((arr) => arr === compareData.id);
 
-    if (targetIndex !== -1) {
-      const target = chart[targetIndex];
-      chart[targetIndex] = {
-        ...target,
-        value: target.value + 1,
-      };
+    if (targetIndex === -1) {
+      chart.id.push(compareData.id);
+      chart.name.push(compareData.name);
+      chart.value.push(1);
     } else {
-      let formattedName = compareData.name.replaceAll(' ', '\n');
-      const sliceIndex = formattedName.indexOf('/');
-      formattedName = `${formattedName.substring(
-        0,
-        sliceIndex + 1,
-      )}\n${formattedName.substring(sliceIndex + 1)}`;
-      chart.push({
-        id: compareData.id,
-        value: 1,
-        name: formattedName,
-      });
+      chart.value[targetIndex] += 1;
     }
 
     return chart;
