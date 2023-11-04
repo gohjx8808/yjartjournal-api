@@ -1,9 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const userRepository_1 = require("../repositories/userRepository");
+const UserRepositorya_1 = __importDefault(require("../repositories/UserRepositorya"));
 const SignUpMiddleware = () => async (req, res, next) => {
+    const userRepository = new UserRepositorya_1.default();
     const payload = req.body;
-    const userExist = await (0, userRepository_1.getUserByEmail)(payload.email);
+    const userExist = await userRepository.getUserByEmail(payload.email);
     if (userExist) {
         return res.status(422).json({
             message: 'The provided email is already in use by an existing user. ' +

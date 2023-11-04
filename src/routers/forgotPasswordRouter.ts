@@ -5,17 +5,16 @@ import ResetPasswordMiddleware from '../middlewares/forgotPassword/ResetPassword
 import ForgotPasswordValidator from '../requestValidators/forgotPassword/ForgotPasswordValidator';
 import ResetPasswordValidator from '../requestValidators/forgotPassword/ResetPasswordValidator';
 import {
-  performForgotPasswordOperation,
-  resetUserPassword,
-} from '../services/forgotPassword/forgotPasswordServices';
-import {
   ForgotPasswordPayload,
   ResetPasswordPayload,
 } from '../services/forgotPassword/typings';
+import ForgotPasswordServices from '../services/forgotPassword/ForgotPasswordServicesa';
 
 const upload = multer();
 
 const forgotPasswordRouter = Router();
+
+const forgotPasswordServices = new ForgotPasswordServices();
 
 forgotPasswordRouter.post<{}, any, ForgotPasswordPayload>(
   '/',
@@ -23,7 +22,7 @@ forgotPasswordRouter.post<{}, any, ForgotPasswordPayload>(
   async (req, res) => {
     const payload = req.body;
 
-    await performForgotPasswordOperation(payload.email);
+    await forgotPasswordServices.performForgotPasswordOperation(payload.email);
 
     return res.json({ message: 'Reset password email sent.' });
   },
@@ -35,7 +34,7 @@ forgotPasswordRouter.post<{}, any, ResetPasswordPayload>(
   async (req, res) => {
     const payload = req.body;
 
-    await resetUserPassword(payload);
+    await forgotPasswordServices.resetUserPassword(payload);
 
     return res.json({
       message:

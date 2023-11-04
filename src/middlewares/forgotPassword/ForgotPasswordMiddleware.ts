@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { getUserByEmail } from '../../repositories/userRepository';
+import UserRepository from '../../repositories/UserRepositorya';
 import { ForgotPasswordPayload } from '../../services/forgotPassword/typings';
 
 const ForgotPasswordMiddleware =
@@ -9,9 +9,10 @@ const ForgotPasswordMiddleware =
       res: Response,
       next: NextFunction,
     ) => {
+      const userRepository = new UserRepository();
       const payload = req.body;
 
-      const userDetails = await getUserByEmail(payload.email);
+      const userDetails = await userRepository.getUserByEmail(payload.email);
 
       if (userDetails) {
         return next();

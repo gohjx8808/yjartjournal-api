@@ -13,9 +13,10 @@ const promoCodeRepository_1 = require("../repositories/promoCodeRepository");
 const CalculateShippingFeeValidator_1 = __importDefault(require("../requestValidators/order/CalculateShippingFeeValidator"));
 const CheckoutValidator_1 = __importDefault(require("../requestValidators/order/CheckoutValidator"));
 const VerifyPromoCodeValidator_1 = __importDefault(require("../requestValidators/order/VerifyPromoCodeValidator"));
-const orderServices_1 = require("../services/order/orderServices");
+const OrderServicesa_1 = __importDefault(require("../services/order/OrderServicesa"));
 const upload = (0, multer_1.default)();
 const orderRouter = (0, express_1.Router)();
+const orderServices = new OrderServicesa_1.default();
 orderRouter.post('/verify-promo-code', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),
@@ -28,7 +29,7 @@ orderRouter.post('/verify-promo-code', ...[
 });
 orderRouter.post('/calculate-shipping-fee', ...[upload.none(), ...CalculateShippingFeeValidator_1.default], (req, res) => {
     const payload = req.body;
-    const response = (0, orderServices_1.calculateShippingFee)(payload);
+    const response = orderServices.calculateShippingFee(payload);
     return res.json({ data: { shippingFee: response } });
 });
 orderRouter.post('/checkout', ...[
@@ -39,7 +40,7 @@ orderRouter.post('/checkout', ...[
 ], async (req, res) => {
     const payload = req.body;
     const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
-    const response = await (0, orderServices_1.checkout)(payload, user);
+    const response = await orderServices.checkout(payload, user);
     return res.json({ data: response });
 });
 exports.default = orderRouter;

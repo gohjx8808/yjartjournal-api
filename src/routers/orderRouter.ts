@@ -8,10 +8,7 @@ import { getPromoCodeByName } from '../repositories/promoCodeRepository';
 import CalculateShippingFeeValidator from '../requestValidators/order/CalculateShippingFeeValidator';
 import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
 import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
-import {
-  calculateShippingFee,
-  checkout,
-} from '../services/order/orderServices';
+import OrderServices from '../services/order/OrderServicesa';
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,
@@ -22,6 +19,8 @@ import { CustomAuthenticatedRequest } from '../typings';
 const upload = multer();
 
 const orderRouter = Router();
+
+const orderServices = new OrderServices();
 
 orderRouter.post<{}, any, VerifyPromoCodePayload>(
   '/verify-promo-code',
@@ -45,7 +44,7 @@ orderRouter.post<{}, any, CalculateShippingFeePayload>(
   (req, res) => {
     const payload = req.body;
 
-    const response = calculateShippingFee(payload);
+    const response = orderServices.calculateShippingFee(payload);
 
     return res.json({ data: { shippingFee: response } });
   },
@@ -63,7 +62,7 @@ orderRouter.post<{}, any, CheckoutPayload>(
     const payload = req.body;
     const user = typeAuthenticatedUser(req);
 
-    const response = await checkout(payload, user);
+    const response = await orderServices.checkout(payload, user);
 
     return res.json({ data: response });
   },

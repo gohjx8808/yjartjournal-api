@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import { AssignableRoles } from '../entities/Roles';
 import { decrypt } from '../helpers/cryptoHelper';
 import RoleRepository from '../repositories/RoleRepository';
+import UserRepository from '../repositories/UserRepositorya';
 import UserRolesRepository from '../repositories/UserRolesRepository';
-import { getUserByEmail } from '../repositories/userRepository';
 import { SignInPayload } from '../services/user/typings';
-import { AssignableRoles } from '../entities/Roles';
 
 const SignInMiddleware =
   () =>
@@ -15,10 +15,11 @@ const SignInMiddleware =
     ) => {
       const userRoleRepository = new UserRolesRepository();
       const roleRepository = new RoleRepository();
+      const userRepository = new UserRepository();
 
       const payload = req.body;
 
-      const user = await getUserByEmail(payload.email);
+      const user = await userRepository.getUserByEmail(payload.email);
 
       if (!user) {
         return res.status(401).json({ message: 'User does not exist!' });
