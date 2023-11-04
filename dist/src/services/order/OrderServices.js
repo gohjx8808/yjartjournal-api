@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sgMail_1 = require("../../mail/sgMail");
-const UserRepositorya_1 = __importDefault(require("../../repositories/UserRepositorya"));
+const UserRepository_1 = __importDefault(require("../../repositories/UserRepository"));
 const addressRepository_1 = require("../../repositories/addressRepository");
 const checkoutItemRepository_1 = require("../../repositories/checkoutItemRepository");
 const orderRepository_1 = require("../../repositories/orderRepository");
 const promoCodeRepository_1 = require("../../repositories/promoCodeRepository");
 const addressServices_1 = require("../address/addressServices");
 class OrderServices {
-    userRepository = new UserRepositorya_1.default();
+    userRepository = new UserRepository_1.default();
     calculateShippingFee = (payload) => {
         const stateId = payload.state.id;
         const totalAmount = payload.totalAmount;
@@ -143,4 +143,4 @@ class OrderServices {
     };
 }
 exports.default = OrderServices;
-//# sourceMappingURL=OrderServicesa.js.map
+//# sourceMappingURL=OrderServices.js.map

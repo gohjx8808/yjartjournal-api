@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import UserRepository from '../repositories/UserRepositorya';
+import UserRepository from '../repositories/UserRepository';
 import { SignUpPayload } from '../services/user/typings';
 
 const SignUpMiddleware =

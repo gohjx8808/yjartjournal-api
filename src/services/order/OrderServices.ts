@@ -1,6 +1,6 @@
 import { MailDataRequired } from '@sendgrid/mail';
 import { sendEmail } from '../../mail/sgMail';
-import UserRepository from '../../repositories/UserRepositorya';
+import UserRepository from '../../repositories/UserRepository';
 import {
   getAddressById,
   insertNewAddress,

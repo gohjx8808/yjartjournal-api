@@ -1,7 +1,7 @@
 import { sign } from 'jsonwebtoken';
 import { AssignableRoles } from '../../entities/Roles';
 import { encrypt } from '../../helpers/cryptoHelper';
-import UserRepository from '../../repositories/UserRepositorya';
+import UserRepository from '../../repositories/UserRepository';
 import UserRolesRepository from '../../repositories/UserRolesRepository';
 import { SignInPayload, SignUpPayload } from './typings';
 

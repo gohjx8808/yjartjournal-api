@@ -5,7 +5,7 @@ import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import UpdateAccountValidator from '../requestValidators/UpdateAccountValidator';
 import { UpdateAccountPayload } from '../services/account/typings';
 import { CustomAuthenticatedRequest } from '../typings';
-import AccountServices from '../services/account/AccountServicesa';
+import AccountServices from '../services/account/AccountServices';
 
 const upload = multer();
 

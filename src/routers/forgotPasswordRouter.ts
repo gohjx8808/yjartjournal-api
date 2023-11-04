@@ -8,7 +8,7 @@ import {
   ForgotPasswordPayload,
   ResetPasswordPayload,
 } from '../services/forgotPassword/typings';
-import ForgotPasswordServices from '../services/forgotPassword/ForgotPasswordServicesa';
+import ForgotPasswordServices from '../services/forgotPassword/ForgotPasswordServices';
 
 const upload = multer();
 

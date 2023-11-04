@@ -1,4 +1,4 @@
-import UserRepository from '../../repositories/UserRepositorya';
+import UserRepository from '../../repositories/UserRepository';
 import { UpdateAccountPayload } from './typings';
 
 export default class AccountServices {

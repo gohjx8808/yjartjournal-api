@@ -4,7 +4,7 @@ import SignInMiddleware from '../middlewares/SignInMiddleware';
 import SignUpMiddleware from '../middlewares/SignUpMiddleware';
 import SignInValidator from '../requestValidators/user/SignInValidator';
 import SignUpValidator from '../requestValidators/user/SignUpValidator';
-import UserServices from '../services/user/UserServicesa';
+import UserServices from '../services/user/UserServices';
 import { SignInPayload, SignUpPayload } from '../services/user/typings';
 
 const upload = multer();

@@ -8,7 +8,7 @@ import { getPromoCodeByName } from '../repositories/promoCodeRepository';
 import CalculateShippingFeeValidator from '../requestValidators/order/CalculateShippingFeeValidator';
 import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
 import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
-import OrderServices from '../services/order/OrderServicesa';
+import OrderServices from '../services/order/OrderServices';
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,

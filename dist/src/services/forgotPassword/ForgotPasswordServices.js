@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("crypto");
 const sgMail_1 = require("../../mail/sgMail");
-const UserRepositorya_1 = __importDefault(require("../../repositories/UserRepositorya"));
+const UserRepository_1 = __importDefault(require("../../repositories/UserRepository"));
 const forgotPasswordRepository_1 = require("../../repositories/forgotPasswordRepository");
-const UserServicesa_1 = __importDefault(require("../user/UserServicesa"));
+const UserServices_1 = __importDefault(require("../user/UserServices"));
 class ForgotPasswordServices {
-    userRepository = new UserRepositorya_1.default();
-    userServices = new UserServicesa_1.default();
+    userRepository = new UserRepository_1.default();
+    userServices = new UserServices_1.default();
     insertForgotPasswordToken = async (user) => {
         const token = (0, crypto_1.randomBytes)(16).toString('hex');
         const result = await (0, forgotPasswordRepository_1.insertNewResetPasswordToken)(user, token);
@@ -42,4 +42,4 @@ class ForgotPasswordServices {
     };
 }
 exports.default = ForgotPasswordServices;
-//# sourceMappingURL=ForgotPasswordServicesa.js.map
+//# sourceMappingURL=ForgotPasswordServices.js.map

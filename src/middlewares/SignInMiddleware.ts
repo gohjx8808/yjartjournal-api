@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { AssignableRoles } from '../entities/Roles';
 import { decrypt } from '../helpers/cryptoHelper';
 import RoleRepository from '../repositories/RoleRepository';
-import UserRepository from '../repositories/UserRepositorya';
+import UserRepository from '../repositories/UserRepository';
 import UserRolesRepository from '../repositories/UserRolesRepository';
 import { SignInPayload } from '../services/user/typings';
 

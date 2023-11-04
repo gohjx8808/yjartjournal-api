@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserRepositorya_1 = __importDefault(require("../../repositories/UserRepositorya"));
+const UserRepository_1 = __importDefault(require("../../repositories/UserRepository"));
 class AccountServices {
-    userRepository = new UserRepositorya_1.default();
+    userRepository = new UserRepository_1.default();
     getUserAccount(userId) {
         return this.userRepository.getUserById(userId);
     }
@@ -14,4 +14,4 @@ class AccountServices {
     }
 }
 exports.default = AccountServices;
-//# sourceMappingURL=AccountServicesa.js.map
+//# sourceMappingURL=AccountServices.js.map

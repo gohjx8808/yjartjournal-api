@@ -2,13 +2,13 @@ import { MailDataRequired } from '@sendgrid/mail';
 import { randomBytes } from 'crypto';
 import Users from '../../entities/Users';
 import { sendEmail } from '../../mail/sgMail';
-import UserRepository from '../../repositories/UserRepositorya';
+import UserRepository from '../../repositories/UserRepository';
 import {
   getResetPasswordEntryByToken,
   insertNewResetPasswordToken,
   updateResetPasswordTokenUsage,
 } from '../../repositories/forgotPasswordRepository';
-import UserServices from '../user/UserServicesa';
+import UserServices from '../user/UserServices';
 import { ResetPasswordPayload } from './typings';
 
 export default class ForgotPasswordServices {

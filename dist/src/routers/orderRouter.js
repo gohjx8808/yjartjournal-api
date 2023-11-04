@@ -13,10 +13,10 @@ const promoCodeRepository_1 = require("../repositories/promoCodeRepository");
 const CalculateShippingFeeValidator_1 = __importDefault(require("../requestValidators/order/CalculateShippingFeeValidator"));
 const CheckoutValidator_1 = __importDefault(require("../requestValidators/order/CheckoutValidator"));
 const VerifyPromoCodeValidator_1 = __importDefault(require("../requestValidators/order/VerifyPromoCodeValidator"));
-const OrderServicesa_1 = __importDefault(require("../services/order/OrderServicesa"));
+const OrderServices_1 = __importDefault(require("../services/order/OrderServices"));
 const upload = (0, multer_1.default)();
 const orderRouter = (0, express_1.Router)();
-const orderServices = new OrderServicesa_1.default();
+const orderServices = new OrderServices_1.default();
 orderRouter.post('/verify-promo-code', ...[
     upload.none(),
     (0, JwtAuthMiddleware_1.default)(),

@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Roles_1 = require("../entities/Roles");
 const cryptoHelper_1 = require("../helpers/cryptoHelper");
 const RoleRepository_1 = __importDefault(require("../repositories/RoleRepository"));
-const UserRepositorya_1 = __importDefault(require("../repositories/UserRepositorya"));
+const UserRepository_1 = __importDefault(require("../repositories/UserRepository"));
 const UserRolesRepository_1 = __importDefault(require("../repositories/UserRolesRepository"));
 const SignInMiddleware = () => async (req, res, next) => {
     const userRoleRepository = new UserRolesRepository_1.default();
     const roleRepository = new RoleRepository_1.default();
-    const userRepository = new UserRepositorya_1.default();
+    const userRepository = new UserRepository_1.default();
     const payload = req.body;
     const user = await userRepository.getUserByEmail(payload.email);
     if (!user) {
