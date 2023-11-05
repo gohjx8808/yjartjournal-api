@@ -9,7 +9,7 @@ import { getStateList } from '../repositories/stateRepository';
 import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
 import DeleteAddressValidator from '../requestValidators/address/DeleteAddressValidator';
 import UpdateAddressValidator from '../requestValidators/address/UpdateAddressValidator';
-import AddressServices from '../services/address/AddressServicesa';
+import AddressServices from '../services/address/AddressServices';
 import {
   AddAddressPayload,
   DeleteAddressPayload,

@@ -1,4 +1,4 @@
-import AddressRepository from '../../repositories/AddressRepositorya';
+import AddressRepository from '../../repositories/AddressRepository';
 import {
   AddAddressPayload,
   DeleteAddressPayload,

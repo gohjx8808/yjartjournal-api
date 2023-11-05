@@ -1,13 +1,13 @@
 import { MailDataRequired } from '@sendgrid/mail';
 import { sendEmail } from '../../mail/sgMail';
+import AddressRepository from '../../repositories/AddressRepository';
 import UserRepository from '../../repositories/UserRepository';
 import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository';
 import { insertNewOrder } from '../../repositories/orderRepository';
 import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 import { OptionData } from '../../typings';
+import AddressServices from '../address/AddressServices';
 import { AuthenticatedUserData } from '../user/typings';
-import AddressServices from '../address/AddressServicesa';
-import AddressRepository from '../../repositories/AddressRepositorya';
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,

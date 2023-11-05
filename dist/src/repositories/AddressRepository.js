@@ -75,4 +75,4 @@ class AddressRepository {
     getAddressById = (addressId) => exports.addressManager.findOne({ where: { id: addressId }, relations: ['state'] });
 }
 exports.default = AddressRepository;
-//# sourceMappingURL=AddressRepositorya.js.map
+//# sourceMappingURL=AddressRepository.js.map

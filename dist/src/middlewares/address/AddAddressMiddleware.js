@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sharedHelper_1 = require("../../helpers/sharedHelper");
-const AddressServicesa_1 = __importDefault(require("../../services/address/AddressServicesa"));
+const AddressServices_1 = __importDefault(require("../../services/address/AddressServices"));
 const AddAddressMiddleware = () => async (req, res, next) => {
-    const addressServices = new AddressServicesa_1.default();
+    const addressServices = new AddressServices_1.default();
     const payload = req.body;
     const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     if (payload.tag) {

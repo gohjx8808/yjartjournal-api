@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express';
 import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
+import AddressServices from '../../services/address/AddressServices';
 import { UpdateAddressPayload } from '../../services/address/typings';
 import { CustomAuthenticatedRequest } from '../../typings';
-import AddressServices from '../../services/address/AddressServicesa';
 
 const UpdateAddressMiddleware =
   () =>

@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const AddressRepositorya_1 = __importDefault(require("../../repositories/AddressRepositorya"));
+const AddressRepository_1 = __importDefault(require("../../repositories/AddressRepository"));
 class AddressServices {
-    addressRepository = new AddressRepositorya_1.default();
+    addressRepository = new AddressRepository_1.default();
     validateTag = (tag) => {
         if (tag !== 'Work' && tag !== 'Home') {
             return false;
@@ -50,4 +50,4 @@ class AddressServices {
     deleteAddress = (payload) => this.addressRepository.deleteAddressById(payload.addressId);
 }
 exports.default = AddressServices;
-//# sourceMappingURL=AddressServicesa.js.map
+//# sourceMappingURL=AddressServices.js.map

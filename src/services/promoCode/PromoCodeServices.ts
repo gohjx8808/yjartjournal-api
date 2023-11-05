@@ -1,6 +1,6 @@
 import PromoCodes from '../../entities/PromoCodes';
 import { getOrderByAddressPromoCodeUsed } from '../../repositories/orderRepository';
-import AddressServices from '../address/AddressServicesa';
+import AddressServices from '../address/AddressServices';
 
 export default class PromoCodeServices {
   private addressServices = new AddressServices();

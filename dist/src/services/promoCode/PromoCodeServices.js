@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const orderRepository_1 = require("../../repositories/orderRepository");
-const AddressServicesa_1 = __importDefault(require("../address/AddressServicesa"));
+const AddressServices_1 = __importDefault(require("../address/AddressServices"));
 class PromoCodeServices {
-    addressServices = new AddressServicesa_1.default();
+    addressServices = new AddressServices_1.default();
     validatePromoCode = async (promoCode, userId) => {
         if (!promoCode) {
             return { success: false, message: 'Invalid promo code.' };
@@ -31,4 +31,4 @@ class PromoCodeServices {
     };
 }
 exports.default = PromoCodeServices;
-//# sourceMappingURL=PromoCodeServicesa.js.map
+//# sourceMappingURL=PromoCodeServices.js.map

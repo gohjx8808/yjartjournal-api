@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
 import { getPromoCodeByName } from '../../repositories/promoCodeRepository';
 import { VerifyPromoCodePayload } from '../../services/order/typings';
-import PromoCodeServices from '../../services/promoCode/PromoCodeServicesa';
+import PromoCodeServices from '../../services/promoCode/PromoCodeServices';
 import { CustomAuthenticatedRequest } from '../../typings';
 
 const VerifyPromoCodeMiddleware =
