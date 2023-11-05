@@ -31,6 +31,10 @@ class UserRepository {
     updatePasswordByUserId = async (userId, newEncryptedPassword) => {
         await userManager.update({ id: userId }, { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv });
     };
+    getAll = () => userManager.find({
+        relations: ['userRoles.role', 'addresses'],
+        order: { id: 'DESC' },
+    });
 }
 exports.default = UserRepository;
 //# sourceMappingURL=UserRepository.js.map

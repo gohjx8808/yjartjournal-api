@@ -26,6 +26,13 @@ class UserServices {
         const encryptedNewPassword = (0, cryptoHelper_1.encrypt)(newPassword);
         await this.userRepository.updatePasswordByUserId(userId, encryptedNewPassword);
     };
+    getAll = async () => {
+        const users = (await this.userRepository.getAll()).map((user) => ({
+            ...user,
+            gender: user.gender === 'M' ? 'Male' : 'Female',
+        }));
+        return users;
+    };
 }
 exports.default = UserServices;
 //# sourceMappingURL=UserServices.js.map

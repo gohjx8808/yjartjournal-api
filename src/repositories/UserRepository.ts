@@ -47,4 +47,10 @@ export default class UserRepository {
       { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv },
     );
   };
+
+  getAll = () =>
+    userManager.find({
+      relations: ['userRoles.role', 'addresses'],
+      order: { id: 'DESC' },
+    });
 }

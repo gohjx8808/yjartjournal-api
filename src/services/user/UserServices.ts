@@ -45,4 +45,13 @@ export default class UserServices {
       encryptedNewPassword,
     );
   };
+
+  getAll = async () => {
+    const users = (await this.userRepository.getAll()).map((user) => ({
+      ...user,
+      gender: user.gender === 'M' ? 'Male' : 'Female',
+    }));
+
+    return users;
+  };
 }

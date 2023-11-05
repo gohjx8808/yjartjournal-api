@@ -6,6 +6,8 @@ import SignInValidator from '../requestValidators/user/SignInValidator';
 import SignUpValidator from '../requestValidators/user/SignUpValidator';
 import UserServices from '../services/user/UserServices';
 import { SignInPayload, SignUpPayload } from '../services/user/typings';
+import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
+import { AssignableRoles } from '../entities/Roles';
 
 const upload = multer();
 
@@ -31,6 +33,16 @@ userRouter.post<{}, any, SignInPayload>(
     const payload = req.body;
 
     const response = await userServices.generateAccessToken(payload);
+
+    return res.json({ data: response });
+  },
+);
+
+userRouter.get(
+  '/get-all',
+  JwtAuthMiddleware(true, [AssignableRoles.ADMIN, AssignableRoles.ADMIN_VIEW]),
+  async (req, res) => {
+    const response = await userServices.getAll();
 
     return res.json({ data: response });
   },
