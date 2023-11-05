@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
 import { getPromoCodeByName } from '../../repositories/promoCodeRepository';
 import { VerifyPromoCodePayload } from '../../services/order/typings';
-import { validatePromoCode } from '../../services/promoCode/promoCodeServices';
+import PromoCodeServices from '../../services/promoCode/PromoCodeServicesa';
 import { CustomAuthenticatedRequest } from '../../typings';
 
 const VerifyPromoCodeMiddleware =
@@ -12,12 +12,14 @@ const VerifyPromoCodeMiddleware =
       res: Response,
       next: NextFunction,
     ) => {
+      const promoCodeServices = new PromoCodeServices();
+
       const payload = req.body;
       const user = typeAuthenticatedUser(req);
 
       const existingPromoCode = await getPromoCodeByName(payload.promoCode);
 
-      const verificationResult = await validatePromoCode(
+      const verificationResult = await promoCodeServices.validatePromoCode(
         existingPromoCode,
         user.id,
       );

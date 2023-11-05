@@ -1,16 +1,13 @@
 import { MailDataRequired } from '@sendgrid/mail';
 import { sendEmail } from '../../mail/sgMail';
 import UserRepository from '../../repositories/UserRepository';
-import {
-  getAddressById,
-  insertNewAddress,
-} from '../../repositories/addressRepository';
 import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository';
 import { insertNewOrder } from '../../repositories/orderRepository';
 import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 import { OptionData } from '../../typings';
-import { addAddress, isAddressExist } from '../address/addressServices';
 import { AuthenticatedUserData } from '../user/typings';
+import AddressServices from '../address/AddressServicesa';
+import AddressRepository from '../../repositories/AddressRepositorya';
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,
@@ -19,6 +16,10 @@ import {
 
 export default class OrderServices {
   private userRepository = new UserRepository();
+
+  private addressServices = new AddressServices();
+
+  private addressRepository = new AddressRepository();
 
   calculateShippingFee = (payload: CalculateShippingFeePayload) => {
     const stateId = payload.state.id;
@@ -61,14 +62,20 @@ export default class OrderServices {
     };
 
     if (user && payload.addToAddressBook) {
-      const existingSameAddress = await isAddressExist(user.id, addressData);
+      const existingSameAddress = await this.addressServices.isAddressExist(
+        user.id,
+        addressData,
+      );
       if (!existingSameAddress.exist) {
-        addressId = (await addAddress(user.id, addressData)).identifiers[0].id;
+        addressId = (
+          await this.addressServices.addAddress(user.id, addressData)
+        ).identifiers[0].id;
       } else {
         addressId = existingSameAddress.id;
       }
     } else {
-      addressId = (await insertNewAddress(addressData)).identifiers[0].id;
+      addressId = (await this.addressRepository.insertNewAddress(addressData))
+        .identifiers[0].id;
     }
 
     return addressId;
@@ -134,7 +141,9 @@ export default class OrderServices {
       buyerName = userDetails.preferredName || userDetails.name;
     }
 
-    const addressDetails = await getAddressById(addressId);
+    const addressDetails = await this.addressRepository.getAddressById(
+      addressId,
+    );
 
     const formattedProducts = payload.products.map((product) => ({
       ...product,

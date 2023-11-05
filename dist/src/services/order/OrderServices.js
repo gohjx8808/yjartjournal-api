@@ -5,13 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sgMail_1 = require("../../mail/sgMail");
 const UserRepository_1 = __importDefault(require("../../repositories/UserRepository"));
-const addressRepository_1 = require("../../repositories/addressRepository");
 const checkoutItemRepository_1 = require("../../repositories/checkoutItemRepository");
 const orderRepository_1 = require("../../repositories/orderRepository");
 const promoCodeRepository_1 = require("../../repositories/promoCodeRepository");
-const addressServices_1 = require("../address/addressServices");
+const AddressServicesa_1 = __importDefault(require("../address/AddressServicesa"));
+const AddressRepositorya_1 = __importDefault(require("../../repositories/AddressRepositorya"));
 class OrderServices {
     userRepository = new UserRepository_1.default();
+    addressServices = new AddressServicesa_1.default();
+    addressRepository = new AddressRepositorya_1.default();
     calculateShippingFee = (payload) => {
         const stateId = payload.state.id;
         const totalAmount = payload.totalAmount;
@@ -48,16 +50,17 @@ class OrderServices {
             isDefault: false,
         };
         if (user && payload.addToAddressBook) {
-            const existingSameAddress = await (0, addressServices_1.isAddressExist)(user.id, addressData);
+            const existingSameAddress = await this.addressServices.isAddressExist(user.id, addressData);
             if (!existingSameAddress.exist) {
-                addressId = (await (0, addressServices_1.addAddress)(user.id, addressData)).identifiers[0].id;
+                addressId = (await this.addressServices.addAddress(user.id, addressData)).identifiers[0].id;
             }
             else {
                 addressId = existingSameAddress.id;
             }
         }
         else {
-            addressId = (await (0, addressRepository_1.insertNewAddress)(addressData)).identifiers[0].id;
+            addressId = (await this.addressRepository.insertNewAddress(addressData))
+                .identifiers[0].id;
         }
         return addressId;
     };
@@ -100,7 +103,7 @@ class OrderServices {
             const userDetails = await this.userRepository.getUserById(user.id);
             buyerName = userDetails.preferredName || userDetails.name;
         }
-        const addressDetails = await (0, addressRepository_1.getAddressById)(addressId);
+        const addressDetails = await this.addressRepository.getAddressById(addressId);
         const formattedProducts = payload.products.map((product) => ({
             ...product,
             totalPrice: product.totalPrice.toFixed(2),

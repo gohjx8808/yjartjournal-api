@@ -1,20 +1,15 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { typeAuthenticatedUser } from '../helpers/sharedHelper';
+import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import AddAddressMiddleware from '../middlewares/address/AddAddressMiddleware';
 import DeleteAddressMiddleware from '../middlewares/address/DeleteAddressMiddleware';
 import UpdateAddressMiddleware from '../middlewares/address/UpdateAddressMiddleware';
-import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import { getStateList } from '../repositories/stateRepository';
 import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
 import DeleteAddressValidator from '../requestValidators/address/DeleteAddressValidator';
 import UpdateAddressValidator from '../requestValidators/address/UpdateAddressValidator';
-import {
-  addAddress,
-  deleteAddress,
-  getAddressList,
-  updateAddress,
-} from '../services/address/addressServices';
+import AddressServices from '../services/address/AddressServicesa';
 import {
   AddAddressPayload,
   DeleteAddressPayload,
@@ -26,12 +21,14 @@ const upload = multer();
 
 const addressRouter = Router();
 
+const addressServices = new AddressServices();
+
 addressRouter.get(
   '/list',
   JwtAuthMiddleware(),
   async (req: CustomAuthenticatedRequest, res) => {
     const user = typeAuthenticatedUser(req);
-    const response = await getAddressList(user.id);
+    const response = await addressServices.getAddressList(user.id);
 
     return res.json({ data: response });
   },
@@ -55,7 +52,7 @@ addressRouter.post(
     const user = typeAuthenticatedUser(req);
     const payload = req.body;
 
-    const response = await addAddress(user.id, payload);
+    const response = await addressServices.addAddress(user.id, payload);
 
     return res.json(response);
   },
@@ -73,7 +70,7 @@ addressRouter.post(
     const user = typeAuthenticatedUser(req);
     const payload = req.body;
 
-    const response = await updateAddress(user.id, payload);
+    const response = await addressServices.updateAddress(user.id, payload);
 
     return res.json(response);
   },
@@ -90,7 +87,7 @@ addressRouter.post(
   async (req: CustomAuthenticatedRequest<DeleteAddressPayload>, res) => {
     const payload = req.body;
 
-    const response = await deleteAddress(payload);
+    const response = await addressServices.deleteAddress(payload);
 
     return res.json(response);
   },
