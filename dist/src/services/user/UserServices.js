@@ -27,10 +27,14 @@ class UserServices {
         await this.userRepository.updatePasswordByUserId(userId, encryptedNewPassword);
     };
     getAll = async () => {
-        const users = (await this.userRepository.getAll()).map((user) => ({
-            ...user,
-            gender: user.gender === 'M' ? 'Male' : 'Female',
-        }));
+        const users = (await this.userRepository.getAll()).map((user) => {
+            delete user.password;
+            delete user.iv;
+            return {
+                ...user,
+                gender: user.gender === 'M' ? 'Male' : 'Female',
+            };
+        });
         return users;
     };
 }
