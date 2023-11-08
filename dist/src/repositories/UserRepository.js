@@ -31,13 +31,10 @@ class UserRepository {
     updatePasswordByUserId = async (userId, newEncryptedPassword) => {
         await userManager.update({ id: userId }, { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv });
     };
-    getAll = (payload) => {
-        const pagination = payload.pagination;
+    getAll = () => {
         return userManager.find({
             relations: ['userRoles.role', 'addresses'],
             order: { id: 'DESC' },
-            take: pagination.pageSize,
-            skip: (pagination.page - 1) * pagination.pageSize,
         });
     };
 }

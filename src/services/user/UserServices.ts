@@ -47,15 +47,26 @@ export default class UserServices {
   };
 
   getAll = async (payload: GetUserListPayload) => {
-    const users = (await this.userRepository.getAll(payload)).map((user) => {
-      delete user.password;
-      delete user.iv;
-      return {
-        ...user,
-        gender: user.gender === 'M' ? 'Male' : 'Female',
-      };
-    });
+    const pagination = payload.pagination;
 
-    return users;
+    const allUsers = await this.userRepository.getAll();
+    const users = allUsers
+      .slice(
+        pagination.page * pagination.pageSize,
+        pagination.page + 1 * pagination.pageSize,
+      )
+      .map((user) => {
+        delete user.password;
+        delete user.iv;
+        return {
+          ...user,
+          gender: user.gender === 'M' ? 'Male' : 'Female',
+        };
+      });
+
+    return {
+      users,
+      totalFiltered: allUsers.length,
+    };
   };
 }

@@ -1,11 +1,7 @@
 import { manager } from '../dataSource';
 import Users from '../entities/Users';
 import { UpdateAccountPayload } from '../services/account/typings';
-import {
-  EncryptedPassword,
-  GetUserListPayload,
-  SignUpPayload,
-} from '../services/user/typings';
+import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
 
 const userManager = manager.getRepository(Users);
 
@@ -52,13 +48,10 @@ export default class UserRepository {
     );
   };
 
-  getAll = (payload: GetUserListPayload) => {
-    const pagination = payload.pagination;
+  getAll = () => {
     return userManager.find({
       relations: ['userRoles.role', 'addresses'],
       order: { id: 'DESC' },
-      take: pagination.pageSize,
-      skip: (pagination.page - 1) * pagination.pageSize,
     });
   };
 }

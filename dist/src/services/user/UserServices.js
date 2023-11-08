@@ -27,7 +27,11 @@ class UserServices {
         await this.userRepository.updatePasswordByUserId(userId, encryptedNewPassword);
     };
     getAll = async (payload) => {
-        const users = (await this.userRepository.getAll(payload)).map((user) => {
+        const pagination = payload.pagination;
+        const allUsers = await this.userRepository.getAll();
+        const users = allUsers
+            .slice(pagination.page * pagination.pageSize, pagination.page + 1 * pagination.pageSize)
+            .map((user) => {
             delete user.password;
             delete user.iv;
             return {
@@ -35,7 +39,10 @@ class UserServices {
                 gender: user.gender === 'M' ? 'Male' : 'Female',
             };
         });
-        return users;
+        return {
+            users,
+            totalFiltered: allUsers.length,
+        };
     };
 }
 exports.default = UserServices;
