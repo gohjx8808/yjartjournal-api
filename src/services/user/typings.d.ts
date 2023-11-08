@@ -24,3 +24,15 @@ export interface AuthenticatedUserData {
   email: string;
   id: number;
 }
+
+export interface GetUserListPayload {
+  sortBy?: {
+    name: string;
+    order: 'DESC' | 'ASC';
+  };
+  filter?: string;
+  pagination: {
+    pageSize: number;
+    page: number;
+  };
+}

@@ -3,7 +3,7 @@ import { AssignableRoles } from '../../entities/Roles';
 import { encrypt } from '../../helpers/cryptoHelper';
 import UserRepository from '../../repositories/UserRepository';
 import UserRolesRepository from '../../repositories/UserRolesRepository';
-import { SignInPayload, SignUpPayload } from './typings';
+import { GetUserListPayload, SignInPayload, SignUpPayload } from './typings';
 
 export default class UserServices {
   private userRolesRepository = new UserRolesRepository();
@@ -46,8 +46,8 @@ export default class UserServices {
     );
   };
 
-  getAll = async () => {
-    const users = (await this.userRepository.getAll()).map((user) => {
+  getAll = async (payload: GetUserListPayload) => {
+    const users = (await this.userRepository.getAll(payload)).map((user) => {
       delete user.password;
       delete user.iv;
       return {

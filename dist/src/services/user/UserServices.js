@@ -26,8 +26,8 @@ class UserServices {
         const encryptedNewPassword = (0, cryptoHelper_1.encrypt)(newPassword);
         await this.userRepository.updatePasswordByUserId(userId, encryptedNewPassword);
     };
-    getAll = async () => {
-        const users = (await this.userRepository.getAll()).map((user) => {
+    getAll = async (payload) => {
+        const users = (await this.userRepository.getAll(payload)).map((user) => {
             delete user.password;
             delete user.iv;
             return {

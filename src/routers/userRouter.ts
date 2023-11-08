@@ -5,9 +5,14 @@ import SignUpMiddleware from '../middlewares/SignUpMiddleware';
 import SignInValidator from '../requestValidators/user/SignInValidator';
 import SignUpValidator from '../requestValidators/user/SignUpValidator';
 import UserServices from '../services/user/UserServices';
-import { SignInPayload, SignUpPayload } from '../services/user/typings';
+import {
+  GetUserListPayload,
+  SignInPayload,
+  SignUpPayload,
+} from '../services/user/typings';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import { AssignableRoles } from '../entities/Roles';
+import GetUserListValidator from '../requestValidators/user/GetUserListValidator';
 
 const upload = multer();
 
@@ -38,11 +43,18 @@ userRouter.post<{}, any, SignInPayload>(
   },
 );
 
-userRouter.get(
+userRouter.post<{}, any, GetUserListPayload>(
   '/get-all',
-  JwtAuthMiddleware(true, [AssignableRoles.ADMIN, AssignableRoles.ADMIN_VIEW]),
+  ...[
+    ...GetUserListValidator,
+    JwtAuthMiddleware(true, [
+      AssignableRoles.ADMIN,
+      AssignableRoles.ADMIN_VIEW,
+    ]),
+  ],
   async (req, res) => {
-    const response = await userServices.getAll();
+    const payload = req.body;
+    const response = await userServices.getAll(payload);
 
     return res.json({ data: response });
   },
