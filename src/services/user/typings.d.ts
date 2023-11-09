@@ -26,13 +26,20 @@ export interface AuthenticatedUserData {
 }
 
 export interface GetUserListPayload {
-  sortBy?: {
-    name: string;
-    order: 'DESC' | 'ASC';
-  };
+  sortBy?: SortByOption;
   filter?: string;
   pagination: {
     pageSize: number;
     page: number;
   };
+}
+
+export interface SortByOption {
+  name: string;
+  order: 'DESC' | 'ASC' | 'Default';
+}
+
+export interface DbSortByOption {
+  name: string;
+  order: 'DESC' | 'ASC';
 }

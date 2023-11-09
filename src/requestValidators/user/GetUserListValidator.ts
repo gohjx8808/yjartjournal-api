@@ -12,6 +12,12 @@ const GetUserListValidator = customValidator([
     .withMessage('Page is required')
     .isInt()
     .withMessage('Invalid page'),
+  body('sortBy.name').optional().isString().withMessage('Invalid sort by name'),
+  body('sortBy.order')
+    .notEmpty()
+    .withMessage('Sort by order is required')
+    .matches(/^(DESC|ASC|Default)$/)
+    .withMessage('Invalid sort by order'),
 ]);
 
 export default GetUserListValidator;

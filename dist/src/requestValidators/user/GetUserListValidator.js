@@ -16,6 +16,12 @@ const GetUserListValidator = (0, customValidator_1.default)([
         .withMessage('Page is required')
         .isInt()
         .withMessage('Invalid page'),
+    (0, express_validator_1.body)('sortBy.name').optional().isString().withMessage('Invalid sort by name'),
+    (0, express_validator_1.body)('sortBy.order')
+        .notEmpty()
+        .withMessage('Sort by order is required')
+        .matches(/^(DESC|ASC|Default)$/)
+        .withMessage('Invalid sort by order'),
 ]);
 exports.default = GetUserListValidator;
 //# sourceMappingURL=GetUserListValidator.js.map

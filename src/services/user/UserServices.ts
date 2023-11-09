@@ -3,7 +3,12 @@ import { AssignableRoles } from '../../entities/Roles';
 import { encrypt } from '../../helpers/cryptoHelper';
 import UserRepository from '../../repositories/UserRepository';
 import UserRolesRepository from '../../repositories/UserRolesRepository';
-import { GetUserListPayload, SignInPayload, SignUpPayload } from './typings';
+import {
+  DbSortByOption,
+  GetUserListPayload,
+  SignInPayload,
+  SignUpPayload,
+} from './typings';
 
 export default class UserServices {
   private userRolesRepository = new UserRolesRepository();
@@ -48,8 +53,21 @@ export default class UserServices {
 
   getAll = async (payload: GetUserListPayload) => {
     const pagination = payload.pagination;
+    let sorting: DbSortByOption;
 
-    const allUsers = await this.userRepository.getAll();
+    if (payload.sortBy.order === 'Default') {
+      sorting = {
+        name: 'id',
+        order: 'DESC',
+      };
+    } else {
+      sorting = {
+        name: payload.sortBy.name,
+        order: payload.sortBy.order,
+      };
+    }
+
+    const allUsers = await this.userRepository.getAll(sorting);
     const users = allUsers
       .slice(
         pagination.page * pagination.pageSize,

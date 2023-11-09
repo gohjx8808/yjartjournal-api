@@ -1,7 +1,11 @@
 import { manager } from '../dataSource';
 import Users from '../entities/Users';
 import { UpdateAccountPayload } from '../services/account/typings';
-import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
+import {
+  DbSortByOption,
+  EncryptedPassword,
+  SignUpPayload,
+} from '../services/user/typings';
 
 const userManager = manager.getRepository(Users);
 
@@ -48,10 +52,10 @@ export default class UserRepository {
     );
   };
 
-  getAll = () => {
+  getAll = (sorting: DbSortByOption) => {
     return userManager.find({
       relations: ['userRoles.role', 'addresses'],
-      order: { id: 'DESC' },
+      order: { [sorting.name]: sorting.order },
     });
   };
 }

@@ -31,10 +31,10 @@ class UserRepository {
     updatePasswordByUserId = async (userId, newEncryptedPassword) => {
         await userManager.update({ id: userId }, { password: newEncryptedPassword.content, iv: newEncryptedPassword.iv });
     };
-    getAll = () => {
+    getAll = (sorting) => {
         return userManager.find({
             relations: ['userRoles.role', 'addresses'],
-            order: { id: 'DESC' },
+            order: { [sorting.name]: sorting.order },
         });
     };
 }

@@ -28,7 +28,20 @@ class UserServices {
     };
     getAll = async (payload) => {
         const pagination = payload.pagination;
-        const allUsers = await this.userRepository.getAll();
+        let sorting;
+        if (payload.sortBy.order === 'Default') {
+            sorting = {
+                name: 'id',
+                order: 'DESC',
+            };
+        }
+        else {
+            sorting = {
+                name: payload.sortBy.name,
+                order: payload.sortBy.order,
+            };
+        }
+        const allUsers = await this.userRepository.getAll(sorting);
         const users = allUsers
             .slice(pagination.page * pagination.pageSize, pagination.page + 1 * pagination.pageSize)
             .map((user) => {
