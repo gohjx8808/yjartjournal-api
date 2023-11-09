@@ -9,6 +9,7 @@ import {
   SignUpPayload,
   SortByOption,
 } from './typings';
+import Users from '../../entities/Users';
 
 export default class UserServices {
   private userRolesRepository = new UserRolesRepository();
@@ -53,6 +54,7 @@ export default class UserServices {
 
   getAll = async (payload: GetUserListPayload) => {
     const pagination = payload.pagination;
+    const search = payload.filter.toLowerCase();
     let sorting: SortByOption;
 
     if (payload.sortBy.order === '') {
@@ -67,7 +69,11 @@ export default class UserServices {
       };
     }
 
-    const allUsers = await this.userRepository.getAll(sorting);
+    let allUsers = await this.userRepository.getAll(sorting);
+
+    if (search) {
+      allUsers = this.filterUserList(allUsers, search);
+    }
     const users = allUsers
       .slice(
         pagination.page * pagination.pageSize,
@@ -78,7 +84,7 @@ export default class UserServices {
         delete user.iv;
         return {
           ...user,
-          gender: user.gender === 'M' ? 'Male' : 'Female',
+          gender: this.formatGender(user.gender),
         };
       });
 
@@ -87,4 +93,20 @@ export default class UserServices {
       totalFiltered: allUsers.length,
     };
   };
+
+  private formatGender(gender: string) {
+    return gender === 'M' ? 'Male' : 'Female';
+  }
+
+  private filterUserList(userList: Users[], search: string) {
+    return userList.filter(
+      (user) =>
+        user.name.toLowerCase().includes(search) ||
+        user.preferredName.toLowerCase().includes(search) ||
+        user.email.toLowerCase().includes(search) ||
+        this.formatGender(user.gender).toLowerCase().includes(search) ||
+        user.dob.includes(search) ||
+        `${user.countryCode} ${user.phoneNumber}`.includes(search),
+    );
+  }
 }

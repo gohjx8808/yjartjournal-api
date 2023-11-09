@@ -28,6 +28,7 @@ class UserServices {
     };
     getAll = async (payload) => {
         const pagination = payload.pagination;
+        const search = payload.filter.toLowerCase();
         let sorting;
         if (payload.sortBy.order === '') {
             sorting = {
@@ -41,7 +42,10 @@ class UserServices {
                 order: payload.sortBy.order,
             };
         }
-        const allUsers = await this.userRepository.getAll(sorting);
+        let allUsers = await this.userRepository.getAll(sorting);
+        if (search) {
+            allUsers = this.filterUserList(allUsers, search);
+        }
         const users = allUsers
             .slice(pagination.page * pagination.pageSize, pagination.page + 1 * pagination.pageSize)
             .map((user) => {
@@ -49,7 +53,7 @@ class UserServices {
             delete user.iv;
             return {
                 ...user,
-                gender: user.gender === 'M' ? 'Male' : 'Female',
+                gender: this.formatGender(user.gender),
             };
         });
         return {
@@ -57,6 +61,17 @@ class UserServices {
             totalFiltered: allUsers.length,
         };
     };
+    formatGender(gender) {
+        return gender === 'M' ? 'Male' : 'Female';
+    }
+    filterUserList(userList, search) {
+        return userList.filter((user) => user.name.toLowerCase().includes(search) ||
+            user.preferredName.toLowerCase().includes(search) ||
+            user.email.toLowerCase().includes(search) ||
+            this.formatGender(user.gender).toLowerCase().includes(search) ||
+            user.dob.includes(search) ||
+            `${user.countryCode} ${user.phoneNumber}`.includes(search));
+    }
 }
 exports.default = UserServices;
 //# sourceMappingURL=UserServices.js.map
