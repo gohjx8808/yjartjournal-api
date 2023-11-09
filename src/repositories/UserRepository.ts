@@ -2,9 +2,9 @@ import { manager } from '../dataSource';
 import Users from '../entities/Users';
 import { UpdateAccountPayload } from '../services/account/typings';
 import {
-  DbSortByOption,
   EncryptedPassword,
   SignUpPayload,
+  SortByOption,
 } from '../services/user/typings';
 
 const userManager = manager.getRepository(Users);
@@ -52,7 +52,7 @@ export default class UserRepository {
     );
   };
 
-  getAll = (sorting: DbSortByOption) => {
+  getAll = (sorting: SortByOption) => {
     return userManager.find({
       relations: ['userRoles.role', 'addresses'],
       order: { [sorting.name]: sorting.order },

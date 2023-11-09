@@ -29,7 +29,7 @@ class UserServices {
     getAll = async (payload) => {
         const pagination = payload.pagination;
         let sorting;
-        if (payload.sortBy.order === 'Default') {
+        if (payload.sortBy.order === '') {
             sorting = {
                 name: 'id',
                 order: 'DESC',

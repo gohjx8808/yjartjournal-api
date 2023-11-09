@@ -4,10 +4,10 @@ import { encrypt } from '../../helpers/cryptoHelper';
 import UserRepository from '../../repositories/UserRepository';
 import UserRolesRepository from '../../repositories/UserRolesRepository';
 import {
-  DbSortByOption,
   GetUserListPayload,
   SignInPayload,
   SignUpPayload,
+  SortByOption,
 } from './typings';
 
 export default class UserServices {
@@ -53,9 +53,9 @@ export default class UserServices {
 
   getAll = async (payload: GetUserListPayload) => {
     const pagination = payload.pagination;
-    let sorting: DbSortByOption;
+    let sorting: SortByOption;
 
-    if (payload.sortBy.order === 'Default') {
+    if (payload.sortBy.order === '') {
       sorting = {
         name: 'id',
         order: 'DESC',

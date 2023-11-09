@@ -18,9 +18,8 @@ const GetUserListValidator = (0, customValidator_1.default)([
         .withMessage('Invalid page'),
     (0, express_validator_1.body)('sortBy.name').optional().isString().withMessage('Invalid sort by name'),
     (0, express_validator_1.body)('sortBy.order')
-        .notEmpty()
-        .withMessage('Sort by order is required')
-        .matches(/^(DESC|ASC|Default)$/)
+        .optional({ values: 'falsy' })
+        .matches(/^(desc|asc)$/)
         .withMessage('Invalid sort by order'),
 ]);
 exports.default = GetUserListValidator;

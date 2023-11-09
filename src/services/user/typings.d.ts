@@ -36,10 +36,5 @@ export interface GetUserListPayload {
 
 export interface SortByOption {
   name: string;
-  order: 'DESC' | 'ASC' | 'Default';
-}
-
-export interface DbSortByOption {
-  name: string;
-  order: 'DESC' | 'ASC';
+  order: 'DESC' | 'ASC' | '';
 }
