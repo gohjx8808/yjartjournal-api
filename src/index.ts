@@ -11,6 +11,7 @@ import userRouter from './routers/userRouter';
 import { dataSource } from './dataSource';
 import { v2 as cloudinary } from 'cloudinary';
 import dashboardRouter from './routers/dashboardRouter';
+import adminRouter from './routers/admin/adminRouter';
 var cors = require('cors');
 
 cloudinary.config({
@@ -40,21 +41,14 @@ app.get('/', (_req, _res) => {
 });
 
 app.use('/products', productRouter);
-
 app.use('/feedbacks', feedbackRouter);
-
 app.use('/users', userRouter);
-
 app.use('/account', accountRouter);
-
 app.use('/addresses', addressRouter);
-
 app.use('/orders', orderRouter);
-
 app.use('/forgot-password', forgotPasswordRouter);
-
 app.use('/stocks', stockRouter);
-
 app.use('/dashboard', dashboardRouter);
+app.use('/admin', adminRouter);
 
 app.listen(port);

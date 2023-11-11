@@ -16,6 +16,7 @@ const userRouter_1 = __importDefault(require("./routers/userRouter"));
 const dataSource_1 = require("./dataSource");
 const cloudinary_1 = require("cloudinary");
 const dashboardRouter_1 = __importDefault(require("./routers/dashboardRouter"));
+const adminRouter_1 = __importDefault(require("./routers/admin/adminRouter"));
 var cors = require('cors');
 cloudinary_1.v2.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -45,5 +46,6 @@ app.use('/orders', orderRouter_1.default);
 app.use('/forgot-password', forgotPasswordRouter_1.default);
 app.use('/stocks', stockRouter_1.default);
 app.use('/dashboard', dashboardRouter_1.default);
+app.use('/admin', adminRouter_1.default);
 app.listen(port);
 //# sourceMappingURL=index.js.map
