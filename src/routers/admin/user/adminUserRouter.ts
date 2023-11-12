@@ -2,8 +2,8 @@ import { Router } from 'express';
 import { AssignableRoles } from '../../../entities/Roles';
 import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
 import GetUserListValidator from '../../../requestValidators/admin/user/GetUserListValidator';
-import { GetUserListPayload } from '../../../services/user/typings';
 import AdminUserServices from '../../../services/admin/user/AdminUserServices';
+import { GetUserListPayload } from '../../../services/admin/user/typings';
 
 const adminUserRouter = Router();
 

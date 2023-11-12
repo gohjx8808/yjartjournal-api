@@ -1,6 +1,6 @@
 import Users from '../../../entities/Users';
 import UserRepository from '../../../repositories/UserRepository';
-import { GetUserListPayload, SortByOption } from '../../user/typings';
+import { GetUserListPayload, SortByOption } from './typings';
 
 export default class AdminUserServices {
   private userRepository = new UserRepository();

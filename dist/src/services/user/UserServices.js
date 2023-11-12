@@ -26,52 +26,6 @@ class UserServices {
         const encryptedNewPassword = (0, cryptoHelper_1.encrypt)(newPassword);
         await this.userRepository.updatePasswordByUserId(userId, encryptedNewPassword);
     };
-    getAll = async (payload) => {
-        const pagination = payload.pagination;
-        const search = payload.filter.toLowerCase();
-        let sorting;
-        if (payload.sortBy.order === '') {
-            sorting = {
-                name: 'id',
-                order: 'DESC',
-            };
-        }
-        else {
-            sorting = {
-                name: payload.sortBy.name,
-                order: payload.sortBy.order,
-            };
-        }
-        let allUsers = await this.userRepository.getAll(sorting);
-        if (search) {
-            allUsers = this.filterUserList(allUsers, search);
-        }
-        const users = allUsers
-            .slice(pagination.page * pagination.pageSize, pagination.page + 1 * pagination.pageSize)
-            .map((user) => {
-            delete user.password;
-            delete user.iv;
-            return {
-                ...user,
-                gender: this.formatGender(user.gender),
-            };
-        });
-        return {
-            users,
-            totalFiltered: allUsers.length,
-        };
-    };
-    formatGender(gender) {
-        return gender === 'M' ? 'Male' : 'Female';
-    }
-    filterUserList(userList, search) {
-        return userList.filter((user) => user.name.toLowerCase().includes(search) ||
-            user.preferredName.toLowerCase().includes(search) ||
-            user.email.toLowerCase().includes(search) ||
-            this.formatGender(user.gender).toLowerCase().includes(search) ||
-            user.dob.includes(search) ||
-            `${user.countryCode} ${user.phoneNumber}`.includes(search));
-    }
 }
 exports.default = UserServices;
 //# sourceMappingURL=UserServices.js.map

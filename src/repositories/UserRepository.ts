@@ -1,11 +1,8 @@
 import { manager } from '../dataSource';
 import Users from '../entities/Users';
 import { UpdateAccountPayload } from '../services/account/typings';
-import {
-  EncryptedPassword,
-  SignUpPayload,
-  SortByOption,
-} from '../services/user/typings';
+import { SortByOption } from '../services/admin/user/typings';
+import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
 
 const userManager = manager.getRepository(Users);
 
