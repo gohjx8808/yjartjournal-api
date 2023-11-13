@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import UserRepository from '../repositories/UserRepository';
 import { SignUpPayload } from '../services/user/typings';
+import { AddNewUserPayload } from '../services/admin/user/typings';
 
 const UniqueEmailMiddleware =
   () =>
     async (
-      req: Request<{}, any, SignUpPayload>,
+      req: Request<{}, any, SignUpPayload | AddNewUserPayload>,
       res: Response,
       next: NextFunction,
     ) => {

@@ -8,6 +8,7 @@ import {
   GetUserListPayload,
 } from '../../../services/admin/user/typings';
 import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
+import UniqueEmailMiddleware from '../../../middlewares/UniqueEmailMiddleware';
 
 const adminUserRouter = Router();
 
@@ -32,7 +33,11 @@ adminUserRouter.post<{}, any, GetUserListPayload>(
 
 adminUserRouter.post<{}, any, AddNewUserPayload>(
   '/add-new',
-  ...[...AddNewUserValidator, JwtAuthMiddleware(true, [AssignableRoles.ADMIN])],
+  ...[
+    ...AddNewUserValidator,
+    UniqueEmailMiddleware(),
+    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
+  ],
   async (req, res) => {
     const payload = req.body;
     const response = await adminUserServices.addNew(payload);

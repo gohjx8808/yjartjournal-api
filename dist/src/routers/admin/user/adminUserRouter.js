@@ -9,6 +9,7 @@ const JwtAuthMiddleware_1 = __importDefault(require("../../../middlewares/JwtAut
 const GetUserListValidator_1 = __importDefault(require("../../../requestValidators/admin/user/GetUserListValidator"));
 const AdminUserServices_1 = __importDefault(require("../../../services/admin/user/AdminUserServices"));
 const AddNewUserValidator_1 = __importDefault(require("../../../requestValidators/admin/user/AddNewUserValidator"));
+const UniqueEmailMiddleware_1 = __importDefault(require("../../../middlewares/UniqueEmailMiddleware"));
 const adminUserRouter = (0, express_1.Router)();
 const adminUserServices = new AdminUserServices_1.default();
 adminUserRouter.post('/get-all', ...[
@@ -22,7 +23,11 @@ adminUserRouter.post('/get-all', ...[
     const response = await adminUserServices.getAll(payload);
     return res.json({ data: response });
 });
-adminUserRouter.post('/add-new', ...[...AddNewUserValidator_1.default, (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN])], async (req, res) => {
+adminUserRouter.post('/add-new', ...[
+    ...AddNewUserValidator_1.default,
+    (0, UniqueEmailMiddleware_1.default)(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+], async (req, res) => {
     const payload = req.body;
     const response = await adminUserServices.addNew(payload);
     return res.json({ data: response });
