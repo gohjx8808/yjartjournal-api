@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import UserRepository from '../repositories/UserRepository';
 import { SignUpPayload } from '../services/user/typings';
 
-const SignUpMiddleware =
+const UniqueEmailMiddleware =
   () =>
     async (
       req: Request<{}, any, SignUpPayload>,
@@ -16,13 +16,11 @@ const SignUpMiddleware =
 
       if (userExist) {
         return res.status(422).json({
-          message:
-          'The provided email is already in use by an existing user. ' +
-          'Please register using another email or login using the correct credentials.',
+          message: 'Same email exists.',
         });
       }
 
       next();
     };
 
-export default SignUpMiddleware;
+export default UniqueEmailMiddleware;

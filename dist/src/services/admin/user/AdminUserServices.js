@@ -3,9 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cryptoHelper_1 = require("../../../helpers/cryptoHelper");
 const UserRepository_1 = __importDefault(require("../../../repositories/UserRepository"));
+const UserRolesRepository_1 = __importDefault(require("../../../repositories/UserRolesRepository"));
 class AdminUserServices {
     userRepository = new UserRepository_1.default();
+    userRolesRepository = new UserRolesRepository_1.default();
     getAll = async (payload) => {
         const pagination = payload.pagination;
         const search = payload.filter.toLowerCase();
@@ -52,6 +55,14 @@ class AdminUserServices {
             user.dob.includes(search) ||
             `${user.countryCode} ${user.phoneNumber}`.includes(search));
     }
+    addNew = async (payload) => {
+        const encryptedPassword = (0, cryptoHelper_1.encrypt)(process.env.DEFAULT_PASSWORD);
+        const user = await this.userRepository.insertNewUser(payload, encryptedPassword);
+        payload.roleIds.map(async (roleId) => {
+            await this.userRolesRepository.insertNew(user.identifiers[0].id, roleId);
+        });
+        return user;
+    };
 }
 exports.default = AdminUserServices;
 //# sourceMappingURL=AdminUserServices.js.map

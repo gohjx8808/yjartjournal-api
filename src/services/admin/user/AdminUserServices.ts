@@ -1,9 +1,13 @@
 import Users from '../../../entities/Users';
+import { encrypt } from '../../../helpers/cryptoHelper';
 import UserRepository from '../../../repositories/UserRepository';
-import { GetUserListPayload, SortByOption } from './typings';
+import UserRolesRepository from '../../../repositories/UserRolesRepository';
+import { AddNewUserPayload, GetUserListPayload, SortByOption } from './typings';
 
 export default class AdminUserServices {
   private userRepository = new UserRepository();
+
+  private userRolesRepository = new UserRolesRepository();
 
   getAll = async (payload: GetUserListPayload) => {
     const pagination = payload.pagination;
@@ -62,4 +66,19 @@ export default class AdminUserServices {
         `${user.countryCode} ${user.phoneNumber}`.includes(search),
     );
   }
+
+  addNew = async (payload: AddNewUserPayload) => {
+    const encryptedPassword = encrypt(process.env.DEFAULT_PASSWORD);
+
+    const user = await this.userRepository.insertNewUser(
+      payload,
+      encryptedPassword,
+    );
+
+    payload.roleIds.map(async (roleId) => {
+      await this.userRolesRepository.insertNew(user.identifiers[0].id, roleId);
+    });
+
+    return user;
+  };
 }

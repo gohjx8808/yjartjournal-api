@@ -3,7 +3,11 @@ import { AssignableRoles } from '../../../entities/Roles';
 import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
 import GetUserListValidator from '../../../requestValidators/admin/user/GetUserListValidator';
 import AdminUserServices from '../../../services/admin/user/AdminUserServices';
-import { GetUserListPayload } from '../../../services/admin/user/typings';
+import {
+  AddNewUserPayload,
+  GetUserListPayload,
+} from '../../../services/admin/user/typings';
+import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
 
 const adminUserRouter = Router();
 
@@ -21,6 +25,17 @@ adminUserRouter.post<{}, any, GetUserListPayload>(
   async (req, res) => {
     const payload = req.body;
     const response = await adminUserServices.getAll(payload);
+
+    return res.json({ data: response });
+  },
+);
+
+adminUserRouter.post<{}, any, AddNewUserPayload>(
+  '/add-new',
+  ...[...AddNewUserValidator, JwtAuthMiddleware(true, [AssignableRoles.ADMIN])],
+  async (req, res) => {
+    const payload = req.body;
+    const response = await adminUserServices.addNew(payload);
 
     return res.json({ data: response });
   },

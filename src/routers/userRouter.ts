@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import SignInMiddleware from '../middlewares/SignInMiddleware';
-import SignUpMiddleware from '../middlewares/SignUpMiddleware';
+import UniqueEmailMiddleware from '../middlewares/UniqueEmailMiddleware';
 import SignInValidator from '../requestValidators/user/SignInValidator';
 import SignUpValidator from '../requestValidators/user/SignUpValidator';
 import UserServices from '../services/user/UserServices';
@@ -15,7 +15,7 @@ const userServices = new UserServices();
 
 userRouter.post<{}, any, SignUpPayload>(
   '/sign-up',
-  ...[upload.none(), ...SignUpValidator, SignUpMiddleware()],
+  ...[upload.none(), ...SignUpValidator, UniqueEmailMiddleware()],
   async (req, res) => {
     const payload = req.body;
     const response = await userServices.signUpUser(payload);

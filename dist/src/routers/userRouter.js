@@ -6,14 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const SignInMiddleware_1 = __importDefault(require("../middlewares/SignInMiddleware"));
-const SignUpMiddleware_1 = __importDefault(require("../middlewares/SignUpMiddleware"));
+const UniqueEmailMiddleware_1 = __importDefault(require("../middlewares/UniqueEmailMiddleware"));
 const SignInValidator_1 = __importDefault(require("../requestValidators/user/SignInValidator"));
 const SignUpValidator_1 = __importDefault(require("../requestValidators/user/SignUpValidator"));
 const UserServices_1 = __importDefault(require("../services/user/UserServices"));
 const upload = (0, multer_1.default)();
 const userRouter = (0, express_1.Router)();
 const userServices = new UserServices_1.default();
-userRouter.post('/sign-up', ...[upload.none(), ...SignUpValidator_1.default, (0, SignUpMiddleware_1.default)()], async (req, res) => {
+userRouter.post('/sign-up', ...[upload.none(), ...SignUpValidator_1.default, (0, UniqueEmailMiddleware_1.default)()], async (req, res) => {
     const payload = req.body;
     const response = await userServices.signUpUser(payload);
     return res.json(response);

@@ -1,7 +1,10 @@
 import { manager } from '../dataSource';
 import Users from '../entities/Users';
 import { UpdateAccountPayload } from '../services/account/typings';
-import { SortByOption } from '../services/admin/user/typings';
+import {
+  AddNewUserPayload,
+  SortByOption,
+} from '../services/admin/user/typings';
 import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
 
 const userManager = manager.getRepository(Users);
@@ -30,7 +33,7 @@ export default class UserRepository {
     userManager.createQueryBuilder().where({ email: email }).getOne();
 
   insertNewUser = (
-    payload: SignUpPayload,
+    payload: SignUpPayload | AddNewUserPayload,
     encryptedPassword: EncryptedPassword,
   ) =>
     userManager.insert({
