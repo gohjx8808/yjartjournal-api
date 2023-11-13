@@ -4,6 +4,7 @@ import { UpdateAccountPayload } from '../services/account/typings';
 import {
   AddNewUserPayload,
   SortByOption,
+  UpdateUserPayload,
 } from '../services/admin/user/typings';
 import { EncryptedPassword, SignUpPayload } from '../services/user/typings';
 
@@ -26,8 +27,10 @@ export default class UserRepository {
       ])
       .getOne();
 
-  updateUserById = (userId: number, payload: UpdateAccountPayload) =>
-    userManager.update({ id: userId }, payload);
+  updateUserById = (
+    userId: number,
+    payload: UpdateAccountPayload | UpdateUserPayload,
+  ) => userManager.update({ id: userId }, payload);
 
   getUserByEmail = (email: string) =>
     userManager.createQueryBuilder().where({ email: email }).getOne();

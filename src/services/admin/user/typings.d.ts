@@ -22,3 +22,13 @@ export interface AddNewUserPayload {
   dob: string;
   roleIds?: number[];
 }
+
+export interface UpdateUserPayload {
+  userId: number;
+  name: string;
+  preferredName: string;
+  countryCode: string;
+  phoneNumber: string;
+  gender: 'M' | 'F';
+  dob: string;
+}

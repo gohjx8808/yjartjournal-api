@@ -2,7 +2,12 @@ import Users from '../../../entities/Users';
 import { encrypt } from '../../../helpers/cryptoHelper';
 import UserRepository from '../../../repositories/UserRepository';
 import UserRolesRepository from '../../../repositories/UserRolesRepository';
-import { AddNewUserPayload, GetUserListPayload, SortByOption } from './typings';
+import {
+  AddNewUserPayload,
+  GetUserListPayload,
+  SortByOption,
+  UpdateUserPayload,
+} from './typings';
 
 export default class AdminUserServices {
   private userRepository = new UserRepository();
@@ -81,4 +86,9 @@ export default class AdminUserServices {
 
     return user;
   };
+
+  update(payload: UpdateUserPayload) {
+    const { userId, ...userDetails } = payload;
+    return this.userRepository.updateUserById(userId, userDetails);
+  }
 }

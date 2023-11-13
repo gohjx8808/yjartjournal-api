@@ -63,6 +63,10 @@ class AdminUserServices {
         });
         return user;
     };
+    update(payload) {
+        const { userId, ...userDetails } = payload;
+        return this.userRepository.updateUserById(userId, userDetails);
+    }
 }
 exports.default = AdminUserServices;
 //# sourceMappingURL=AdminUserServices.js.map
