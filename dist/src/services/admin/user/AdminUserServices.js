@@ -67,6 +67,7 @@ class AdminUserServices {
         const { userId, ...userDetails } = payload;
         return this.userRepository.updateUserById(userId, userDetails);
     }
+    delete = (payload) => this.userRepository.deleteById(payload.userId);
 }
 exports.default = AdminUserServices;
 //# sourceMappingURL=AdminUserServices.js.map

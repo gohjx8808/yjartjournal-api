@@ -32,6 +32,7 @@ let Users = class Users {
     addresses;
     resetPasswordTokens;
     userRoles;
+    deletedAt;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
@@ -93,6 +94,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => UserRoles_1.default, (userRole) => userRole.user),
     __metadata("design:type", Array)
 ], Users.prototype, "userRoles", void 0);
+__decorate([
+    (0, typeorm_1.DeleteDateColumn)({ name: 'deleted_at' }),
+    __metadata("design:type", Date)
+], Users.prototype, "deletedAt", void 0);
 Users = __decorate([
     (0, typeorm_1.Entity)()
 ], Users);

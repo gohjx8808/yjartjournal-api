@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -59,6 +60,9 @@ class Users {
 
   @OneToMany(() => UserRoles, (userRole) => userRole.user)
     userRoles: UserRoles[];
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+    deletedAt: Date;
 }
 
 export default Users;

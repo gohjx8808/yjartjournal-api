@@ -13,6 +13,8 @@ const AddNewUserValidator_1 = __importDefault(require("../../../requestValidator
 const GetUserListValidator_1 = __importDefault(require("../../../requestValidators/admin/user/GetUserListValidator"));
 const UpdateUserValidator_1 = __importDefault(require("../../../requestValidators/admin/user/UpdateUserValidator"));
 const AdminUserServices_1 = __importDefault(require("../../../services/admin/user/AdminUserServices"));
+const DeleteUserValidator_1 = __importDefault(require("../../../requestValidators/admin/user/DeleteUserValidator"));
+const DeleteUserMiddleware_1 = __importDefault(require("../../../middlewares/admin/user/DeleteUserMiddleware"));
 const adminUserRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const adminUserServices = new AdminUserServices_1.default();
@@ -46,6 +48,17 @@ adminUserRouter.post('/update', ...[
 ], async (req, res) => {
     const payload = req.body;
     const response = await adminUserServices.update(payload);
+    return res.json({ data: response });
+});
+adminUserRouter.post('/delete', ...[
+    upload.none(),
+    ...DeleteUserValidator_1.default,
+    (0, UserExistsMiddleware_1.default)(),
+    (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
+    (0, DeleteUserMiddleware_1.default)(),
+], async (req, res) => {
+    const payload = req.body;
+    const response = await adminUserServices.delete(payload);
     return res.json({ data: response });
 });
 exports.default = adminUserRouter;

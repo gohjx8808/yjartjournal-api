@@ -61,4 +61,6 @@ export default class UserRepository {
       order: { [sorting.name]: sorting.order },
     });
   };
+
+  deleteById = (userId: number) => userManager.softDelete({ id: userId });
 }

@@ -4,6 +4,7 @@ import UserRepository from '../../../repositories/UserRepository';
 import UserRolesRepository from '../../../repositories/UserRolesRepository';
 import {
   AddNewUserPayload,
+  DeleteUserPayload,
   GetUserListPayload,
   SortByOption,
   UpdateUserPayload,
@@ -91,4 +92,7 @@ export default class AdminUserServices {
     const { userId, ...userDetails } = payload;
     return this.userRepository.updateUserById(userId, userDetails);
   }
+
+  delete = (payload: DeleteUserPayload) =>
+    this.userRepository.deleteById(payload.userId);
 }

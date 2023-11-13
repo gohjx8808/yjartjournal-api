@@ -32,3 +32,7 @@ export interface UpdateUserPayload {
   gender: 'M' | 'F';
   dob: string;
 }
+
+export interface DeleteUserPayload {
+  userId: number;
+}

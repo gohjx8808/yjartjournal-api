@@ -37,6 +37,7 @@ class UserRepository {
             order: { [sorting.name]: sorting.order },
         });
     };
+    deleteById = (userId) => userManager.softDelete({ id: userId });
 }
 exports.default = UserRepository;
 //# sourceMappingURL=UserRepository.js.map
