@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserRepository_1 = __importDefault(require("../../../repositories/UserRepository"));
-const UpdateUserMiddleware = () => async (req, res, next) => {
+const UserExistsMiddleware = () => async (req, res, next) => {
     const payload = req.body;
     const userRepository = new UserRepository_1.default();
     const userExist = await userRepository.getUserById(payload.userId);
@@ -13,5 +13,5 @@ const UpdateUserMiddleware = () => async (req, res, next) => {
     }
     next();
 };
-exports.default = UpdateUserMiddleware;
-//# sourceMappingURL=UpdateUserMiddleware.js.map
+exports.default = UserExistsMiddleware;
+//# sourceMappingURL=UserExistsMiddleware.js.map

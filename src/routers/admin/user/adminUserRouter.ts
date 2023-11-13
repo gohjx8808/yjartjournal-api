@@ -1,18 +1,18 @@
 import { Router } from 'express';
+import multer from 'multer';
 import { AssignableRoles } from '../../../entities/Roles';
 import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
+import UniqueEmailMiddleware from '../../../middlewares/UniqueEmailMiddleware';
+import UserExistsMiddleware from '../../../middlewares/admin/user/UserExistsMiddleware';
+import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
 import GetUserListValidator from '../../../requestValidators/admin/user/GetUserListValidator';
+import UpdateUserValidator from '../../../requestValidators/admin/user/UpdateUserValidator';
 import AdminUserServices from '../../../services/admin/user/AdminUserServices';
 import {
   AddNewUserPayload,
   GetUserListPayload,
   UpdateUserPayload,
 } from '../../../services/admin/user/typings';
-import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
-import UniqueEmailMiddleware from '../../../middlewares/UniqueEmailMiddleware';
-import UpdateUserValidator from '../../../requestValidators/admin/user/UpdateUserValidator';
-import UpdateUserMiddleware from '../../../middlewares/admin/user/UpdateUserMiddleware';
-import multer from 'multer';
 
 const adminUserRouter = Router();
 
@@ -59,7 +59,7 @@ adminUserRouter.post<{}, any, UpdateUserPayload>(
   ...[
     upload.none(),
     ...UpdateUserValidator,
-    UpdateUserMiddleware(),
+    UserExistsMiddleware(),
     JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
   ],
   async (req, res) => {

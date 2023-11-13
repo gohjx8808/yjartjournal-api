@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { UpdateUserPayload } from '../../../services/admin/user/typings';
 import UserRepository from '../../../repositories/UserRepository';
+import { UpdateUserPayload } from '../../../services/admin/user/typings';
 
-const UpdateUserMiddleware =
+const UserExistsMiddleware =
   () =>
     async (
       req: Request<{}, any, UpdateUserPayload>,
@@ -21,4 +21,4 @@ const UpdateUserMiddleware =
       next();
     };
 
-export default UpdateUserMiddleware;
+export default UserExistsMiddleware;
