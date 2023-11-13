@@ -2,6 +2,7 @@ import Users from '../../../entities/Users';
 import { encrypt } from '../../../helpers/cryptoHelper';
 import UserRepository from '../../../repositories/UserRepository';
 import UserRolesRepository from '../../../repositories/UserRolesRepository';
+import RoleRepository from '../../../repositories/RoleRepository';
 import {
   AddNewUserPayload,
   DeleteUserPayload,
@@ -12,6 +13,8 @@ import {
 
 export default class AdminUserServices {
   private userRepository = new UserRepository();
+
+  private roleRepository = new RoleRepository();
 
   private userRolesRepository = new UserRolesRepository();
 
@@ -95,4 +98,16 @@ export default class AdminUserServices {
 
   delete = (payload: DeleteUserPayload) =>
     this.userRepository.deleteById(payload.userId);
+
+  getFormOptions = async () => {
+    const roles = await this.roleRepository.getAll();
+
+    return {
+      roles,
+      gender: [
+        { id: 'M', name: 'Male' },
+        { id: 'F', name: 'Female' },
+      ],
+    };
+  };
 }

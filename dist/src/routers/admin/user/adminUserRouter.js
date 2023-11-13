@@ -61,5 +61,9 @@ adminUserRouter.post('/delete', ...[
     const response = await adminUserServices.delete(payload);
     return res.json({ data: response });
 });
+adminUserRouter.get('/form-options', (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN_VIEW, Roles_1.AssignableRoles.ADMIN]), async (req, res) => {
+    const response = await adminUserServices.getFormOptions();
+    return res.json({ data: response });
+});
 exports.default = adminUserRouter;
 //# sourceMappingURL=adminUserRouter.js.map

@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cryptoHelper_1 = require("../../../helpers/cryptoHelper");
 const UserRepository_1 = __importDefault(require("../../../repositories/UserRepository"));
 const UserRolesRepository_1 = __importDefault(require("../../../repositories/UserRolesRepository"));
+const RoleRepository_1 = __importDefault(require("../../../repositories/RoleRepository"));
 class AdminUserServices {
     userRepository = new UserRepository_1.default();
+    roleRepository = new RoleRepository_1.default();
     userRolesRepository = new UserRolesRepository_1.default();
     getAll = async (payload) => {
         const pagination = payload.pagination;
@@ -68,6 +70,16 @@ class AdminUserServices {
         return this.userRepository.updateUserById(userId, userDetails);
     }
     delete = (payload) => this.userRepository.deleteById(payload.userId);
+    getFormOptions = async () => {
+        const roles = await this.roleRepository.getAll();
+        return {
+            roles,
+            gender: [
+                { id: 'M', name: 'Male' },
+                { id: 'F', name: 'Female' },
+            ],
+        };
+    };
 }
 exports.default = AdminUserServices;
 //# sourceMappingURL=AdminUserServices.js.map

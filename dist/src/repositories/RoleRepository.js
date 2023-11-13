@@ -7,10 +7,8 @@ const dataSource_1 = require("../dataSource");
 const Roles_1 = __importDefault(require("../entities/Roles"));
 const roleManager = dataSource_1.manager.getRepository(Roles_1.default);
 class RoleRepository {
-    findById = async (roleId) => {
-        const result = await roleManager.findOneBy({ id: roleId });
-        return result;
-    };
+    getAll = () => roleManager.find();
+    findById = (roleId) => roleManager.findOneBy({ id: roleId });
 }
 exports.default = RoleRepository;
 //# sourceMappingURL=RoleRepository.js.map

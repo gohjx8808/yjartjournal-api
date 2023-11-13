@@ -90,4 +90,14 @@ adminUserRouter.post<{}, any, DeleteUserPayload>(
   },
 );
 
+adminUserRouter.get(
+  '/form-options',
+  JwtAuthMiddleware(true, [AssignableRoles.ADMIN_VIEW, AssignableRoles.ADMIN]),
+  async (req, res) => {
+    const response = await adminUserServices.getFormOptions();
+
+    return res.json({ data: response });
+  },
+);
+
 export default adminUserRouter;

@@ -4,9 +4,7 @@ import Roles from '../entities/Roles';
 const roleManager = manager.getRepository(Roles);
 
 export default class RoleRepository {
-  findById = async (roleId: number) => {
-    const result = await roleManager.findOneBy({ id: roleId });
+  getAll = () => roleManager.find();
 
-    return result;
-  };
+  findById = (roleId: number) => roleManager.findOneBy({ id: roleId });
 }
