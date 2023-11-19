@@ -8,7 +8,7 @@ const dataSource_1 = require("../src/dataSource");
 const Roles_1 = __importDefault(require("../src/entities/Roles"));
 class SeedRoles1687096310531 {
     async up() {
-        const rolesSeed = ['admin', 'adminView', 'customer'];
+        const rolesSeed = ['Admin', 'Admin View', 'Customer'];
         rolesSeed.map(async (role) => {
             await dataSource_1.manager.getRepository(Roles_1.default).insert({ name: role });
         });
