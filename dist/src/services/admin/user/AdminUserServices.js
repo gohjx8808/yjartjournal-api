@@ -80,6 +80,8 @@ class AdminUserServices {
             ],
         };
     };
+    addRole = (payload) => this.userRolesRepository.insertNew(payload.userId, payload.roleId);
+    deleteRole = (payload) => this.userRolesRepository.deleteById(payload.userRoleId);
 }
 exports.default = AdminUserServices;
 //# sourceMappingURL=AdminUserServices.js.map

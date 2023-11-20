@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import UserRepository from '../../../repositories/UserRepository';
-import { UpdateUserPayload } from '../../../services/admin/user/typings';
+import { UserIdPayload } from '../../../services/admin/user/typings';
 
 const UserExistsMiddleware =
   () =>
     async (
-      req: Request<{}, any, UpdateUserPayload>,
+      req: Request<{}, any, UserIdPayload>,
       res: Response,
       next: NextFunction,
     ) => {

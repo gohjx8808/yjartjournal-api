@@ -5,7 +5,9 @@ import UserRolesRepository from '../../../repositories/UserRolesRepository';
 import RoleRepository from '../../../repositories/RoleRepository';
 import {
   AddNewUserPayload,
+  AddUserRolePayload,
   DeleteUserPayload,
+  DeleteUserRolePayload,
   GetUserListPayload,
   SortByOption,
   UpdateUserPayload,
@@ -110,4 +112,10 @@ export default class AdminUserServices {
       ],
     };
   };
+
+  addRole = (payload: AddUserRolePayload) =>
+    this.userRolesRepository.insertNew(payload.userId, payload.roleId);
+
+  deleteRole = (payload: DeleteUserRolePayload) =>
+    this.userRolesRepository.deleteById(payload.userRoleId);
 }

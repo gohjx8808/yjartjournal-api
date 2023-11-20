@@ -1,0 +1,1 @@
+{"version":3,"file":"DeleteUserRoleValidator.js","sourceRoot":"","sources":["../../../../../../src/requestValidators/admin/user/role/DeleteUserRoleValidator.ts"],"names":[],"mappings":";;;;;AAAA,yDAAyC;AACzC,+EAAuD;AAEvD,kBAAe,IAAA,yBAAe,EAAC;IAC7B,IAAA,wBAAI,EAAC,YAAY,CAAC;SACf,QAAQ,EAAE;SACV,WAAW,CAAC,2BAA2B,CAAC;SACxC,KAAK,EAAE;SACP,WAAW,CAAC,uBAAuB,CAAC;CACxC,CAAC,CAAC"}

@@ -5,18 +5,22 @@ import UserRoles from '../entities/UserRoles';
 const userRolesManager = manager.getRepository(UserRoles);
 
 export default class UserRolesRepository {
-  insertNew = async (userId: number, roleId: number) => {
-    await userRolesManager.insert({
+  insertNew = (userId: number, roleId: number) =>
+    userRolesManager.insert({
       user: { id: userId },
       role: { id: roleId },
     });
-  };
 
-  existByRoleIdsAndUserId = async (roleIds: number[], userId: number) => {
-    const result = await userRolesManager.exist({
+  existByRoleIdsAndUserId = (roleIds: number[], userId: number) =>
+    userRolesManager.exist({
       where: { user: { id: userId }, role: { id: In(roleIds) } },
     });
 
-    return result;
-  };
+  existByUserRoleId = (userRoleId: number) =>
+    userRolesManager.exist({
+      where: { id: userRoleId },
+    });
+
+  deleteById = (userRoleId: number) =>
+    userRolesManager.delete({ id: userRoleId });
 }

@@ -8,18 +8,17 @@ const dataSource_1 = require("../dataSource");
 const UserRoles_1 = __importDefault(require("../entities/UserRoles"));
 const userRolesManager = dataSource_1.manager.getRepository(UserRoles_1.default);
 class UserRolesRepository {
-    insertNew = async (userId, roleId) => {
-        await userRolesManager.insert({
-            user: { id: userId },
-            role: { id: roleId },
-        });
-    };
-    existByRoleIdsAndUserId = async (roleIds, userId) => {
-        const result = await userRolesManager.exist({
-            where: { user: { id: userId }, role: { id: (0, typeorm_1.In)(roleIds) } },
-        });
-        return result;
-    };
+    insertNew = (userId, roleId) => userRolesManager.insert({
+        user: { id: userId },
+        role: { id: roleId },
+    });
+    existByRoleIdsAndUserId = (roleIds, userId) => userRolesManager.exist({
+        where: { user: { id: userId }, role: { id: (0, typeorm_1.In)(roleIds) } },
+    });
+    existByUserRoleId = (userRoleId) => userRolesManager.exist({
+        where: { id: userRoleId },
+    });
+    deleteById = (userRoleId) => userRolesManager.delete({ id: userRoleId });
 }
 exports.default = UserRolesRepository;
 //# sourceMappingURL=UserRolesRepository.js.map

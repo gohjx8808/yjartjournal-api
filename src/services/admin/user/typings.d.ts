@@ -23,8 +23,7 @@ export interface AddNewUserPayload {
   roleIds?: number[];
 }
 
-export interface UpdateUserPayload {
-  userId: number;
+export interface UpdateUserPayload extends UserIdPayload {
   name: string;
   preferredName: string;
   countryCode: string;
@@ -33,6 +32,20 @@ export interface UpdateUserPayload {
   dob: string;
 }
 
+export interface UserIdPayload {
+  userId: number;
+}
+
+export interface RoleIdPayload {
+  roleId: number;
+}
+
 export interface DeleteUserPayload {
   userId: number;
+}
+
+export type AddUserRolePayload = UserIdPayload & RoleIdPayload;
+
+export interface DeleteUserRolePayload {
+  userRoleId: number;
 }
