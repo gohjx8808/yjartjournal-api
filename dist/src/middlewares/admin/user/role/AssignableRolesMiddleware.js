@@ -8,8 +8,7 @@ const AssignableRolesMiddleware = () => async (req, res, next) => {
     const payload = req.body;
     const adminUserServices = new AdminUserServices_1.default();
     const assignableRoles = await adminUserServices.getAssignableRoles(payload);
-    if (assignableRoles.length === 0 ||
-        !assignableRoles.find((role) => role.id === payload.roleId)) {
+    if (!assignableRoles.find((role) => role.id === payload.roleId)) {
         return res.status(422).json({ message: 'Role assigned.' });
     }
     next();

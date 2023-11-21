@@ -12,4 +12,4 @@ exports.default = (0, customValidator_1.default)([
         .isInt()
         .withMessage('Invalid user ID.'),
 ]);
-//# sourceMappingURL=DeleteUserValidator.js.map
+//# sourceMappingURL=UserIdValidator.js.map

@@ -12,7 +12,7 @@ const DeleteUserMiddleware_1 = __importDefault(require("../../../middlewares/adm
 const UserExistsMiddleware_1 = __importDefault(require("../../../middlewares/admin/user/UserExistsMiddleware"));
 const UserRoleExistsMiddleware_1 = __importDefault(require("../../../middlewares/admin/user/role/UserRoleExistsMiddleware"));
 const AddNewUserValidator_1 = __importDefault(require("../../../requestValidators/admin/user/AddNewUserValidator"));
-const DeleteUserValidator_1 = __importDefault(require("../../../requestValidators/admin/user/DeleteUserValidator"));
+const UserIdValidator_1 = __importDefault(require("../../../requestValidators/admin/user/UserIdValidator"));
 const GetUserListValidator_1 = __importDefault(require("../../../requestValidators/admin/user/GetUserListValidator"));
 const UpdateUserValidator_1 = __importDefault(require("../../../requestValidators/admin/user/UpdateUserValidator"));
 const DeleteUserRoleValidator_1 = __importDefault(require("../../../requestValidators/admin/user/role/DeleteUserRoleValidator"));
@@ -57,7 +57,7 @@ adminUserRouter.post('/update', ...[
 });
 adminUserRouter.post('/delete', ...[
     upload.none(),
-    ...DeleteUserValidator_1.default,
+    ...UserIdValidator_1.default,
     (0, UserExistsMiddleware_1.default)(),
     (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
     (0, DeleteUserMiddleware_1.default)(),
@@ -86,6 +86,17 @@ adminUserRouter.post('/role/delete', ...[
     (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
 ], async (req, res) => {
     const response = await adminUserServices.deleteRole(req.body);
+    return res.json({ data: response });
+});
+adminUserRouter.post('/assignable-roles', ...[
+    ...UserIdValidator_1.default,
+    (0, UserExistsMiddleware_1.default)(),
+    (0, JwtAuthMiddleware_1.default)(true, [
+        Roles_1.AssignableRoles.ADMIN,
+        Roles_1.AssignableRoles.ADMIN_VIEW,
+    ]),
+], async (req, res) => {
+    const response = await adminUserServices.getAssignableRoles(req.body);
     return res.json({ data: response });
 });
 exports.default = adminUserRouter;

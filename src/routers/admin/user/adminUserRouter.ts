@@ -7,7 +7,7 @@ import DeleteUserMiddleware from '../../../middlewares/admin/user/DeleteUserMidd
 import UserExistsMiddleware from '../../../middlewares/admin/user/UserExistsMiddleware';
 import UserRoleExistsMiddleware from '../../../middlewares/admin/user/role/UserRoleExistsMiddleware';
 import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
-import DeleteUserValidator from '../../../requestValidators/admin/user/DeleteUserValidator';
+import UserIdValidator from '../../../requestValidators/admin/user/UserIdValidator';
 import GetUserListValidator from '../../../requestValidators/admin/user/GetUserListValidator';
 import UpdateUserValidator from '../../../requestValidators/admin/user/UpdateUserValidator';
 import DeleteUserRoleValidator from '../../../requestValidators/admin/user/role/DeleteUserRoleValidator';
@@ -19,6 +19,7 @@ import {
   DeleteUserRolePayload,
   GetUserListPayload,
   UpdateUserPayload,
+  UserIdPayload,
 } from '../../../services/admin/user/typings';
 import AddUserRoleValidator from '../../../requestValidators/admin/user/role/AddUserRoleValidator';
 import RoleExistsMiddleware from '../../../middlewares/admin/user/role/RoleExistsMiddleware';
@@ -84,7 +85,7 @@ adminUserRouter.post<{}, any, DeleteUserPayload>(
   '/delete',
   ...[
     upload.none(),
-    ...DeleteUserValidator,
+    ...UserIdValidator,
     UserExistsMiddleware(),
     JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
     DeleteUserMiddleware(),
@@ -132,6 +133,23 @@ adminUserRouter.post<{}, any, DeleteUserRolePayload>(
   ],
   async (req, res) => {
     const response = await adminUserServices.deleteRole(req.body);
+
+    return res.json({ data: response });
+  },
+);
+
+adminUserRouter.post<{}, any, UserIdPayload>(
+  '/assignable-roles',
+  ...[
+    ...UserIdValidator,
+    UserExistsMiddleware(),
+    JwtAuthMiddleware(true, [
+      AssignableRoles.ADMIN,
+      AssignableRoles.ADMIN_VIEW,
+    ]),
+  ],
+  async (req, res) => {
+    const response = await adminUserServices.getAssignableRoles(req.body);
 
     return res.json({ data: response });
   },
