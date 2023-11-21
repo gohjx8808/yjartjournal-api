@@ -23,4 +23,10 @@ export default class UserRolesRepository {
 
   deleteById = (userRoleId: number) =>
     userRolesManager.delete({ id: userRoleId });
+
+  getByUserId = (userId: number) =>
+    userRolesManager.find({
+      where: { user: { id: userId } },
+      relations: ['role'],
+    });
 }

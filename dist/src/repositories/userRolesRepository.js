@@ -19,6 +19,10 @@ class UserRolesRepository {
         where: { id: userRoleId },
     });
     deleteById = (userRoleId) => userRolesManager.delete({ id: userRoleId });
+    getByUserId = (userId) => userRolesManager.find({
+        where: { user: { id: userId } },
+        relations: ['role'],
+    });
 }
 exports.default = UserRolesRepository;
 //# sourceMappingURL=UserRolesRepository.js.map

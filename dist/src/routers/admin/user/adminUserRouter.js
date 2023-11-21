@@ -19,6 +19,7 @@ const DeleteUserRoleValidator_1 = __importDefault(require("../../../requestValid
 const AdminUserServices_1 = __importDefault(require("../../../services/admin/user/AdminUserServices"));
 const AddUserRoleValidator_1 = __importDefault(require("../../../requestValidators/admin/user/role/AddUserRoleValidator"));
 const RoleExistsMiddleware_1 = __importDefault(require("../../../middlewares/admin/user/role/RoleExistsMiddleware"));
+const AssignableRolesMiddleware_1 = __importDefault(require("../../../middlewares/admin/user/role/AssignableRolesMiddleware"));
 const adminUserRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const adminUserServices = new AdminUserServices_1.default();
@@ -73,6 +74,7 @@ adminUserRouter.post('/role/add', ...[
     ...AddUserRoleValidator_1.default,
     (0, UserExistsMiddleware_1.default)(),
     (0, RoleExistsMiddleware_1.default)(),
+    (0, AssignableRolesMiddleware_1.default)(),
     (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),
 ], async (req, res) => {
     const response = await adminUserServices.addRole(req.body);

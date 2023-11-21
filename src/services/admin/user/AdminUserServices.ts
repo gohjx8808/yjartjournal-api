@@ -11,6 +11,7 @@ import {
   GetUserListPayload,
   SortByOption,
   UpdateUserPayload,
+  UserIdPayload,
 } from './typings';
 
 export default class AdminUserServices {
@@ -118,4 +119,15 @@ export default class AdminUserServices {
 
   deleteRole = (payload: DeleteUserRolePayload) =>
     this.userRolesRepository.deleteById(payload.userRoleId);
+
+  getAssignableRoles = async (payload: UserIdPayload) => {
+    const userRoles = await this.userRolesRepository.getByUserId(
+      payload.userId,
+    );
+    const assignedRoleIds = userRoles.map((userRole) => userRole.role.id);
+    const assignableRoles = await this.roleRepository.getUnassignRoles(
+      assignedRoleIds,
+    );
+    return assignableRoles;
+  };
 }

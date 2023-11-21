@@ -82,6 +82,12 @@ class AdminUserServices {
     };
     addRole = (payload) => this.userRolesRepository.insertNew(payload.userId, payload.roleId);
     deleteRole = (payload) => this.userRolesRepository.deleteById(payload.userRoleId);
+    getAssignableRoles = async (payload) => {
+        const userRoles = await this.userRolesRepository.getByUserId(payload.userId);
+        const assignedRoleIds = userRoles.map((userRole) => userRole.role.id);
+        const assignableRoles = await this.roleRepository.getUnassignRoles(assignedRoleIds);
+        return assignableRoles;
+    };
 }
 exports.default = AdminUserServices;
 //# sourceMappingURL=AdminUserServices.js.map

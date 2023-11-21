@@ -40,9 +40,7 @@ export interface RoleIdPayload {
   roleId: number;
 }
 
-export interface DeleteUserPayload {
-  userId: number;
-}
+export type DeleteUserPayload = UserIdPayload;
 
 export type AddUserRolePayload = UserIdPayload & RoleIdPayload;
 

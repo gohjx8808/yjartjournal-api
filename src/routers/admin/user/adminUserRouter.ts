@@ -22,6 +22,7 @@ import {
 } from '../../../services/admin/user/typings';
 import AddUserRoleValidator from '../../../requestValidators/admin/user/role/AddUserRoleValidator';
 import RoleExistsMiddleware from '../../../middlewares/admin/user/role/RoleExistsMiddleware';
+import AssignableRolesMiddleware from '../../../middlewares/admin/user/role/AssignableRolesMiddleware';
 
 const adminUserRouter = Router();
 
@@ -112,6 +113,7 @@ adminUserRouter.post<{}, any, AddUserRolePayload>(
     ...AddUserRoleValidator,
     UserExistsMiddleware(),
     RoleExistsMiddleware(),
+    AssignableRolesMiddleware(),
     JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
   ],
   async (req, res) => {
