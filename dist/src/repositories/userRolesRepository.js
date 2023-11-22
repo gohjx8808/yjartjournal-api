@@ -22,6 +22,7 @@ class UserRolesRepository {
     getByUserId = (userId) => userRolesManager.find({
         where: { user: { id: userId } },
         relations: ['role'],
+        order: { createdAt: 'DESC' },
     });
 }
 exports.default = UserRolesRepository;

@@ -28,5 +28,6 @@ export default class UserRolesRepository {
     userRolesManager.find({
       where: { user: { id: userId } },
       relations: ['role'],
+      order: { createdAt: 'DESC' },
     });
 }

@@ -33,7 +33,6 @@ class UserRepository {
     };
     getAll = (sorting) => {
         return userManager.find({
-            relations: ['userRoles.role', 'addresses.state'],
             order: { [sorting.name]: sorting.order },
         });
     };

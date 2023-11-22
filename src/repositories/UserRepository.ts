@@ -57,7 +57,6 @@ export default class UserRepository {
 
   getAll = (sorting: SortByOption) => {
     return userManager.find({
-      relations: ['userRoles.role', 'addresses.state'],
       order: { [sorting.name]: sorting.order },
     });
   };
