@@ -1,1 +1,1 @@
-{"version":3,"file":"adminRouter.js","sourceRoot":"","sources":["../../../../src/routers/admin/adminRouter.ts"],"names":[],"mappings":";;;;;AAAA,qCAAiC;AACjC,6EAAqD;AAErD,MAAM,WAAW,GAAG,IAAA,gBAAM,GAAE,CAAC;AAE7B,WAAW,CAAC,GAAG,CAAC,OAAO,EAAE,yBAAe,CAAC,CAAC;AAE1C,kBAAe,WAAW,CAAC"}
+{"version":3,"file":"adminRouter.js","sourceRoot":"","sources":["../../../../src/routers/admin/adminRouter.ts"],"names":[],"mappings":";;;;;AAAA,qCAAiC;AACjC,wEAAgD;AAEhD,MAAM,WAAW,GAAG,IAAA,gBAAM,GAAE,CAAC;AAE7B,WAAW,CAAC,GAAG,CAAC,OAAO,EAAE,yBAAe,CAAC,CAAC;AAE1C,kBAAe,WAAW,CAAC"}

@@ -1,31 +1,25 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { AssignableRoles } from '../../../entities/Roles';
-import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
-import UniqueEmailMiddleware from '../../../middlewares/UniqueEmailMiddleware';
-import DeleteUserMiddleware from '../../../middlewares/admin/user/DeleteUserMiddleware';
-import UserExistsMiddleware from '../../../middlewares/admin/user/UserExistsMiddleware';
-import AssignableRolesMiddleware from '../../../middlewares/admin/user/role/AssignableRolesMiddleware';
-import RoleExistsMiddleware from '../../../middlewares/admin/user/role/RoleExistsMiddleware';
-import UserRoleExistsMiddleware from '../../../middlewares/admin/user/role/UserRoleExistsMiddleware';
-import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
-import GetUserListValidator from '../../../requestValidators/admin/user/GetUserListValidator';
-import UpdateUserValidator from '../../../requestValidators/admin/user/UpdateUserValidator';
-import UserIdValidator from '../../../requestValidators/admin/user/UserIdValidator';
-import AddUserRoleValidator from '../../../requestValidators/admin/user/role/AddUserRoleValidator';
-import DeleteUserRoleValidator from '../../../requestValidators/admin/user/role/DeleteUserRoleValidator';
-import AddressServices from '../../../services/address/AddressServices';
-import AdminUserServices from '../../../services/admin/user/AdminUserServices';
+import { AssignableRoles } from '../../entities/Roles';
+import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
+import UniqueEmailMiddleware from '../../middlewares/UniqueEmailMiddleware';
+import DeleteUserMiddleware from '../../middlewares/admin/user/DeleteUserMiddleware';
+import UserExistsMiddleware from '../../middlewares/admin/user/UserExistsMiddleware';
+import AddNewUserValidator from '../../requestValidators/admin/user/AddNewUserValidator';
+import GetUserListValidator from '../../requestValidators/admin/user/GetUserListValidator';
+import UpdateUserValidator from '../../requestValidators/admin/user/UpdateUserValidator';
+import UserIdValidator from '../../requestValidators/admin/user/UserIdValidator';
+import AddressServices from '../../services/address/AddressServices';
+import AdminUserServices from '../../services/admin/user/AdminUserServices';
 import {
   AddNewUserPayload,
-  AddUserRolePayload,
   DeleteUserPayload,
-  DeleteUserRolePayload,
   GetUserListPayload,
   UpdateUserPayload,
   UserIdPayload,
-} from '../../../services/admin/user/typings';
-import UserRoleServices from '../../../services/userRole/UserRoleServices';
+} from '../../services/admin/user/typings';
+import UserRoleServices from '../../services/userRole/UserRoleServices';
+import userRoleRouter from './userRoleRouter';
 
 const adminUserRouter = Router();
 
@@ -34,6 +28,8 @@ const upload = multer();
 const adminUserServices = new AdminUserServices();
 const userRoleServices = new UserRoleServices();
 const addressServices = new AddressServices();
+
+adminUserRouter.use('/role', userRoleRouter);
 
 adminUserRouter.post<{}, any, GetUserListPayload>(
   '/get-all',
@@ -141,36 +137,6 @@ adminUserRouter.get(
   JwtAuthMiddleware(true, [AssignableRoles.ADMIN_VIEW, AssignableRoles.ADMIN]),
   async (req, res) => {
     const response = await adminUserServices.getFormOptions();
-
-    return res.json({ data: response });
-  },
-);
-
-adminUserRouter.post<{}, any, AddUserRolePayload>(
-  '/role/add',
-  ...[
-    ...AddUserRoleValidator,
-    UserExistsMiddleware(),
-    RoleExistsMiddleware(),
-    AssignableRolesMiddleware(),
-    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
-  ],
-  async (req, res) => {
-    const response = await adminUserServices.addRole(req.body);
-
-    return res.json({ data: response });
-  },
-);
-
-adminUserRouter.post<{}, any, DeleteUserRolePayload>(
-  '/role/delete',
-  ...[
-    ...DeleteUserRoleValidator,
-    UserRoleExistsMiddleware(),
-    JwtAuthMiddleware(true, [AssignableRoles.ADMIN]),
-  ],
-  async (req, res) => {
-    const response = await adminUserServices.deleteRole(req.body);
 
     return res.json({ data: response });
   },
