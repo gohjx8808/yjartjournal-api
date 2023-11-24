@@ -32,7 +32,7 @@ class AddressRepository {
         .delete()
         .where({ id: addressId })
         .execute();
-    getAddressWithExactDetailsQuery = (userId, payload) => {
+    getAddressWithExactDetailsQueryByUserId = (userId, payload) => {
         let filterAddressQuery = this.getAddressByUserIdQuery(userId).andWhere({
             receiverName: payload.receiverName,
             receiverCountryCode: payload.receiverCountryCode,
@@ -55,8 +55,8 @@ class AddressRepository {
         }
         return filterAddressQuery;
     };
-    getAddressWithExactDetails = (userId, payload) => this.getAddressWithExactDetailsQuery(userId, payload).getOne();
-    getAddressWithExactDetailsExceptSelf = (userId, payload) => this.getAddressWithExactDetailsQuery(userId, payload)
+    getAddressWithExactDetails = (userId, payload) => this.getAddressWithExactDetailsQueryByUserId(userId, payload).getOne();
+    getAddressWithExactDetailsExceptSelfByUserId = (userId, payload) => this.getAddressWithExactDetailsQueryByUserId(userId, payload)
         .andWhere({ id: (0, typeorm_1.Not)(payload.addressId) })
         .getOne();
     updateAddressById = (payload) => exports.addressManager.update({ id: payload.addressId }, {

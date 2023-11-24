@@ -61,12 +61,12 @@ export default class AddressServices {
     return { id: existingAddresses?.id, exist: !!existingAddresses };
   };
 
-  isAddressExistExceptSelf = async (
+  isAddressExistExceptSelfByUserId = async (
     userId: number,
     payload: UpdateAddressPayload,
   ) => {
     const existingAddressesExceptSelf =
-      await this.addressRepository.getAddressWithExactDetailsExceptSelf(
+      await this.addressRepository.getAddressWithExactDetailsExceptSelfByUserId(
         userId,
         payload,
       );
@@ -84,4 +84,7 @@ export default class AddressServices {
 
   deleteAddress = (payload: DeleteAddressPayload) =>
     this.addressRepository.deleteAddressById(payload.addressId);
+
+  getAddressById = (addressId: number) =>
+    this.addressRepository.getAddressById(addressId);
 }

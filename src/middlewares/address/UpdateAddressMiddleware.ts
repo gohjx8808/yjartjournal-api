@@ -33,7 +33,7 @@ const UpdateAddressMiddleware =
       }
 
       const sameAddressExistExceptSelf =
-      await addressServices.isAddressExistExceptSelf(user.id, payload);
+      await addressServices.isAddressExistExceptSelfByUserId(user.id, payload);
 
       if (sameAddressExistExceptSelf) {
         return res

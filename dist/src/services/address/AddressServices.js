@@ -38,8 +38,8 @@ class AddressServices {
         const existingAddresses = await this.addressRepository.getAddressWithExactDetails(userId, payload);
         return { id: existingAddresses?.id, exist: !!existingAddresses };
     };
-    isAddressExistExceptSelf = async (userId, payload) => {
-        const existingAddressesExceptSelf = await this.addressRepository.getAddressWithExactDetailsExceptSelf(userId, payload);
+    isAddressExistExceptSelfByUserId = async (userId, payload) => {
+        const existingAddressesExceptSelf = await this.addressRepository.getAddressWithExactDetailsExceptSelfByUserId(userId, payload);
         return !!existingAddressesExceptSelf;
     };
     updateAddress = async (userId, payload) => {
@@ -48,6 +48,7 @@ class AddressServices {
         return response;
     };
     deleteAddress = (payload) => this.addressRepository.deleteAddressById(payload.addressId);
+    getAddressById = (addressId) => this.addressRepository.getAddressById(addressId);
 }
 exports.default = AddressServices;
 //# sourceMappingURL=AddressServices.js.map

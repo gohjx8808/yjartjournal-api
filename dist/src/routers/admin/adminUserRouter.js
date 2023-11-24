@@ -18,12 +18,14 @@ const AddressServices_1 = __importDefault(require("../../services/address/Addres
 const AdminUserServices_1 = __importDefault(require("../../services/admin/user/AdminUserServices"));
 const UserRoleServices_1 = __importDefault(require("../../services/userRole/UserRoleServices"));
 const userRoleRouter_1 = __importDefault(require("./userRoleRouter"));
+const userAddressRouter_1 = __importDefault(require("./userAddressRouter"));
 const adminUserRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const adminUserServices = new AdminUserServices_1.default();
 const userRoleServices = new UserRoleServices_1.default();
 const addressServices = new AddressServices_1.default();
 adminUserRouter.use('/role', userRoleRouter_1.default);
+adminUserRouter.use('/address', userAddressRouter_1.default);
 adminUserRouter.post('/get-all', ...[
     upload.none(),
     ...GetUserListValidator_1.default,

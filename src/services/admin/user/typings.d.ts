@@ -1,3 +1,5 @@
+import { AddAddressPayload, UpdateAddressPayload } from '../../address/typings';
+
 export interface GetUserListPayload {
   sortBy?: SortByOption;
   filter?: string;
@@ -47,3 +49,6 @@ export type AddUserRolePayload = UserIdPayload & RoleIdPayload;
 export interface DeleteUserRolePayload {
   userRoleId: number;
 }
+
+export type AdminAddAddressPayload = AddAddressPayload & UserIdPayload;
+export type AdminUpdateAddressPayload = UpdateAddressPayload & UserIdPayload;

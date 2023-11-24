@@ -44,7 +44,7 @@ export default class AddressRepository {
       .where({ id: addressId })
       .execute();
 
-  private getAddressWithExactDetailsQuery = (
+  private getAddressWithExactDetailsQueryByUserId = (
     userId: number,
     payload: AddAddressPayload | UpdateAddressPayload,
   ) => {
@@ -73,13 +73,13 @@ export default class AddressRepository {
   };
 
   getAddressWithExactDetails = (userId: number, payload: AddAddressPayload) =>
-    this.getAddressWithExactDetailsQuery(userId, payload).getOne();
+    this.getAddressWithExactDetailsQueryByUserId(userId, payload).getOne();
 
-  getAddressWithExactDetailsExceptSelf = (
+  getAddressWithExactDetailsExceptSelfByUserId = (
     userId: number,
     payload: UpdateAddressPayload,
   ) =>
-    this.getAddressWithExactDetailsQuery(userId, payload)
+    this.getAddressWithExactDetailsQueryByUserId(userId, payload)
       .andWhere({ id: Not(payload.addressId) })
       .getOne();
 

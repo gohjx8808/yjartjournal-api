@@ -20,6 +20,7 @@ import {
 } from '../../services/admin/user/typings';
 import UserRoleServices from '../../services/userRole/UserRoleServices';
 import userRoleRouter from './userRoleRouter';
+import userAddressRouter from './userAddressRouter';
 
 const adminUserRouter = Router();
 
@@ -30,6 +31,7 @@ const userRoleServices = new UserRoleServices();
 const addressServices = new AddressServices();
 
 adminUserRouter.use('/role', userRoleRouter);
+adminUserRouter.use('/address', userAddressRouter);
 
 adminUserRouter.post<{}, any, GetUserListPayload>(
   '/get-all',

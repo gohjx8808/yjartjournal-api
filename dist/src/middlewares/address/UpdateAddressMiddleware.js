@@ -20,7 +20,7 @@ const UpdateAddressMiddleware = () => async (req, res, next) => {
     if (!addressIdExist) {
         return res.status(422).json({ message: 'Address ID not exist!' });
     }
-    const sameAddressExistExceptSelf = await addressServices.isAddressExistExceptSelf(user.id, payload);
+    const sameAddressExistExceptSelf = await addressServices.isAddressExistExceptSelfByUserId(user.id, payload);
     if (sameAddressExistExceptSelf) {
         return res
             .status(422)
