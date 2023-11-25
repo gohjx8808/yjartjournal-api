@@ -10,4 +10,4 @@ class default_1 {
     getStateList = () => stateManager.find();
 }
 exports.default = default_1;
-//# sourceMappingURL=StateRepositorya.js.map
+//# sourceMappingURL=StateRepository.js.map

@@ -1,4 +1,4 @@
-import StateRepository from '../repositories/StateRepositorya';
+import StateRepository from '../repositories/StateRepository';
 
 export default class {
   private stateRepository = new StateRepository();
