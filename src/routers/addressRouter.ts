@@ -5,7 +5,6 @@ import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import AddAddressMiddleware from '../middlewares/address/AddAddressMiddleware';
 import DeleteAddressMiddleware from '../middlewares/address/DeleteAddressMiddleware';
 import UpdateAddressMiddleware from '../middlewares/address/UpdateAddressMiddleware';
-import { getStateList } from '../repositories/stateRepository';
 import AddAddressValidator from '../requestValidators/address/AddAddressValidator';
 import DeleteAddressValidator from '../requestValidators/address/DeleteAddressValidator';
 import UpdateAddressValidator from '../requestValidators/address/UpdateAddressValidator';
@@ -16,12 +15,14 @@ import {
   UpdateAddressPayload,
 } from '../services/address/typings';
 import { CustomAuthenticatedRequest } from '../typings';
+import StateServices from '../services/StateServices';
 
 const upload = multer();
 
 const addressRouter = Router();
 
 const addressServices = new AddressServices();
+const stateServices = new StateServices();
 
 addressRouter.get(
   '/list',
@@ -35,7 +36,7 @@ addressRouter.get(
 );
 
 addressRouter.get('/state-options', async (_req, res) => {
-  const response = await getStateList();
+  const response = await stateServices.getAll();
 
   return res.json({ data: response });
 });

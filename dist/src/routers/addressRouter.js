@@ -10,21 +10,22 @@ const JwtAuthMiddleware_1 = __importDefault(require("../middlewares/JwtAuthMiddl
 const AddAddressMiddleware_1 = __importDefault(require("../middlewares/address/AddAddressMiddleware"));
 const DeleteAddressMiddleware_1 = __importDefault(require("../middlewares/address/DeleteAddressMiddleware"));
 const UpdateAddressMiddleware_1 = __importDefault(require("../middlewares/address/UpdateAddressMiddleware"));
-const stateRepository_1 = require("../repositories/stateRepository");
 const AddAddressValidator_1 = __importDefault(require("../requestValidators/address/AddAddressValidator"));
 const DeleteAddressValidator_1 = __importDefault(require("../requestValidators/address/DeleteAddressValidator"));
 const UpdateAddressValidator_1 = __importDefault(require("../requestValidators/address/UpdateAddressValidator"));
 const AddressServices_1 = __importDefault(require("../services/address/AddressServices"));
+const StateServices_1 = __importDefault(require("../services/StateServices"));
 const upload = (0, multer_1.default)();
 const addressRouter = (0, express_1.Router)();
 const addressServices = new AddressServices_1.default();
+const stateServices = new StateServices_1.default();
 addressRouter.get('/list', (0, JwtAuthMiddleware_1.default)(), async (req, res) => {
     const user = (0, sharedHelper_1.typeAuthenticatedUser)(req);
     const response = await addressServices.getAddressList(user.id);
     return res.json({ data: response });
 });
 addressRouter.get('/state-options', async (_req, res) => {
-    const response = await (0, stateRepository_1.getStateList)();
+    const response = await stateServices.getAll();
     return res.json({ data: response });
 });
 addressRouter.post('/add', ...[

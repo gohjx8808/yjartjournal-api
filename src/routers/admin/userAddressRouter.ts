@@ -20,6 +20,16 @@ const userAddressRouter = Router();
 
 const addressServices = new AddressServices();
 
+userAddressRouter.get(
+  '/form-options',
+  JwtAuthMiddleware(true, [AssignableRoles.ADMIN, AssignableRoles.ADMIN_VIEW]),
+  async (_req, res) => {
+    const response = await addressServices.getAddressFormOptions();
+
+    return res.json({ data: response });
+  },
+);
+
 userAddressRouter.post<{}, any, AdminAddAddressPayload>(
   '/add',
   ...[

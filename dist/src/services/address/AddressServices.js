@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const AddressRepository_1 = __importDefault(require("../../repositories/AddressRepository"));
+const StateServices_1 = __importDefault(require("../StateServices"));
 class AddressServices {
     addressRepository = new AddressRepository_1.default();
+    stateServices = new StateServices_1.default();
     validateTag = (tag) => {
         if (tag !== 'Work' && tag !== 'Home') {
             return false;
@@ -49,6 +51,11 @@ class AddressServices {
     };
     deleteAddress = (payload) => this.addressRepository.deleteAddressById(payload.addressId);
     getAddressById = (addressId) => this.addressRepository.getAddressById(addressId);
+    getAddressFormOptions = async () => {
+        const states = await this.stateServices.getAll();
+        const tags = ['Home', 'Work'];
+        return { states, tags };
+    };
 }
 exports.default = AddressServices;
 //# sourceMappingURL=AddressServices.js.map

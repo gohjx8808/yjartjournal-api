@@ -1,4 +1,5 @@
 import AddressRepository from '../../repositories/AddressRepository';
+import StateServices from '../StateServices';
 import {
   AddAddressPayload,
   DeleteAddressPayload,
@@ -7,6 +8,8 @@ import {
 
 export default class AddressServices {
   private addressRepository = new AddressRepository();
+
+  private stateServices = new StateServices();
 
   validateTag = (tag: string) => {
     if (tag !== 'Work' && tag !== 'Home') {
@@ -87,4 +90,11 @@ export default class AddressServices {
 
   getAddressById = (addressId: number) =>
     this.addressRepository.getAddressById(addressId);
+
+  getAddressFormOptions = async () => {
+    const states = await this.stateServices.getAll();
+    const tags = ['Home', 'Work'];
+
+    return { states, tags };
+  };
 }

@@ -3,4 +3,6 @@ import States from '../entities/States';
 
 const stateManager = manager.getRepository(States);
 
-export const getStateList = () => stateManager.createQueryBuilder().getMany();
+export default class {
+  getStateList = () => stateManager.find();
+}

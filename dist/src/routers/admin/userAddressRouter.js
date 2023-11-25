@@ -17,6 +17,10 @@ const UserIdValidator_1 = __importDefault(require("../../requestValidators/admin
 const AddressServices_1 = __importDefault(require("../../services/address/AddressServices"));
 const userAddressRouter = (0, express_1.Router)();
 const addressServices = new AddressServices_1.default();
+userAddressRouter.get('/form-options', (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN, Roles_1.AssignableRoles.ADMIN_VIEW]), async (_req, res) => {
+    const response = await addressServices.getAddressFormOptions();
+    return res.json({ data: response });
+});
 userAddressRouter.post('/add', ...[
     ...AddAddressValidator_1.default,
     ...UserIdValidator_1.default,
