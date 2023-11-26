@@ -18,7 +18,7 @@ export default class AddressRepository {
 
   getUserAdresses = (userId: number) =>
     this.getAddressByUserIdQuery(userId)
-      .orderBy({ 'addresses.updated_at': 'DESC' })
+      .orderBy({ 'addresses.id': 'DESC' })
       .getMany();
 
   getUserAddressById = (userId: number, addressId: number) =>

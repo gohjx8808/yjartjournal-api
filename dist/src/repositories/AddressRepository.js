@@ -15,7 +15,7 @@ class AddressRepository {
         .leftJoinAndSelect('addresses.state', 'state')
         .where('user.id = :id', { id: userId });
     getUserAdresses = (userId) => this.getAddressByUserIdQuery(userId)
-        .orderBy({ 'addresses.updated_at': 'DESC' })
+        .orderBy({ 'addresses.id': 'DESC' })
         .getMany();
     getUserAddressById = (userId, addressId) => this.getAddressByUserIdQuery(userId)
         .andWhere({
