@@ -24,7 +24,6 @@ import YarnStockImages from './entities/YarnStockImages';
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  // url:'postgres://avnadmin:AVNS_pbdKboPQuSMw7SUjGNq@pg-2ea2107d-yjartjournal.aivencloud.com:27376/defaultdb?sslmode=require',
   host: process.env.POSTGRESQL_DB_HOST,
   port: parseInt(process.env.POSTGRESQL_DB_PORT || '0', 10),
   username: process.env.POSTGRESQL_DB_USER,

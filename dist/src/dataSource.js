@@ -29,7 +29,6 @@ const _1687096310531_SeedRoles_1 = require("../migrations/1687096310531-SeedRole
 const YarnStockImages_1 = __importDefault(require("./entities/YarnStockImages"));
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
-    // url:'postgres://avnadmin:AVNS_pbdKboPQuSMw7SUjGNq@pg-2ea2107d-yjartjournal.aivencloud.com:27376/defaultdb?sslmode=require',
     host: process.env.POSTGRESQL_DB_HOST,
     port: parseInt(process.env.POSTGRESQL_DB_PORT || '0', 10),
     username: process.env.POSTGRESQL_DB_USER,

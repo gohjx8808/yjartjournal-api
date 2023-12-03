@@ -23,7 +23,7 @@
     "@contentful/rich-text-types": "^16.2.0",
     "@sendgrid/mail": "^7.7.0",
     "cloudinary": "^1.37.3",
-    "contentful": "^10.3.4",
+    "contentful": "^10.6.13",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
