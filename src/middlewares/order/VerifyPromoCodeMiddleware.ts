@@ -1,6 +1,5 @@
 import { NextFunction, Response } from 'express';
 import { typeAuthenticatedUser } from '../../helpers/sharedHelper';
-import { getPromoCodeByName } from '../../repositories/promoCodeRepository';
 import { VerifyPromoCodePayload } from '../../services/order/typings';
 import PromoCodeServices from '../../services/promoCode/PromoCodeServices';
 import { CustomAuthenticatedRequest } from '../../typings';
@@ -17,10 +16,8 @@ const VerifyPromoCodeMiddleware =
       const payload = req.body;
       const user = typeAuthenticatedUser(req);
 
-      const existingPromoCode = await getPromoCodeByName(payload.promoCode);
-
       const verificationResult = await promoCodeServices.validatePromoCode(
-        existingPromoCode,
+        payload.promoCode,
         user.id,
       );
 

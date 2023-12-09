@@ -8,12 +8,13 @@ const AddressRepository_1 = __importDefault(require("../../repositories/AddressR
 const UserRepository_1 = __importDefault(require("../../repositories/UserRepository"));
 const checkoutItemRepository_1 = require("../../repositories/checkoutItemRepository");
 const orderRepository_1 = require("../../repositories/orderRepository");
-const promoCodeRepository_1 = require("../../repositories/promoCodeRepository");
 const AddressServices_1 = __importDefault(require("../address/AddressServices"));
+const PromoCodeServices_1 = __importDefault(require("../promoCode/PromoCodeServices"));
 class OrderServices {
     userRepository = new UserRepository_1.default();
     addressServices = new AddressServices_1.default();
     addressRepository = new AddressRepository_1.default();
+    promoCodeServices = new PromoCodeServices_1.default();
     calculateShippingFee = (payload) => {
         const stateId = payload.state.id;
         const totalAmount = payload.totalAmount;
@@ -84,7 +85,7 @@ class OrderServices {
         let discountMargin;
         let discountAmount = 0;
         if (promoCodeUsed) {
-            const promoCodeDetails = await (0, promoCodeRepository_1.getPromoCodeById)(promoCodeUsed.id);
+            const promoCodeDetails = await this.promoCodeServices.getById(promoCodeUsed.id);
             if (promoCodeDetails.promoType === 'percent') {
                 discountMargin = `${promoCodeDetails.promoValue}%`;
                 discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);

@@ -4,10 +4,10 @@ import AddressRepository from '../../repositories/AddressRepository';
 import UserRepository from '../../repositories/UserRepository';
 import { insertNewCheckoutItem } from '../../repositories/checkoutItemRepository';
 import { insertNewOrder } from '../../repositories/orderRepository';
-import { getPromoCodeById } from '../../repositories/promoCodeRepository';
 import { OptionData } from '../../typings';
 import AddressServices from '../address/AddressServices';
 import { AuthenticatedUserData } from '../user/typings';
+import PromoCodeServices from '../promoCode/PromoCodeServices';
 import {
   CalculateShippingFeePayload,
   CheckoutPayload,
@@ -20,6 +20,8 @@ export default class OrderServices {
   private addressServices = new AddressServices();
 
   private addressRepository = new AddressRepository();
+
+  private promoCodeServices = new PromoCodeServices();
 
   calculateShippingFee = (payload: CalculateShippingFeePayload) => {
     const stateId = payload.state.id;
@@ -115,7 +117,9 @@ export default class OrderServices {
     let discountMargin;
     let discountAmount = 0;
     if (promoCodeUsed) {
-      const promoCodeDetails = await getPromoCodeById(promoCodeUsed.id);
+      const promoCodeDetails = await this.promoCodeServices.getById(
+        promoCodeUsed.id,
+      );
       if (promoCodeDetails.promoType === 'percent') {
         discountMargin = `${promoCodeDetails.promoValue}%`;
         discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);

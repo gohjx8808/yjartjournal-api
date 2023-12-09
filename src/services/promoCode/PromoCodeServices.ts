@@ -1,22 +1,32 @@
-import PromoCodes from '../../entities/PromoCodes';
+import PromoCodeRepository from '../../repositories/PromoCodeRepositorya';
 import { getOrderByAddressPromoCodeUsed } from '../../repositories/orderRepository';
 import AddressServices from '../address/AddressServices';
 
 export default class PromoCodeServices {
   private addressServices = new AddressServices();
 
-  validatePromoCode = async (promoCode: PromoCodes, userId: number) => {
-    if (!promoCode) {
+  private promoCodeRepository = new PromoCodeRepository();
+
+  getByName = (promoCode: string) =>
+    this.promoCodeRepository.getPromoCodeByName(promoCode);
+
+  getById = (promoCodeId: number) =>
+    this.promoCodeRepository.getPromoCodeById(promoCodeId);
+
+  validatePromoCode = async (promoCode: string, userId: number) => {
+    const foundPromoCode = await this.getByName(promoCode);
+
+    if (!foundPromoCode) {
       return { success: false, message: 'Invalid promo code.' };
     }
 
     const currentDate = new Date();
 
-    if (currentDate < promoCode.startedAt) {
+    if (currentDate < foundPromoCode.startedAt) {
       return { success: false, message: 'Promo is not started.' };
     }
 
-    if (currentDate > promoCode.expiredAt) {
+    if (currentDate > foundPromoCode.expiredAt) {
       return { success: false, message: 'Promo expired.' };
     }
 
@@ -25,13 +35,13 @@ export default class PromoCodeServices {
     userAddresses.map(async (address) => {
       const addressPromoCode = await getOrderByAddressPromoCodeUsed(
         address,
-        promoCode,
+        foundPromoCode,
       );
 
       promoCodeUsedAmount += addressPromoCode.length;
     });
 
-    if (promoCodeUsedAmount > promoCode.useLimit) {
+    if (promoCodeUsedAmount > foundPromoCode.useLimit) {
       return { success: false, message: 'Promo limit exceeded.' };
     }
 

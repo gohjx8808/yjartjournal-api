@@ -4,7 +4,6 @@ import { typeAuthenticatedUser } from '../helpers/sharedHelper';
 import JwtAuthMiddleware from '../middlewares/JwtAuthMiddleware';
 import CheckoutMiddleware from '../middlewares/order/CheckoutMiddleware';
 import VerifyPromoCodeMiddleware from '../middlewares/order/VerifyPromoCodeMiddleware';
-import { getPromoCodeByName } from '../repositories/promoCodeRepository';
 import CalculateShippingFeeValidator from '../requestValidators/order/CalculateShippingFeeValidator';
 import CheckoutValidator from '../requestValidators/order/CheckoutValidator';
 import VerifyPromoCodeValidator from '../requestValidators/order/VerifyPromoCodeValidator';
@@ -15,12 +14,14 @@ import {
   VerifyPromoCodePayload,
 } from '../services/order/typings';
 import { CustomAuthenticatedRequest } from '../typings';
+import PromoCodeServices from '../services/promoCode/PromoCodeServices';
 
 const upload = multer();
 
 const orderRouter = Router();
 
 const orderServices = new OrderServices();
+const promoCodeServices = new PromoCodeServices();
 
 orderRouter.post<{}, any, VerifyPromoCodePayload>(
   '/verify-promo-code',
@@ -32,7 +33,7 @@ orderRouter.post<{}, any, VerifyPromoCodePayload>(
   ],
   async (req, res) => {
     const payload = req.body;
-    const response = await getPromoCodeByName(payload.promoCode);
+    const response = await promoCodeServices.getByName(payload.promoCode);
 
     return res.json({ data: response });
   },
