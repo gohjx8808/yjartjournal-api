@@ -13,4 +13,4 @@ class PromoCodeRepository {
     getPromoCodeById = (promoCodeId) => promoCodeManager.findOneBy({ id: promoCodeId });
 }
 exports.default = PromoCodeRepository;
-//# sourceMappingURL=PromoCodeRepositorya.js.map
+//# sourceMappingURL=PromoCodeRepository.js.map

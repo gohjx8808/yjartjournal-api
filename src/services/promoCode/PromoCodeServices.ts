@@ -1,4 +1,4 @@
-import PromoCodeRepository from '../../repositories/PromoCodeRepositorya';
+import PromoCodeRepository from '../../repositories/PromoCodeRepository';
 import { getOrderByAddressPromoCodeUsed } from '../../repositories/orderRepository';
 import AddressServices from '../address/AddressServices';
 

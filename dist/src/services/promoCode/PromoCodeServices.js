@@ -3,12 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const PromoCodeRepositorya_1 = __importDefault(require("../../repositories/PromoCodeRepositorya"));
+const PromoCodeRepository_1 = __importDefault(require("../../repositories/PromoCodeRepository"));
 const orderRepository_1 = require("../../repositories/orderRepository");
 const AddressServices_1 = __importDefault(require("../address/AddressServices"));
 class PromoCodeServices {
     addressServices = new AddressServices_1.default();
-    promoCodeRepository = new PromoCodeRepositorya_1.default();
+    promoCodeRepository = new PromoCodeRepository_1.default();
     getByName = (promoCode) => this.promoCodeRepository.getPromoCodeByName(promoCode);
     getById = (promoCodeId) => this.promoCodeRepository.getPromoCodeById(promoCodeId);
     validatePromoCode = async (promoCode, userId) => {
