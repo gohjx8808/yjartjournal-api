@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import multer from 'multer';
-import DeleteYarnColorCategoryMiddleware from '../../middlewares/stocks/yarnColorCategory/DeleteYarnColorCategoryMiddleware';
-import UpdateYarnColorCategoryMiddleware from '../../middlewares/stocks/yarnColorCategory/UpdateYarnColorCategoryMiddleware';
-import AddNewYarnColorCategoryValidator from '../../requestValidators/stock/yarnColorCategory/AddNewYarnColorCategoryValidator';
-import DeleteYarnColorCategoryValidator from '../../requestValidators/stock/yarnColorCategory/DeleteYarnColorCategoryValidator';
-import UpdateYarnColorCategoryValidator from '../../requestValidators/stock/yarnColorCategory/UpdateYarnColorCategoryValidator';
+import { AssignableRoles } from '../../../entities/Roles';
+import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
+import DeleteYarnColorCategoryMiddleware from '../../../middlewares/stocks/yarnColorCategory/DeleteYarnColorCategoryMiddleware';
+import UpdateYarnColorCategoryMiddleware from '../../../middlewares/stocks/yarnColorCategory/UpdateYarnColorCategoryMiddleware';
+import AddNewYarnColorCategoryValidator from '../../../requestValidators/stock/yarnColorCategory/AddNewYarnColorCategoryValidator';
+import DeleteYarnColorCategoryValidator from '../../../requestValidators/stock/yarnColorCategory/DeleteYarnColorCategoryValidator';
+import UpdateYarnColorCategoryValidator from '../../../requestValidators/stock/yarnColorCategory/UpdateYarnColorCategoryValidator';
+import YarnColorCategoryServices from '../../../services/stock/YarnColorCategoryServices';
 import {
   AddNewYarnColorCategoryPayload,
   DeleteYarnColorCategoryPayload,
   UpdateYarnColorCategoryPayload,
-} from '../../services/stock/typings';
-import YarnColorCategoryServices from '../../services/stock/YarnColorCategoryServices';
-import { AssignableRoles } from '../../entities/Roles';
-import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
+} from '../../../services/stock/typings';
 
 const yarnColorCategoryRouter = Router();
 const upload = multer();

@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import multer from 'multer';
-import DeleteYarnCategoryMiddleware from '../../middlewares/stocks/yarnCategory/DeleteYarnCategoryMiddleware';
-import UpdateYarnCategoryMiddleware from '../../middlewares/stocks/yarnCategory/UpdateYarnCategoryMiddleware';
-import AddNewYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/AddNewYarnCategoryValidator';
-import DeleteYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/DeleteYarnCategoryValidator';
-import UpdateYarnCategoryValidator from '../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator';
+import { AssignableRoles } from '../../../entities/Roles';
+import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
+import DeleteYarnCategoryMiddleware from '../../../middlewares/stocks/yarnCategory/DeleteYarnCategoryMiddleware';
+import UpdateYarnCategoryMiddleware from '../../../middlewares/stocks/yarnCategory/UpdateYarnCategoryMiddleware';
+import AddNewYarnCategoryValidator from '../../../requestValidators/stock/yarnCategory/AddNewYarnCategoryValidator';
+import DeleteYarnCategoryValidator from '../../../requestValidators/stock/yarnCategory/DeleteYarnCategoryValidator';
+import UpdateYarnCategoryValidator from '../../../requestValidators/stock/yarnCategory/UpdateYarnCategoryValidator';
+import YarnCategoryServices from '../../../services/stock/YarnCategoryServices';
 import {
   AddNewYarnCategoryPayload,
   DeleteYarnCategoryPayload,
   UpdateYarnCategoryPayload,
-} from '../../services/stock/typings';
-import YarnCategoryServices from '../../services/stock/YarnCategoryServices';
-import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
-import { AssignableRoles } from '../../entities/Roles';
+} from '../../../services/stock/typings';
 
 const yarnCategoryRouter = Router();
 const upload = multer();

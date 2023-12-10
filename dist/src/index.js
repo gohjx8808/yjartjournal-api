@@ -4,19 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config({ path: './.env' });
+const cloudinary_1 = require("cloudinary");
 const express_1 = __importDefault(require("express"));
+const dataSource_1 = require("./dataSource");
 const accountRouter_1 = __importDefault(require("./routers/accountRouter"));
 const addressRouter_1 = __importDefault(require("./routers/addressRouter"));
+const adminRouter_1 = __importDefault(require("./routers/admin/adminRouter"));
+const stockRouter_1 = __importDefault(require("./routers/admin/stock/stockRouter"));
+const dashboardRouter_1 = __importDefault(require("./routers/dashboardRouter"));
 const feedbackRouter_1 = __importDefault(require("./routers/feedbackRouter"));
 const forgotPasswordRouter_1 = __importDefault(require("./routers/forgotPasswordRouter"));
 const orderRouter_1 = __importDefault(require("./routers/orderRouter"));
 const productRouter_1 = __importDefault(require("./routers/productRouter"));
-const stockRouter_1 = __importDefault(require("./routers/stock/stockRouter"));
 const userRouter_1 = __importDefault(require("./routers/userRouter"));
-const dataSource_1 = require("./dataSource");
-const cloudinary_1 = require("cloudinary");
-const dashboardRouter_1 = __importDefault(require("./routers/dashboardRouter"));
-const adminRouter_1 = __importDefault(require("./routers/admin/adminRouter"));
 var cors = require('cors');
 cloudinary_1.v2.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

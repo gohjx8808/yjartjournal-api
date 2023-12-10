@@ -1,17 +1,17 @@
 require('dotenv').config({ path: './.env' });
+import { v2 as cloudinary } from 'cloudinary';
 import express from 'express';
+import { dataSource } from './dataSource';
 import accountRouter from './routers/accountRouter';
 import addressRouter from './routers/addressRouter';
+import adminRouter from './routers/admin/adminRouter';
+import stockRouter from './routers/admin/stock/stockRouter';
+import dashboardRouter from './routers/dashboardRouter';
 import feedbackRouter from './routers/feedbackRouter';
 import forgotPasswordRouter from './routers/forgotPasswordRouter';
 import orderRouter from './routers/orderRouter';
 import productRouter from './routers/productRouter';
-import stockRouter from './routers/stock/stockRouter';
 import userRouter from './routers/userRouter';
-import { dataSource } from './dataSource';
-import { v2 as cloudinary } from 'cloudinary';
-import dashboardRouter from './routers/dashboardRouter';
-import adminRouter from './routers/admin/adminRouter';
 var cors = require('cors');
 
 cloudinary.config({

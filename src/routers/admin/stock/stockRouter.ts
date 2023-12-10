@@ -1,23 +1,23 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { AssignableRoles } from '../../entities/Roles';
-import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
-import AddYarnStockMiddleware from '../../middlewares/stocks/yarnStock/AddYarnStockMiddleware';
-import DeleteYarnStockMiddleware from '../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware';
-import UpdateYarnStockMiddleware from '../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware';
-import AddNewStockValidator from '../../requestValidators/stock/yarnStock/AddNewStockValidator';
-import DeleteYarnStockValidator from '../../requestValidators/stock/yarnStock/DeleteYarnStockValidator';
-import GetYarnStockValidator from '../../requestValidators/stock/yarnStock/GetYarnStockValidator';
-import UpdateStockQuantityValidator from '../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator';
-import UpdateStockValidator from '../../requestValidators/stock/yarnStock/UpdateStockValidator';
-import YarnStockServices from '../../services/stock/YarnStockServices';
+import { AssignableRoles } from '../../../entities/Roles';
+import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
+import AddYarnStockMiddleware from '../../../middlewares/stocks/yarnStock/AddYarnStockMiddleware';
+import DeleteYarnStockMiddleware from '../../../middlewares/stocks/yarnStock/DeleteYarnStockMiddleware';
+import UpdateYarnStockMiddleware from '../../../middlewares/stocks/yarnStock/UpdateYarnStockMiddleware';
+import AddNewStockValidator from '../../../requestValidators/stock/yarnStock/AddNewStockValidator';
+import DeleteYarnStockValidator from '../../../requestValidators/stock/yarnStock/DeleteYarnStockValidator';
+import GetYarnStockValidator from '../../../requestValidators/stock/yarnStock/GetYarnStockValidator';
+import UpdateStockQuantityValidator from '../../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator';
+import UpdateStockValidator from '../../../requestValidators/stock/yarnStock/UpdateStockValidator';
+import YarnStockServices from '../../../services/stock/YarnStockServices';
 import {
   AddNewYarnStockPayload,
   DeleteYarnStockPayload,
   GetYarnStockPayload,
   UpdateYarnQuantityPayload,
   UpdateYarnStockPayload,
-} from '../../services/stock/typings';
+} from '../../../services/stock/typings';
 import yarnCategoryRouter from './yarnCategoryRouter';
 import yarnColorCategoryRouter from './yarnColorCategoryRouter';
 
