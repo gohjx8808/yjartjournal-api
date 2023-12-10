@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import adminUserRouter from './adminUserRouter';
+import adminUserRouter from './user/adminUserRouter';
 
 const adminRouter = Router();
 

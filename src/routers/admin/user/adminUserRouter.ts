@@ -1,26 +1,26 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { AssignableRoles } from '../../entities/Roles';
-import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
-import UniqueEmailMiddleware from '../../middlewares/UniqueEmailMiddleware';
-import DeleteUserMiddleware from '../../middlewares/admin/user/DeleteUserMiddleware';
-import UserExistsMiddleware from '../../middlewares/admin/user/UserExistsMiddleware';
-import AddNewUserValidator from '../../requestValidators/admin/user/AddNewUserValidator';
-import GetUserListValidator from '../../requestValidators/admin/user/GetUserListValidator';
-import UpdateUserValidator from '../../requestValidators/admin/user/UpdateUserValidator';
-import UserIdValidator from '../../requestValidators/admin/user/UserIdValidator';
-import AddressServices from '../../services/address/AddressServices';
-import AdminUserServices from '../../services/admin/user/AdminUserServices';
+import { AssignableRoles } from '../../../entities/Roles';
+import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
+import UniqueEmailMiddleware from '../../../middlewares/UniqueEmailMiddleware';
+import DeleteUserMiddleware from '../../../middlewares/admin/user/DeleteUserMiddleware';
+import UserExistsMiddleware from '../../../middlewares/admin/user/UserExistsMiddleware';
+import AddNewUserValidator from '../../../requestValidators/admin/user/AddNewUserValidator';
+import GetUserListValidator from '../../../requestValidators/admin/user/GetUserListValidator';
+import UpdateUserValidator from '../../../requestValidators/admin/user/UpdateUserValidator';
+import UserIdValidator from '../../../requestValidators/admin/user/UserIdValidator';
+import AddressServices from '../../../services/address/AddressServices';
+import AdminUserServices from '../../../services/admin/user/AdminUserServices';
 import {
   AddNewUserPayload,
   DeleteUserPayload,
   GetUserListPayload,
   UpdateUserPayload,
   UserIdPayload,
-} from '../../services/admin/user/typings';
-import UserRoleServices from '../../services/userRole/UserRoleServices';
-import userRoleRouter from './userRoleRouter';
+} from '../../../services/admin/user/typings';
+import UserRoleServices from '../../../services/userRole/UserRoleServices';
 import userAddressRouter from './userAddressRouter';
+import userRoleRouter from './userRoleRouter';
 
 const adminUserRouter = Router();
 

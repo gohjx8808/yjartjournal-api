@@ -1,17 +1,17 @@
 import { Router } from 'express';
+import { AssignableRoles } from '../../../entities/Roles';
+import JwtAuthMiddleware from '../../../middlewares/JwtAuthMiddleware';
+import UserExistsMiddleware from '../../../middlewares/admin/user/UserExistsMiddleware';
+import AssignableRolesMiddleware from '../../../middlewares/admin/user/role/AssignableRolesMiddleware';
+import RoleExistsMiddleware from '../../../middlewares/admin/user/role/RoleExistsMiddleware';
+import UserRoleExistsMiddleware from '../../../middlewares/admin/user/role/UserRoleExistsMiddleware';
+import AddUserRoleValidator from '../../../requestValidators/admin/user/role/AddUserRoleValidator';
+import DeleteUserRoleValidator from '../../../requestValidators/admin/user/role/DeleteUserRoleValidator';
+import AdminUserServices from '../../../services/admin/user/AdminUserServices';
 import {
   AddUserRolePayload,
   DeleteUserRolePayload,
-} from '../../services/admin/user/typings';
-import AddUserRoleValidator from '../../requestValidators/admin/user/role/AddUserRoleValidator';
-import UserExistsMiddleware from '../../middlewares/admin/user/UserExistsMiddleware';
-import RoleExistsMiddleware from '../../middlewares/admin/user/role/RoleExistsMiddleware';
-import AssignableRolesMiddleware from '../../middlewares/admin/user/role/AssignableRolesMiddleware';
-import JwtAuthMiddleware from '../../middlewares/JwtAuthMiddleware';
-import { AssignableRoles } from '../../entities/Roles';
-import AdminUserServices from '../../services/admin/user/AdminUserServices';
-import DeleteUserRoleValidator from '../../requestValidators/admin/user/role/DeleteUserRoleValidator';
-import UserRoleExistsMiddleware from '../../middlewares/admin/user/role/UserRoleExistsMiddleware';
+} from '../../../services/admin/user/typings';
 
 const userRoleRouter = Router();
 
