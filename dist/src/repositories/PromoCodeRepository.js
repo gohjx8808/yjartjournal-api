@@ -7,6 +7,7 @@ const dataSource_1 = require("../dataSource");
 const PromoCodes_1 = __importDefault(require("../entities/PromoCodes"));
 const promoCodeManager = dataSource_1.manager.getRepository(PromoCodes_1.default);
 class PromoCodeRepository {
+    getAll = () => promoCodeManager.find({ relations: ['orders'], order: { id: 'DESC' } });
     getPromoCodeByName = (promoCode) => promoCodeManager.findOneBy({
         name: promoCode,
     });

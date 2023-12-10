@@ -47,4 +47,10 @@ export default class PromoCodeServices {
 
     return { success: true, message: '' };
   };
+
+  getAll = async () => {
+    const promoCodes = await this.promoCodeRepository.getAll();
+
+    return promoCodes;
+  };
 }
