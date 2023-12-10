@@ -5,7 +5,7 @@ import { dataSource } from './dataSource';
 import accountRouter from './routers/accountRouter';
 import addressRouter from './routers/addressRouter';
 import adminRouter from './routers/admin/adminRouter';
-import stockRouter from './routers/admin/stock/stockRouter';
+import stockRouter from './routers/admin/stockRouter';
 import dashboardRouter from './routers/dashboardRouter';
 import feedbackRouter from './routers/feedbackRouter';
 import forgotPasswordRouter from './routers/forgotPasswordRouter';
