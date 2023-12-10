@@ -16,13 +16,9 @@ const GetYarnStockValidator_1 = __importDefault(require("../../requestValidators
 const UpdateStockQuantityValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockQuantityValidator"));
 const UpdateStockValidator_1 = __importDefault(require("../../requestValidators/stock/yarnStock/UpdateStockValidator"));
 const YarnStockServices_1 = __importDefault(require("../../services/stock/YarnStockServices"));
-const yarnCategoryRouter_1 = __importDefault(require("./masterData/yarnCategoryRouter"));
-const yarnColorCategoryRouter_1 = __importDefault(require("./masterData/yarnColorCategoryRouter"));
 const stockRouter = (0, express_1.Router)();
 const upload = (0, multer_1.default)();
 const yarnStockService = new YarnStockServices_1.default();
-stockRouter.use('/yarn-categories', yarnCategoryRouter_1.default);
-stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter_1.default);
 stockRouter.post('/add-new', ...[
     upload.single('image'),
     (0, JwtAuthMiddleware_1.default)(true, [Roles_1.AssignableRoles.ADMIN]),

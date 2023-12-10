@@ -18,17 +18,11 @@ import {
   UpdateYarnQuantityPayload,
   UpdateYarnStockPayload,
 } from '../../services/stock/typings';
-import yarnCategoryRouter from './masterData/yarnCategoryRouter';
-import yarnColorCategoryRouter from './masterData/yarnColorCategoryRouter';
 
 const stockRouter = Router();
 const upload = multer();
 
 const yarnStockService = new YarnStockServices();
-
-stockRouter.use('/yarn-categories', yarnCategoryRouter);
-
-stockRouter.use('/yarn-color-categories', yarnColorCategoryRouter);
 
 stockRouter.post<{}, any, AddNewYarnStockPayload>(
   '/add-new',
