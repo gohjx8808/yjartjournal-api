@@ -27,6 +27,8 @@ const Roles_1 = __importDefault(require("./entities/Roles"));
 const UserRoles_1 = __importDefault(require("./entities/UserRoles"));
 const _1687096310531_SeedRoles_1 = require("../migrations/1687096310531-SeedRoles");
 const YarnStockImages_1 = __importDefault(require("./entities/YarnStockImages"));
+const PromoTypes_1 = __importDefault(require("./entities/PromoTypes"));
+const _1702252889920_SeedPromoTypes_1 = require("../migrations/1702252889920-SeedPromoTypes");
 exports.dataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.POSTGRESQL_DB_HOST,
@@ -51,6 +53,7 @@ exports.dataSource = new typeorm_1.DataSource({
         Roles_1.default,
         UserRoles_1.default,
         YarnStockImages_1.default,
+        PromoTypes_1.default,
     ],
     migrations: [
         _1672062650913_SeedSortOptions_1.SeedSortOptions1672062650913,
@@ -59,6 +62,7 @@ exports.dataSource = new typeorm_1.DataSource({
         _1680409712499_SeedYarnCategories_1.SeedYarnCategories1680409712499,
         _1680410495324_SeedYarnColorCategories_1.SeedYarnColorCategories1680410495324,
         _1687096310531_SeedRoles_1.SeedRoles1687096310531,
+        _1702252889920_SeedPromoTypes_1.SeedPromoTypes1702252889920,
     ],
     synchronize: true,
     logging: false,

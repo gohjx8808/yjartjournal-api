@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Orders_1 = __importDefault(require("./Orders"));
+const PromoTypes_1 = __importDefault(require("./PromoTypes"));
 let PromoCodes = class PromoCodes {
     id;
     name;
@@ -35,8 +36,9 @@ __decorate([
     __metadata("design:type", String)
 ], PromoCodes.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'promo_type' }),
-    __metadata("design:type", String)
+    (0, typeorm_1.ManyToOne)(() => PromoTypes_1.default, (promoType) => promoType.promoCodes),
+    (0, typeorm_1.JoinColumn)({ name: 'promo_type_id', referencedColumnName: 'id' }),
+    __metadata("design:type", PromoTypes_1.default)
 ], PromoCodes.prototype, "promoType", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'promo_value' }),

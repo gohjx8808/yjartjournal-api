@@ -86,7 +86,7 @@ class OrderServices {
         let discountAmount = 0;
         if (promoCodeUsed) {
             const promoCodeDetails = await this.promoCodeServices.getById(promoCodeUsed.id);
-            if (promoCodeDetails.promoType === 'percent') {
+            if (promoCodeDetails.promoType.name === 'Percent') {
                 discountMargin = `${promoCodeDetails.promoValue}%`;
                 discountAmount = totalAmount * (promoCodeDetails.promoValue / 100);
             }

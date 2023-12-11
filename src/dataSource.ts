@@ -21,6 +21,8 @@ import Roles from './entities/Roles';
 import UserRoles from './entities/UserRoles';
 import { SeedRoles1687096310531 } from '../migrations/1687096310531-SeedRoles';
 import YarnStockImages from './entities/YarnStockImages';
+import PromoTypes from './entities/PromoTypes';
+import { SeedPromoTypes1702252889920 } from '../migrations/1702252889920-SeedPromoTypes';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -46,6 +48,7 @@ export const dataSource = new DataSource({
     Roles,
     UserRoles,
     YarnStockImages,
+    PromoTypes,
   ],
   migrations: [
     SeedSortOptions1672062650913,
@@ -54,6 +57,7 @@ export const dataSource = new DataSource({
     SeedYarnCategories1680409712499,
     SeedYarnColorCategories1680410495324,
     SeedRoles1687096310531,
+    SeedPromoTypes1702252889920,
   ],
   synchronize: true,
   logging: false,

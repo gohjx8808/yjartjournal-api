@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import Orders from './Orders';
+import PromoTypes from './PromoTypes';
 
 @Entity()
 class PromoCodes {
@@ -16,8 +19,9 @@ class PromoCodes {
   @Column()
     name: string;
 
-  @Column({ name: 'promo_type' })
-    promoType: string;
+  @ManyToOne(() => PromoTypes, (promoType) => promoType.promoCodes)
+  @JoinColumn({ name: 'promo_type_id', referencedColumnName: 'id' })
+    promoType: PromoTypes;
 
   @Column({ name: 'promo_value' })
     promoValue: number;
