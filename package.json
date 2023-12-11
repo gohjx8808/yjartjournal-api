@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/index.ts",
+    "sync":"ts-node -r dotenv/config ./node_modules/.bin/typeorm schema:sync --dataSource src/dataSource.ts",
     "migrate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm migration:run --dataSource src/dataSource.ts",
     "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
