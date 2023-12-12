@@ -7,7 +7,7 @@
       "config": { "includeFiles": ["dist/**"] }
     }
   ],
-  "buildCommand": "npm run build && npm run migrate",
+  "buildCommand": "npm run build && npm run sync && npm run migrate",
   "rewrites": [{ "source": "/(.*)", "destination": "dist/src/index.js" }],
   "headers": [
     {
