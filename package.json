@@ -7,7 +7,7 @@
     "start": "nodemon src/index.ts",
     "sync":"ts-node -r dotenv/config ./node_modules/.bin/typeorm schema:sync --dataSource src/dataSource.ts",
     "migrate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm migration:run --dataSource src/dataSource.ts",
-    "node-build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1",
