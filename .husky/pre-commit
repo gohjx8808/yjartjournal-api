@@ -3,5 +3,5 @@
 
 npx --no-install lint-staged
 git add .
-npm run build
+npm run node-build
 npm run add-build
