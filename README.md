@@ -38,6 +38,6 @@ This project is an API developed to cater for <a href="https://github.com/gohjx8
 
 ## Hosting Provider
 
-<a href="https://vercel.com/" target="_blank">Vercel
-<img alt="vercel" src="https://www.svgrepo.com/show/327408/logo-vercel.svg" width="20" />
+<a href="https://render.com/" target="_blank">Render
+<img alt="render" src="https://avatars.githubusercontent.com/u/42682871?s=280&v=4" width="20" />
 </a>
